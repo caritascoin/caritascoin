@@ -78,7 +78,7 @@ HEADERS += src/activemasternode.h \
            src/crypter.h \
            src/obfuscation-relay.h \
            src/obfuscation.h \
-           src/vitae-config.h \
+           src/caritas-config.h \
            src/db.h \
            src/eccryptoverify.h \
            src/ecwrapper.h \
@@ -131,7 +131,7 @@ HEADERS += src/activemasternode.h \
            src/wallet_ismine.h \
            src/walletdb.h \
            src/compat/sanity.h \
-           src/config/vitae-config.h \
+           src/config/caritas-config.h \
            src/crypto/common.h \
            src/crypto/hmac_sha256.h \
            src/crypto/hmac_sha512.h \
@@ -332,7 +332,7 @@ HEADERS += src/activemasternode.h \
            src/secp256k1/src/java/org_bitcoin_NativeSecp256k1.h \
            src/crypto/aes_helper.c \
            src/qt/bitcoinamountfield.moc \
-           src/qt/vitae.moc \
+           src/qt/caritas.moc \
            src/qt/intro.moc \
            src/qt/overviewpage.moc \
            src/qt/rpcconsole.moc \
@@ -373,9 +373,9 @@ SOURCES += src/activemasternode.cpp \
            src/crypter.cpp \
            src/obfuscation-relay.cpp \
            src/obfuscation.cpp \
-           src/vitae-cli.cpp \
-           src/vitae-tx.cpp \
-           src/vitae.cpp \
+           src/caritas-cli.cpp \
+           src/caritas-tx.cpp \
+           src/caritas.cpp \
            src/db.cpp \
            src/eccryptoverify.cpp \
            src/ecwrapper.cpp \
@@ -470,8 +470,8 @@ SOURCES += src/activemasternode.cpp \
            src/qt/coincontroltreewidget.cpp \
            src/qt/csvmodelwriter.cpp \
            src/qt/obfuscationconfig.cpp \
-           src/qt/vitae.cpp \
-           src/qt/vitaestrings.cpp \
+           src/qt/caritas.cpp \
+           src/qt/caritasstrings.cpp \
            src/qt/editaddressdialog.cpp \
            src/qt/guiutil.cpp \
            src/qt/intro.cpp \
@@ -549,7 +549,7 @@ SOURCES += src/activemasternode.cpp \
            src/test/sighash_tests.cpp \
            src/test/sigopcount_tests.cpp \
            src/test/skiplist_tests.cpp \
-           src/test/test_vitae.cpp \
+           src/test/test_caritas.cpp \
            src/test/timedata_tests.cpp \
            src/test/transaction_tests.cpp \
            src/test/uint256_tests.cpp \
@@ -640,21 +640,21 @@ SOURCES += src/activemasternode.cpp \
            src/leveldb/helpers/memenv/memenv.cc \
            src/leveldb/helpers/memenv/memenv_test.cc \
            src/secp256k1/src/java/org_bitcoin_NativeSecp256k1.c
-RESOURCES += src/qt/vitae.qrc src/qt/vitae_locale.qrc
+RESOURCES += src/qt/caritas.qrc src/qt/caritas_locale.qrc
 
-TRANSLATIONS += src/qt/locale/vitae_bg.ts \
-                src/qt/locale/vitae_de.ts \
-                src/qt/locale/vitae_en.ts \
-                src/qt/locale/vitae_es.ts \
-                src/qt/locale/vitae_fi.ts \
-                src/qt/locale/vitae_fr.ts \
-                src/qt/locale/vitae_it.ts \
-                src/qt/locale/vitae_ja.ts \
-                src/qt/locale/vitae_pl.ts \
-                src/qt/locale/vitae_pt.ts \
-                src/qt/locale/vitae_ru.ts \
-                src/qt/locale/vitae_sk.ts \
-                src/qt/locale/vitae_sv.ts \
-                src/qt/locale/vitae_vi.ts \
-                src/qt/locale/vitae_zh_CN.ts \
-                src/qt/locale/vitae_zh_TW.ts
+TRANSLATIONS += src/qt/locale/caritas_bg.ts \
+                src/qt/locale/caritas_de.ts \
+                src/qt/locale/caritas_en.ts \
+                src/qt/locale/caritas_es.ts \
+                src/qt/locale/caritas_fi.ts \
+                src/qt/locale/caritas_fr.ts \
+                src/qt/locale/caritas_it.ts \
+                src/qt/locale/caritas_ja.ts \
+                src/qt/locale/caritas_pl.ts \
+                src/qt/locale/caritas_pt.ts \
+                src/qt/locale/caritas_ru.ts \
+                src/qt/locale/caritas_sk.ts \
+                src/qt/locale/caritas_sv.ts \
+                src/qt/locale/caritas_vi.ts \
+                src/qt/locale/caritas_zh_CN.ts \
+                src/qt/locale/caritas_zh_TW.ts

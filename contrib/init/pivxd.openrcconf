@@ -1,25 +1,25 @@
-# /etc/conf.d/vitaed: config file for /etc/init.d/vitaed
+# /etc/conf.d/caritasd: config file for /etc/init.d/caritasd
 
 # Config file location
-#BITCOIND_CONFIGFILE="/etc/vitae/vitae.conf"
+#BITCOIND_CONFIGFILE="/etc/caritas/caritas.conf"
 
 # What directory to write pidfile to?  (created and owned by $BITCOIND_USER)
-#BITCOIND_PIDDIR="/var/run/vitaed"
+#BITCOIND_PIDDIR="/var/run/caritasd"
 
 # What filename to give the pidfile
-#BITCOIND_PIDFILE="${BITCOIND_PIDDIR}/vitaed.pid"
+#BITCOIND_PIDFILE="${BITCOIND_PIDDIR}/caritasd.pid"
 
-# Where to write vitaed data (be mindful that the blockchain is large)
-#BITCOIND_DATADIR="/var/lib/vitaed"
+# Where to write caritasd data (be mindful that the blockchain is large)
+#BITCOIND_DATADIR="/var/lib/caritasd"
 
-# User and group to own vitaed process
-#BITCOIND_USER="vitae"
-#BITCOIND_GROUP="vitae"
+# User and group to own caritasd process
+#BITCOIND_USER="caritas"
+#BITCOIND_GROUP="caritas"
 
-# Path to vitaed executable
-#BITCOIND_BIN="/usr/bin/vitaed"
+# Path to caritasd executable
+#BITCOIND_BIN="/usr/bin/caritasd"
 
-# Nice value to run vitaed under
+# Nice value to run caritasd under
 #BITCOIND_NICE=0
 
 # Additional options (avoid -conf and -datadir, use flags above)

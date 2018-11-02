@@ -1,19 +1,19 @@
 [Unit]
-Description=VITAE's distributed currency daemon
+Description=CARITAS's distributed currency daemon
 After=network.target
 
 [Service]
-User=vitae
-Group=vitae
+User=caritas
+Group=caritas
 
 Type=forking
-PIDFile=/var/lib/vitaed/vitaed.pid
+PIDFile=/var/lib/caritasd/caritasd.pid
 
-ExecStart=/usr/bin/vitaed -daemon -pid=/var/lib/vitaed/vitaed.pid \
-          -conf=/etc/vitae/vitae.conf -datadir=/var/lib/vitaed
+ExecStart=/usr/bin/caritasd -daemon -pid=/var/lib/caritasd/caritasd.pid \
+          -conf=/etc/caritas/caritas.conf -datadir=/var/lib/caritasd
 
-ExecStop=-/usr/bin/vitae-cli -conf=/etc/vitae/vitae.conf \
-         -datadir=/var/lib/vitaed stop
+ExecStop=-/usr/bin/caritas-cli -conf=/etc/caritas/caritas.conf \
+         -datadir=/var/lib/caritasd stop
 
 Restart=always
 PrivateTmp=true

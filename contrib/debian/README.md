@@ -1,21 +1,21 @@
 
 Debian
 ====================
-This directory contains files used to package vitaed/vitae-qt
-for Debian-based Linux systems. If you compile vitaed/vitae-qt yourself, there are some useful files here.
+This directory contains files used to package caritasd/caritas-qt
+for Debian-based Linux systems. If you compile caritasd/caritas-qt yourself, there are some useful files here.
 
-## vitae: URI support ##
+## caritas: URI support ##
 
 
-vitae-qt.desktop  (Gnome / Open Desktop)
+caritas-qt.desktop  (Gnome / Open Desktop)
 To install:
 
-	sudo desktop-file-install vitae-qt.desktop
+	sudo desktop-file-install caritas-qt.desktop
 	sudo update-desktop-database
 
 If you build yourself, you will either need to modify the paths in
-the .desktop file or copy or symlink your vitaeqt binary to `/usr/bin`
-and the `../../share/pixmaps/vitae128.png` to `/usr/share/pixmaps`
+the .desktop file or copy or symlink your caritasqt binary to `/usr/bin`
+and the `../../share/pixmaps/caritas128.png` to `/usr/share/pixmaps`
 
-vitae-qt.protocol (KDE)
+caritas-qt.protocol (KDE)
 

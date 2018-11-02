@@ -1,31 +1,31 @@
 #!/bin/bash
 #
-#  vitaed The VITAE core server.
+#  caritasd The CARITAS core server.
 #
 #
 # chkconfig: 345 80 20
-# description: vitaed
-# processname: vitaed
+# description: caritasd
+# processname: caritasd
 #
 
 # Source function library.
 . /etc/init.d/functions
 
-# you can override defaults in /etc/sysconfig/vitaed, see below
-if [ -f /etc/sysconfig/vitaed ]; then
-        . /etc/sysconfig/vitaed
+# you can override defaults in /etc/sysconfig/caritasd, see below
+if [ -f /etc/sysconfig/caritasd ]; then
+        . /etc/sysconfig/caritasd
 fi
 
 RETVAL=0
 
-prog=vitaed
-# you can override the lockfile via BITCOIND_LOCKFILE in /etc/sysconfig/vitaed
-lockfile=${BITCOIND_LOCKFILE-/var/lock/subsys/vitaed}
+prog=caritasd
+# you can override the lockfile via BITCOIND_LOCKFILE in /etc/sysconfig/caritasd
+lockfile=${BITCOIND_LOCKFILE-/var/lock/subsys/caritasd}
 
-# vitaed defaults to /usr/bin/vitaed, override with BITCOIND_BIN
-bitcoind=${BITCOIND_BIN-/usr/bin/vitaed}
+# caritasd defaults to /usr/bin/caritasd, override with BITCOIND_BIN
+bitcoind=${BITCOIND_BIN-/usr/bin/caritasd}
 
-# vitaed opts default to -disablewallet, override with BITCOIND_OPTS
+# caritasd opts default to -disablewallet, override with BITCOIND_OPTS
 bitcoind_opts=${BITCOIND_OPTS}
 
 start() {

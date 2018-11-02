@@ -1,12 +1,12 @@
-# bash programmable completion for vitaed(1) and vitae-cli(1)
+# bash programmable completion for caritasd(1) and caritas-cli(1)
 # Copyright (c) 2012,2014 Christian von Roques <roques@mti.ag>
 # Distributed under the MIT/X11 software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-have vitaed && {
+have caritasd && {
 
-# call $vitaed for RPC
-_vitae_rpc() {
+# call $caritasd for RPC
+_caritas_rpc() {
     # determine already specified args necessary for RPC
     local rpcargs=()
     for i in ${COMP_LINE}; do
@@ -16,23 +16,23 @@ _vitae_rpc() {
                 ;;
         esac
     done
-    $vitaed "${rpcargs[@]}" "$@"
+    $caritasd "${rpcargs[@]}" "$@"
 }
 
-# Add vitae accounts to COMPREPLY
-_vitae_accounts() {
+# Add caritas accounts to COMPREPLY
+_caritas_accounts() {
     local accounts
-    accounts=$(_vitae_rpc listaccounts | awk '/".*"/ { a=$1; gsub(/"/, "", a); print a}')
+    accounts=$(_caritas_rpc listaccounts | awk '/".*"/ { a=$1; gsub(/"/, "", a); print a}')
     COMPREPLY=( "${COMPREPLY[@]}" $( compgen -W "$accounts" -- "$cur" ) )
 }
 
-_vitaed() {
+_caritasd() {
     local cur prev words=() cword
-    local vitaed
+    local caritasd
 
-    # save and use original argument to invoke vitaed
-    # vitaed might not be in $PATH
-    vitaed="$1"
+    # save and use original argument to invoke caritasd
+    # caritasd might not be in $PATH
+    caritasd="$1"
 
     COMPREPLY=()
     _get_comp_words_by_ref -n = cur prev words cword
@@ -53,7 +53,7 @@ _vitaed() {
     if ((cword > 3)); then
         case ${words[cword-3]} in
             addmultisigaddress)
-                _vitae_accounts
+                _caritas_accounts
                 return 0
                 ;;
             getbalance|gettxout|importaddress|importprivkey|listreceivedbyaccount|listreceivedbyaddress|listsinceblock)
@@ -74,7 +74,7 @@ _vitaed() {
                 return 0
                 ;;
             move|setaccount)
-                _vitae_accounts
+                _caritas_accounts
                 return 0
                 ;;
         esac
@@ -90,7 +90,7 @@ _vitaed() {
             return 0
             ;;
         getaccountaddress|getaddressesbyaccount|getbalance|getnewaddress|getreceivedbyaccount|listtransactions|move|sendfrom|sendmany)
-            _vitae_accounts
+            _caritas_accounts
             return 0
             ;;
     esac
@@ -114,12 +114,12 @@ _vitaed() {
 
             # only parse --help if senseful
             if [[ -z "$cur" || "$cur" =~ ^- ]]; then
-                helpopts=$($vitaed --help 2>&1 | awk '$1 ~ /^-/ { sub(/=.*/, "="); print $1 }' )
+                helpopts=$($caritasd --help 2>&1 | awk '$1 ~ /^-/ { sub(/=.*/, "="); print $1 }' )
             fi
 
             # only parse help if senseful
             if [[ -z "$cur" || "$cur" =~ ^[a-z] ]]; then
-                commands=$(_vitae_rpc help 2>/dev/null | awk '$1 ~ /^[a-z]/ { print $1; }')
+                commands=$(_caritas_rpc help 2>/dev/null | awk '$1 ~ /^[a-z]/ { print $1; }')
             fi
 
             COMPREPLY=( $( compgen -W "$helpopts $commands" -- "$cur" ) )
@@ -133,7 +133,7 @@ _vitaed() {
     esac
 }
 
-complete -F _vitaed vitaed vitae-cli
+complete -F _caritasd caritasd caritas-cli
 }
 
 # Local variables:

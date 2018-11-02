@@ -1,6 +1,6 @@
 [Protocol]
-exec=vitae-qt '%u'
-protocol=vitae
+exec=caritas-qt '%u'
+protocol=caritas
 input=none
 output=none
 helper=true
