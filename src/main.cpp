@@ -2635,6 +2635,7 @@ bool IsInitialBlockDownload()
         return false;
     bool state = (chainActive.Height() < pindexBestHeader->nHeight - 24 * 6 ||
                   pindexBestHeader->GetBlockTime() < GetTime() - 6 * 60 * 60); // ~144 blocks behind -> 2 x fork detection time
+    //state = false;
     if (!state)
         lockIBDState = true;
     return state;

@@ -401,8 +401,7 @@ void CFundamentalnodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_
             hasMnPayment = false;
         }
     }
-
-
+   
     CAmount blockValue = GetBlockValue(pindexPrev->nHeight);
     CAmount fundamentalnodePayment = GetFundamentalnodePayment(pindexPrev->nHeight + 1, blockValue);
     CAmount masternodepayment = GetMasternodePayment(pindexPrev->nHeight +1 , blockValue);
