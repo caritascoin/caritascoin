@@ -538,8 +538,8 @@ int main(int argc, char* argv[])
     QTextCodec::setCodecForCStrings(QTextCodec::codecForTr());
 #endif
 
-    Q_INIT_RESOURCE(vitae_locale);
-    Q_INIT_RESOURCE(vitae);
+    Q_INIT_RESOURCE(caritas_locale);
+    Q_INIT_RESOURCE(caritas);
 
     BitcoinApplication app(argc, argv);
 #if QT_VERSION > 0x050100
