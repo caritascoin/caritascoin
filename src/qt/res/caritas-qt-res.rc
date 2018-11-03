@@ -19,14 +19,14 @@ BEGIN
     BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
-            VALUE "CompanyName",        "VITAE"
-            VALUE "FileDescription",    "VITAE Core (OSS GUI client for VITAE)"
+            VALUE "CompanyName",        "CaritasCoin"
+            VALUE "FileDescription",    "CaritasCoin Core (OSS GUI client for CaritasCoin)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
-            VALUE "InternalName",       "vitae-qt"
+            VALUE "InternalName",       "caritas-qt"
             VALUE "LegalCopyright",     COPYRIGHT_STR
             VALUE "LegalTrademarks1",   "Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php."
-            VALUE "OriginalFilename",   "vitae-qt.exe"
-            VALUE "ProductName",        "VITAE Core"
+            VALUE "OriginalFilename",   "caritas-qt.exe"
+            VALUE "ProductName",        "CaritasCoin Core"
             VALUE "ProductVersion",     VER_PRODUCTVERSION_STR
         END
     END

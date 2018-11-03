@@ -19,18 +19,18 @@ BitcoinUnits::BitcoinUnits(QObject* parent) : QAbstractListModel(parent),
 QList<BitcoinUnits::Unit> BitcoinUnits::availableUnits()
 {
     QList<BitcoinUnits::Unit> unitlist;
-    unitlist.append(VITAE);
-    unitlist.append(mVITAE);
-    unitlist.append(uVITAE);
+    unitlist.append(CaritasCoin);
+    unitlist.append(mCaritasCoin);
+    unitlist.append(uCaritasCoin);
     return unitlist;
 }
 
 bool BitcoinUnits::valid(int unit)
 {
     switch (unit) {
-    case VITAE:
-    case mVITAE:
-    case uVITAE:
+    case CaritasCoin:
+    case mCaritasCoin:
+    case uCaritasCoin:
         return true;
     default:
         return false;
@@ -40,12 +40,12 @@ bool BitcoinUnits::valid(int unit)
 QString BitcoinUnits::id(int unit)
 {
     switch (unit) {
-    case VITAE:
-        return QString("vitae");
-    case mVITAE:
-        return QString("mvitae");
-    case uVITAE:
-        return QString::fromUtf8("uvitae");
+    case CaritasCoin:
+        return QString("caritascoin");
+    case mCaritasCoin:
+        return QString("mcaritascoin");
+    case uCaritasCoin:
+        return QString::fromUtf8("ucaritascoin");
     default:
         return QString("???");
     }
@@ -55,23 +55,23 @@ QString BitcoinUnits::name(int unit)
 {
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
         switch (unit) {
-        case VITAE:
-            return QString("VITAE");
-        case mVITAE:
-            return QString("mVITAE");
-        case uVITAE:
-            return QString::fromUtf8("μVIT");
+        case CaritasCoin:
+            return QString("CaritasCoin");
+        case mCaritasCoin:
+            return QString("mCaritasCoin");
+        case uCaritasCoin:
+            return QString::fromUtf8("μCaritasCoin");
         default:
             return QString("???");
         }
     } else {
         switch (unit) {
-        case VITAE:
-            return QString("tVIT");
-        case mVITAE:
-            return QString("mtVIT");
-        case uVITAE:
-            return QString::fromUtf8("μtVIT");
+        case CaritasCoin:
+            return QString("tCaritasCoin");
+        case mCaritasCoin:
+            return QString("mtCaritasCoin");
+        case uCaritasCoin:
+            return QString::fromUtf8("μtCaritasCoin");
         default:
             return QString("???");
         }
@@ -82,23 +82,23 @@ QString BitcoinUnits::description(int unit)
 {
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
         switch (unit) {
-        case VITAE:
-            return QString("VITAE");
-        case mVITAE:
-            return QString("Milli-VITAE (1 / 1" THIN_SP_UTF8 "000)");
-        case uVITAE:
-            return QString("Micro-VITAE (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+        case CaritasCoin:
+            return QString("CaritasCoin");
+        case mCaritasCoin:
+            return QString("Milli-CaritasCoin (1 / 1" THIN_SP_UTF8 "000)");
+        case uCaritasCoin:
+            return QString("Micro-CaritasCoin (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
         default:
             return QString("???");
         }
     } else {
         switch (unit) {
-        case VITAE:
-            return QString("TestVITs");
-        case mVITAE:
-            return QString("Milli-TestVIT (1 / 1" THIN_SP_UTF8 "000)");
-        case uVITAE:
-            return QString("Micro-TestVIT (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+        case CaritasCoin:
+            return QString("TestCaritasCoins");
+        case mCaritasCoin:
+            return QString("Milli-TestCaritasCoin (1 / 1" THIN_SP_UTF8 "000)");
+        case uCaritasCoin:
+            return QString("Micro-TestCaritasCoin (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
         default:
             return QString("???");
         }
@@ -108,11 +108,11 @@ QString BitcoinUnits::description(int unit)
 qint64 BitcoinUnits::factor(int unit)
 {
     switch (unit) {
-    case VITAE:
+    case CaritasCoin:
         return 100000000;
-    case mVITAE:
+    case mCaritasCoin:
         return 100000;
-    case uVITAE:
+    case uCaritasCoin:
         return 100;
     default:
         return 100000000;
@@ -122,11 +122,11 @@ qint64 BitcoinUnits::factor(int unit)
 int BitcoinUnits::decimals(int unit)
 {
     switch (unit) {
-    case VITAE:
+    case CaritasCoin:
         return 8;
-    case mVITAE:
+    case mCaritasCoin:
         return 5;
-    case uVITAE:
+    case uCaritasCoin:
         return 2;
     default:
         return 0;

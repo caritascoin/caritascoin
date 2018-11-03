@@ -172,8 +172,8 @@
         <translation>Confirmar criptografia de carteira</translation>
     </message>
     <message>
-        <source>CaritasCoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your VITs from being stolen by malware infecting your computer.</source>
-        <translation>CaritasCoin vai fechar agora para finalizar o processo de criptografia. Lembre-se que encriptar sua carteira não pode proteger totalmente suas VITs de serem roubadas por malwares infectando seu computador.</translation>
+        <source>CaritasCoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your CaritasCoins from being stolen by malware infecting your computer.</source>
+        <translation>CaritasCoin vai fechar agora para finalizar o processo de criptografia. Lembre-se que encriptar sua carteira não pode proteger totalmente suas CaritasCoins de serem roubadas por malwares infectando seu computador.</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -235,7 +235,7 @@
         <translation>&amp;Encriptação BIP 38</translation>
     </message>
     <message>
-        <source>Enter a Vitae Address that you would like to encrypt using BIP 38. Enter a passphrase in the middle box. Press encrypt to compute the encrypted private key.</source>
+        <source>Enter a CaritasCoin Address that you would like to encrypt using BIP 38. Enter a passphrase in the middle box. Press encrypt to compute the encrypted private key.</source>
         <translation>Insira um endereço que você deseja criptografar usando a BIP 38. Insira a palavra-chave na caixa do meio. Pressione criptografar para computar a chave privada criptografada.</translation>
     </message>
     <message>
@@ -594,8 +594,8 @@
         <translation>Enviar moedas para um endereço CaritasCoin</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and vitae: URIs)</source>
-        <translation>Requisitar pagamentos (gera códigos QR e vitae: URIs)</translation>
+        <source>Request payments (generates QR codes and caritas: URIs)</source>
+        <translation>Requisitar pagamentos (gera códigos QR e caritas: URIs)</translation>
     </message>
     <message>
         <source>&amp;Masternodes</source>
@@ -806,8 +806,8 @@ MultiSend: %1</translation>
         <translation>Rótulo</translation>
     </message>
     <message>
-        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (vitae.conf).</source>
-        <translation>Nem todas as transações serão exibidas. Para visualizar todas as transações você precisa definir txindex=1 no arquivo de configuração (vitae.conf). </translation>
+        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (caritas.conf).</source>
+        <translation>Nem todas as transações serão exibidas. Para visualizar todas as transações você precisa definir txindex=1 no arquivo de configuração (caritas.conf). </translation>
     </message>
 </context>
 <context>
@@ -1591,9 +1591,9 @@ Favor verificar o endereço e tente novamente.</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/vitae-project/vitae-project-translations</source>
+https://www.transifex.com/CaritasCoin-project/CaritasCoin-project-translations</source>
         <translation>Linguagem não encontrada ou tradução incompleta? Ajude contribuido com traduções aqui:
-https://www.transifex.com/vitae-project/vitae-project-translations</translation>
+https://www.transifex.com/CaritasCoin-project/CaritasCoin-project-translations</translation>
     </message>
     <message>
         <source>Connect to the CaritasCoin network through a SOCKS5 proxy.</source>
@@ -2469,8 +2469,8 @@ https://www.transifex.com/vitae-project/vitae-project-translations</translation>
         <translation>Tempo de confirmação:</translation>
     </message>
     <message>
-        <source>If the custom fee is set to 1000 uVITs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uVITs in fee,&lt;br /&gt;while "at least" pays 1000 uVITs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
-        <translation>Se a taxa padrão estiver definida para 1000 uVITs e a transação for somente de 250 bytes, então "por kilobyte" pagará somente 250 uVITs em taxa,&lt;br /&gt; pagará pelo menos 1000 uVITs. Para transações maiores que um kilobyte ambas pagam por kilobyte.</translation>
+        <source>If the custom fee is set to 1000 uCaritasCoins and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uCaritasCoins in fee,&lt;br /&gt;while "at least" pays 1000 uCaritasCoins. For transactions bigger than a kilobyte both pay by kilobyte.</source>
+        <translation>Se a taxa padrão estiver definida para 1000 uCaritasCoins e a transação for somente de 250 bytes, então "por kilobyte" pagará somente 250 uCaritasCoins em taxa,&lt;br /&gt; pagará pelo menos 1000 uCaritasCoins. Para transações maiores que um kilobyte ambas pagam por kilobyte.</translation>
     </message>
     <message>
         <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for CaritasCoin transactions than the network can process.</source>
@@ -3412,7 +3412,7 @@ https://www.transifex.com/vitae-project/vitae-project-translations</translation>
     </message>
     </context>
 <context>
-    <name>vitae-core</name>
+    <name>caritas-core</name>
     <message>
         <source>Delete all wallet transactions and only recover those parts of the blockchain through -rescan on startup</source>
         <translation>Deletar todas as transações da carteira e somente recuperar aquelas partes da blockchain através de -rescan na inicialização</translation>

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>630</width>
+    <width>723</width>
     <height>307</height>
    </rect>
   </property>
@@ -135,9 +135,6 @@
              </property>
              <attribute name="horizontalHeaderStretchLastSection">
               <bool>true</bool>
-             </attribute>
-             <attribute name="ResizeMode">
-              <enum>QHeaderView::Interactive</enum>
              </attribute>
              <column>
               <property name="text">
@@ -300,9 +297,6 @@
            </property>
            <attribute name="horizontalHeaderStretchLastSection">
             <bool>true</bool>
-           </attribute>
-           <attribute name="ResizeMode">
-            <enum>QHeaderView::Interactive</enum>
            </attribute>
            <column>
             <property name="text">

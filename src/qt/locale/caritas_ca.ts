@@ -1310,7 +1310,7 @@
     <name>ZVitControlDialog</name>
     </context>
 <context>
-    <name>vitae-core</name>
+    <name>caritas-core</name>
     <message>
         <source>Error</source>
         <translation>Error</translation>

@@ -176,8 +176,8 @@
         <translation>Confirm wallet encryption</translation>
     </message>
     <message>
-        <source>CaritasCoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your VITs from being stolen by malware infecting your computer.</source>
-        <translation>CaritasCoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your VITs from being stolen by malware infecting your computer.</translation>
+        <source>CaritasCoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your CaritasCoins from being stolen by malware infecting your computer.</source>
+        <translation>CaritasCoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your CaritasCoins from being stolen by malware infecting your computer.</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -239,8 +239,8 @@
         <translation>&amp;BIP 38 Encrypt</translation>
     </message>
     <message>
-        <source>Enter a Vitae Address that you would like to encrypt using BIP 38. Enter a passphrase in the middle box. Press encrypt to compute the encrypted private key.</source>
-        <translation>Enter a Vitae Address that you would like to encrypt using BIP 38. Enter a passphrase in the middle box. Press encrypt to compute the encrypted private key.</translation>
+        <source>Enter a CaritasCoin Address that you would like to encrypt using BIP 38. Enter a passphrase in the middle box. Press encrypt to compute the encrypted private key.</source>
+        <translation>Enter a CaritasCoin Address that you would like to encrypt using BIP 38. Enter a passphrase in the middle box. Press encrypt to compute the encrypted private key.</translation>
     </message>
     <message>
         <source>Address:</source>
@@ -610,8 +610,8 @@
         <translation>Send coins to a CaritasCoin address</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and vitae: URIs)</source>
-        <translation>Request payments (generates QR codes and vitae: URIs)</translation>
+        <source>Request payments (generates QR codes and caritas: URIs)</source>
+        <translation>Request payments (generates QR codes and caritas: URIs)</translation>
     </message>
     <message>
         <source>&amp;Masternodes</source>
@@ -837,8 +837,8 @@ Address: %4
         <translation>TextLabel</translation>
     </message>
     <message>
-        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (vitae.conf).</source>
-        <translation>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (vitae.conf).</translation>
+        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (caritas.conf).</source>
+        <translation>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (caritas.conf).</translation>
     </message>
 </context>
 <context>
@@ -1719,9 +1719,9 @@ Please check the address and try again.</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/vitae-project/vitae-project-translations</source>
+https://www.transifex.com/CaritasCoin-project/CaritasCoin-project-translations</source>
         <translation>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/vitae-project/vitae-project-translations</translation>
+https://www.transifex.com/CaritasCoin-project/CaritasCoin-project-translations</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -2092,8 +2092,8 @@ https://www.transifex.com/vitae-project/vitae-project-translations</translation>
         <translation>Invalid payment address %1</translation>
     </message>
     <message>
-        <source>Cannot start vitae: click-to-pay handler</source>
-        <translation>Cannot start vitae: click-to-pay handler</translation>
+        <source>Cannot start caritas: click-to-pay handler</source>
+        <translation>Cannot start caritas: click-to-pay handler</translation>
     </message>
     <message>
         <source>URI cannot be parsed! This can be caused by an invalid CaritasCoin address or malformed URI parameters.</source>
@@ -2840,12 +2840,12 @@ https://www.transifex.com/vitae-project/vitae-project-translations</translation>
         <translation>Confirmation time:</translation>
     </message>
     <message>
-        <source>If the custom fee is set to 1000 uVITs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uVITs in fee,&lt;br /&gt;while "at least" pays 1000 uVITs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
-        <translation>If the custom fee is set to 1000 uVITs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uVITs in fee,&lt;br /&gt;while "at least" pays 1000 uVITs. For transactions bigger than a kilobyte both pay by kilobyte.</translation>
+        <source>If the custom fee is set to 1000 uCaritasCoins and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uCaritasCoins in fee,&lt;br /&gt;while "at least" pays 1000 uCaritasCoins. For transactions bigger than a kilobyte both pay by kilobyte.</source>
+        <translation>If the custom fee is set to 1000 uCaritasCoins and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uCaritasCoins in fee,&lt;br /&gt;while "at least" pays 1000 uCaritasCoins. For transactions bigger than a kilobyte both pay by kilobyte.</translation>
     </message>
     <message>
-        <source>If the custom fee is set to 1000 uVITs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uVITs in fee,&lt;br /&gt;while "total at least" pays 1000 uVITs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
-        <translation>If the custom fee is set to 1000 uVITs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uVITs in fee,&lt;br /&gt;while "total at least" pays 1000 uVITs. For transactions bigger than a kilobyte both pay by kilobyte.</translation>
+        <source>If the custom fee is set to 1000 uCaritasCoins and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uCaritasCoins in fee,&lt;br /&gt;while "total at least" pays 1000 uCaritasCoins. For transactions bigger than a kilobyte both pay by kilobyte.</source>
+        <translation>If the custom fee is set to 1000 uCaritasCoins and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uCaritasCoins in fee,&lt;br /&gt;while "total at least" pays 1000 uCaritasCoins. For transactions bigger than a kilobyte both pay by kilobyte.</translation>
     </message>
     <message>
         <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for CaritasCoin transactions than the network can process.</source>
@@ -3884,7 +3884,7 @@ https://www.transifex.com/vitae-project/vitae-project-translations</translation>
     </message>
 </context>
 <context>
-    <name>vitae-core</name>
+    <name>caritas-core</name>
     <message>
         <source>(1 = keep tx meta data e.g. account owner and payment request information, 2 = drop tx meta data)</source>
         <translation>(1 = keep tx meta data e.g. account owner and payment request information, 2 = drop tx meta data)</translation>
@@ -4082,10 +4082,10 @@ https://www.transifex.com/vitae-project/vitae-project-translations</translation>
         <translation>This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit &lt;https://www.openssl.org/&gt; and cryptographic software written by Eric Young and UPnP software written by Thomas Bernard.</translation>
     </message>
     <message>
-        <source>To use vitaed, or the -server option to vitae-qt, you must set an rpcpassword in the configuration file:
+        <source>To use caritasd, or the -server option to caritas-qt, you must set an rpcpassword in the configuration file:
 %s
 It is recommended you use the following random password:
-rpcuser=vitaerpc
+rpcuser=caritasrpc
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
@@ -4093,10 +4093,10 @@ If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
 for example: alertnotify=echo %%s | mail -s "CaritasCoin Alert" admin@foo.com
 </source>
-        <translation>To use vitaed, or the -server option to vitae-qt, you must set an rpcpassword in the configuration file:
+        <translation>To use caritasd, or the -server option to caritas-qt, you must set an rpcpassword in the configuration file:
 %s
 It is recommended you use the following random password:
-rpcuser=vitaerpc
+rpcuser=caritasrpc
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.

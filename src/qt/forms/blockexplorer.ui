@@ -168,7 +168,7 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
-  <include location="../vitae.qrc"/>
+  <include location="../caritas.qrc"/>
  </resources>
  <connections/>
 </ui>

@@ -63,7 +63,7 @@ void OptionsModel::Init()
 
     // Display
     if (!settings.contains("nDisplayUnit"))
-        settings.setValue("nDisplayUnit", BitcoinUnits::VITAE);
+        settings.setValue("nDisplayUnit", BitcoinUnits::CaritasCoin);
     nDisplayUnit = settings.value("nDisplayUnit").toInt();
 
     if (!settings.contains("strThirdPartyTxUrls"))
@@ -88,10 +88,10 @@ void OptionsModel::Init()
         settings.setValue("nPreferredDenom", 0);
     nPreferredDenom = settings.value("nPreferredDenom", "0").toLongLong();
 
-    if (!settings.contains("nAnonymizeVitaeAmount"))
-        settings.setValue("nAnonymizeVitaeAmount", 1000);
+    if (!settings.contains("nAnonymizeCaritasCoinAmount"))
+        settings.setValue("nAnonymizeCaritasCoinAmount", 1000);
 
-    nAnonymizeVitaeAmount = settings.value("nAnonymizeVitaeAmount").toLongLong();
+    nAnonymizeCaritasCoinAmount = settings.value("nAnonymizeCaritasCoinAmount").toLongLong();
 
     if (!settings.contains("fShowFundamentalnodesTab"))
         settings.setValue("fShowFundamentalnodesTab", fundamentalnodeConfig.getCount());
@@ -168,8 +168,8 @@ void OptionsModel::Init()
         SoftSetArg("-zeromintpercentage", settings.value("nZeromintPercentage").toString().toStdString());
     if (settings.contains("nPreferredDenom"))
         SoftSetArg("-preferredDenom", settings.value("nPreferredDenom").toString().toStdString());
-    if (settings.contains("nAnonymizeVitaeAmount"))
-        SoftSetArg("-anonymizevitaeamount", settings.value("nAnonymizeVitaeAmount").toString().toStdString());
+    if (settings.contains("nAnonymizeCaritasCoinAmount"))
+        SoftSetArg("-anonymizeCaritasCoinamount", settings.value("nAnonymizeCaritasCoinAmount").toString().toStdString());
 
     language = settings.value("language").toString();
 }
@@ -180,7 +180,7 @@ void OptionsModel::Reset()
 
     // Remove all entries from our QSettings object
     settings.clear();
-    resetSettings = true; // Needed in vitae.cpp during shotdown to also remove the window positions
+    resetSettings = true; // Needed in caritas.cpp during shutdown to also remove the window positions
 
     // default setting for OptionsModel::StartAtStartup - disabled
     if (GUIUtil::GetStartOnSystemStartup())
@@ -263,8 +263,8 @@ QVariant OptionsModel::data(const QModelIndex& index, int role) const
             return QVariant(nZeromintPercentage);
         case ZeromintPrefDenom:
             return QVariant(nPreferredDenom);
-        case AnonymizeVitaeAmount:
-            return QVariant(nAnonymizeVitaeAmount);
+        case AnonymizeCaritasCoinAmount:
+            return QVariant(nAnonymizeCaritasCoinAmount);
         case Listen:
             return settings.value("fListen");
         default:
@@ -399,10 +399,10 @@ bool OptionsModel::setData(const QModelIndex& index, const QVariant& value, int 
             emit hideZeroBalancesChanged(fHideZeroBalances);
             break;
 
-        case AnonymizeVitaeAmount:
-            nAnonymizeVitaeAmount = value.toInt();
-            settings.setValue("nAnonymizeVitaeAmount", nAnonymizeVitaeAmount);
-            emit anonymizeVitaeAmountChanged(nAnonymizeVitaeAmount);
+        case AnonymizeCaritasCoinAmount:
+            nAnonymizeCaritasCoinAmount = value.toInt();
+            settings.setValue("nAnonymizeCaritasCoinAmount", nAnonymizeCaritasCoinAmount);
+            emit anonymizeCaritasCoinAmountChanged(nAnonymizeCaritasCoinAmount);
             break;
         case CoinControlFeatures:
             fCoinControlFeatures = value.toBool();

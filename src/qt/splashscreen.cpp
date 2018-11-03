@@ -36,12 +36,13 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle* networkStyle) 
     float fontFactor = 1.0;
 
     // define text to place
-    QString titleText = tr("VITAE Core");
+    QString titleText = tr("CaritasCoin Core");
     QString versionText = QString(tr("Version %1")).arg(QString::fromStdString(FormatFullVersion()));
     QString copyrightTextBtc = QChar(0xA9) + QString(" 2009-%1 ").arg(COPYRIGHT_YEAR) + QString(tr("The Bitcoin Core developers"));
     QString copyrightTextDash = QChar(0xA9) + QString(" 2014-%1 ").arg(COPYRIGHT_YEAR) + QString(tr("The Dash Core developers"));
     QString copyrightTextPIVX = QChar(0xA9) + QString(" 2015-%1 ").arg(COPYRIGHT_YEAR) + QString(tr("The PIVX Core developers"));
     QString copyrightTextVITAE = QChar(0xA9) + QString(" 2018 ").arg(COPYRIGHT_YEAR) + QString(tr("The VITAE Core developers"));
+    QString copyrightTextCARITAS = QChar(0xA9) + QString(" 2018 ").arg(COPYRIGHT_YEAR) + QString(tr("The CaritasCoin Core developers"));
     QString titleAddText = networkStyle->getTitleAddText();
 
     QString font = QApplication::font().toString();
@@ -75,7 +76,7 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle* networkStyle) 
     pixPaint.drawText(pixmap.width() - copyrightPaddingLeft, copyrightPaddingTop + 12, copyrightTextDash);
     pixPaint.drawText(pixmap.width() - copyrightPaddingLeft, copyrightPaddingTop + 24, copyrightTextPIVX);
     pixPaint.drawText(pixmap.width() - copyrightPaddingLeft, copyrightPaddingTop + 36, copyrightTextVITAE);
-
+    pixPaint.drawText(pixmap.width() - copyrightPaddingLeft, copyrightPaddingTop + 48, copyrightTextCARITAS);
     // draw additional text if special network
     if (!titleAddText.isEmpty()) {
         QFont boldFont = QFont(font, 10 * fontFactor);

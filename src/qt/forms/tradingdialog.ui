@@ -442,10 +442,10 @@
       </rect>
      </property>
      <property name="text">
-      <string>Buy VITAE</string>
+      <string>Buy CaritasCoin</string>
      </property>
      <property name="icon">
-      <iconset resource="../vitae.qrc">
+      <iconset resource="../caritas.qrc">
        <normaloff>:/icons/bitcoin</normaloff>:/icons/bitcoin</iconset>
      </property>
     </widget>
@@ -512,7 +512,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>VITAE</string>
+      <string>CaritasCoin</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_5">
@@ -1704,7 +1704,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>VITAE</string>
+      <string>CaritasCoin</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="UnitsInputVIT">
@@ -1751,10 +1751,10 @@
       </rect>
      </property>
      <property name="text">
-      <string>Sell VITAE</string>
+      <string>Sell CaritasCoin</string>
      </property>
      <property name="icon">
-      <iconset resource="../vitae">
+      <iconset resource="../caritas.qrc">
        <normaloff>:/icons/bitcoin</normaloff>:/icons/bitcoin</iconset>
      </property>
     </widget>
@@ -1777,7 +1777,7 @@
          </font>
         </property>
         <property name="text">
-         <string>VITAE Available:</string>
+         <string>CaritasCoin Available:</string>
         </property>
        </widget>
       </item>
@@ -2221,7 +2221,7 @@
          </font>
         </property>
         <property name="text">
-         <string>VITAE</string>
+         <string>CaritasCoin</string>
         </property>
        </widget>
       </item>
@@ -2762,7 +2762,7 @@
       </font>
      </property>
      <property name="text">
-      <string>VITAE Balance:</string>
+      <string>CaritasCoin Balance:</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_12">
@@ -2813,7 +2813,7 @@
       </font>
      </property>
      <property name="text">
-      <string>VITAE Available:</string>
+      <string>CaritasCoin Available:</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_14">
@@ -2832,7 +2832,7 @@
       </font>
      </property>
      <property name="text">
-      <string>VITAE Pending:</string>
+      <string>CaritasCoin Pending:</string>
      </property>
     </widget>
     <widget class="QLabel" name="VITPendingLabel">
@@ -2928,7 +2928,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Bittrex VITAE Deposit Address:</string>
+      <string>Bittrex CaritasCoin Deposit Address:</string>
      </property>
     </widget>
     <widget class="QPushButton" name="GenDepositBTN">
@@ -2941,10 +2941,10 @@
       </rect>
      </property>
      <property name="text">
-      <string>Generate VITAE Deposit Address</string>
+      <string>Generate CaritasCoin Deposit Address</string>
      </property>
      <property name="icon">
-      <iconset resource="../vitae.qrc">
+      <iconset resource="../caritas.qrc">
        <normaloff>:/icons/bitcoin</normaloff>:/icons/bitcoin</iconset>
      </property>
     </widget>
@@ -3206,7 +3206,7 @@
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="../vitae.qrc">:/icons/transaction_1</pixmap>
+       <pixmap resource="../caritas.qrc">:/icons/transaction_1</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -3253,7 +3253,7 @@
       <string>Update API Keys</string>
      </property>
      <property name="icon">
-      <iconset resource="../vitae.qrc">
+      <iconset resource="../caritas.qrc">
        <normaloff>:/icons/bitcoin</normaloff>:/icons/bitcoin</iconset>
      </property>
     </widget>
@@ -3408,7 +3408,7 @@
   </widget>
  </widget>
  <resources>
-  <include location="../vitae.qrc"/>
+  <include location="../caritas.qrc"/>
  </resources>
  <connections/>
 </ui>

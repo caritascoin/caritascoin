@@ -176,8 +176,8 @@
         <translation>Confirme el cifrado del monedero</translation>
     </message>
     <message>
-        <source>CaritasCoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your VITs from being stolen by malware infecting your computer.</source>
-        <translation>CaritasCoin se cerrará para finalizar el proceso de cifrado. Recuerde que cifrar su monedero no garantiza que sus VITs no sean robados mediante malware de su ordenador.</translation>
+        <source>CaritasCoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your CaritasCoins from being stolen by malware infecting your computer.</source>
+        <translation>CaritasCoin se cerrará para finalizar el proceso de cifrado. Recuerde que cifrar su monedero no garantiza que sus CaritasCoins no sean robados mediante malware de su ordenador.</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -239,7 +239,7 @@
         <translation>&amp;Cifrado BIP 38</translation>
     </message>
     <message>
-        <source>Enter a Vitae Address that you would like to encrypt using BIP 38. Enter a passphrase in the middle box. Press encrypt to compute the encrypted private key.</source>
+        <source>Enter a CaritasCoin Address that you would like to encrypt using BIP 38. Enter a passphrase in the middle box. Press encrypt to compute the encrypted private key.</source>
         <translation>Introduzca la dirección CaritasCoin que querría cifrar usando BIP 38. Introduzca una contraseña en el campo central. Haga clic en cifrar para generar la clave privada cifrada.</translation>
     </message>
     <message>
@@ -610,7 +610,7 @@
         <translation>Enviar coins a una dirección CaritasCoin</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and vitae: URIs)</source>
+        <source>Request payments (generates QR codes and caritas: URIs)</source>
         <translation>Solicitud de pago (genera un código QR y URIs)</translation>
     </message>
     <message>
@@ -833,8 +833,8 @@ MultiEnvío: %1</translation>
         <translation>EtiquetaDeTexto</translation>
     </message>
     <message>
-        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (vitae.conf).</source>
-        <translation>No se muestran todas las transacciones. Para ver todas las transacciones introduzca la línea "txindex=1" en el archivo de configuración (vitae.conf).</translation>
+        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (caritas.conf).</source>
+        <translation>No se muestran todas las transacciones. Para ver todas las transacciones introduzca la línea "txindex=1" en el archivo de configuración (caritas.conf).</translation>
     </message>
 </context>
 <context>
@@ -1687,9 +1687,9 @@ Por favor compruebe la dirección e inténtelo de nuevo.</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/vitae-project/vitae-project-translations</source>
+https://www.transifex.com/CaritasCoin-project/CaritasCoin-project-translations</source>
         <translation>¿Falta su lenguaje o la traducción está incompleta? Contribuya con las traducciones aquí:
-https://www.transifex.com/vitae-project/vitae-project-translations</translation>
+https://www.transifex.com/CaritasCoin-project/CaritasCoin-project-translations</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -1697,7 +1697,7 @@ https://www.transifex.com/vitae-project/vitae-project-translations</translation>
     </message>
     <message>
         <source>Percentage of incoming CaritasCoin which get automatically converted to zCARITAS via Zerocoin Protocol (min: 10%)</source>
-        <translation>Porcentaje de VITs entrantes que serán automáticamente convertidos a zCARITAS a través del Protocolo Zerocoin (mín: 10%)</translation>
+        <translation>Porcentaje de CaritasCoins entrantes que serán automáticamente convertidos a zCARITAS a través del Protocolo Zerocoin (mín: 10%)</translation>
     </message>
     <message>
         <source>Percentage of autominted zCARITAS</source>
@@ -1934,8 +1934,8 @@ https://www.transifex.com/vitae-project/vitae-project-translations</translation>
         <translation>Dirección de pago inválida %1</translation>
     </message>
     <message>
-        <source>Cannot start vitae: click-to-pay handler</source>
-        <translation>No se puede iniciar vitae: módulo click-to-pay</translation>
+        <source>Cannot start caritas: click-to-pay handler</source>
+        <translation>No se puede iniciar caritas: módulo click-to-pay</translation>
     </message>
     <message>
         <source>URI cannot be parsed! This can be caused by an invalid CaritasCoin address or malformed URI parameters.</source>
@@ -2785,12 +2785,12 @@ https://www.transifex.com/vitae-project/vitae-project-translations</translation>
         <translation>Tiempo de confirmación:</translation>
     </message>
     <message>
-        <source>If the custom fee is set to 1000 uVITs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uVITs in fee,&lt;br /&gt;while "at least" pays 1000 uVITs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
-        <translation>Si la comisión personalizada se fija en 1000 uVITs y la transacción necesita sólo 250 bytes, entonces la opción "por kilobyte" sólo pagará 250 uVITs de comisión,&lt;br/&gt;mientras "por lo menos" pagará 1000 uVITs. Para transacciones que midan más de un kilobyte ambas pagan por kilobyte.</translation>
+        <source>If the custom fee is set to 1000 uCaritasCoins and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uCaritasCoins in fee,&lt;br /&gt;while "at least" pays 1000 uCaritasCoins. For transactions bigger than a kilobyte both pay by kilobyte.</source>
+        <translation>Si la comisión personalizada se fija en 1000 uCaritasCoins y la transacción necesita sólo 250 bytes, entonces la opción "por kilobyte" sólo pagará 250 uCaritasCoins de comisión,&lt;br/&gt;mientras "por lo menos" pagará 1000 uCaritasCoins. Para transacciones que midan más de un kilobyte ambas pagan por kilobyte.</translation>
     </message>
     <message>
-        <source>If the custom fee is set to 1000 uVITs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uVITs in fee,&lt;br /&gt;while "total at least" pays 1000 uVITs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
-        <translation>Si la comisión personalizada se fija en 1000 uVITs y la transacción necesita sólo 250 bytes, entonces la opción "por kilobyte" sólo pagará 250 uVITs de comisión,&lt;br/&gt;mientras "por lo menos" pagará 1000 uVITs. Para transacciones que midan más de un kilobyte ambas pagan por kilobyte.</translation>
+        <source>If the custom fee is set to 1000 uCaritasCoins and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uCaritasCoins in fee,&lt;br /&gt;while "total at least" pays 1000 uCaritasCoins. For transactions bigger than a kilobyte both pay by kilobyte.</source>
+        <translation>Si la comisión personalizada se fija en 1000 uCaritasCoins y la transacción necesita sólo 250 bytes, entonces la opción "por kilobyte" sólo pagará 250 uCaritasCoins de comisión,&lt;br/&gt;mientras "por lo menos" pagará 1000 uCaritasCoins. Para transacciones que midan más de un kilobyte ambas pagan por kilobyte.</translation>
     </message>
     <message>
         <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for CaritasCoin transactions than the network can process.</source>
@@ -3812,7 +3812,7 @@ https://www.transifex.com/vitae-project/vitae-project-translations</translation>
     </message>
     </context>
 <context>
-    <name>vitae-core</name>
+    <name>caritas-core</name>
     <message>
         <source>(1 = keep tx meta data e.g. account owner and payment request information, 2 = drop tx meta data)</source>
         <translation>(1= mantener los metadatos tx p.e. dueño de la cuenta e información de la solicitud de pago, 2 = ignorar metadatos tx)</translation>
@@ -4002,10 +4002,10 @@ https://www.transifex.com/vitae-project/vitae-project-translations</translation>
         <translation>Este producto incluye software desarrollado por el Proyecto OpenSSL para uso en OpenSSL Toolkit &lt;https://www.openssl.org/&gt; y software de cifrado escrito por Eric Young y software de UPnP escrito por Thomas Bernard.</translation>
     </message>
     <message>
-        <source>To use vitaed, or the -server option to vitae-qt, you must set an rpcpassword in the configuration file:
+        <source>To use caritasd, or the -server option to caritas-qt, you must set an rpcpassword in the configuration file:
 %s
 It is recommended you use the following random password:
-rpcuser=vitaerpc
+rpcuser=caritasrpc
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
@@ -4013,10 +4013,10 @@ If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
 for example: alertnotify=echo %%s | mail -s "CaritasCoin Alert" admin@foo.com
 </source>
-        <translation>Para usar vitaed, o la opción -server de vitae-qt, debes definir un rpcpassword en el archivo de configuración:
+        <translation>Para usar caritasd, o la opción -server de caritas-qt, debes definir un rpcpassword en el archivo de configuración:
 %s
 Es recomendado que uses la siguiente contraseña aleatoria:
-rpcuser=vitae
+rpcuser=caritasrpc
 rpcrpcpassword=%s
 (No necesitas recordar esta contraseña)
 El nombre de usuario y contraseña NO DEBEN ser los mismos.

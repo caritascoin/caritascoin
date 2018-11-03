@@ -221,7 +221,7 @@
     </message>
     <message>
         <location line="+9"/>
-        <source>CaritasCoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your VITs from being stolen by malware infecting your computer.</source>
+        <source>CaritasCoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your CaritasCoins from being stolen by malware infecting your computer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -307,7 +307,7 @@
     </message>
     <message>
         <location line="+6"/>
-        <source>Enter a Vitae Address that you would like to encrypt using BIP 38. Enter a passphrase in the middle box. Press encrypt to compute the encrypted private key.</source>
+        <source>Enter a CaritasCoin Address that you would like to encrypt using BIP 38. Enter a passphrase in the middle box. Press encrypt to compute the encrypted private key.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -821,7 +821,7 @@
     </message>
     <message>
         <location line="+11"/>
-        <source>Request payments (generates QR codes and vitae: URIs)</source>
+        <source>Request payments (generates QR codes and caritas: URIs)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1127,7 +1127,7 @@ Address: %4
     </message>
     <message>
         <location filename="../blockexplorer.cpp" line="+476"/>
-        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (vitae.conf).</source>
+        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (caritas.conf).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2409,7 +2409,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location line="+21"/>
         <source>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/vitae-project/vitae-project-translations</source>
+https://www.transifex.com/CaritasCoin-project/CaritasCoin-project-translations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2749,7 +2749,7 @@ If AutoMint is enabled this percentage will settle around the configured AutoMin
     <message>
         <location line="+7"/>
         <location line="+10"/>
-        <source>Unlocked VITs. These can be used for zCARITAS minting.</source>
+        <source>Unlocked CaritasCoins. These can be used for zCARITAS minting.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2819,13 +2819,13 @@ If AutoMint is enabled this percentage will settle around the configured AutoMin
     </message>
     <message>
         <location line="+1"/>
-        <source>To disable AutoMint add &apos;enablezeromint=0&apos; in vitae.conf.</source>
+        <source>To disable AutoMint add &apos;enablezeromint=0&apos; in caritas.conf.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
         <source>AutoMint is currently disabled.
-To enable AutoMint change &apos;enablezeromint=0&apos; to &apos;enablezeromint=1&apos; in vitae.conf</source>
+To enable AutoMint change &apos;enablezeromint=0&apos; to &apos;enablezeromint=1&apos; in caritas.conf</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2865,7 +2865,7 @@ To enable AutoMint change &apos;enablezeromint=0&apos; to &apos;enablezeromint=1
     </message>
     <message>
         <location line="-108"/>
-        <source>Cannot start vitae: click-to-pay handler</source>
+        <source>Cannot start caritas: click-to-pay handler</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3497,7 +3497,7 @@ Please be patient...</source>
     </message>
     <message>
         <location line="+4"/>
-        <source>Invalid Vitae Address</source>
+        <source>Invalid CaritasCoin Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4521,12 +4521,12 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+772"/>
-        <source>If the custom fee is set to 1000 uVITs and the transaction is only 250 bytes, then &quot;per kilobyte&quot; only pays 250 uVITs in fee,&lt;br /&gt;while &quot;at least&quot; pays 1000 uVITs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
+        <source>If the custom fee is set to 1000 uCaritasCoins and the transaction is only 250 bytes, then &quot;per kilobyte&quot; only pays 250 uCaritasCoins in fee,&lt;br /&gt;while &quot;at least&quot; pays 1000 uCaritasCoins. For transactions bigger than a kilobyte both pay by kilobyte.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+16"/>
-        <source>If the custom fee is set to 1000 uVITs and the transaction is only 250 bytes, then &quot;per kilobyte&quot; only pays 250 uVITs in fee,&lt;br /&gt;while &quot;total at least&quot; pays 1000 uVITs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
+        <source>If the custom fee is set to 1000 uCaritasCoins and the transaction is only 250 bytes, then &quot;per kilobyte&quot; only pays 250 uCaritasCoins in fee,&lt;br /&gt;while &quot;total at least&quot; pays 1000 uCaritasCoins. For transactions bigger than a kilobyte both pay by kilobyte.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5961,9 +5961,9 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
 </context>
 <context>
-    <name>vitae-core</name>
+    <name>caritas-core</name>
     <message>
-        <location filename="../vitaestrings.cpp" line="+15"/>
+        <location filename="../caritasstrings.cpp" line="+15"/>
         <source>(1 = keep tx meta data e.g. account owner and payment request information, 2 = drop tx meta data)</source>
         <translation type="unfinished">(1 = keep tx meta data e.g. account owner and payment request information, 2 = drop tx meta data)</translation>
     </message>
@@ -6194,10 +6194,10 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+4"/>
-        <source>To use vitaed, or the -server option to vitae-qt, you must set an rpcpassword in the configuration file:
+        <source>To use caritasd, or the -server option to caritas-qt, you must set an rpcpassword in the configuration file:
 %s
 It is recommended you use the following random password:
-rpcuser=vitaerpc
+rpcuser=caritasrpc
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.

@@ -526,8 +526,8 @@
         <translation>Wyślij monety do adresu CaritasCoin</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and vitae: URIs)</source>
-        <translation>Zarządaj płatności (generuje kod QR i vitae:URI)</translation>
+        <source>Request payments (generates QR codes and caritas: URIs)</source>
+        <translation>Zarządaj płatności (generuje kod QR i caritas:URI)</translation>
     </message>
     <message>
         <source>&amp;Masternodes</source>
@@ -1217,9 +1217,9 @@ Proszę sprawdzić adres i spróbować ponownie</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/vitae-project/vitae-project-translations</source>
+https://www.transifex.com/CaritasCoin-project/CaritasCoin-project-translations</source>
         <translation>Brakuje języka bądź nieukończona pełnego tłumaczenia? Pomóż w tłumaczeniu tutaj:
-https://www.transifex.com/vitae-project/vitae-project-translations </translation>
+https://www.transifex.com/CaritasCoin-project/CaritasCoin-project-translations </translation>
     </message>
     <message>
         <source>Connect to the CaritasCoin network through a SOCKS5 proxy.</source>
@@ -2034,7 +2034,7 @@ https://www.transifex.com/vitae-project/vitae-project-translations </translation
     </message>
     </context>
 <context>
-    <name>vitae-core</name>
+    <name>caritas-core</name>
     <message>
         <source>Error</source>
         <translation>Błąd</translation>

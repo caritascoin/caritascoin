@@ -229,7 +229,7 @@
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_5">
                      <item>
-                      <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0">
+                      <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,0,0">
                        <item>
                         <widget class="QLabel" name="label_5z">
                          <property name="minimumSize">
@@ -259,7 +259,7 @@
                           <cursorShape>WhatsThisCursor</cursorShape>
                          </property>
                          <property name="toolTip">
-                          <string>The displayed information may be out of date. Your wallet automatically synchronizes with the VITAE network after a connection is established, but this process has not completed yet.</string>
+                          <string>The displayed information may be out of date. Your wallet automatically synchronizes with the CaritasCoin network after a connection is established, but this process has not completed yet.</string>
                          </property>
                          <property name="styleSheet">
                           <string notr="true">QLabel { color: red; }</string>
@@ -333,7 +333,7 @@
                           <string>Your current spendable balance</string>
                          </property>
                          <property name="text">
-                          <string notr="true">0.000 000 00 VITAE</string>
+                          <string notr="true">0.000 000 00 CaritasCoin</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -365,7 +365,7 @@
                           <string>Total Balance, including all unavailable coins.</string>
                          </property>
                          <property name="text">
-                          <string notr="true">0.000 000 00 VITAE</string>
+                          <string notr="true">0.000 000 00 CaritasCoin</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -433,7 +433,7 @@
                           </font>
                          </property>
                          <property name="text">
-                          <string>VITAE Balance</string>
+                          <string>CaritasCoin Balance</string>
                          </property>
                         </widget>
                        </item>
@@ -525,7 +525,7 @@
                           <string>Your current spendable balance</string>
                          </property>
                          <property name="text">
-                          <string notr="true">0.000 000 00 VITAE</string>
+                          <string notr="true">0.000 000 00 CaritasCoin</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -550,7 +550,7 @@
                           <string>Your current balance in watch-only addresses</string>
                          </property>
                          <property name="text">
-                          <string notr="true">0.000 000 00 VITAE</string>
+                          <string notr="true">0.000 000 00 CaritasCoin</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -582,7 +582,7 @@
                           <string>Total of transactions that have yet to be confirmed, and do not yet count toward the spendable balance</string>
                          </property>
                          <property name="text">
-                          <string notr="true">0.000 000 00 VITAE</string>
+                          <string notr="true">0.000 000 00 CaritasCoin</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -607,7 +607,7 @@
                           <string>Unconfirmed transactions to watch-only addresses</string>
                          </property>
                          <property name="text">
-                          <string notr="true">0.000 000 00 VITAE</string>
+                          <string notr="true">0.000 000 00 CaritasCoin</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -639,7 +639,7 @@
                           <string>Staked or fundamentalnode rewards that has not yet matured</string>
                          </property>
                          <property name="text">
-                          <string notr="true">0.000 000 00 VITAE</string>
+                          <string notr="true">0.000 000 00 CaritasCoin</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -664,7 +664,7 @@
                           <string>Staked or fundamentalnode rewards in watch-only addresses that has not yet matured</string>
                          </property>
                          <property name="text">
-                          <string notr="true">0.000 000 00 VITAE</string>
+                          <string notr="true">0.000 000 00 CaritasCoin</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -677,7 +677,7 @@
                        <item row="4" column="0">
                         <widget class="QLabel" name="labelLockedBalanceText">
                          <property name="toolTip">
-                          <string>Locked VITAE or Fundamentalnode collaterals. These are excluded from zVITAE minting.</string>
+                          <string>Locked CaritasCoin or Fundamentalnode collaterals. These are excluded from zCARITAS minting.</string>
                          </property>
                          <property name="text">
                           <string>Locked:</string>
@@ -696,10 +696,10 @@
                           <cursorShape>IBeamCursor</cursorShape>
                          </property>
                          <property name="toolTip">
-                          <string>Locked VITAE or Fundamentalnode collaterals. These are excluded from zVITAE minting.</string>
+                          <string>Locked CaritasCoin or Fundamentalnode collaterals. These are excluded from zCARITAS minting.</string>
                          </property>
                          <property name="text">
-                          <string notr="true">0.000 000 00 VITAE</string>
+                          <string notr="true">0.000 000 00 CaritasCoin</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -724,7 +724,7 @@
                           <string>Current locked balance in watch-only addresses</string>
                          </property>
                          <property name="text">
-                          <string notr="true">0.000 000 00 VITAE</string>
+                          <string notr="true">0.000 000 00 CaritasCoin</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -736,11 +736,11 @@
                        </item>
                        <item row="5" column="0">
                         <widget class="QLabel" name="labelTotalText">
+                         <property name="toolTip">
+                          <string>Your current CaritasCoin balance, unconfirmed and immature transactions included</string>
+                         </property>
                          <property name="text">
                           <string>Total:</string>
-                         </property>
-                         <property name="toolTip">
-                          <string>Your current VITAE balance, unconfirmed and immature transactions included</string>
                          </property>
                         </widget>
                        </item>
@@ -756,10 +756,10 @@
                           <cursorShape>IBeamCursor</cursorShape>
                          </property>
                          <property name="toolTip">
-                          <string>Your current VITAE balance, unconfirmed and immature transactions included</string>
+                          <string>Your current CaritasCoin balance, unconfirmed and immature transactions included</string>
                          </property>
                          <property name="text">
-                          <string notr="true">0.000 000 00 VITAE</string>
+                          <string notr="true">0.000 000 00 CaritasCoin</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -784,7 +784,7 @@
                           <string>Current total balance in watch-only addresses</string>
                          </property>
                          <property name="text">
-                          <string notr="true">0.000 000 00 VITAE</string>
+                          <string notr="true">0.000 000 00 CaritasCoin</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -835,7 +835,7 @@
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_7">
                      <item>
-                      <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0">
+                      <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0,0,0">
                        <item>
                         <widget class="QLabel" name="label_5z_3">
                          <property name="minimumSize">
@@ -852,7 +852,7 @@
                           </font>
                          </property>
                          <property name="text">
-                          <string>zVITAE Balance</string>
+                          <string>zCARITAS Balance</string>
                          </property>
                         </widget>
                        </item>
@@ -906,7 +906,7 @@
                         <widget class="QLabel" name="labelzBalanceMatureText">
                          <property name="toolTip">
                           <string>Mature: more than 20 confirmation and more than 3 mints of the same denomination after it was minted.
-These zVITAE are spendable.</string>
+These zCARITAS are spendable.</string>
                          </property>
                          <property name="text">
                           <string>Available:</string>
@@ -923,10 +923,10 @@ These zVITAE are spendable.</string>
                          </property>
                          <property name="toolTip">
                           <string>Mature: more than 20 confirmation and more than 3 mints of the same denomination after it was minted.
-These zVITAE are spendable.</string>
+These zCARITAS are spendable.</string>
                          </property>
                          <property name="text">
-                          <string notr="true">0.000 000 00 VITAE</string>
+                          <string notr="true">0.000 000 00 CaritasCoin</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -957,7 +957,7 @@ Immature: confirmed, but less than 3 mints of the same denomination after it was
 Immature: confirmed, but less than 3 mints of the same denomination after it was minted</string>
                          </property>
                          <property name="text">
-                          <string notr="true">0.000 000 00 VITAE</string>
+                          <string notr="true">0.000 000 00 CaritasCoin</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -988,7 +988,7 @@ Immature: confirmed, but less than 3 mints of the same denomination after it was
 Immature: confirmed, but less than 3 mints of the same denomination after it was minted</string>
                          </property>
                          <property name="text">
-                          <string notr="true">0.000 000 00 VITAE</string>
+                          <string notr="true">0.000 000 00 CaritasCoin</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -998,7 +998,7 @@ Immature: confirmed, but less than 3 mints of the same denomination after it was
                        <item row="4" column="0">
                         <widget class="QLabel" name="labelzBalanceText">
                          <property name="toolTip">
-                          <string>Your current zVITAE balance, unconfirmed and immature zVITAE included.</string>
+                          <string>Your current zCARITAS balance, unconfirmed and immature zCARITAS included.</string>
                          </property>
                          <property name="text">
                           <string>Total:</string>
@@ -1017,10 +1017,10 @@ Immature: confirmed, but less than 3 mints of the same denomination after it was
                           <cursorShape>IBeamCursor</cursorShape>
                          </property>
                          <property name="toolTip">
-                          <string>Your current zVITAE balance, unconfirmed and immature zVITAE included.</string>
+                          <string>Your current zCARITAS balance, unconfirmed and immature zCARITAS included.</string>
                          </property>
                          <property name="text">
-                          <string notr="true">0.000 000 00 VITAE</string>
+                          <string notr="true">0.000 000 00 CaritasCoin</string>
                          </property>
                          <property name="alignment">
                           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1111,7 +1111,7 @@ Immature: confirmed, but less than 3 mints of the same denomination after it was
                        <cursorShape>WhatsThisCursor</cursorShape>
                       </property>
                       <property name="toolTip">
-                       <string>The displayed information may be out of date. Your wallet automatically synchronizes with the VITAE network after a connection is established, but this process has not completed yet.</string>
+                       <string>The displayed information may be out of date. Your wallet automatically synchronizes with the CaritasCoin network after a connection is established, but this process has not completed yet.</string>
                       </property>
                       <property name="styleSheet">
                        <string notr="true">QLabel { color: red; }</string>

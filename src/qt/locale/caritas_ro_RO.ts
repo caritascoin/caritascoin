@@ -186,6 +186,6 @@
     <name>ZVitControlDialog</name>
     </context>
 <context>
-    <name>vitae-core</name>
+    <name>caritas-core</name>
     </context>
 </TS>

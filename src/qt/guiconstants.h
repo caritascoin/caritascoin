@@ -13,7 +13,7 @@ static const int MODEL_UPDATE_DELAY = 250;
 /* AskPassphraseDialog -- Maximum passphrase length */
 static const int MAX_PASSPHRASE_SIZE = 1024;
 
-/* Vitae GUI -- Size of icons in status bar */
+/* CaritasCoin GUI -- Size of icons in status bar */
 static const int STATUSBAR_ICONSIZE = 16;
 
 static const bool DEFAULT_SPLASHSCREEN = true;
@@ -50,9 +50,9 @@ static const int MAX_URI_LENGTH = 255;
 /* Number of frames in spinner animation */
 #define SPINNER_FRAMES 35
 
-#define QAPP_ORG_NAME "VITAE"
-#define QAPP_ORG_DOMAIN "vitae.org"
-#define QAPP_APP_NAME_DEFAULT "VITAE-Qt"
-#define QAPP_APP_NAME_TESTNET "VITAE-Qt-testnet"
+#define QAPP_ORG_NAME "CaritasCoin"
+#define QAPP_ORG_DOMAIN "CaritasCoin.io"
+#define QAPP_APP_NAME_DEFAULT "CARITAS-Qt"
+#define QAPP_APP_NAME_TESTNET "CARITAS-Qt-testnet"
 
 #endif // BITCOIN_QT_GUICONSTANTS_H

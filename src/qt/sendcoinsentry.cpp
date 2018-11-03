@@ -31,9 +31,9 @@ SendCoinsEntry::SendCoinsEntry(QWidget* parent) : QStackedWidget(parent),
     ui->addAsLabel->setPlaceholderText(tr("Enter a label for this address to add it to your address book"));
 #endif
 
-    // normal vitae address field
+    // normal CaritasCoin address field
     GUIUtil::setupAddressWidget(ui->payTo, this);
-    // just a label for displaying vitae address(es)
+    // just a label for displaying CaritasCoin address(es)
     ui->payTo_is->setFont(GUIUtil::bitcoinAddressFont());
 
     // Connect signals

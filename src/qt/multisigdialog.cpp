@@ -412,7 +412,7 @@ bool MultisigDialog::createMultisigTransaction(vector<CTxIn> vUserIn, vector<CTx
         }
 
         if(totalIn < totalOut){
-            throw runtime_error("Not enough VITAE provided as input to complete transaction (including fee).");
+            throw runtime_error("Not enough CaritasCoin provided as input to complete transaction (including fee).");
         }
 
         //calculate change amount
@@ -477,7 +477,7 @@ bool MultisigDialog::createMultisigTransaction(vector<CTxIn> vUserIn, vector<CTx
             tx.vout.at(changeIndex).nValue -= fee;
             feeStringRet = strprintf("%d",((double)fee)/COIN).c_str();
         }else{
-            throw runtime_error("Not enough VITAE provided to cover fee");
+            throw runtime_error("Not enough CaritasCoin provided to cover fee");
         }
 
         //clear junk from script sigs
@@ -776,7 +776,7 @@ bool MultisigDialog::createRedeemScript(int m, vector<string> vKeys, CScript& re
         for(vector<string>::iterator it = vKeys.begin(); it != vKeys.end(); ++it) {
             string keyString = *it;
 #ifdef ENABLE_WALLET
-            // Case 1: VITAE address and we have full public key:
+            // Case 1: CaritasCoin address and we have full public key:
             CBitcoinAddress address(keyString);
             if (pwalletMain && address.IsValid()) {
                 CKeyID keyID;
