@@ -1864,7 +1864,7 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
     }
 
 // XX42 Remove/refactor code below. Until then provide safe defaults
-    nAnonymizeVitaeAmount = 2;
+    nAnonymizeCaritasCoinAmount = 2;
 
 //    nLiquidityProvider = GetArg("-liquidityprovider", 0); //0-100
 //    if (nLiquidityProvider != 0) {
@@ -1873,9 +1873,9 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
 //        nZeromintPercentage = 99999;
 //    }
 //
-//    nAnonymizeVitaeAmount = GetArg("-anonymizecaritasamount", 0);
-//    if (nAnonymizeVitaeAmount > 999999) nAnonymizeVitaeAmount = 999999;
-//    if (nAnonymizeVitaeAmount < 2) nAnonymizeVitaeAmount = 2;
+//    nAnonymizeCaritasCoinAmount = GetArg("-anonymizecaritasamount", 0);
+//    if (nAnonymizeCaritasCoinAmount > 999999) nAnonymizeCaritasCoinAmount = 999999;
+//    if (nAnonymizeCaritasCoinAmount < 2) nAnonymizeCaritasCoinAmount = 2;
 
     fEnableSwiftTX = GetBoolArg("-enableswifttx", fEnableSwiftTX);
     nSwiftTXDepth = GetArg("-swifttxdepth", nSwiftTXDepth);
@@ -1889,7 +1889,7 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
 
     LogPrintf("fLiteMode %d\n", fLiteMode);
     LogPrintf("nSwiftTXDepth %d\n", nSwiftTXDepth);
-    LogPrintf("Anonymize CaritasCoin Amount %d\n", nAnonymizeVitaeAmount);
+    LogPrintf("Anonymize CaritasCoin Amount %d\n", nAnonymizeCaritasCoinAmount);
     LogPrintf("Budget Mode %s\n", strBudgetMode.c_str());
 
     /* Denominations
