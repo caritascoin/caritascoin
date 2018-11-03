@@ -1,7 +1,8 @@
 // Copyright (c) 2014-2015 The Bitsend developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
-// Copyright (c) 2018 The VITAE developers
+// Copyright (c) 2018 The VITAE developers and CaritasCoin developers
+ 
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -65,13 +66,13 @@ bool CMasternodeConfig::read(std::string& strErr) {
         }
 
         if(Params().NetworkID() == CBaseChainParams::MAIN){
-            if(CService(ip).GetPort() != 8765) {
-                strErr = "Invalid port detected in masternode.conf: " + line + " (must be 8765 for mainnet)";
+            if (CService(ip).GetPort() != Params().GetDefaultPort()) {
+                strErr = "Invalid port detected in masternode.conf: " + line + " (must be 16180 for mainnet)";
                 streamConfig.close();
                 return false;
             }
-        } else if(CService(ip).GetPort() == 8765) {
-            strErr = "Invalid port detected in masternode.conf: " + line + " (8765 must be only on mainnet)";
+        } else if (CService(ip).GetPort() == Params().GetDefaultPort()) {
+            strErr = "Invalid port detected in masternode.conf: " + line + " (16180 must be only on mainnet)";
             streamConfig.close();
             return false;
         }

@@ -1,5 +1,5 @@
-/* src/config/vitae-config.h.  Generated from vitae-config.h.in by configure.  */
-/* src/config/vitae-config.h.in.  Generated from configure.ac by autoheader.  */
+/* src/config/caritas-config.h.  Generated from caritas-config.h.in by configure.  */
+/* src/config/caritas-config.h.in.  Generated from configure.ac by autoheader.  */
 
 #ifndef VIT_CONFIG_H
 

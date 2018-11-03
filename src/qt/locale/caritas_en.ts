@@ -80,12 +80,12 @@
     </message>
     <message>
         <location line="+7"/>
-        <source>These are your VITAE addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <source>These are your CaritasCoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+4"/>
-        <source>These are your VITAE addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <source>These are your CaritasCoin addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -221,7 +221,7 @@
     </message>
     <message>
         <location line="+9"/>
-        <source>VITAE will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your VITs from being stolen by malware infecting your computer.</source>
+        <source>CaritasCoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your VITs from being stolen by malware infecting your computer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -231,7 +231,7 @@
     </message>
     <message>
         <location line="+0"/>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR VITAE&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR CaritasCoin&lt;/b&gt;!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -318,7 +318,7 @@
     </message>
     <message>
         <location line="-355"/>
-        <source>The VITAE address to sign the message with</source>
+        <source>The CaritasCoin address to sign the message with</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -360,7 +360,7 @@
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this VITAE address</source>
+        <source>Sign the message to prove you own this CaritasCoin address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -391,12 +391,12 @@
     </message>
     <message>
         <location line="+25"/>
-        <source>The VITAE address the message was signed with</source>
+        <source>The CaritasCoin address the message was signed with</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+29"/>
-        <source>Verify the message to ensure it was signed with the specified VITAE address</source>
+        <source>Verify the message to ensure it was signed with the specified CaritasCoin address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -546,7 +546,7 @@
     </message>
     <message>
         <location line="+11"/>
-        <source>Privacy Actions for zVITAE</source>
+        <source>Privacy Actions for zCARITAS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -811,12 +811,12 @@
     <message>
         <location line="-427"/>
         <location line="+890"/>
-        <source>VITAE Core</source>
+        <source>CaritasCoin Core</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-707"/>
-        <source>Send coins to a VITAE address</source>
+        <source>Send coins to a CaritasCoin address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -841,27 +841,27 @@
     </message>
     <message>
         <location line="+31"/>
-        <source>&amp;About VITAE Core</source>
+        <source>&amp;About CaritasCoin Core</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Show information about VITAE Core</source>
+        <source>Show information about CaritasCoin Core</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+10"/>
-        <source>Modify configuration options for VITAE</source>
+        <source>Modify configuration options for CaritasCoin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+16"/>
-        <source>Sign messages with your VITAE addresses to prove you own them</source>
+        <source>Sign messages with your CaritasCoin addresses to prove you own them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Verify messages to ensure they were signed with specified VITAE addresses</source>
+        <source>Verify messages to ensure they were signed with specified CaritasCoin addresses</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -901,7 +901,7 @@
     </message>
     <message>
         <location line="+17"/>
-        <source>Open a VITAE: URI or payment request</source>
+        <source>Open a CaritasCoin: URI or payment request</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -916,17 +916,17 @@
     </message>
     <message>
         <location line="+4"/>
-        <source>Show the VITAE Core help message to get a list with possible VITAE command-line options</source>
+        <source>Show the CaritasCoin Core help message to get a list with possible CaritasCoin command-line options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+214"/>
-        <source>VITAE Core client</source>
+        <source>CaritasCoin Core client</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
         <location line="+212"/>
-        <source>%n active connection(s) to VITAE network</source>
+        <source>%n active connection(s) to CaritasCoin network</source>
         <translation type="unfinished">
             <numerusform></numerusform>
             <numerusform></numerusform>
@@ -1496,7 +1496,7 @@ Address: %4
     </message>
     <message>
         <location line="+67"/>
-        <source>The entered address &quot;%1&quot; is not a valid VITAE address.</source>
+        <source>The entered address &quot;%1&quot; is not a valid CaritasCoin address.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1552,7 +1552,7 @@ Address: %4
     </message>
     <message>
         <location line="+0"/>
-        <source>VITAE Core</source>
+        <source>CaritasCoin Core</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1563,7 +1563,7 @@ Address: %4
     </message>
     <message>
         <location line="+4"/>
-        <source>About VITAE Core</source>
+        <source>About CaritasCoin Core</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1621,17 +1621,17 @@ Address: %4
     </message>
     <message>
         <location line="+9"/>
-        <source>Welcome to VITAE Core.</source>
+        <source>Welcome to CaritasCoin Core.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+26"/>
-        <source>As this is the first time the program is launched, you can choose where VITAE Core will store its data.</source>
+        <source>As this is the first time the program is launched, you can choose where CaritasCoin Core will store its data.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+10"/>
-        <source>VITAE Core will download and store a copy of the VITAE block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <source>CaritasCoin Core will download and store a copy of the CaritasCoin block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1646,7 +1646,7 @@ Address: %4
     </message>
     <message>
         <location filename="../intro.cpp" line="+77"/>
-        <source>VITAE Core</source>
+        <source>CaritasCoin Core</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1822,8 +1822,8 @@ Address: %4
     </message>
     <message>
         <location line="+16"/>
-        <source>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other VITAE addresses after it matures.
-To Add: enter percentage to give and VITAE address to add to the MultiSend vector.
+        <source>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other CaritasCoin addresses after it matures.
+To Add: enter percentage to give and CaritasCoin address to add to the MultiSend vector.
 To Delete: Enter address to delete and press delete.
 MultiSend will not be activated unless you have clicked Activate</source>
         <translation type="unfinished"></translation>
@@ -2078,7 +2078,7 @@ Please be patient after clicking import.</source>
     </message>
     <message>
         <location line="+13"/>
-        <source>Add destinations to send VITAE to</source>
+        <source>Add destinations to send CaritasCoin to</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2210,12 +2210,12 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+13"/>
-        <source>Use 2 separate masternodes to mix funds up to 10000 VITAE</source>
+        <source>Use 2 separate masternodes to mix funds up to 10000 CaritasCoin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+13"/>
-        <source>Use 8 separate masternodes to mix funds up to 10000 VITAE</source>
+        <source>Use 8 separate masternodes to mix funds up to 10000 CaritasCoin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2225,12 +2225,12 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+13"/>
-        <source>This option is the quickest and will cost about ~0.025 VITAE to anonymize 10000 VITAE</source>
+        <source>This option is the quickest and will cost about ~0.025 CaritasCoin to anonymize 10000 CaritasCoin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+13"/>
-        <source>This option is moderately fast and will cost about 0.05 VITAE to anonymize 10000 VITAE</source>
+        <source>This option is moderately fast and will cost about 0.05 CaritasCoin to anonymize 10000 CaritasCoin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2240,7 +2240,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+13"/>
-        <source>0.1 VITAE per 10000 VITAE you anonymize.</source>
+        <source>0.1 CaritasCoin per 10000 CaritasCoin you anonymize.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2252,17 +2252,17 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="-27"/>
-        <source>Obfuscation was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening VITAE&apos;s configuration screen.</source>
+        <source>Obfuscation was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening CaritasCoin&apos;s configuration screen.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+14"/>
-        <source>Obfuscation was successfully set to high (%1 and 8 rounds). You can change this at any time by opening VITAE&apos;s configuration screen.</source>
+        <source>Obfuscation was successfully set to high (%1 and 8 rounds). You can change this at any time by opening CaritasCoin&apos;s configuration screen.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+14"/>
-        <source>Obfuscation was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening VITAE&apos;s configuration screen.</source>
+        <source>Obfuscation was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening CaritasCoin&apos;s configuration screen.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2338,7 +2338,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+33"/>
-        <source>Automatically open the VITAE client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <source>Automatically open the CaritasCoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2363,12 +2363,12 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="-176"/>
-        <source>Automatically start VITAE after logging in to the system.</source>
+        <source>Automatically start CaritasCoin after logging in to the system.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start VITAE on system login</source>
+        <source>&amp;Start CaritasCoin on system login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2403,7 +2403,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location line="+192"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting VITAE.</source>
+        <source>The user interface language can be set here. This setting will take effect after restarting CaritasCoin.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2419,28 +2419,28 @@ https://www.transifex.com/vitae-project/vitae-project-translations</source>
     </message>
     <message>
         <location line="-133"/>
-        <source>Percentage of incoming VITAE which get automatically converted to zVITAE via Zerocoin Protocol (min: 10%)</source>
+        <source>Percentage of incoming CaritasCoin which get automatically converted to zCARITAS via Zerocoin Protocol (min: 10%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Percentage of autominted zVITAE</source>
+        <source>Percentage of autominted zCARITAS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+30"/>
         <location line="+16"/>
-        <source>Wait with automatic conversion to Zerocoin until enough VITAE for this denomination is available</source>
+        <source>Wait with automatic conversion to Zerocoin until enough CaritasCoin for this denomination is available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-13"/>
-        <source>Preferred Automint zVITAE Denomination</source>
+        <source>Preferred Automint zCARITAS Denomination</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+114"/>
-        <source>Connect to the VITAE network through a SOCKS5 proxy.</source>
+        <source>Connect to the CaritasCoin network through a SOCKS5 proxy.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2605,7 +2605,7 @@ https://www.transifex.com/vitae-project/vitae-project-translations</source>
     </message>
     <message>
         <location line="+43"/>
-        <source>VITAE Balances</source>
+        <source>CaritasCoin Balances</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2644,7 +2644,7 @@ https://www.transifex.com/vitae-project/vitae-project-translations</source>
     <message>
         <location line="-153"/>
         <location line="+1393"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the VITAE network after a connection is established, but this process has not completed yet.</source>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the CaritasCoin network after a connection is established, but this process has not completed yet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2706,17 +2706,17 @@ https://www.transifex.com/vitae-project/vitae-project-translations</source>
     </message>
     <message>
         <location line="+36"/>
-        <source>VITAE:</source>
+        <source>CaritasCoin:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+35"/>
-        <source>zVITAE:</source>
+        <source>zCARITAS:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Current percentage of zVITAE.
+        <source>Current percentage of zCARITAS.
 If AutoMint is enabled this percentage will settle around the configured AutoMint percentage (default = 10%)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2729,7 +2729,7 @@ If AutoMint is enabled this percentage will settle around the configured AutoMin
     <message>
         <location line="-46"/>
         <location line="+13"/>
-        <source>Locked VITAE or Masternode collaterals. These are excluded from zVITAE minting.</source>
+        <source>Locked CaritasCoin or Masternode collaterals. These are excluded from zCARITAS minting.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2738,7 +2738,7 @@ If AutoMint is enabled this percentage will settle around the configured AutoMin
         <location line="+189"/>
         <location line="+31"/>
         <location line="+44"/>
-        <source>0.000 000 00 VITAE</source>
+        <source>0.000 000 00 CaritasCoin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2749,7 +2749,7 @@ If AutoMint is enabled this percentage will settle around the configured AutoMin
     <message>
         <location line="+7"/>
         <location line="+10"/>
-        <source>Unlocked VITs. These can be used for zVITAE minting.</source>
+        <source>Unlocked VITs. These can be used for zCARITAS minting.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2766,7 +2766,7 @@ If AutoMint is enabled this percentage will settle around the configured AutoMin
         <location line="+14"/>
         <location line="+104"/>
         <source>Mature: more than 20 confirmation and more than 3 mints of the same denomination after it was minted.
-These zVITAE are spendable.</source>
+These zCARITAS are spendable.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2777,7 +2777,7 @@ These zVITAE are spendable.</source>
     <message>
         <location line="+23"/>
         <location line="+35"/>
-        <source>All available zVITAE, unconfirmed and immature zVITAE included.</source>
+        <source>All available zCARITAS, unconfirmed and immature zCARITAS included.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2807,7 +2807,7 @@ Immature: confirmed, but less than 3 mints of the same denomination after it was
     </message>
     <message>
         <location line="+93"/>
-        <source>Current percentage of zVITAE.
+        <source>Current percentage of zCARITAS.
 If AutoMint is enabled this percentage will settle around the configured AutoMint percentage (default = 10%).
 </source>
         <translation type="unfinished"></translation>
@@ -2870,7 +2870,7 @@ To enable AutoMint change &apos;enablezeromint=0&apos; to &apos;enablezeromint=1
     </message>
     <message>
         <location line="+114"/>
-        <source>URI cannot be parsed! This can be caused by an invalid VITAE address or malformed URI parameters.</source>
+        <source>URI cannot be parsed! This can be caused by an invalid CaritasCoin address or malformed URI parameters.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2973,12 +2973,12 @@ To enable AutoMint change &apos;enablezeromint=0&apos; to &apos;enablezeromint=1
     <name>PrivacyDialog</name>
     <message>
         <location filename="../forms/privacydialog.ui" line="+55"/>
-        <source>VITAE which were anonymized via Zerocin Protocol</source>
+        <source>CaritasCoin which were anonymized via Zerocin Protocol</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+6"/>
-        <source>Zerocoin VITAE (zVITAE)</source>
+        <source>Zerocoin CaritasCoin (zCARITAS)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2988,13 +2988,13 @@ To enable AutoMint change &apos;enablezeromint=0&apos; to &apos;enablezeromint=1
     </message>
     <message>
         <location line="+10"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the VITAE network after a connection is established, but this process has not completed yet.</source>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the CaritasCoin network after a connection is established, but this process has not completed yet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+52"/>
         <location line="+46"/>
-        <source>Enter an amount of VITAE to convert to zVITAE</source>
+        <source>Enter an amount of CaritasCoin to convert to zCARITAS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3014,7 +3014,7 @@ To enable AutoMint change &apos;enablezeromint=0&apos; to &apos;enablezeromint=1
     <message>
         <location line="-349"/>
         <location line="+629"/>
-        <source>zVITAE</source>
+        <source>zCARITAS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3029,7 +3029,7 @@ To enable AutoMint change &apos;enablezeromint=0&apos; to &apos;enablezeromint=1
     </message>
     <message>
         <location line="+13"/>
-        <source>0.000 000 00 VITAE</source>
+        <source>0.000 000 00 CaritasCoin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3074,12 +3074,12 @@ To enable AutoMint change &apos;enablezeromint=0&apos; to &apos;enablezeromint=1
     </message>
     <message>
         <location line="+45"/>
-        <source>zVITAE Control</source>
+        <source>zCARITAS Control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>zVITAE Selected:</source>
+        <source>zCARITAS Selected:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3104,7 +3104,7 @@ To enable AutoMint change &apos;enablezeromint=0&apos; to &apos;enablezeromint=1
     </message>
     <message>
         <location line="+7"/>
-        <source>Available (mature and spendable) zVITAE for spending</source>
+        <source>Available (mature and spendable) zCARITAS for spending</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3114,15 +3114,15 @@ To enable AutoMint change &apos;enablezeromint=0&apos; to &apos;enablezeromint=1
     </message>
     <message>
         <location line="+16"/>
-        <source>Available (mature and spendable) zVITAE for spending
+        <source>Available (mature and spendable) zCARITAS for spending
 
-zVITAE are mature when they have more than 20 confirmations AND more than 2 mints of the same denomination after them were minted</source>
+zCARITAS are mature when they have more than 20 confirmations AND more than 2 mints of the same denomination after them were minted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+5"/>
         <location line="+417"/>
-        <source>0 zVITAE</source>
+        <source>0 zCARITAS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3147,7 +3147,7 @@ zVITAE are mature when they have more than 20 confirmations AND more than 2 mint
     </message>
     <message>
         <location line="+27"/>
-        <source>The VITAE address to send the payment to. Creates local payment to yourself when empty.</source>
+        <source>The CaritasCoin address to send the payment to. Creates local payment to yourself when empty.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3213,7 +3213,7 @@ zVITAE are mature when they have more than 20 confirmations AND more than 2 mint
     <message>
         <location line="+62"/>
         <location line="+38"/>
-        <source>Total Balance including unconfirmed and immature zVITAE</source>
+        <source>Total Balance including unconfirmed and immature zCARITAS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3424,13 +3424,13 @@ Immature: confirmed, but less than 2 mints of the same denomination after it was
     <message>
         <location line="+45"/>
         <location line="+3"/>
-        <source>zVITAE is currently disabled due to maintenance.</source>
+        <source>zCARITAS is currently disabled due to maintenance.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+50"/>
         <location line="+113"/>
-        <source>zVITAE is currently undergoing maintenance.</source>
+        <source>zCARITAS is currently undergoing maintenance.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3455,7 +3455,7 @@ Immature: confirmed, but less than 2 mints of the same denomination after it was
     </message>
     <message>
         <location line="+0"/>
-        <source> zVITAE in </source>
+        <source> zCARITAS in </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3567,7 +3567,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+15"/>
-        <source>zVITAE Spend #: </source>
+        <source>zCARITAS Spend #: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3597,7 +3597,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+3"/>
-        <source>zVITAE Mint</source>
+        <source>zCARITAS Mint</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3625,7 +3625,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location filename="../guiutil.cpp" line="+113"/>
-        <source>Enter a VITAE address (e.g. %1)</source>
+        <source>Enter a CaritasCoin address (e.g. %1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3820,7 +3820,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+79"/>
-        <source>Open the VITAE debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <source>Open the CaritasCoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4047,7 +4047,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="-36"/>
-        <source>Welcome to the VITAE RPC console.</source>
+        <source>Welcome to the CaritasCoin RPC console.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4163,12 +4163,12 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="-37"/>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the VITAE network.</source>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the CaritasCoin network.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+23"/>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the VITAE network.</source>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the CaritasCoin network.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4451,7 +4451,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+7"/>
-        <source>0 VITAE</source>
+        <source>0 CaritasCoin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4532,7 +4532,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     <message>
         <location line="+33"/>
         <location line="+13"/>
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for VITAE transactions than the network can process.</source>
+        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for CaritasCoin transactions than the network can process.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4592,7 +4592,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+35"/>
-        <source>Anonymized VITAE</source>
+        <source>Anonymized CaritasCoin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4663,7 +4663,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+622"/>
-        <source>Warning: Invalid VITAE address</source>
+        <source>Warning: Invalid CaritasCoin address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4802,7 +4802,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+18"/>
-        <source>The VITAE address to send the payment to</source>
+        <source>The CaritasCoin address to send the payment to</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4856,7 +4856,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+10"/>
-        <source>A message that was attached to the VITAE: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the VITAE network.</source>
+        <source>A message that was attached to the CaritasCoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the CaritasCoin network.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4891,7 +4891,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     <name>ShutdownWindow</name>
     <message>
         <location filename="../utilitydialog.cpp" line="+75"/>
-        <source>VITAE Core is shutting down...</source>
+        <source>CaritasCoin Core is shutting down...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4919,7 +4919,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+18"/>
-        <source>The VITAE address to sign the message with</source>
+        <source>The CaritasCoin address to sign the message with</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4961,17 +4961,17 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this VITAE address</source>
+        <source>Sign the message to prove you own this CaritasCoin address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+106"/>
-        <source>The VITAE address the message was signed with</source>
+        <source>The CaritasCoin address the message was signed with</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+37"/>
-        <source>Verify the message to ensure it was signed with the specified VITAE address</source>
+        <source>Verify the message to ensure it was signed with the specified CaritasCoin address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5086,7 +5086,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     <name>SplashScreen</name>
     <message>
         <location filename="../splashscreen.cpp" line="+36"/>
-        <source>VITAE Core</source>
+        <source>CaritasCoin Core</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5106,7 +5106,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+1"/>
-        <source>The VITAE Core developers</source>
+        <source>The CaritasCoin Core developers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5533,27 +5533,27 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+2"/>
-        <source>Converted VITAE to zVITAE</source>
+        <source>Converted CaritasCoin to zCARITAS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Spent zVITAE</source>
+        <source>Spent zCARITAS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Received VITAE from zVITAE</source>
+        <source>Received CaritasCoin from zCARITAS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Minted Change as zVITAE from zVITAE Spend</source>
+        <source>Minted Change as zCARITAS from zCARITAS Spend</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Converted zVITAE to VITAE</source>
+        <source>Converted zCARITAS to CaritasCoin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5563,7 +5563,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+22"/>
-        <source>zVITAE Accumulator</source>
+        <source>zCARITAS Accumulator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5702,7 +5702,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+1"/>
-        <source>Received VITAE from zVITAE</source>
+        <source>Received CaritasCoin from zCARITAS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5717,7 +5717,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+1"/>
-        <source>Zerocoin Spend, Change in zVITAE</source>
+        <source>Zerocoin Spend, Change in zCARITAS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5874,7 +5874,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     <message>
         <location line="-18"/>
         <location line="+9"/>
-        <source>SwiftX doesn&apos;t support sending values that high yet. Transactions are currently limited to %1 VITAE.</source>
+        <source>SwiftX doesn&apos;t support sending values that high yet. Transactions are currently limited to %1 CaritasCoin.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5930,7 +5930,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     <name>ZVitControlDialog</name>
     <message>
         <location filename="../forms/zVitcontroldialog.ui" line="+20"/>
-        <source>Select zVITAE to Spend</source>
+        <source>Select zCARITAS to Spend</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5946,7 +5946,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="-7"/>
-        <source>zVITAE</source>
+        <source>zCARITAS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5999,7 +5999,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+2"/>
-        <source>Cannot obtain a lock on data directory %s. VITAE Core is probably already running.</source>
+        <source>Cannot obtain a lock on data directory %s. CaritasCoin Core is probably already running.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6064,12 +6064,12 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+3"/>
-        <source>Fees (in VITAE/Kb) smaller than this are considered zero fee for relaying (default: %s)</source>
+        <source>Fees (in CaritasCoin/Kb) smaller than this are considered zero fee for relaying (default: %s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Fees (in VITAE/Kb) smaller than this are considered zero fee for transaction creation (default: %s)</source>
+        <source>Fees (in CaritasCoin/Kb) smaller than this are considered zero fee for transaction creation (default: %s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6203,13 +6203,13 @@ rpcpassword=%s
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;VITAE Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;CaritasCoin Alert&quot; admin@foo.com
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+13"/>
-        <source>Unable to bind to %s on this computer. VITAE Core is probably already running.</source>
+        <source>Unable to bind to %s on this computer. CaritasCoin Core is probably already running.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6219,12 +6219,12 @@ for example: alertnotify=echo %%s | mail -s &quot;VITAE Alert&quot; admin@foo.co
     </message>
     <message>
         <location line="+2"/>
-        <source>Unable to locate enough Obfuscation non-denominated funds for this transaction that are not equal 10000 VITAE.</source>
+        <source>Unable to locate enough Obfuscation non-denominated funds for this transaction that are not equal 10000 CaritasCoin.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Unable to locate enough funds for this transaction that are not equal 10000 VITAE.</source>
+        <source>Unable to locate enough funds for this transaction that are not equal 10000 CaritasCoin.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6244,7 +6244,7 @@ for example: alertnotify=echo %%s | mail -s &quot;VITAE Alert&quot; admin@foo.co
     </message>
     <message>
         <location line="+3"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong VITAE Core will not work properly.</source>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong CaritasCoin Core will not work properly.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6444,7 +6444,7 @@ for example: alertnotify=echo %%s | mail -s &quot;VITAE Alert&quot; admin@foo.co
     </message>
     <message>
         <location line="+1"/>
-        <source>Copyright (C) 2018The VITAE Core Developers</source>
+        <source>Copyright (C) 2018The CaritasCoin Core Developers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6559,7 +6559,7 @@ for example: alertnotify=echo %%s | mail -s &quot;VITAE Alert&quot; admin@foo.co
     </message>
     <message>
         <location line="+1"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of VITAE Core</source>
+        <source>Error loading wallet.dat: Wallet requires newer version of CaritasCoin Core</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6639,7 +6639,7 @@ for example: alertnotify=echo %%s | mail -s &quot;VITAE Alert&quot; admin@foo.co
     </message>
     <message>
         <location line="+1"/>
-        <source>Fee (in VITAE/kB) to add to transactions you send (default: %s)</source>
+        <source>Fee (in CaritasCoin/kB) to add to transactions you send (default: %s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6714,7 +6714,7 @@ for example: alertnotify=echo %%s | mail -s &quot;VITAE Alert&quot; admin@foo.co
     </message>
     <message>
         <location line="+1"/>
-        <source>Initialization sanity check failed. VITAE Core is shutting down.</source>
+        <source>Initialization sanity check failed. CaritasCoin Core is shutting down.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6831,7 +6831,7 @@ for example: alertnotify=echo %%s | mail -s &quot;VITAE Alert&quot; admin@foo.co
     </message>
     <message>
         <location line="+38"/>
-        <source>Disable all VITAE specific functionality (Masternodes, Zerocoin, SwiftX, Budgeting) (0-1, default: %u)</source>
+        <source>Disable all CaritasCoin specific functionality (Masternodes, Zerocoin, SwiftX, Budgeting) (0-1, default: %u)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6841,7 +6841,7 @@ for example: alertnotify=echo %%s | mail -s &quot;VITAE Alert&quot; admin@foo.co
     </message>
     <message>
         <location line="+2"/>
-        <source>Enable automatic wallet backups triggered after each zVITAE minting (0-1, default: %u)</source>
+        <source>Enable automatic wallet backups triggered after each zCARITAS minting (0-1, default: %u)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7591,7 +7591,7 @@ for example: alertnotify=echo %%s | mail -s &quot;VITAE Alert&quot; admin@foo.co
     </message>
     <message>
         <location line="+1"/>
-        <source>Wallet needed to be rewritten: restart VITAE Core to complete</source>
+        <source>Wallet needed to be rewritten: restart CaritasCoin Core to complete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

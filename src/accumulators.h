@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef VITAE_ACCUMULATORS_H
-#define VITAE_ACCUMULATORS_H
+#ifndef CaritasCoin_ACCUMULATORS_H
+#define CaritasCoin_ACCUMULATORS_H
 
 #include "libzerocoin/Accumulator.h"
 #include "libzerocoin/Denominations.h"
@@ -22,4 +22,4 @@ uint32_t ParseChecksum(uint256 nChecksum, libzerocoin::CoinDenomination denomina
 uint32_t GetChecksum(const CBigNum &bnValue);
 bool InvalidCheckpointRange(int nHeight);
 
-#endif //VITAE_ACCUMULATORS_H
+#endif //CaritasCoin_ACCUMULATORS_H

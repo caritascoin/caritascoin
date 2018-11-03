@@ -41,12 +41,12 @@
         <file alias="tx_input">res/icons/tx_input.png</file>
         <file alias="tx_output">res/icons/tx_output.png</file>
         <file alias="tx_inout">res/icons/tx_inout.png</file>
-        <file alias="unit_vitae">res/icons/unit_vitae.png</file>
-        <file alias="unit_mvitae">res/icons/unit_mvitae.png</file>
-        <file alias="unit_uvitae">res/icons/unit_uvitae.png</file>
-        <file alias="unit_tvitae">res/icons/unit_tvitae.png</file>
-        <file alias="unit_tmvitae">res/icons/unit_tmvitae.png</file>
-        <file alias="unit_tuvitae">res/icons/unit_tuvitae.png</file>
+        <file alias="unit_caritas">res/icons/unit_caritas.png</file>
+        <file alias="unit_mcaritas">res/icons/unit_mcaritas.png</file>
+        <file alias="unit_ucaritas">res/icons/unit_ucaritas.png</file>
+        <file alias="unit_tcaritas">res/icons/unit_tcaritas.png</file>
+        <file alias="unit_tmcaritas">res/icons/unit_tmcaritas.png</file>
+        <file alias="unit_tucaritas">res/icons/unit_tucaritas.png</file>
         <file alias="lock_closed">res/icons/lock_closed.png</file>
         <file alias="lock_open">res/icons/lock_open.png</file>
         <file alias="key">res/icons/key.png</file>
@@ -62,7 +62,7 @@
     </qresource>
     <qresource prefix="/images">
         <file alias="about">res/images/about.png</file>
-        <file alias="vitae_logo_horizontal">res/images/vitae_logo_horizontal.png</file>
+        <file alias="caritas_logo_horizontal">res/images/caritas_logo_horizontal.png</file>
         <file alias="downArrow">res/images/downArrow_dark.png</file>
         <file alias="downArrow_small">res/images/downArrow_small_dark.png</file>
         <file alias="downArrow_small_white">res/images/downArrow_small.png</file>

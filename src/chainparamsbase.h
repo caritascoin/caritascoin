@@ -10,7 +10,7 @@
 #include <vector>
 
 /**
- * CBaseChainParams defines the base parameters (shared between vitae-cli and vitaed)
+ * CBaseChainParams defines the base parameters (shared between caritas-cli and caritasd)
  * of a given instance of the Vitae system.
  */
 class CBaseChainParams

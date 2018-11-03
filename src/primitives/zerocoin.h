@@ -1,8 +1,8 @@
 // Copyright (c) 2017 The VITAE developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#ifndef VITAE_ZEROCOIN_H
-#define VITAE_ZEROCOIN_H
+#ifndef CARITASCOIN_ZEROCOIN_H
+#define CARITASCOIN_ZEROCOIN_H
 
 #include <amount.h>
 #include <limits.h>
@@ -189,4 +189,4 @@ public:
     int GetNeededSpends();
 };
 
-#endif //VITAE_ZEROCOIN_H
+#endif //CARITASCOIN_ZEROCOIN_H

@@ -62,12 +62,12 @@
         <translation>Vastaanottavat osoitteet</translation>
     </message>
     <message>
-        <source>These are your VITAE addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Nämä ovat sinun VITAE osoitteesi maksujen lähetystä varten. Tarkista aina määrä ja vastaanottava osoite ennen kolikoiden lähettämistä.</translation>
+        <source>These are your CaritasCoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Nämä ovat sinun CaritasCoin osoitteesi maksujen lähetystä varten. Tarkista aina määrä ja vastaanottava osoite ennen kolikoiden lähettämistä.</translation>
     </message>
     <message>
-        <source>These are your VITAE addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Nämä ovat sinun VITAE osoitteesi maksujen vastaanottamista varten. On suositeltavaa käyttää uutta vastaanottavaa osoitetta jokaiselle uudelle rahansiirrolle.</translation>
+        <source>These are your CaritasCoin addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Nämä ovat sinun CaritasCoin osoitteesi maksujen vastaanottamista varten. On suositeltavaa käyttää uutta vastaanottavaa osoitetta jokaiselle uudelle rahansiirrolle.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -172,15 +172,15 @@
         <translation>Vahvista lompakon salaus</translation>
     </message>
     <message>
-        <source>VITAE will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your VITs from being stolen by malware infecting your computer.</source>
-        <translation>VITAE sulkeutuu salausprosessin ajaksi. Muista, että lompakon salaus ei voi täysin suojella VITien varkaudelta, jos tietokoneesi sisältää haittaohjelmia.</translation>
+        <source>CaritasCoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your VITs from being stolen by malware infecting your computer.</source>
+        <translation>CaritasCoin sulkeutuu salausprosessin ajaksi. Muista, että lompakon salaus ei voi täysin suojella VITien varkaudelta, jos tietokoneesi sisältää haittaohjelmia.</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
         <translation>Oletko varma että tahdot salata lompakkosi?</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR VITAE&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR CaritasCoin&lt;/b&gt;!</source>
         <translation>Varoitus: Jos salaat lompakkosi ja unohdat salausavaimesi, &lt;b&gt;menetät kaikki VITisi&lt;/b&gt;</translation>
     </message>
     <message>
@@ -244,8 +244,8 @@ Syötä salausavain laatikon keskelle. Paina salaa tuottaaksesi salatun yksityis
         <translation>Osoite:</translation>
     </message>
     <message>
-        <source>The VITAE address to sign the message with</source>
-        <translation>VITAE osoite, jolla viesti allekirjoitetaan</translation>
+        <source>The CaritasCoin address to sign the message with</source>
+        <translation>CaritasCoin osoite, jolla viesti allekirjoitetaan</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -276,8 +276,8 @@ Syötä salausavain laatikon keskelle. Paina salaa tuottaaksesi salatun yksityis
         <translation>Kopioi nykyinen allekirjoitus järjestelmän leikepöydälle</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this VITAE address</source>
-        <translation>Allekirjoita viesti todistaaksesi, että omistat tämän VITAE osoitteen</translation>
+        <source>Sign the message to prove you own this CaritasCoin address</source>
+        <translation>Allekirjoita viesti todistaaksesi, että omistat tämän CaritasCoin osoitteen</translation>
     </message>
     <message>
         <source>Encrypt &amp;Key</source>
@@ -300,12 +300,12 @@ Syötä salausavain laatikon keskelle. Paina salaa tuottaaksesi salatun yksityis
         <translation>Syötä BIP 38 salattu yksityisavain. Syötä salausavain laatikkoon. Paina Avaa Salaus tuottaaksesi yksityisavaimen. Kun avain on dekryptattu, painamalla "Import osoite" lisää tämän yksityisavaimen lompakkoon.</translation>
     </message>
     <message>
-        <source>The VITAE address the message was signed with</source>
-        <translation>VITAE osoite, jolla viesti allekirjoitettiin</translation>
+        <source>The CaritasCoin address the message was signed with</source>
+        <translation>CaritasCoin osoite, jolla viesti allekirjoitettiin</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified VITAE address</source>
-        <translation>Vahvista että viesti on allekirjoitettu kyseessä olevalla VITAE osoitteella.</translation>
+        <source>Verify the message to ensure it was signed with the specified CaritasCoin address</source>
+        <translation>Vahvista että viesti on allekirjoitettu kyseessä olevalla CaritasCoin osoitteella.</translation>
     </message>
     <message>
         <source>Decrypt &amp;Key</source>
@@ -591,12 +591,12 @@ Syötä salausavain laatikon keskelle. Paina salaa tuottaaksesi salatun yksityis
         <translation>&amp;Apua</translation>
     </message>
     <message>
-        <source>VITAE Core</source>
-        <translation>VITAE Ydin</translation>
+        <source>CaritasCoin Core</source>
+        <translation>CaritasCoin Ydin</translation>
     </message>
     <message>
-        <source>Send coins to a VITAE address</source>
-        <translation>Lähetä kolikkoja VITAE osoitteeseen</translation>
+        <source>Send coins to a CaritasCoin address</source>
+        <translation>Lähetä kolikkoja CaritasCoin osoitteeseen</translation>
     </message>
     <message>
         <source>Request payments (generates QR codes and vitae: URIs)</source>
@@ -611,24 +611,24 @@ Syötä salausavain laatikon keskelle. Paina salaa tuottaaksesi salatun yksityis
         <translation>Selaa masternodeja</translation>
     </message>
     <message>
-        <source>&amp;About VITAE Core</source>
-        <translation>VITAE Core &amp;ytimestä</translation>
+        <source>&amp;About CaritasCoin Core</source>
+        <translation>CaritasCoin Core &amp;ytimestä</translation>
     </message>
     <message>
-        <source>Show information about VITAE Core</source>
-        <translation>Näytä tietoja VITAE Ytimestä</translation>
+        <source>Show information about CaritasCoin Core</source>
+        <translation>Näytä tietoja CaritasCoin Ytimestä</translation>
     </message>
     <message>
-        <source>Modify configuration options for VITAE</source>
-        <translation>Muokkaa konfiguraatio vaihtoehtoja VITAE:lle</translation>
+        <source>Modify configuration options for CaritasCoin</source>
+        <translation>Muokkaa konfiguraatio vaihtoehtoja CaritasCoin:lle</translation>
     </message>
     <message>
-        <source>Sign messages with your VITAE addresses to prove you own them</source>
+        <source>Sign messages with your CaritasCoin addresses to prove you own them</source>
         <translation>Allekirjoita viestejä todistaaksesi, että omistat ne.</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified VITAE addresses</source>
-        <translation>Vahvista viestit varmistaaksesi, että ne allekirjoitettiin tietyllä VITAE osoiteella.</translation>
+        <source>Verify messages to ensure they were signed with specified CaritasCoin addresses</source>
+        <translation>Vahvista viestit varmistaaksesi, että ne allekirjoitettiin tietyllä CaritasCoin osoiteella.</translation>
     </message>
     <message>
         <source>&amp;BIP38 tool</source>
@@ -659,8 +659,8 @@ Syötä salausavain laatikon keskelle. Paina salaa tuottaaksesi salatun yksityis
         <translation>Avaa Masternode konfiguraatiotiedosto</translation>
     </message>
     <message>
-        <source>Open a VITAE: URI or payment request</source>
-        <translation>Avaa VITAE: URI tai pyydä maksua</translation>
+        <source>Open a CaritasCoin: URI or payment request</source>
+        <translation>Avaa CaritasCoin: URI tai pyydä maksua</translation>
     </message>
     <message>
         <source>&amp;Blockchain explorer</source>
@@ -671,12 +671,12 @@ Syötä salausavain laatikon keskelle. Paina salaa tuottaaksesi salatun yksityis
         <translation>Lohkon tutkija näkymä</translation>
     </message>
     <message>
-        <source>Show the VITAE Core help message to get a list with possible VITAE command-line options</source>
-        <translation>Näytä VITAE Ydin apuviesti saadaksesi lista mahdollisista VITAE komentolinja komennoista.</translation>
+        <source>Show the CaritasCoin Core help message to get a list with possible CaritasCoin command-line options</source>
+        <translation>Näytä CaritasCoin Ydin apuviesti saadaksesi lista mahdollisista CaritasCoin komentolinja komennoista.</translation>
     </message>
     <message>
-        <source>VITAE Core client</source>
-        <translation>VITAE Ydin asiakasohjelma</translation>
+        <source>CaritasCoin Core client</source>
+        <translation>CaritasCoin Ydin asiakasohjelma</translation>
     </message>
     <message>
         <source>Synchronizing with network...</source>
@@ -934,8 +934,8 @@ Syötä salausavain laatikon keskelle. Paina salaa tuottaaksesi salatun yksityis
 <context>
     <name>HelpMessageDialog</name>
     <message>
-        <source>VITAE Core</source>
-        <translation>VITAE Ydin</translation>
+        <source>CaritasCoin Core</source>
+        <translation>CaritasCoin Ydin</translation>
     </message>
     <message>
         <source>Usage:</source>
@@ -953,12 +953,12 @@ Syötä salausavain laatikon keskelle. Paina salaa tuottaaksesi salatun yksityis
         <translation>Tervetuloa</translation>
     </message>
     <message>
-        <source>Welcome to VITAE Core.</source>
-        <translation>Tervetuloa VITAE Ytimeen.</translation>
+        <source>Welcome to CaritasCoin Core.</source>
+        <translation>Tervetuloa CaritasCoin Ytimeen.</translation>
     </message>
     <message>
-        <source>VITAE Core</source>
-        <translation>VITAE Ydin</translation>
+        <source>CaritasCoin Core</source>
+        <translation>CaritasCoin Ydin</translation>
     </message>
     <message>
         <source>Error</source>
@@ -1135,32 +1135,32 @@ Please check the address and try again.</source>
         <translation>Valitse yksityisyyden taso.</translation>
     </message>
     <message>
-        <source>Use 2 separate masternodes to mix funds up to 10000 VITAE</source>
-        <translation>Käytä 2 erillistä masternodea sekoittaaksesi enintään 10000 VITAE</translation>
+        <source>Use 2 separate masternodes to mix funds up to 10000 CaritasCoin</source>
+        <translation>Käytä 2 erillistä masternodea sekoittaaksesi enintään 10000 CaritasCoin</translation>
     </message>
     <message>
-        <source>Use 8 separate masternodes to mix funds up to 10000 VITAE</source>
-        <translation>Käytä 8 erillistä masternodea sekoittaaksesi enintään 10000 VITAE</translation>
+        <source>Use 8 separate masternodes to mix funds up to 10000 CaritasCoin</source>
+        <translation>Käytä 8 erillistä masternodea sekoittaaksesi enintään 10000 CaritasCoin</translation>
     </message>
     <message>
         <source>Use 16 separate masternodes</source>
         <translation>Käytä 16 erillistä masternodea</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 VITAE to anonymize 10000 VITAE</source>
-        <translation>Tämä vaihtoehto on nopein ja maksaa noin ~0.025 VITAE anonymoidaksesi 10000 VITAE</translation>
+        <source>This option is the quickest and will cost about ~0.025 CaritasCoin to anonymize 10000 CaritasCoin</source>
+        <translation>Tämä vaihtoehto on nopein ja maksaa noin ~0.025 CaritasCoin anonymoidaksesi 10000 CaritasCoin</translation>
     </message>
     <message>
-        <source>This option is moderately fast and will cost about 0.05 VITAE to anonymize 10000 VITAE</source>
-        <translation>Tämä vaihtoehto on suhteellisen nopea ja maksaa 0.05 VITAE anonymoidaksesi 10000 VITAE</translation>
+        <source>This option is moderately fast and will cost about 0.05 CaritasCoin to anonymize 10000 CaritasCoin</source>
+        <translation>Tämä vaihtoehto on suhteellisen nopea ja maksaa 0.05 CaritasCoin anonymoidaksesi 10000 CaritasCoin</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
         <translation>Tämä on hitain ja turvallisin vaihtoehto. Täydesti anonymisoiminen ei maksa mitään.</translation>
     </message>
     <message>
-        <source>0.1 VITAE per 10000 VITAE you anonymize.</source>
-        <translation>0.1 per 10000 VITAE, jotka anonymisoit.</translation>
+        <source>0.1 CaritasCoin per 10000 CaritasCoin you anonymize.</source>
+        <translation>0.1 per 10000 CaritasCoin, jotka anonymisoit.</translation>
     </message>
     <message>
         <source>Obfuscation Configuration</source>
@@ -1209,12 +1209,12 @@ Please check the address and try again.</source>
         <translation>Ekspertti</translation>
     </message>
     <message>
-        <source>Automatically start VITAE after logging in to the system.</source>
-        <translation>Automaattisesti käynnistä VITAE kun kirjaudut sisään.</translation>
+        <source>Automatically start CaritasCoin after logging in to the system.</source>
+        <translation>Automaattisesti käynnistä CaritasCoin kun kirjaudut sisään.</translation>
     </message>
     <message>
-        <source>&amp;Start VITAE on system login</source>
-        <translation>&amp;Aloita VITAE järjestelmän kirjautumisessa</translation>
+        <source>&amp;Start CaritasCoin on system login</source>
+        <translation>&amp;Aloita CaritasCoin järjestelmän kirjautumisessa</translation>
     </message>
     <message>
         <source>Enable coin &amp;control features</source>
@@ -1233,12 +1233,12 @@ Please check the address and try again.</source>
         <translation>&amp;Verkko</translation>
     </message>
     <message>
-        <source>The user interface language can be set here. This setting will take effect after restarting VITAE.</source>
+        <source>The user interface language can be set here. This setting will take effect after restarting CaritasCoin.</source>
         <translation>Käyttöliittymän kielen voi säätää täällä. Tämä asetus tulee voimaan uudelleenkäynnistettyäsi lompakon.</translation>
     </message>
     <message>
-        <source>Connect to the VITAE network through a SOCKS5 proxy.</source>
-        <translation>Yhdistä VITAE verkkoon SOCKS5 proxyn kautta</translation>
+        <source>Connect to the CaritasCoin network through a SOCKS5 proxy.</source>
+        <translation>Yhdistä CaritasCoin verkkoon SOCKS5 proxyn kautta</translation>
     </message>
     <message>
         <source>Proxy &amp;IP:</source>
@@ -1542,8 +1542,8 @@ Please check the address and try again.</source>
         <translation>Lohko ketju</translation>
     </message>
     <message>
-        <source>Open the VITAE debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Avaa VITAE debug loki nykyisestä sijainnista. Tämä voi kestää muutaman sekunnin suurille lokeille</translation>
+        <source>Open the CaritasCoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Avaa CaritasCoin debug loki nykyisestä sijainnista. Tämä voi kestää muutaman sekunnin suurille lokeille</translation>
     </message>
     <message>
         <source>Number of Masternodes</source>
@@ -1654,8 +1654,8 @@ Please check the address and try again.</source>
         <translation>Ulos:</translation>
     </message>
     <message>
-        <source>Welcome to the VITAE RPC console.</source>
-        <translation>Tervetuloa VITAE RPC konsoliin.</translation>
+        <source>Welcome to the CaritasCoin RPC console.</source>
+        <translation>Tervetuloa CaritasCoin RPC konsoliin.</translation>
     </message>
     <message>
         <source>never</source>
@@ -1697,12 +1697,12 @@ Please check the address and try again.</source>
         <translation>Vaihtoehtoinen nimike uudelle vastaanottavalle osoitteelle</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the VITAE network.</source>
-        <translation>Vaihtoehtoinen viesti joka liitetään maksupyyntöön, joka näytetään kun pyyntö avataan. Huomio: Viestiä ei lähetetä maksun mukana VITAE verkolle.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the CaritasCoin network.</source>
+        <translation>Vaihtoehtoinen viesti joka liitetään maksupyyntöön, joka näytetään kun pyyntö avataan. Huomio: Viestiä ei lähetetä maksun mukana CaritasCoin verkolle.</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the VITAE network.</source>
-        <translation>Vaihtoehtoinen viesti, joka liitetään maksupyyntöö, joka näytetään kun pyyntö avataan. &lt;br&gt; Huomio: Tätä viestiä ei lähetetä maksun mukana VITAE  verkolle.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the CaritasCoin network.</source>
+        <translation>Vaihtoehtoinen viesti, joka liitetään maksupyyntöö, joka näytetään kun pyyntö avataan. &lt;br&gt; Huomio: Tätä viestiä ei lähetetä maksun mukana CaritasCoin  verkolle.</translation>
     </message>
     <message>
         <source>Use this form to request payments. All fields are &lt;b&gt;optional&lt;/b&gt;.</source>
@@ -1898,8 +1898,8 @@ Please check the address and try again.</source>
         <translation>Muutos:</translation>
     </message>
     <message>
-        <source>0 VITAE</source>
-        <translation>0 VITAE</translation>
+        <source>0 CaritasCoin</source>
+        <translation>0 CaritasCoin</translation>
     </message>
     <message>
         <source>Choose...</source>
@@ -1982,8 +1982,8 @@ Please check the address and try again.</source>
         <translation>käyttää</translation>
     </message>
     <message>
-        <source>Warning: Invalid VITAE address</source>
-        <translation>Varoitus: Virheellinen VITAE osoite</translation>
+        <source>Warning: Invalid CaritasCoin address</source>
+        <translation>Varoitus: Virheellinen CaritasCoin osoite</translation>
     </message>
     <message>
         <source>Are you sure you want to send?</source>
@@ -2029,8 +2029,8 @@ Please check the address and try again.</source>
         <translation>Tämä on normaali maksu.</translation>
     </message>
     <message>
-        <source>The VITAE address to send the payment to</source>
-        <translation>VITAE osoite johon maksu lähetetään</translation>
+        <source>The CaritasCoin address to send the payment to</source>
+        <translation>CaritasCoin osoite johon maksu lähetetään</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2072,8 +2072,8 @@ Please check the address and try again.</source>
 <context>
     <name>ShutdownWindow</name>
     <message>
-        <source>VITAE Core is shutting down...</source>
-        <translation>VITAE core sammuu...</translation>
+        <source>CaritasCoin Core is shutting down...</source>
+        <translation>CaritasCoin core sammuu...</translation>
     </message>
     <message>
         <source>Do not shut down the computer until this window disappears.</source>
@@ -2091,8 +2091,8 @@ Please check the address and try again.</source>
         <translation>Voit allekirjoittaa viestejä osoitteillasi todistaaksesi, että omistat ne. Ole varovainen ettet allekirjoita mitään kummallista, sillä kalasteluyritykset saattavat yrittää huijata sinut luovuttamaan tietoja. Allekirjoita vain täysin yksityiskohtaisia sanomia, jotka hyväksyt.</translation>
     </message>
     <message>
-        <source>The VITAE address to sign the message with</source>
-        <translation>VITAE osoite, jolla viesti allekirjoitetaan</translation>
+        <source>The CaritasCoin address to sign the message with</source>
+        <translation>CaritasCoin osoite, jolla viesti allekirjoitetaan</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2123,16 +2123,16 @@ Please check the address and try again.</source>
         <translation>Kopioi nykyinen allekirjoitus järjestelmän leikepöydälle</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this VITAE address</source>
-        <translation>Allekirjoita viesti todistaaksesi, että omistat tämän VITAE osoitteen</translation>
+        <source>Sign the message to prove you own this CaritasCoin address</source>
+        <translation>Allekirjoita viesti todistaaksesi, että omistat tämän CaritasCoin osoitteen</translation>
     </message>
     <message>
-        <source>The VITAE address the message was signed with</source>
-        <translation>VITAE osoite, jolla viesti allekirjoitettiin</translation>
+        <source>The CaritasCoin address the message was signed with</source>
+        <translation>CaritasCoin osoite, jolla viesti allekirjoitettiin</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified VITAE address</source>
-        <translation>Vahvista että viesti on allekirjoitettu kyseessä olevalla VITAE osoitteella.</translation>
+        <source>Verify the message to ensure it was signed with the specified CaritasCoin address</source>
+        <translation>Vahvista että viesti on allekirjoitettu kyseessä olevalla CaritasCoin osoitteella.</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -2214,8 +2214,8 @@ Please check the address and try again.</source>
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>VITAE Core</source>
-        <translation>VITAE Ydin</translation>
+        <source>CaritasCoin Core</source>
+        <translation>CaritasCoin Ydin</translation>
     </message>
     <message>
         <source>Version %1</source>
@@ -2230,8 +2230,8 @@ Please check the address and try again.</source>
         <translation>Dash Core kehittäjät</translation>
     </message>
     <message>
-        <source>The VITAE Core developers</source>
-        <translation>VITAE core kehittäjät</translation>
+        <source>The CaritasCoin Core developers</source>
+        <translation>CaritasCoin core kehittäjät</translation>
     </message>
     <message>
         <source>[testnet]</source>
@@ -2591,8 +2591,8 @@ Please check the address and try again.</source>
         <translation>Virhe ladattaessa wallet.dat tiedostoa: Lompakko korruptoitunut</translation>
     </message>
     <message>
-        <source>Error loading wallet.dat: Wallet requires newer version of VITAE Core</source>
-        <translation>Virhe ladattaessa wallet.dat tiedostoa: Lompakko vaatii uudemman version VITAE Coresta</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of CaritasCoin Core</source>
+        <translation>Virhe ladattaessa wallet.dat tiedostoa: Lompakko vaatii uudemman version CaritasCoin Coresta</translation>
     </message>
     <message>
         <source>Error reading from database, shutting down.</source>

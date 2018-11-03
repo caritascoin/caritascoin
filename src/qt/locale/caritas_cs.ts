@@ -62,12 +62,12 @@
         <translation>Adresy pro přijetí peněz</translation>
     </message>
     <message>
-        <source>These are your VITAE addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Toto jsou Vaše VITAE adresy pro poslání platby. Vždy si překontrolujte množství peněz a cílovou adresu než platbu odešlete.</translation>
+        <source>These are your CaritasCoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Toto jsou Vaše CaritasCoin adresy pro poslání platby. Vždy si překontrolujte množství peněz a cílovou adresu než platbu odešlete.</translation>
     </message>
     <message>
-        <source>These are your VITAE addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Toto jsou Vaše VITAE adresy pro přijetí plateb. Je doporučeno použít novou adresu pro každou novou transakci.</translation>
+        <source>These are your CaritasCoin addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Toto jsou Vaše CaritasCoin adresy pro přijetí plateb. Je doporučeno použít novou adresu pro každou novou transakci.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -176,15 +176,15 @@
         <translation>Potvrdit zašifrování peněženky</translation>
     </message>
     <message>
-        <source>VITAE will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your VITs from being stolen by malware infecting your computer.</source>
-        <translation>VITAE se teď zavře pro dokončení šifrovacího procesu. Prosím, vemte na vědomí, že zašifrování Vaší peněženky plně neochrání Vaše VITy před krádží, pokud je Váš počítač infikován malwarem.</translation>
+        <source>CaritasCoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your VITs from being stolen by malware infecting your computer.</source>
+        <translation>CaritasCoin se teď zavře pro dokončení šifrovacího procesu. Prosím, vemte na vědomí, že zašifrování Vaší peněženky plně neochrání Vaše VITy před krádží, pokud je Váš počítač infikován malwarem.</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
         <translation>Opravdu chcete zašifrovat Vaši peněženku?</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR VITAE&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR CaritasCoin&lt;/b&gt;!</source>
         <translation>Varování: Pokud zašifrujete svou peněženku a ztratíte frázové heslo, tak &lt;b&gt;ZTRATÍTE VŠECHNY VAŠE VITy&lt;/b&gt;!</translation>
     </message>
     <message>
@@ -240,15 +240,15 @@
     </message>
     <message>
         <source>Enter a Vitae Address that you would like to encrypt using BIP 38. Enter a passphrase in the middle box. Press encrypt to compute the encrypted private key.</source>
-        <translation>Zadejte VITAE adresu, kterou si přejete zašifrovat pomocí BIP38. Frázové heslo zadejte do prostředního boxu. Stiskněte šifrovat pro výpočet šifrovaného privátního klíče.</translation>
+        <translation>Zadejte CaritasCoin adresu, kterou si přejete zašifrovat pomocí BIP38. Frázové heslo zadejte do prostředního boxu. Stiskněte šifrovat pro výpočet šifrovaného privátního klíče.</translation>
     </message>
     <message>
         <source>Address:</source>
         <translation>Adresa:</translation>
     </message>
     <message>
-        <source>The VITAE address to sign the message with</source>
-        <translation>VITAE adresa pro podepsání zprávy</translation>
+        <source>The CaritasCoin address to sign the message with</source>
+        <translation>CaritasCoin adresa pro podepsání zprávy</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -279,8 +279,8 @@
         <translation>Kopírovat aktuální podpis do systémové mezipaměti</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this VITAE address</source>
-        <translation>Podepsat zprávu k prokázání, že vlastníte tuto VITAE adresu</translation>
+        <source>Sign the message to prove you own this CaritasCoin address</source>
+        <translation>Podepsat zprávu k prokázání, že vlastníte tuto CaritasCoin adresu</translation>
     </message>
     <message>
         <source>Encrypt &amp;Key</source>
@@ -303,12 +303,12 @@
         <translation>Vložte BIP 38 šifrovaný privítní klíc. Frázové heslo vložte do prostředního boxu. Kliknětě na Dešifrovat Klíč pro výpočet privátního klíče. Poté co bude klíč dešifrován, kliknutím na 'Importovat Adresu' přidáte privátní klíč do Vaší peněženky.</translation>
     </message>
     <message>
-        <source>The VITAE address the message was signed with</source>
-        <translation>VITAE adresa zprávy byla podpsána</translation>
+        <source>The CaritasCoin address the message was signed with</source>
+        <translation>CaritasCoin adresa zprávy byla podpsána</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified VITAE address</source>
-        <translation>Verifikujte zprávu pro ujištění, že byla podepsána zmíněnou VITAE adresou</translation>
+        <source>Verify the message to ensure it was signed with the specified CaritasCoin address</source>
+        <translation>Verifikujte zprávu pro ujištění, že byla podepsána zmíněnou CaritasCoin adresou</translation>
     </message>
     <message>
         <source>Decrypt &amp;Key</source>
@@ -598,12 +598,12 @@
         <translation>Nástrojová lišta záložek</translation>
     </message>
     <message>
-        <source>VITAE Core</source>
-        <translation>VITAE Core</translation>
+        <source>CaritasCoin Core</source>
+        <translation>CaritasCoin Core</translation>
     </message>
     <message>
-        <source>Send coins to a VITAE address</source>
-        <translation>Odeslat platbuna VITAE adresu</translation>
+        <source>Send coins to a CaritasCoin address</source>
+        <translation>Odeslat platbuna CaritasCoin adresu</translation>
     </message>
     <message>
         <source>Request payments (generates QR codes and vitae: URIs)</source>
@@ -618,24 +618,24 @@
         <translation>Procházet masternody</translation>
     </message>
     <message>
-        <source>&amp;About VITAE Core</source>
-        <translation>&amp;O VITAE Core</translation>
+        <source>&amp;About CaritasCoin Core</source>
+        <translation>&amp;O CaritasCoin Core</translation>
     </message>
     <message>
-        <source>Show information about VITAE Core</source>
-        <translation>Zobraz informace o VITAE Core</translation>
+        <source>Show information about CaritasCoin Core</source>
+        <translation>Zobraz informace o CaritasCoin Core</translation>
     </message>
     <message>
-        <source>Modify configuration options for VITAE</source>
-        <translation>Upravit možnosti konfigurace pro VITAE</translation>
+        <source>Modify configuration options for CaritasCoin</source>
+        <translation>Upravit možnosti konfigurace pro CaritasCoin</translation>
     </message>
     <message>
-        <source>Sign messages with your VITAE addresses to prove you own them</source>
-        <translation>Podepsat zprávy Vaší VITAE adresou pro prokázaní, že jste jejich vlastníkem</translation>
+        <source>Sign messages with your CaritasCoin addresses to prove you own them</source>
+        <translation>Podepsat zprávy Vaší CaritasCoin adresou pro prokázaní, že jste jejich vlastníkem</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified VITAE addresses</source>
-        <translation>Ověřit zprávy k zajištění, že bylypodepsány vybranými VITAE adresami</translation>
+        <source>Verify messages to ensure they were signed with specified CaritasCoin addresses</source>
+        <translation>Ověřit zprávy k zajištění, že bylypodepsány vybranými CaritasCoin adresami</translation>
     </message>
     <message>
         <source>&amp;BIP38 tool</source>
@@ -666,8 +666,8 @@
         <translation>Otevřít Masternodový konfigurační soubor</translation>
     </message>
     <message>
-        <source>Open a VITAE: URI or payment request</source>
-        <translation>Otevřít VITAE: URI nebo platební žádost</translation>
+        <source>Open a CaritasCoin: URI or payment request</source>
+        <translation>Otevřít CaritasCoin: URI nebo platební žádost</translation>
     </message>
     <message>
         <source>&amp;Blockchain explorer</source>
@@ -678,12 +678,12 @@
         <translation>Okno blokového průzkumníka</translation>
     </message>
     <message>
-        <source>Show the VITAE Core help message to get a list with possible VITAE command-line options</source>
-        <translation>Zobrazit VITAE Core pomocnou zpráv pro získání seznamu možných parametrů VITAE pro příkazy do příkazové řádky</translation>
+        <source>Show the CaritasCoin Core help message to get a list with possible CaritasCoin command-line options</source>
+        <translation>Zobrazit CaritasCoin Core pomocnou zpráv pro získání seznamu možných parametrů CaritasCoin pro příkazy do příkazové řádky</translation>
     </message>
     <message>
-        <source>VITAE Core client</source>
-        <translation>VITAE Core klient</translation>
+        <source>CaritasCoin Core client</source>
+        <translation>CaritasCoin Core klient</translation>
     </message>
     <message>
         <source>Synchronizing with network...</source>
@@ -1066,8 +1066,8 @@ MultiSend: %1</translation>
         <translation>Upravit adresu k odeslání platby</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid VITAE address.</source>
-        <translation>Zadaná adresa "%1" není validní VITAE adresa.</translation>
+        <source>The entered address "%1" is not a valid CaritasCoin address.</source>
+        <translation>Zadaná adresa "%1" není validní CaritasCoin adresa.</translation>
     </message>
     <message>
         <source>The entered address "%1" is already in the address book.</source>
@@ -1112,12 +1112,12 @@ MultiSend: %1</translation>
         <translation>verze</translation>
     </message>
     <message>
-        <source>VITAE Core</source>
-        <translation>VITAE Core</translation>
+        <source>CaritasCoin Core</source>
+        <translation>CaritasCoin Core</translation>
     </message>
     <message>
-        <source>About VITAE Core</source>
-        <translation>O VITAE Core</translation>
+        <source>About CaritasCoin Core</source>
+        <translation>O CaritasCoin Core</translation>
     </message>
     <message>
         <source>Command-line options</source>
@@ -1151,16 +1151,16 @@ MultiSend: %1</translation>
         <translation>Vítejte</translation>
     </message>
     <message>
-        <source>Welcome to VITAE Core.</source>
-        <translation>Vítejte v VITAE Core.</translation>
+        <source>Welcome to CaritasCoin Core.</source>
+        <translation>Vítejte v CaritasCoin Core.</translation>
     </message>
     <message>
-        <source>As this is the first time the program is launched, you can choose where VITAE Core will store its data.</source>
-        <translation>Při prvním spuštění programu si můžete vybrat, kam bude VITAE Core ukládat svá data.</translation>
+        <source>As this is the first time the program is launched, you can choose where CaritasCoin Core will store its data.</source>
+        <translation>Při prvním spuštění programu si můžete vybrat, kam bude CaritasCoin Core ukládat svá data.</translation>
     </message>
     <message>
-        <source>VITAE Core will download and store a copy of the VITAE block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>VITAE Core stáhne a uloží kopii VITAE blockchainu. Nejméně %1GB dat bude do této složky uloženo a v průběhu času bude ukládat další data. Peněženka bude v této složce uložena také.</translation>
+        <source>CaritasCoin Core will download and store a copy of the CaritasCoin block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>CaritasCoin Core stáhne a uloží kopii CaritasCoin blockchainu. Nejméně %1GB dat bude do této složky uloženo a v průběhu času bude ukládat další data. Peněženka bude v této složce uložena také.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -1171,8 +1171,8 @@ MultiSend: %1</translation>
         <translation>Použít vlastní složku pro data</translation>
     </message>
     <message>
-        <source>VITAE Core</source>
-        <translation>VITAE Core</translation>
+        <source>CaritasCoin Core</source>
+        <translation>CaritasCoin Core</translation>
     </message>
     <message>
         <source>Error: Specified data directory "%1" cannot be created.</source>
@@ -1438,24 +1438,24 @@ Prosím zkontrolujte adresu a zkuste to znovu.</translation>
         <translation>Vyberte úrpvěň ochrany soukromí</translation>
     </message>
     <message>
-        <source>Use 2 separate masternodes to mix funds up to 10000 VITAE</source>
-        <translation>Použí 2 oddělené masternody k promíchání prostředků až do 10000 VITAE</translation>
+        <source>Use 2 separate masternodes to mix funds up to 10000 CaritasCoin</source>
+        <translation>Použí 2 oddělené masternody k promíchání prostředků až do 10000 CaritasCoin</translation>
     </message>
     <message>
         <source>Use 16 separate masternodes</source>
         <translation>Použít 16 oddělených masternodů</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 VITAE to anonymize 10000 VITAE</source>
-        <translation>Tato možnost je nejrychleší a bude stát zhruba ~0.025 VITAE pro anonymizaci 10000 VITAE</translation>
+        <source>This option is the quickest and will cost about ~0.025 CaritasCoin to anonymize 10000 CaritasCoin</source>
+        <translation>Tato možnost je nejrychleší a bude stát zhruba ~0.025 CaritasCoin pro anonymizaci 10000 CaritasCoin</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
         <translation>Toto je nejpomalejší a nejvíce bezpečná volba. Použití maximalní anonymity bude stát</translation>
     </message>
     <message>
-        <source>0.1 VITAE per 10000 VITAE you anonymize.</source>
-        <translation>0.1 VITAE za 10000 VITAE anonymizujete.</translation>
+        <source>0.1 CaritasCoin per 10000 CaritasCoin you anonymize.</source>
+        <translation>0.1 CaritasCoin za 10000 CaritasCoin anonymizujete.</translation>
     </message>
     <message>
         <source>Obfuscation Configuration</source>
@@ -1520,12 +1520,12 @@ Prosím zkontrolujte adresu a zkuste to znovu.</translation>
         <translation>Expert</translation>
     </message>
     <message>
-        <source>Automatically start VITAE after logging in to the system.</source>
-        <translation>Automaticky spustit VITAE po přihlášení do systému</translation>
+        <source>Automatically start CaritasCoin after logging in to the system.</source>
+        <translation>Automaticky spustit CaritasCoin po přihlášení do systému</translation>
     </message>
     <message>
-        <source>&amp;Start VITAE on system login</source>
-        <translation>&amp;Spusti VITAE při přihlášení do systému</translation>
+        <source>&amp;Start CaritasCoin on system login</source>
+        <translation>&amp;Spusti CaritasCoin při přihlášení do systému</translation>
     </message>
     <message>
         <source>Show Masternodes Tab</source>
@@ -2057,8 +2057,8 @@ Prosím zkontrolujte adresu a zkuste to znovu.</translation>
         <translation>Změna:</translation>
     </message>
     <message>
-        <source>0 VITAE</source>
-        <translation>0 VITAE</translation>
+        <source>0 CaritasCoin</source>
+        <translation>0 CaritasCoin</translation>
     </message>
     <message>
         <source>Transaction Fee:</source>
@@ -2186,8 +2186,8 @@ Prosím zkontrolujte adresu a zkuste to znovu.</translation>
 <context>
     <name>SignVerifyMessageDialog</name>
     <message>
-        <source>The VITAE address to sign the message with</source>
-        <translation>VITAE adresa pro podepsání zprávy</translation>
+        <source>The CaritasCoin address to sign the message with</source>
+        <translation>CaritasCoin adresa pro podepsání zprávy</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2214,16 +2214,16 @@ Prosím zkontrolujte adresu a zkuste to znovu.</translation>
         <translation>Kopírovat aktuální podpis do systémové mezipaměti</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this VITAE address</source>
-        <translation>Podepsat zprávu k prokázání, že vlastníte tuto VITAE adresu</translation>
+        <source>Sign the message to prove you own this CaritasCoin address</source>
+        <translation>Podepsat zprávu k prokázání, že vlastníte tuto CaritasCoin adresu</translation>
     </message>
     <message>
-        <source>The VITAE address the message was signed with</source>
-        <translation>VITAE adresa zprávy byla podpsána</translation>
+        <source>The CaritasCoin address the message was signed with</source>
+        <translation>CaritasCoin adresa zprávy byla podpsána</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified VITAE address</source>
-        <translation>Verifikujte zprávu pro ujištění, že byla podepsána zmíněnou VITAE adresou</translation>
+        <source>Verify the message to ensure it was signed with the specified CaritasCoin address</source>
+        <translation>Verifikujte zprávu pro ujištění, že byla podepsána zmíněnou CaritasCoin adresou</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -2265,8 +2265,8 @@ Prosím zkontrolujte adresu a zkuste to znovu.</translation>
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>VITAE Core</source>
-        <translation>VITAE Core</translation>
+        <source>CaritasCoin Core</source>
+        <translation>CaritasCoin Core</translation>
     </message>
     </context>
 <context>

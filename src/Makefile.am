@@ -73,15 +73,15 @@ bin_PROGRAMS =
 TESTS =
 
 if BUILD_BITCOIND
-  bin_PROGRAMS += vitaed
+  bin_PROGRAMS += caritasd
 endif
 
 if BUILD_BITCOIN_UTILS
-  bin_PROGRAMS += vitae-cli vitae-tx
+  bin_PROGRAMS += caritas-cli caritas-tx
 endif
 
 .PHONY: FORCE
-# vitae core #
+# caritascoin core #
 BITCOIN_CORE_H = \
   activefundamentalnode.h \
   activemasternode.h \
@@ -194,7 +194,7 @@ obj/build.h: FORCE
 	  $(abs_top_srcdir)
 libbitcoin_util_a-clientversion.$(OBJEXT): obj/build.h
 
-# server: shared between vitaed and vitae-qt
+# server: shared between caritasd and caritas-qt
 libbitcoin_server_a_CPPFLAGS = $(BITCOIN_INCLUDES) $(MINIUPNPC_CPPFLAGS) $(EVENT_CFLAGS) $(EVENT_PTHREADS_CFLAGS) $(BOOST_CPPFLAGS)
 libbitcoin_server_a_SOURCES = \
   activemasternode.cpp \
@@ -240,7 +240,7 @@ libbitcoin_zmq_a_SOURCES = \
   zmq/zmqpublishnotifier.cpp
 endif
 
-# wallet: shared between vitaed and vitae-qt, but only linked
+# wallet: shared between caritasd and caritas-qt, but only linked
 # when wallet enabled
 
 libbitcoin_wallet_a_CFLAGS = -fPIC
@@ -331,7 +331,7 @@ libzerocoin_libbitcoin_zerocoin_a_SOURCES = \
   libzerocoin/Params.cpp \
   libzerocoin/SerialNumberSignatureOfKnowledge.cpp
 
-# common: shared between vitaed, and vitae-qt and non-server tools
+# common: shared between caritasd, and caritas-qt and non-server tools
 libbitcoin_common_a_CPPFLAGS = $(BITCOIN_INCLUDES)
 libbitcoin_common_a_SOURCES = \
   activemasternode.cpp \
@@ -398,7 +398,7 @@ libbitcoin_util_a_SOURCES += compat/glibc_compat.cpp
 libbitcoin_util_a_SOURCES += compat/glibcxx_compat.cpp
 endif
 
-# cli: shared between vitae-cli and vitae-qt
+# cli: shared between caritas-cli and caritas-qt
 libbitcoin_cli_a_CPPFLAGS = $(BITCOIN_INCLUDES)
 libbitcoin_cli_a_SOURCES = \
   rpcclient.cpp \
@@ -408,7 +408,7 @@ nodist_libbitcoin_util_a_SOURCES = $(srcdir)/obj/build.h
 #
 
 # bitcoind binary #
-vitaed_LDADD = \
+caritasd_LDADD = \
   $(LIBBITCOIN_SERVER) \
   $(LIBBITCOIN_COMMON) \
   $(LIBUNIVALUE) \
@@ -420,26 +420,26 @@ vitaed_LDADD = \
   $(LIBSECP256K1)
 
 if ENABLE_ZMQ
-vitaed_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
+caritasd_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
 endif
 
 if ENABLE_WALLET
-vitaed_LDADD += libbitcoin_wallet.a
+caritasd_LDADD += libbitcoin_wallet.a
 endif
-vitaed_SOURCES = vitaed.cpp
+caritasd_SOURCES = caritasd.cpp
 #
 
 if TARGET_WINDOWS
-vitaed_SOURCES += vitaed-res.rc
+caritasd_SOURCES += caritasd-res.rc
 endif
 
-vitaed_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
-vitaed_CPPFLAGS = $(BITCOIN_INCLUDES)
-vitaed_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+caritasd_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
+caritasd_CPPFLAGS = $(BITCOIN_INCLUDES)
+caritasd_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 
-# vitae-cli binary #
-vitae_cli_LDADD = \
+# caritas-cli binary #
+caritas_cli_LDADD = \
   $(LIBBITCOIN_CLI) \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_UTIL) \
@@ -448,14 +448,14 @@ vitae_cli_LDADD = \
   $(CRYPTO_LIBS) \
   $(EVENT_LIBS)
 
-vitae_cli_SOURCES = \
-  vitae-cli.cpp
+caritas_cli_SOURCES = \
+  caritas-cli.cpp
 
-vitae_cli_CPPFLAGS = $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
+caritas_cli_CPPFLAGS = $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
 #
 
-# vitae-tx binary #
-vitae_tx_LDADD = \
+# caritas-tx binary #
+caritas_tx_LDADD = \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_COMMON) \
   $(LIBBITCOIN_ZEROCOIN) \
@@ -465,15 +465,15 @@ vitae_tx_LDADD = \
   $(BOOST_LIBS) \
   $(CRYPTO_LIBS)
 
-vitae_tx_SOURCES = vitae-tx.cpp
-vitae_tx_CPPFLAGS = $(BITCOIN_INCLUDES)
+caritas_tx_SOURCES = caritas-tx.cpp
+caritas_tx_CPPFLAGS = $(BITCOIN_INCLUDES)
 #
-vitae_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+caritas_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-vitae_cli_SOURCES += vitae-cli-res.rc
+caritas_cli_SOURCES += caritas-cli-res.rc
 endif
-vitae_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+caritas_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if BUILD_BITCOIN_LIBS
 include_HEADERS = script/bitcoinconsensus.h

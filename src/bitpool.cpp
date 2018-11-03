@@ -19,7 +19,7 @@ void ThreadBitPool()
     if(fMNLiteMode) return; //disable all Darksend/Masternode related functionality
 
     // Make this thread recognisable as the wallet flushing thread
-    RenameThread("vitae-bitpool");
+    RenameThread("caritas-bitpool");
 
     unsigned int c = 0;
     std::string errorMessage;

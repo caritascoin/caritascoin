@@ -1,7 +1,8 @@
 // Copyright (c) 2009-2012 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
-// Copyright (c) 2018 The VITAE developers
+// Copyright (c) 2018 The VITAE developers and CaritasCoin developers
+ 
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -66,8 +67,8 @@ UniValue obfuscation(const UniValue& params, bool fHelp)
 
     if (fHelp || params.size() == 0)
         throw runtime_error(
-            "obfuscation <vitaeaddress> <amount>\n"
-            "vitaeaddress, reset, or auto (AutoDenominate)"
+            "obfuscation <caritasaddress> <amount>\n"
+            "caritasaddress, reset, or auto (AutoDenominate)"
             "<amount> is a real and will be rounded to the next 0.1" +
             HelpRequiringPassphrase());
 
@@ -88,8 +89,8 @@ UniValue obfuscation(const UniValue& params, bool fHelp)
 
     if (params.size() != 2)
         throw runtime_error(
-            "obfuscation <vitaeaddress> <amount>\n"
-            "vitaeaddress, denominate, or auto (AutoDenominate)"
+            "obfuscation <caritasaddress> <amount>\n"
+            "caritasaddress, denominate, or auto (AutoDenominate)"
             "<amount> is a real and will be rounded to the next 0.1" +
             HelpRequiringPassphrase());
 
@@ -120,7 +121,7 @@ UniValue getpoolinfo(const UniValue& params, bool fHelp)
 
             "\nResult:\n"
             "{\n"
-            "  \"current\": \"addr\",    (string) VITAE address of current fundamentalnode\n"
+            "  \"current\": \"addr\",    (string) CaritasCoin address of current fundamentalnode\n"
             "  \"state\": xxxx,        (string) unknown\n"
             "  \"entries\": xxxx,      (numeric) Number of entries\n"
             "  \"accepted\": xxxx,     (numeric) Number of entries accepted\n"
@@ -164,7 +165,7 @@ UniValue fundamentalnode(const UniValue& params, bool fHelp)
             "  debug        - Print fundamentalnode status\n"
             "  genkey       - Generate new fundamentalnodeprivkey\n"
             "  outputs      - Print fundamentalnode compatible outputs\n"
-            "  start        - Start fundamentalnode configured in vitae.conf\n"
+            "  start        - Start fundamentalnode configured in caritas.conf\n"
             "  start-alias  - Start single fundamentalnode by assigned alias configured in fundamentalnode.conf\n"
             "  start-<mode> - Start fundamentalnodes configured in fundamentalnode.conf (<mode>: 'all', 'missing', 'disabled')\n"
             "  status       - Print fundamentalnode status information\n"
@@ -1022,7 +1023,7 @@ UniValue listfundamentalnodes(const UniValue& params, bool fHelp)
             "    \"txhash\": \"hash\",    (string) Collateral transaction hash\n"
             "    \"outidx\": n,         (numeric) Collateral transaction output index\n"
             "    \"status\": s,         (string) Status (ENABLED/EXPIRED/REMOVE/etc)\n"
-            "    \"addr\": \"addr\",      (string) Fundamentalnode VITAE address\n"
+            "    \"addr\": \"addr\",      (string) Fundamentalnode CaritasCoin address\n"
             "    \"version\": v,        (numeric) Fundamentalnode protocol version\n"
             "    \"lastseen\": ttt,     (numeric) The time in seconds since epoch (Jan 1 1970 GMT) of the last seen\n"
             "    \"activetime\": ttt,   (numeric) The time in seconds since epoch (Jan 1 1970 GMT) fundamentalnode has been active\n"
@@ -1091,7 +1092,7 @@ UniValue fundamentalnodeconnect(const UniValue& params, bool fHelp)
             "1. \"address\"     (string, required) IP or net address to connect to\n"
 
             "\nExamples:\n" +
-            HelpExampleCli("fundamentalnodeconnect", "\"192.168.0.6:8765\"") + HelpExampleRpc("fundamentalnodeconnect", "\"192.168.0.6:8765\""));
+            HelpExampleCli("fundamentalnodeconnect", "\"192.168.0.6:16180\"") + HelpExampleRpc("fundamentalnodeconnect", "\"192.168.0.6:16180\""));
 
     std::string strAddress = params[0].get_str();
 
@@ -1501,7 +1502,7 @@ UniValue getfundamentalnodestatus (const UniValue& params, bool fHelp)
             "  \"txhash\": \"xxxx\",      (string) Collateral transaction hash\n"
             "  \"outputidx\": n,        (numeric) Collateral transaction output index number\n"
             "  \"netaddr\": \"xxxx\",     (string) Fundamentalnode network address\n"
-            "  \"addr\": \"xxxx\",        (string) VITAE address for fundamentalnode payments\n"
+            "  \"addr\": \"xxxx\",        (string) CaritasCoin address for fundamentalnode payments\n"
             "  \"status\": \"xxxx\",      (string) Fundamentalnode status\n"
             "  \"message\": \"xxxx\"      (string) Fundamentalnode status message\n"
             "}\n"
@@ -1543,7 +1544,7 @@ UniValue getfundamentalnodewinners (const UniValue& params, bool fHelp)
             "  {\n"
             "    \"nHeight\": n,           (numeric) block height\n"
             "    \"winner\": {\n"
-            "      \"address\": \"xxxx\",    (string) VITAE MN Address\n"
+            "      \"address\": \"xxxx\",    (string) CaritasCoin MN Address\n"
             "      \"nVotes\": n,          (numeric) Number of votes for winner\n"
             "    }\n"
             "  }\n"
@@ -1556,7 +1557,7 @@ UniValue getfundamentalnodewinners (const UniValue& params, bool fHelp)
             "    \"nHeight\": n,           (numeric) block height\n"
             "    \"winner\": [\n"
             "      {\n"
-            "        \"address\": \"xxxx\",  (string) VITAE MN Address\n"
+            "        \"address\": \"xxxx\",  (string) CaritasCoin MN Address\n"
             "        \"nVotes\": n,        (numeric) Number of votes for winner\n"
             "      }\n"
             "      ,...\n"

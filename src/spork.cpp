@@ -1,7 +1,7 @@
 // Copyright (c) 2014-2016 The Dash developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
-// Copyright (c) 2018 The VITAE developers
+// Copyright (c) 2018 The VITAE developers and CaritasCoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -28,7 +28,7 @@ CSporkManager sporkManager;
 std::map<uint256, CSporkMessage> mapSporks;
 std::map<int, CSporkMessage> mapSporksActive;
 
-// VITAE: on startup load spork values from previous session if they exist in the sporkDB
+// CaritasCoin: on startup load spork values from previous session if they exist in the sporkDB
 void LoadSporksFromDB()
 {
     for (int i = SPORK_START; i <= SPORK_END; ++i) {
@@ -97,7 +97,7 @@ void ProcessSpork(CNode* pfrom, std::string& strCommand, CDataStream& vRecv)
         mapSporksActive[spork.nSporkID] = spork;
         sporkManager.Relay(spork);
 
-        // VITAE: add to spork database.
+        // CaritasCoin: add to spork database.
         pSporkDB->WriteSpork(spork.nSporkID, spork);
     }
     if (strCommand == "getsporks") {

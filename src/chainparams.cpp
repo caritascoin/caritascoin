@@ -52,15 +52,12 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 //    timestamp before)
 // + Contains no strange transactions
 static Checkpoints::MapCheckpoints mapCheckpoints =
-    boost::assign::map_list_of
-    (0, uint256("41e482b9b9691d98eefb48473405c0b8ec31b76df3797c74a78680ef818"))
-	(191884,uint256("45b95a52b673fd9f620bed8d59c5cfb05db0ffc33225bc6778b08d251348b185"))
-	(204305,uint256("101cfe17653d7b5ea6bb15531d9344dd65837f96904599ebc054bc8f6fad355d")) //about when spork 15 activated
-	(204464,uint256("9d2f9808c10408899cfff44f6a3adc44690912dd0dcb3b530c45cd2ad9a31f0e")); //about when spork 16 activated
+    boost::assign::map_list_of(0, uint256("41e482b9b9691d98eefb48473405c0b8ec31b76df3797c74a78680ef818"));
+	
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
     1536066750, // * UNIX timestamp of last checkpoint block
-    430642,    // * total number of transactions between genesis and last checkpoint
+    0,    // * total number of transactions between genesis and last checkpoint
                 //   (the tx=... number in the SetBestChain debug.log lines)
     2000        // * estimated number of transactions per day after checkpoint
 };
@@ -102,21 +99,21 @@ public:
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
          * a large 4-byte int at any alignment.
          */
-        pchMessageStart[0] = 0x03;
-        pchMessageStart[1] = 0xc4;
-        pchMessageStart[2] = 0xfd;
-        pchMessageStart[3] = 0x13;
+        pchMessageStart[0] = 0x16;
+        pchMessageStart[1] = 0x2f;
+        pchMessageStart[2] = 0xb3;
+        pchMessageStart[3] = 0xa4;
         vAlertPubKey = ParseHex("0000098d3ba6ba6e7423fa5cbd6a89e0a9a5348f88d332b44a5cb1a8b7ed2c1eaa335fc8dc4f012cb8241cc0bdafd6ca70c5f5448916e4e6f511bcd746ed57dc50");
-        nDefaultPort = 8765;
-        bnProofOfWorkLimit = ~uint256(0) >> 20; // VITAE starting difficulty is 1 / 2^12
+        nDefaultPort = 16180;
+        bnProofOfWorkLimit = ~uint256(0) >> 20; // CaritasCoin starting difficulty is 1 / 2^12
         nSubsidyHalvingInterval = 210000;
         nMaxReorganizationDepth = 100;
         nEnforceBlockUpgradeMajority = 750;
         nRejectBlockOutdatedMajority = 950;
         nToCheckBlockUpgradeMajority = 1000;
         nMinerThreads = 0;
-        nTargetTimespan = 45; // VITAE: 1 day
-        nTargetSpacing = 45;  // VITAE: 1 minute
+        nTargetTimespan = 45; // CaritasCoin: 1 day
+        nTargetSpacing = 45;  // CaritasCoin: 1 minute
         nMaturity = 8;
         nFundamentalnodeCountDrift = 20;
 		nMasternodeCountDrift = 20;
@@ -125,7 +122,7 @@ public:
         /** Height or Time Based Activations **/
         nLastPOWBlock = 200;
         nModifierUpdateBlock = 615800;
-        nZerocoinStartHeight = 209467;
+        nZerocoinStartHeight = 5000;
         nZerocoinStartTime = 1536314400; // september 7, 2018 12:00:00 UTC
         nBlockEnforceSerialRange = 895400; //Enforce serial range starting this block
         nBlockRecalculateAccumulators = 908000; //Trigger a recalculation of accumulators
@@ -157,7 +154,7 @@ public:
         genesis.nTime = 1454124731;
         genesis.nBits = 0x1e0ffff0;
         genesis.nNonce = 2402015;
-
+													
         hashGenesisBlock = genesis.GetHash();
         assert(hashGenesisBlock == uint256("0x0000041e482b9b9691d98eefb48473405c0b8ec31b76df3797c74a78680ef818"));
         assert(genesis.hashMerkleRoot == uint256("0x1b2ef6e2f28be914103a277377ae7729dcd125dfeb8bf97bd5964ba72b6dc39b"));
@@ -165,14 +162,11 @@ public:
 
         vFixedSeeds.clear();
         vSeeds.clear();
-        vSeeds.push_back(CDNSSeedData("vitaetoken.io", "vitaetoken.io")); // vitae
-		vSeeds.push_back(CDNSSeedData("209.182.216.144", "209.182.216.144")); // vitae fn
-		vSeeds.push_back(CDNSSeedData("209.182.216.187", "209.182.216.187")); // vitae fn
-		vSeeds.push_back(CDNSSeedData("p2pool.science", "p2pool.science")); // squid us-e
-		vSeeds.push_back(CDNSSeedData("uk.p2pool.science", "uk.p2pool.science")); // squid uk
+        vSeeds.push_back(CDNSSeedData("caritascoin.io", "seed.caritascoin.io")); // caritascoin
+		
 
 
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 71);
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 28);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 13);
         base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 212);
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x02)(0x2D)(0x25)(0x33).convert_to_container<std::vector<unsigned char> >();
@@ -229,25 +223,25 @@ public:
     {
         networkID = CBaseChainParams::TESTNET;
         strNetworkID = "test";
-        pchMessageStart[0] = 0x45;
-        pchMessageStart[1] = 0x76;
-        pchMessageStart[2] = 0x65;
-        pchMessageStart[3] = 0xba;
+        pchMessageStart[0] = 0x74;
+        pchMessageStart[1] = 0x2b;
+        pchMessageStart[2] = 0x33;
+        pchMessageStart[3] = 0xad;
         vAlertPubKey = ParseHex("000010e83b2703ccf322f7dbd62dd5855ac7c10bd055814ce121ba32607d573b8810c02c0582aed05b4deb9c4b77b26d92428c61256cd42774babea0a073b2ed0c9");
-        nDefaultPort = 51474;
+        nDefaultPort = 16170;
         nEnforceBlockUpgradeMajority = 51;
         nRejectBlockOutdatedMajority = 75;
         nToCheckBlockUpgradeMajority = 100;
         nMinerThreads = 0;
-        nTargetTimespan = 1 * 60; // VITAE: 1 day
-        nTargetSpacing = 1 * 60;  // VITAE: 1 minute
+        nTargetTimespan = 1 * 60; // CaritasCoin: 1 day
+        nTargetSpacing = 1 * 60;  // CaritasCoin: 1 minute
         nLastPOWBlock = 200;
         nMaturity = 15;
         nFundamentalnodeCountDrift = 4;
 		nMasternodeCountDrift = 4;
         nModifierUpdateBlock = 51197; //approx Mon, 17 Apr 2017 04:00:00 GMT
         nMaxMoneyOut = 43199500 * COIN;
-        nZerocoinStartHeight = 201576;
+        nZerocoinStartHeight = 5000;
         nZerocoinStartTime = 1501776000;
         nBlockEnforceSerialRange = 1; //Enforce serial range starting this block
         nBlockRecalculateAccumulators = 9908000; //Trigger a recalculation of accumulators
@@ -264,21 +258,18 @@ public:
 
         vFixedSeeds.clear();
         vSeeds.clear();
-        vSeeds.push_back(CDNSSeedData("vitaetoken.io", "vitaetoken.io")); // vitae
-		vSeeds.push_back(CDNSSeedData("209.182.216.144", "209.182.216.144")); // vitae fn
-		vSeeds.push_back(CDNSSeedData("209.182.216.187", "209.182.216.187")); // vitae fn
-		vSeeds.push_back(CDNSSeedData("p2pool.science", "p2pool.science")); // squid us-e
-		vSeeds.push_back(CDNSSeedData("uk.p2pool.science", "uk.p2pool.science")); // squid uk
+        vSeeds.push_back(CDNSSeedData("caritascoin.io", "test-seed.caritascoin.io")); // caritascoin
+		
 
 
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 139); // Testnet vitae addresses start with 'x' or 'y'
-        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 19);  // Testnet vitae script addresses start with '8' or '9'
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 139); // Testnet caritascoin addresses start with 'x' or 'y'
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 19);  // Testnet caritascoin script addresses start with '8' or '9'
         base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 239);     // Testnet private keys start with '9' or 'c' (Bitcoin defaults)
-        // Testnet vitae BIP32 pubkeys start with 'DRKV'
+        // Testnet caritascoin BIP32 pubkeys start with 'DRKV'
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x3a)(0x80)(0x61)(0xa0).convert_to_container<std::vector<unsigned char> >();
-        // Testnet vitae BIP32 prvkeys start with 'DRKP'
+        // Testnet caritascoin BIP32 prvkeys start with 'DRKP'
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x3a)(0x80)(0x58)(0x37).convert_to_container<std::vector<unsigned char> >();
-        // Testnet vitae BIP44 coin type is '1' (All coin's testnet default)
+        // Testnet caritascoin BIP44 coin type is '1' (All coin's testnet default)
         base58Prefixes[EXT_COIN_TYPE] = boost::assign::list_of(0x80)(0x00)(0x00)(0x01).convert_to_container<std::vector<unsigned char> >();
 
         convertSeed6(vFixedSeeds, pnSeed6_test, ARRAYLEN(pnSeed6_test));
@@ -315,17 +306,17 @@ public:
         networkID = CBaseChainParams::REGTEST;
         strNetworkID = "regtest";
         strNetworkID = "regtest";
-        pchMessageStart[0] = 0xa1;
-        pchMessageStart[1] = 0xcf;
-        pchMessageStart[2] = 0x7e;
-        pchMessageStart[3] = 0xac;
+        pchMessageStart[0] = 0x1d;
+        pchMessageStart[1] = 0x3f;
+        pchMessageStart[2] = 0xad;
+        pchMessageStart[3] = 0xc4;
         nSubsidyHalvingInterval = 150;
         nEnforceBlockUpgradeMajority = 750;
         nRejectBlockOutdatedMajority = 950;
         nToCheckBlockUpgradeMajority = 1000;
         nMinerThreads = 1;
-        nTargetTimespan = 24 * 60 * 60; // VITAE: 1 day
-        nTargetSpacing = 1 * 60;        // VITAE: 1 minutes
+        nTargetTimespan = 24 * 60 * 60; // CaritasCoin: 1 day
+        nTargetSpacing = 1 * 60;        // CaritasCoin: 1 minutes
         bnProofOfWorkLimit = ~uint256(0) >> 1;
         genesis.nTime = 1454124731;
         genesis.nBits = 0x207fffff;

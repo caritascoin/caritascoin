@@ -1,6 +1,6 @@
 // Copyright (c) 2014-2016 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
-// Copyright (c) 2018 The VITAE developers
+// Copyright (c) 2018 The VITAE developers and CaritasCoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -13,7 +13,7 @@
 #include "spork.h"
 
 //
-// Bootup the Fundamentalnode, look for a 10000 VITAE input and register on the network
+// Bootup the Fundamentalnode, look for a 10000 CaritasCoin input and register on the network
 //
 void CActiveFundamentalnode::ManageStatus()
 {
@@ -69,13 +69,13 @@ void CActiveFundamentalnode::ManageStatus()
         }
 
         if (Params().NetworkID() == CBaseChainParams::MAIN) {
-            if (service.GetPort() != 8765) {
-                notCapableReason = strprintf("Invalid port: %u - only 8765 is supported on mainnet.", service.GetPort());
+            if (service.GetPort() != Params().GetDefaultPort()) {
+                notCapableReason = strprintf("Invalid port: %u - only 16180 is supported on mainnet.", service.GetPort());
                 LogPrintf("CActiveFundamentalnode::ManageStatus() - not capable: %s\n", notCapableReason);
                 return;
             }
-        } else if (service.GetPort() == 8765) {
-            notCapableReason = strprintf("Invalid port: %u - 8765 is only supported on mainnet.", service.GetPort());
+        } else if (service.GetPort() == Params().GetDefaultPort()) {
+            notCapableReason = strprintf("Invalid port: %u - 16180 is only supported on mainnet.", service.GetPort());
             LogPrintf("CActiveFundamentalnode::ManageStatus() - not capable: %s\n", notCapableReason);
             return;
         }
@@ -268,13 +268,13 @@ bool CActiveFundamentalnode::Register(std::string strService, std::string strKey
 
     CService service = CService(strService);
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
-        if (service.GetPort() != 8765) {
-            errorMessage = strprintf("Invalid port %u for fundamentalnode %s - only 8765 is supported on mainnet.", service.GetPort(), strService);
+        if (service.GetPort() != Params().GetDefaultPort()) {
+            errorMessage = strprintf("Invalid port %u for fundamentalnode %s - only 16180 is supported on mainnet.", service.GetPort(), strService);
             LogPrintf("CActiveFundamentalnode::Register() - %s\n", errorMessage);
             return false;
         }
-    } else if (service.GetPort() == 8765) {
-        errorMessage = strprintf("Invalid port %u for fundamentalnode %s - 8765 is only supported on mainnet.", service.GetPort(), strService);
+    } else if (service.GetPort() == Params().GetDefaultPort()) {
+        errorMessage = strprintf("Invalid port %u for fundamentalnode %s - 16180 is only supported on mainnet.", service.GetPort(), strService);
         LogPrintf("CActiveFundamentalnode::Register() - %s\n", errorMessage);
         return false;
     }

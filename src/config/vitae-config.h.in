@@ -1,4 +1,4 @@
-/* src/config/vitae-config.h.in.  Generated from configure.ac by autoheader.  */
+/* src/config/caritas-config.h.in.  Generated from configure.ac by autoheader.  */
 
 #ifndef VIT_CONFIG_H
 
@@ -285,7 +285,8 @@
 /* Define to the version of this package. */
 #undef PACKAGE_VERSION
 
-/* Define to necessary symbol if this constant uses a non-standard name on
+/* Define to necessary symbol if this constant
+ uses a non-standard name on
    your system. */
 #undef PTHREAD_CREATE_JOINABLE
 

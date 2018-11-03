@@ -10,10 +10,10 @@
 
 /**
  * Name of client reported in the 'version' message. Report the same name
- * for both vitaed and vitae-qt, to make it harder for attackers to
+ * for both caritasd and caritas-qt, to make it harder for attackers to
  * target servers or GUI users specifically.
  */
-const std::string CLIENT_NAME("VITAE Core");
+const std::string CLIENT_NAME("CaritasCoin Core");
 
 /**
  * Client version number

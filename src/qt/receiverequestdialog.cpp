@@ -23,7 +23,7 @@
 #endif
 
 #if defined(HAVE_CONFIG_H)
-#include "config/vitae-config.h" /* for USE_QRCODE */
+#include "config/caritas-config.h" /* for USE_QRCODE */
 #endif
 
 #ifdef USE_QRCODE

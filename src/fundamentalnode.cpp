@@ -515,8 +515,8 @@ bool CFundamentalnodeBroadcast::CheckAndUpdate(int& nDos)
     }
 
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
-        if (addr.GetPort() != 8765) return false;
-    } else if (addr.GetPort() == 8765)
+        if (addr.GetPort() != Params().GetDefaultPort()) return false;
+    } else if (addr.GetPort() == Params().GetDefaultPort())
         return false;
 
     //search existing Fundamentalnode list, this is where we update existing Fundamentalnodes with new mnb broadcasts
@@ -602,13 +602,13 @@ bool CFundamentalnodeBroadcast::CheckInputsAndAdd(int& nDoS)
     }
 
     // verify that sig time is legit in past
-    // should be at least not earlier than block when 1000 VITAE tx got FUNDAMENTALNODE_MIN_CONFIRMATIONS
+    // should be at least not earlier than block when 1000 CaritasCoin tx got FUNDAMENTALNODE_MIN_CONFIRMATIONS
     uint256 hashBlock = 0;
     CTransaction tx2;
     GetTransaction(vin.prevout.hash, tx2, hashBlock, true);
     BlockMap::iterator mi = mapBlockIndex.find(hashBlock);
     if (mi != mapBlockIndex.end() && (*mi).second) {
-        CBlockIndex* pMNIndex = (*mi).second;                                                        // block for 1000 VITAE tx -> 1 confirmation
+        CBlockIndex* pMNIndex = (*mi).second;                                                        // block for 1000 CaritasCoin tx -> 1 confirmation
         CBlockIndex* pConfIndex = chainActive[pMNIndex->nHeight + FUNDAMENTALNODE_MIN_CONFIRMATIONS - 1]; // block where tx got FUNDAMENTALNODE_MIN_CONFIRMATIONS
         if (pConfIndex->GetBlockTime() > sigTime) {
             LogPrint("fundamentalnode","mnb - Bad sigTime %d for Fundamentalnode %s (%i conf block is at %d)\n",

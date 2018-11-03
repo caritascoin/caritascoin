@@ -1,8 +1,8 @@
 // Copyright (c) 2017 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#ifndef VITAE_ACCUMULATORMAP_H
-#define VITAE_ACCUMULATORMAP_H
+#ifndef CARITASCOIN_ACCUMULATORMAP_H
+#define CARITASCOIN_ACCUMULATORMAP_H
 
 #include "libzerocoin/Accumulator.h"
 #include "libzerocoin/Coin.h"
@@ -20,4 +20,4 @@ public:
     uint256 GetCheckpoint();
     void Reset();
 };
-#endif //VITAE_ACCUMULATORMAP_H
+#endif //CARITASCOIN_ACCUMULATORMAP_H

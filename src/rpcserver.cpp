@@ -2,7 +2,8 @@
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
-// Copyright (c) 2018 The VITAE developers
+// Copyright (c) 2018 The VITAE developers and CaritasCoin developers
+ 
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -243,10 +244,10 @@ UniValue stop(const UniValue& params, bool fHelp)
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "stop\n"
-            "\nStop VITAE server.");
+            "\nStop CaritasCoin server.");
     // Shutdown will take long enough that the response should get back
     StartShutdown();
-    return "VITAE server stopping";
+    return "CaritasCoin server stopping";
 }
 
 
@@ -330,39 +331,39 @@ static const CRPCCommand vRPCCommands[] =
         {"hidden", "reconsiderblock", &reconsiderblock, true, true, false},
         {"hidden", "setmocktime", &setmocktime, true, false, false},
 
-        /* VITAE features */
-        {"vitae", "fundamentalnode", &fundamentalnode, true, true, false},
-        {"vitae", "listfundamentalnodes", &listfundamentalnodes, true, true, false},
-        {"vitae", "getfundamentalnodecount", &getfundamentalnodecount, true, true, false},
-        {"vitae", "fundamentalnodeconnect", &fundamentalnodeconnect, true, true, false},
-        {"vitae", "fundamentalnodecurrent", &fundamentalnodecurrent, true, true, false},
-        {"vitae", "fundamentalnodedebug", &fundamentalnodedebug, true, true, false},
-        {"vitae", "startfundamentalnode", &startfundamentalnode, true, true, false},
-        {"vitae", "createfundamentalnodekey", &createfundamentalnodekey, true, true, false},
-        {"vitae", "getfundamentalnodeoutputs", &getfundamentalnodeoutputs, true, true, false},
-        {"vitae", "listfundamentalnodeconf", &listfundamentalnodeconf, true, true, false},
-        {"vitae", "getfundamentalnodestatus", &getfundamentalnodestatus, true, true, false},
-        {"vitae", "getfundamentalnodewinners", &getfundamentalnodewinners, true, true, false},
-        {"vitae", "getfundamentalnodescores", &getfundamentalnodescores, true, true, false},
-        {"vitae", "fnbudget", &fnbudget, true, true, false},
-        {"vitae", "preparebudget", &preparebudget, true, true, false},
-        {"vitae", "submitbudget", &submitbudget, true, true, false},
-        {"vitae", "fnbudgetvote", &fnbudgetvote, true, true, false},
-        {"vitae", "getbudgetvotes", &getbudgetvotes, true, true, false},
-        {"vitae", "getnextsuperblock", &getnextsuperblock, true, true, false},
-        {"vitae", "getbudgetprojection", &getbudgetprojection, true, true, false},
-        {"vitae", "getbudgetinfo", &getbudgetinfo, true, true, false},
-        {"vitae", "fnbudgetrawvote", &fnbudgetrawvote, true, true, false},
-        {"vitae", "fnfinalbudget", &fnfinalbudget, true, true, false},
-        {"vitae", "checkbudgets", &checkbudgets, true, true, false},
-        {"vitae", "fnsync", &fnsync, true, true, false},
-        {"vitae", "spork", &spork, true, true, false},
-        {"vitae", "getpoolinfo", &getpoolinfo, true, true, false},
-        {"vitae", "mnspork", &mnspork, true, true, false},
-        {"vitae", "masternode", &masternode, true, true, false},
-        {"vitae", "masternodelist", &masternodelist, true, true, false},
+        /* CaritasCoin features */
+        {"caritascoin", "fundamentalnode", &fundamentalnode, true, true, false},
+        {"caritascoin", "listfundamentalnodes", &listfundamentalnodes, true, true, false},
+        {"caritascoin", "getfundamentalnodecount", &getfundamentalnodecount, true, true, false},
+        {"caritascoin", "fundamentalnodeconnect", &fundamentalnodeconnect, true, true, false},
+        {"caritascoin", "fundamentalnodecurrent", &fundamentalnodecurrent, true, true, false},
+        {"caritascoin", "fundamentalnodedebug", &fundamentalnodedebug, true, true, false},
+        {"caritascoin", "startfundamentalnode", &startfundamentalnode, true, true, false},
+        {"caritascoin", "createfundamentalnodekey", &createfundamentalnodekey, true, true, false},
+        {"caritascoin", "getfundamentalnodeoutputs", &getfundamentalnodeoutputs, true, true, false},
+        {"caritascoin", "listfundamentalnodeconf", &listfundamentalnodeconf, true, true, false},
+        {"caritascoin", "getfundamentalnodestatus", &getfundamentalnodestatus, true, true, false},
+        {"caritascoin", "getfundamentalnodewinners", &getfundamentalnodewinners, true, true, false},
+        {"caritascoin", "getfundamentalnodescores", &getfundamentalnodescores, true, true, false},
+        {"caritascoin", "fnbudget", &fnbudget, true, true, false},
+        {"caritascoin", "preparebudget", &preparebudget, true, true, false},
+        {"caritascoin", "submitbudget", &submitbudget, true, true, false},
+        {"caritascoin", "fnbudgetvote", &fnbudgetvote, true, true, false},
+        {"caritascoin", "getbudgetvotes", &getbudgetvotes, true, true, false},
+        {"caritascoin", "getnextsuperblock", &getnextsuperblock, true, true, false},
+        {"caritascoin", "getbudgetprojection", &getbudgetprojection, true, true, false},
+        {"caritascoin", "getbudgetinfo", &getbudgetinfo, true, true, false},
+        {"caritascoin", "fnbudgetrawvote", &fnbudgetrawvote, true, true, false},
+        {"caritascoin", "fnfinalbudget", &fnfinalbudget, true, true, false},
+        {"caritascoin", "checkbudgets", &checkbudgets, true, true, false},
+        {"caritascoin", "fnsync", &fnsync, true, true, false},
+        {"caritascoin", "spork", &spork, true, true, false},
+        {"caritascoin", "getpoolinfo", &getpoolinfo, true, true, false},
+        {"caritascoin", "mnspork", &mnspork, true, true, false},
+        {"caritascoin", "masternode", &masternode, true, true, false},
+        {"caritascoin", "masternodelist", &masternodelist, true, true, false},
 #ifdef ENABLE_WALLET
-        {"vitae", "obfuscation", &obfuscation, false, false, true}, /* not threadSafe because of SendMoney */
+        {"caritascoin", "obfuscation", &obfuscation, false, false, true}, /* not threadSafe because of SendMoney */
 
         /* Wallet */
         {"wallet", "addmultisigaddress", &addmultisigaddress, true, false, true},
@@ -1093,14 +1094,14 @@ std::vector<std::string> CRPCTable::listCommands() const
 
 std::string HelpExampleCli(string methodname, string args)
 {
-    return "> vitae-cli " + methodname + " " + args + "\n";
+    return "> caritas-cli " + methodname + " " + args + "\n";
 }
 
 std::string HelpExampleRpc(string methodname, string args)
 {
     return "> curl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", "
            "\"method\": \"" +
-           methodname + "\", \"params\": [" + args + "] }' -H 'content-type: text/plain;' http://127.0.0.1:51473/\n";
+           methodname + "\", \"params\": [" + args + "] }' -H 'content-type: text/plain;' http://127.0.0.1:16181/\n";
 }
 
 const CRPCTable tableRPC;

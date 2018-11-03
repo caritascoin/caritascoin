@@ -62,12 +62,12 @@
         <translation>Ontvangstadressen</translation>
     </message>
     <message>
-        <source>These are your VITAE addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Dit zijn uw VITAEadressen om betalingen mee te verzenden. Controleer altijd zowel het bedrag als het ontvangstadres voor het verzenden.</translation>
+        <source>These are your CaritasCoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Dit zijn uw CaritasCoinadressen om betalingen mee te verzenden. Controleer altijd zowel het bedrag als het ontvangstadres voor het verzenden.</translation>
     </message>
     <message>
-        <source>These are your VITAE addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Dit zijn uw VITAEadressen waarop betalingen kunnen worden ontvangen. Het wordt aangeraden om een nieuw ontvangstadres voor elke transactie te gebruiken.</translation>
+        <source>These are your CaritasCoin addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Dit zijn uw CaritasCoinadressen waarop betalingen kunnen worden ontvangen. Het wordt aangeraden om een nieuw ontvangstadres voor elke transactie te gebruiken.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -172,16 +172,16 @@
         <translation>Bevestig versleuteling van de portemonnee</translation>
     </message>
     <message>
-        <source>VITAE will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your VITs from being stolen by malware infecting your computer.</source>
-        <translation>VITAE zal nu afsluiten om het versleutelingsproces te voltooien. Onthoud dat het versleutelen van uw portemonnee u niet volledig kan beschermen: Malware kan uw computer infecteren en uw VITs stelen.</translation>
+        <source>CaritasCoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your VITs from being stolen by malware infecting your computer.</source>
+        <translation>CaritasCoin zal nu afsluiten om het versleutelingsproces te voltooien. Onthoud dat het versleutelen van uw portemonnee u niet volledig kan beschermen: Malware kan uw computer infecteren en uw VITs stelen.</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
         <translation>Weet u zeker dat u uw portemonnee wilt versleutelen?</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR VITAE&lt;/b&gt;!</source>
-        <translation>Waarschuwing: Als u uw portemonnee versleutelt en uw wachtwoord vergeet, zult u &lt;b&gt;AL UW VITAE VERLIEZEN&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR CaritasCoin&lt;/b&gt;!</source>
+        <translation>Waarschuwing: Als u uw portemonnee versleutelt en uw wachtwoord vergeet, zult u &lt;b&gt;AL UW CaritasCoin VERLIEZEN&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Wallet encrypted</source>
@@ -236,15 +236,15 @@
     </message>
     <message>
         <source>Enter a Vitae Address that you would like to encrypt using BIP 38. Enter a passphrase in the middle box. Press encrypt to compute the encrypted private key.</source>
-        <translation>Voer een VITAE adres in dat u wilt versleutelen met BIP 38. Voer een wachtwoord in, in het middelste veld. Druk op versleutelen om de versleutelde geheime sleutel te berekenen.</translation>
+        <translation>Voer een CaritasCoin adres in dat u wilt versleutelen met BIP 38. Voer een wachtwoord in, in het middelste veld. Druk op versleutelen om de versleutelde geheime sleutel te berekenen.</translation>
     </message>
     <message>
         <source>Address:</source>
         <translation>Adres:</translation>
     </message>
     <message>
-        <source>The VITAE address to sign the message with</source>
-        <translation>Het VITAE adres om het bericht met te ondertekenen</translation>
+        <source>The CaritasCoin address to sign the message with</source>
+        <translation>Het CaritasCoin adres om het bericht met te ondertekenen</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -275,8 +275,8 @@
         <translation>Kopieer de huidige handtekening naar het systeemklembord</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this VITAE address</source>
-        <translation>Onderteken het bericht om te bewijzen dat u het VITAE adres bezit</translation>
+        <source>Sign the message to prove you own this CaritasCoin address</source>
+        <translation>Onderteken het bericht om te bewijzen dat u het CaritasCoin adres bezit</translation>
     </message>
     <message>
         <source>Encrypt &amp;Key</source>
@@ -299,12 +299,12 @@
         <translation>Voer de BIP 38 versleutelde geheime sleutel in. Voer het wachtwoord in, in het middelste veld. Druk op Ontsleutelen Sleutel om de geheime sleutel te berekenen.  Nadat de geheime sleutel is ontsleuteld, zal het klikken op 'Adres Importeren' de geheime sleutel toevoegen aan de portemonnee.</translation>
     </message>
     <message>
-        <source>The VITAE address the message was signed with</source>
-        <translation>Het VITAE adres waarmee het bericht was ondertekend</translation>
+        <source>The CaritasCoin address the message was signed with</source>
+        <translation>Het CaritasCoin adres waarmee het bericht was ondertekend</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified VITAE address</source>
-        <translation>Controleer een bericht om te verifiëren dat het ondertekend is door het gespecificeerde VITAE adres</translation>
+        <source>Verify the message to ensure it was signed with the specified CaritasCoin address</source>
+        <translation>Controleer een bericht om te verifiëren dat het ondertekend is door het gespecificeerde CaritasCoin adres</translation>
     </message>
     <message>
         <source>Decrypt &amp;Key</source>
@@ -594,16 +594,16 @@
         <translation>Tabblad werkbalk</translation>
     </message>
     <message>
-        <source>VITAE Core</source>
-        <translation>VITAE Kern</translation>
+        <source>CaritasCoin Core</source>
+        <translation>CaritasCoin Kern</translation>
     </message>
     <message>
-        <source>Send coins to a VITAE address</source>
-        <translation>Verstuur munten naar een VITAE adres</translation>
+        <source>Send coins to a CaritasCoin address</source>
+        <translation>Verstuur munten naar een CaritasCoin adres</translation>
     </message>
     <message>
         <source>Request payments (generates QR codes and vitae: URIs)</source>
-        <translation>Vraag betaling aan (genereert QR-codes en VITAE: URI's)</translation>
+        <translation>Vraag betaling aan (genereert QR-codes en CaritasCoin: URI's)</translation>
     </message>
     <message>
         <source>&amp;Masternodes</source>
@@ -614,24 +614,24 @@
         <translation>Bekijk masternodes</translation>
     </message>
     <message>
-        <source>&amp;About VITAE Core</source>
-        <translation>&amp;Over VITAE Kern</translation>
+        <source>&amp;About CaritasCoin Core</source>
+        <translation>&amp;Over CaritasCoin Kern</translation>
     </message>
     <message>
-        <source>Show information about VITAE Core</source>
-        <translation>Toon informatie over VITAE Kern</translation>
+        <source>Show information about CaritasCoin Core</source>
+        <translation>Toon informatie over CaritasCoin Kern</translation>
     </message>
     <message>
-        <source>Modify configuration options for VITAE</source>
-        <translation>Wijzig VITAE configuratie opties</translation>
+        <source>Modify configuration options for CaritasCoin</source>
+        <translation>Wijzig CaritasCoin configuratie opties</translation>
     </message>
     <message>
-        <source>Sign messages with your VITAE addresses to prove you own them</source>
-        <translation>Onderteken berichten met uw VITAE adressen om te bewijzen dat u deze adressen bezit</translation>
+        <source>Sign messages with your CaritasCoin addresses to prove you own them</source>
+        <translation>Onderteken berichten met uw CaritasCoin adressen om te bewijzen dat u deze adressen bezit</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified VITAE addresses</source>
-        <translation>Controleer berichten om te verifiëren dat deze ondertekend zijn met de gespecificeerde VITAE adressen</translation>
+        <source>Verify messages to ensure they were signed with specified CaritasCoin addresses</source>
+        <translation>Controleer berichten om te verifiëren dat deze ondertekend zijn met de gespecificeerde CaritasCoin adressen</translation>
     </message>
     <message>
         <source>&amp;BIP38 tool</source>
@@ -662,8 +662,8 @@
         <translation>Open Masternode configuratiebestand</translation>
     </message>
     <message>
-        <source>Open a VITAE: URI or payment request</source>
-        <translation>Open een VITAE: URI of betaalverzoek</translation>
+        <source>Open a CaritasCoin: URI or payment request</source>
+        <translation>Open een CaritasCoin: URI of betaalverzoek</translation>
     </message>
     <message>
         <source>&amp;Blockchain explorer</source>
@@ -674,12 +674,12 @@
         <translation>Block verkenner venster</translation>
     </message>
     <message>
-        <source>VITAE Core client</source>
-        <translation>VITAE Core client</translation>
+        <source>CaritasCoin Core client</source>
+        <translation>CaritasCoin Core client</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to VITAE network</source>
-        <translation><numerusform>%n actieve verbinding(en) naar het VITAE netwerk</numerusform><numerusform>%n actieve verbinding(en) naar het VITAE netwerk</numerusform></translation>
+        <source>%n active connection(s) to CaritasCoin network</source>
+        <translation><numerusform>%n actieve verbinding(en) naar het CaritasCoin netwerk</numerusform><numerusform>%n actieve verbinding(en) naar het CaritasCoin netwerk</numerusform></translation>
     </message>
     <message>
         <source>Synchronizing with network...</source>
@@ -1042,8 +1042,8 @@ MultiSend: %1</translation>
         <translation>Wijzig verzendadres</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid VITAE address.</source>
-        <translation>Het ingevoerde adres: "%1" is geen geldig VITAE adres.</translation>
+        <source>The entered address "%1" is not a valid CaritasCoin address.</source>
+        <translation>Het ingevoerde adres: "%1" is geen geldig CaritasCoin adres.</translation>
     </message>
     <message>
         <source>The entered address "%1" is already in the address book.</source>
@@ -1072,16 +1072,16 @@ MultiSend: %1</translation>
         <translation>versie</translation>
     </message>
     <message>
-        <source>VITAE Core</source>
-        <translation>VITAE Kern</translation>
+        <source>CaritasCoin Core</source>
+        <translation>CaritasCoin Kern</translation>
     </message>
     <message>
         <source>(%1-bit)</source>
         <translation>(%1-bit)</translation>
     </message>
     <message>
-        <source>About VITAE Core</source>
-        <translation>Over VITAE Core</translation>
+        <source>About CaritasCoin Core</source>
+        <translation>Over CaritasCoin Core</translation>
     </message>
     <message>
         <source>Command-line options</source>
@@ -1111,16 +1111,16 @@ MultiSend: %1</translation>
         <translation>Welkom</translation>
     </message>
     <message>
-        <source>Welcome to VITAE Core.</source>
-        <translation>Welkom bij VITAE Core</translation>
+        <source>Welcome to CaritasCoin Core.</source>
+        <translation>Welkom bij CaritasCoin Core</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
         <translation>Gebruik de standaard datafolder </translation>
     </message>
     <message>
-        <source>VITAE Core</source>
-        <translation>VITAE Kern</translation>
+        <source>CaritasCoin Core</source>
+        <translation>CaritasCoin Kern</translation>
     </message>
     <message>
         <source>Error</source>
@@ -1336,20 +1336,20 @@ MultiSend: %1</translation>
         <translation>Expert</translation>
     </message>
     <message>
-        <source>Automatically start VITAE after logging in to the system.</source>
-        <translation>VITAE automatisch opstarten na inloggen op het systeem.</translation>
+        <source>Automatically start CaritasCoin after logging in to the system.</source>
+        <translation>CaritasCoin automatisch opstarten na inloggen op het systeem.</translation>
     </message>
     <message>
-        <source>&amp;Start VITAE on system login</source>
-        <translation>&amp;VITAE starten bij systeemlogin</translation>
+        <source>&amp;Start CaritasCoin on system login</source>
+        <translation>&amp;CaritasCoin starten bij systeemlogin</translation>
     </message>
     <message>
         <source>&amp;Network</source>
         <translation>&amp;Netwerk</translation>
     </message>
     <message>
-        <source>The user interface language can be set here. This setting will take effect after restarting VITAE.</source>
-        <translation>De gebruikersinterface taal kan hier ingesteld worden. Deze instelling zal uitgevoerd na herstart van VITAE.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting CaritasCoin.</source>
+        <translation>De gebruikersinterface taal kan hier ingesteld worden. Deze instelling zal uitgevoerd na herstart van CaritasCoin.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -1500,16 +1500,16 @@ MultiSend: %1</translation>
 <context>
     <name>PrivacyDialog</name>
     <message>
-        <source>Enter an amount of VITAE to convert to zVITAE</source>
-        <translation>Vul de hoeveleheid in om VITAE te converteren naar zVITAE</translation>
+        <source>Enter an amount of CaritasCoin to convert to zCARITAS</source>
+        <translation>Vul de hoeveleheid in om CaritasCoin te converteren naar zCARITAS</translation>
     </message>
     <message>
         <source>0</source>
         <translation>0</translation>
     </message>
     <message>
-        <source>zVITAE</source>
-        <translation>zVITAE</translation>
+        <source>zCARITAS</source>
+        <translation>zCARITAS</translation>
     </message>
     <message>
         <source>Reset</source>
@@ -1619,8 +1619,8 @@ MultiSend: %1</translation>
         <translation>Hoeveelheid</translation>
     </message>
     <message>
-        <source>Enter a VITAE address (e.g. %1)</source>
-        <translation>Voer een VITAE adres in (b.v. %1)</translation>
+        <source>Enter a CaritasCoin address (e.g. %1)</source>
+        <translation>Voer een CaritasCoin adres in (b.v. %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -1821,8 +1821,8 @@ MultiSend: %1</translation>
         <translation>Uit:</translation>
     </message>
     <message>
-        <source>Welcome to the VITAE RPC console.</source>
-        <translation>Welkom bij de VITAE RPC console.</translation>
+        <source>Welcome to the CaritasCoin RPC console.</source>
+        <translation>Welkom bij de CaritasCoin RPC console.</translation>
     </message>
     <message>
         <source>%1 B</source>
@@ -2029,8 +2029,8 @@ MultiSend: %1</translation>
         <translation>Wijzig:</translation>
     </message>
     <message>
-        <source>0 VITAE</source>
-        <translation>0 VITAE</translation>
+        <source>0 CaritasCoin</source>
+        <translation>0 CaritasCoin</translation>
     </message>
     <message>
         <source>Transaction Fee:</source>
@@ -2121,8 +2121,8 @@ MultiSend: %1</translation>
         <translation>anonieme financiën</translation>
     </message>
     <message>
-        <source>Warning: Invalid VITAE address</source>
-        <translation>Waarschuwing: Ongeldig VITAE adres</translation>
+        <source>Warning: Invalid CaritasCoin address</source>
+        <translation>Waarschuwing: Ongeldig CaritasCoin adres</translation>
     </message>
     <message>
         <source>any available funds (not recommended)</source>
@@ -2176,8 +2176,8 @@ MultiSend: %1</translation>
         <translation>Betaal &amp;Naar:</translation>
     </message>
     <message>
-        <source>The VITAE address to send the payment to</source>
-        <translation>Het VITAE adres om de betaling naar te verzenden</translation>
+        <source>The CaritasCoin address to send the payment to</source>
+        <translation>Het CaritasCoin adres om de betaling naar te verzenden</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2231,8 +2231,8 @@ MultiSend: %1</translation>
 <context>
     <name>ShutdownWindow</name>
     <message>
-        <source>VITAE Core is shutting down...</source>
-        <translation>VITAE Core is aan het afsluiten...</translation>
+        <source>CaritasCoin Core is shutting down...</source>
+        <translation>CaritasCoin Core is aan het afsluiten...</translation>
     </message>
     <message>
         <source>Do not shut down the computer until this window disappears.</source>
@@ -2250,8 +2250,8 @@ MultiSend: %1</translation>
         <translation>&amp;Onderteken Bericht</translation>
     </message>
     <message>
-        <source>The VITAE address to sign the message with</source>
-        <translation>Het VITAE adres om het bericht met te ondertekenen</translation>
+        <source>The CaritasCoin address to sign the message with</source>
+        <translation>Het CaritasCoin adres om het bericht met te ondertekenen</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2282,16 +2282,16 @@ MultiSend: %1</translation>
         <translation>Kopieer de huidige handtekening naar het systeemklembord</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this VITAE address</source>
-        <translation>Onderteken het bericht om te bewijzen dat u het VITAE adres bezit</translation>
+        <source>Sign the message to prove you own this CaritasCoin address</source>
+        <translation>Onderteken het bericht om te bewijzen dat u het CaritasCoin adres bezit</translation>
     </message>
     <message>
-        <source>The VITAE address the message was signed with</source>
-        <translation>Het VITAE adres waarmee het bericht was ondertekend</translation>
+        <source>The CaritasCoin address the message was signed with</source>
+        <translation>Het CaritasCoin adres waarmee het bericht was ondertekend</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified VITAE address</source>
-        <translation>Controleer een bericht om te verifiëren dat het ondertekend is door het gespecificeerde VITAE adres</translation>
+        <source>Verify the message to ensure it was signed with the specified CaritasCoin address</source>
+        <translation>Controleer een bericht om te verifiëren dat het ondertekend is door het gespecificeerde CaritasCoin adres</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -2361,8 +2361,8 @@ MultiSend: %1</translation>
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>VITAE Core</source>
-        <translation>VITAE Kern</translation>
+        <source>CaritasCoin Core</source>
+        <translation>CaritasCoin Kern</translation>
     </message>
     <message>
         <source>Version %1</source>
@@ -2377,8 +2377,8 @@ MultiSend: %1</translation>
         <translation>De Dash Core ontwikkelaars</translation>
     </message>
     <message>
-        <source>The VITAE Core developers</source>
-        <translation>De VITAE Core ontwikkelaars</translation>
+        <source>The CaritasCoin Core developers</source>
+        <translation>De CaritasCoin Core ontwikkelaars</translation>
     </message>
     <message>
         <source>[testnet]</source>
@@ -2739,8 +2739,8 @@ MultiSend: %1</translation>
 <context>
     <name>ZVitControlDialog</name>
     <message>
-        <source>Select zVITAE to Spend</source>
-        <translation>Selecteer zVITAE om te spenderen</translation>
+        <source>Select zCARITAS to Spend</source>
+        <translation>Selecteer zCARITAS om te spenderen</translation>
     </message>
     <message>
         <source>Quantity</source>
@@ -2751,8 +2751,8 @@ MultiSend: %1</translation>
         <translation>0</translation>
     </message>
     <message>
-        <source>zVITAE</source>
-        <translation>zVITAE</translation>
+        <source>zCARITAS</source>
+        <translation>zCARITAS</translation>
     </message>
     <message>
         <source>Select/Deselect All</source>
@@ -2806,8 +2806,8 @@ MultiSend: %1</translation>
         <translation>Copyright (C) 2015-%i The PIVX Core Ontwikkelaars</translation>
     </message>
     <message>
-        <source>Copyright (C) 2018 The VITAE Core Developers</source>
-        <translation>Copyright (C) 2018 The VITAE Core Ontwikkelaars</translation>
+        <source>Copyright (C) 2018 The CaritasCoin Core Developers</source>
+        <translation>Copyright (C) 2018 The CaritasCoin Core Ontwikkelaars</translation>
     </message>
     <message>
         <source>Debugging/Testing options:</source>

@@ -2,7 +2,8 @@
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The VITAE developers
-// Copyright (c) 2018 The VITAE developers
+// Copyright (c) 2018 The VITAE developers and CaritasCoin developers
+ 
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -35,7 +36,7 @@ using namespace std;
 
 //////////////////////////////////////////////////////////////////////////////
 //
-// VITAEMiner
+// CaritasCoinMiner
 //
 
 //
@@ -333,7 +334,7 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, CWallet* pwallet, 
             if (!view.HaveInputs(tx))
                 continue;
 
-            // double check that there are no double spent zVITAE spends in this block or tx
+            // double check that there are no double spent zCARITAS spends in this block or tx
             if (tx.IsZerocoinSpend()) {
                 int nHeightTx = 0;
                 if (IsTransactionInChain(tx.GetHash(), nHeightTx))
@@ -354,7 +355,7 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, CWallet* pwallet, 
                         vTxSerials.emplace_back(spend.getCoinSerialNumber());
                     }
                 }
-                //This zVITAE serial has already been included in the block, do not add this tx.
+                //This zCARITAS serial has already been included in the block, do not add this tx.
                 if (fDoubleSerial)
                     continue;
             }
@@ -499,7 +500,7 @@ bool ProcessBlockFound(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
     {
         LOCK(cs_main);
         if (pblock->hashPrevBlock != chainActive.Tip()->GetBlockHash())
-            return error("VITAEMiner : generated block is stale");
+            return error("CaritasCoinMiner : generated block is stale");
     }
 
     // Remove key from key pool
@@ -514,7 +515,7 @@ bool ProcessBlockFound(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
     // Process this block the same as if we had received it from another node
     CValidationState state;
     if (!ProcessNewBlock(state, NULL, pblock))
-        return error("VITAEMiner : ProcessNewBlock, block not accepted");
+        return error("CaritasCoinMiner : ProcessNewBlock, block not accepted");
 
     for (CNode* node : vNodes) {
         node->PushInventory(CInv(MSG_BLOCK, pblock->GetHash()));
@@ -529,9 +530,9 @@ bool fGenerateBitcoins = false;
 
 void BitcoinMiner(CWallet* pwallet, bool fProofOfStake)
 {
-    LogPrintf("VITAEMiner started\n");
+    LogPrintf("CaritasCoinMiner started\n");
     SetThreadPriority(THREAD_PRIORITY_LOWEST);
-    RenameThread("vitae-miner");
+    RenameThread("caritas-miner");
 
     // Each thread has its own key and counter
     CReserveKey reservekey(pwallet);
@@ -604,7 +605,7 @@ void BitcoinMiner(CWallet* pwallet, bool fProofOfStake)
             continue;
         }
 
-        LogPrintf("Running VITAEMiner with %u transactions in block (%u bytes)\n", pblock->vtx.size(),
+        LogPrintf("Running CaritasCoinMiner with %u transactions in block (%u bytes)\n", pblock->vtx.size(),
             ::GetSerializeSize(*pblock, SER_NETWORK, PROTOCOL_VERSION));
 
         //

@@ -58,12 +58,12 @@
         <translation>Mottagar adresser</translation>
     </message>
     <message>
-        <source>These are your VITAE addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Det här är dina VITAE adresser för att sända betalningar. Kontrollera alltid summan och mottagaradressen före du sänder mynt.</translation>
+        <source>These are your CaritasCoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Det här är dina CaritasCoin adresser för att sända betalningar. Kontrollera alltid summan och mottagaradressen före du sänder mynt.</translation>
     </message>
     <message>
-        <source>These are your VITAE addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Det här är dina VITAE adresser för att ta emot betalningar. Det är rekomenderat att använda en ny mottagaradress för varje transaktion.</translation>
+        <source>These are your CaritasCoin addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Det här är dina CaritasCoin adresser för att ta emot betalningar. Det är rekomenderat att använda en ny mottagaradress för varje transaktion.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -160,16 +160,16 @@
         <translation>Bekräfta plånboks krypering</translation>
     </message>
     <message>
-        <source>VITAE will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your VITs from being stolen by malware infecting your computer.</source>
-        <translation>VITAE kommer att stängas ner nu för att färdigställa kryperingsprocessen. Kom ihåg att kryptering av din plånbok inte kan säkerställa dina VITs från att bli stulna av skadeprogram som infekterat din dator.</translation>
+        <source>CaritasCoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your VITs from being stolen by malware infecting your computer.</source>
+        <translation>CaritasCoin kommer att stängas ner nu för att färdigställa kryperingsprocessen. Kom ihåg att kryptering av din plånbok inte kan säkerställa dina VITs från att bli stulna av skadeprogram som infekterat din dator.</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
         <translation>Är du säker på att du vill kryptera din plånbok?</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR VITAE&lt;/b&gt;!</source>
-        <translation>Varning: om du krypterar din plånbok och tappar bort din lösenfras kommer du &lt;b&gt; FÖRLORA ALLA DINA VITAE&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR CaritasCoin&lt;/b&gt;!</source>
+        <translation>Varning: om du krypterar din plånbok och tappar bort din lösenfras kommer du &lt;b&gt; FÖRLORA ALLA DINA CaritasCoin&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Wallet encrypted</source>
@@ -232,8 +232,8 @@ Ange en lösenfras i den mellersta boxen. Tryck kryptera för att beräkna den k
         <translation>Adress:</translation>
     </message>
     <message>
-        <source>The VITAE address to sign the message with</source>
-        <translation>VITAE adressen för signera meddelandet med</translation>
+        <source>The CaritasCoin address to sign the message with</source>
+        <translation>CaritasCoin adressen för signera meddelandet med</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -264,8 +264,8 @@ Ange en lösenfras i den mellersta boxen. Tryck kryptera för att beräkna den k
         <translation>Kopiera den nuvarande signaturen till systemets urklipp</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this VITAE address</source>
-        <translation>Signera meddelandet för att bevisa att du äger denna VITAE adress</translation>
+        <source>Sign the message to prove you own this CaritasCoin address</source>
+        <translation>Signera meddelandet för att bevisa att du äger denna CaritasCoin adress</translation>
     </message>
     <message>
         <source>Encrypt &amp;Key</source>
@@ -288,12 +288,12 @@ Ange en lösenfras i den mellersta boxen. Tryck kryptera för att beräkna den k
         <translation>Ange BIP 38 krypterade privata nyckeln. Ange lösenfrasen i med mittersta boxen. Tryck på krypetra nyckel för att beräkna den privata nyckeln. Efter att nyckeln är avkrypterad, Tryck på 'Importera Adress' kommer att lägga till denna privata nyckel till plånboken.</translation>
     </message>
     <message>
-        <source>The VITAE address the message was signed with</source>
-        <translation>VITAE adressen meddelandet blev signerat med</translation>
+        <source>The CaritasCoin address the message was signed with</source>
+        <translation>CaritasCoin adressen meddelandet blev signerat med</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified VITAE address</source>
-        <translation>Verifiera meddelandet för att säkerställa att de blev signerat med den specifika VITAE adressen.</translation>
+        <source>Verify the message to ensure it was signed with the specified CaritasCoin address</source>
+        <translation>Verifiera meddelandet för att säkerställa att de blev signerat med den specifika CaritasCoin adressen.</translation>
     </message>
     <message>
         <source>Decrypt &amp;Key</source>
@@ -583,12 +583,12 @@ Ange en lösenfras i den mellersta boxen. Tryck kryptera för att beräkna den k
         <translation>flik vertygsrad</translation>
     </message>
     <message>
-        <source>VITAE Core</source>
-        <translation>VITAE Kärna</translation>
+        <source>CaritasCoin Core</source>
+        <translation>CaritasCoin Kärna</translation>
     </message>
     <message>
-        <source>Send coins to a VITAE address</source>
-        <translation>Skicka mynt till en VITAE adress</translation>
+        <source>Send coins to a CaritasCoin address</source>
+        <translation>Skicka mynt till en CaritasCoin adress</translation>
     </message>
     <message>
         <source>Request payments (generates QR codes and vitae: URIs)</source>
@@ -603,24 +603,24 @@ Ange en lösenfras i den mellersta boxen. Tryck kryptera för att beräkna den k
         <translation>Utforska masternoder</translation>
     </message>
     <message>
-        <source>&amp;About VITAE Core</source>
-        <translation>Om VITAE Kärnan</translation>
+        <source>&amp;About CaritasCoin Core</source>
+        <translation>Om CaritasCoin Kärnan</translation>
     </message>
     <message>
-        <source>Show information about VITAE Core</source>
-        <translation>Visa information om VITAE Kärnan</translation>
+        <source>Show information about CaritasCoin Core</source>
+        <translation>Visa information om CaritasCoin Kärnan</translation>
     </message>
     <message>
-        <source>Modify configuration options for VITAE</source>
-        <translation>Ändra konfigurationsval för VITAE</translation>
+        <source>Modify configuration options for CaritasCoin</source>
+        <translation>Ändra konfigurationsval för CaritasCoin</translation>
     </message>
     <message>
-        <source>Sign messages with your VITAE addresses to prove you own them</source>
-        <translation>Signera meddelanden med din VITAE adress för att visa att du äger dem</translation>
+        <source>Sign messages with your CaritasCoin addresses to prove you own them</source>
+        <translation>Signera meddelanden med din CaritasCoin adress för att visa att du äger dem</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified VITAE addresses</source>
-        <translation>Verifiera meddelandet för att säkerställa att de blev signerat med den specifika VITAE adressen.</translation>
+        <source>Verify messages to ensure they were signed with specified CaritasCoin addresses</source>
+        <translation>Verifiera meddelandet för att säkerställa att de blev signerat med den specifika CaritasCoin adressen.</translation>
     </message>
     <message>
         <source>&amp;BIP38 tool</source>
@@ -631,8 +631,8 @@ Ange en lösenfras i den mellersta boxen. Tryck kryptera för att beräkna den k
         <translation>Kryptera och avkryptera privata nycklar genom användning av lösenfras</translation>
     </message>
     <message>
-        <source>VITAE Core client</source>
-        <translation>VITAE kärn klient</translation>
+        <source>CaritasCoin Core client</source>
+        <translation>CaritasCoin kärn klient</translation>
     </message>
     <message>
         <source>%1 and %2</source>
@@ -837,15 +837,15 @@ Ange en lösenfras i den mellersta boxen. Tryck kryptera för att beräkna den k
 <context>
     <name>HelpMessageDialog</name>
     <message>
-        <source>VITAE Core</source>
-        <translation>VITAE Kärna</translation>
+        <source>CaritasCoin Core</source>
+        <translation>CaritasCoin Kärna</translation>
     </message>
     </context>
 <context>
     <name>Intro</name>
     <message>
-        <source>VITAE Core</source>
-        <translation>VITAE Kärna</translation>
+        <source>CaritasCoin Core</source>
+        <translation>CaritasCoin Kärna</translation>
     </message>
     <message>
         <source>Error</source>
@@ -1157,8 +1157,8 @@ Ange en lösenfras i den mellersta boxen. Tryck kryptera för att beräkna den k
 <context>
     <name>SignVerifyMessageDialog</name>
     <message>
-        <source>The VITAE address to sign the message with</source>
-        <translation>VITAE adressen för signera meddelandet med</translation>
+        <source>The CaritasCoin address to sign the message with</source>
+        <translation>CaritasCoin adressen för signera meddelandet med</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -1181,16 +1181,16 @@ Ange en lösenfras i den mellersta boxen. Tryck kryptera för att beräkna den k
         <translation>Kopiera den nuvarande signaturen till systemets urklipp</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this VITAE address</source>
-        <translation>Signera meddelandet för att bevisa att du äger denna VITAE adress</translation>
+        <source>Sign the message to prove you own this CaritasCoin address</source>
+        <translation>Signera meddelandet för att bevisa att du äger denna CaritasCoin adress</translation>
     </message>
     <message>
-        <source>The VITAE address the message was signed with</source>
-        <translation>VITAE adressen meddelandet blev signerat med</translation>
+        <source>The CaritasCoin address the message was signed with</source>
+        <translation>CaritasCoin adressen meddelandet blev signerat med</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified VITAE address</source>
-        <translation>Verifiera meddelandet för att säkerställa att de blev signerat med den specifika VITAE adressen.</translation>
+        <source>Verify the message to ensure it was signed with the specified CaritasCoin address</source>
+        <translation>Verifiera meddelandet för att säkerställa att de blev signerat med den specifika CaritasCoin adressen.</translation>
     </message>
     <message>
         <source>Reset all sign message fields</source>
@@ -1232,8 +1232,8 @@ Ange en lösenfras i den mellersta boxen. Tryck kryptera för att beräkna den k
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>VITAE Core</source>
-        <translation>VITAE Kärna</translation>
+        <source>CaritasCoin Core</source>
+        <translation>CaritasCoin Kärna</translation>
     </message>
     </context>
 <context>

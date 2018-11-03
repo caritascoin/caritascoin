@@ -1,33 +1,33 @@
-bin_PROGRAMS += qt/vitae-qt
+bin_PROGRAMS += qt/caritas-qt
 EXTRA_LIBRARIES += qt/libbitcoinqt.a
 
-# vitae qt core #
+# caritas qt core #
 QT_TS = \
-  qt/locale/vitae_bg.ts \
-  qt/locale/vitae_ca.ts \
-  qt/locale/vitae_cs.ts \
-  qt/locale/vitae_da.ts \
-  qt/locale/vitae_de.ts \
-  qt/locale/vitae_en.ts \
-  qt/locale/vitae_en_US.ts \
-  qt/locale/vitae_es.ts \
-  qt/locale/vitae_fi.ts \
-  qt/locale/vitae_fr_FR.ts \
-  qt/locale/vitae_it.ts \
-  qt/locale/vitae_ja.ts \
-  qt/locale/vitae_ko_KR.ts \
-  qt/locale/vitae_nl.ts \
-  qt/locale/vitae_pl.ts \
-  qt/locale/vitae_pt.ts \
-  qt/locale/vitae_pt_BR.ts \
-  qt/locale/vitae_ro_RO.ts \
-  qt/locale/vitae_ru.ts \
-  qt/locale/vitae_sk.ts \
-  qt/locale/vitae_sv.ts \
-  qt/locale/vitae_tr.ts \
-  qt/locale/vitae_uk.ts \
-  qt/locale/vitae_zh_CN.ts \
-  qt/locale/vitae_zh_TW.ts
+  qt/locale/caritas_bg.ts \
+  qt/locale/caritas_ca.ts \
+  qt/locale/caritas_cs.ts \
+  qt/locale/caritas_da.ts \
+  qt/locale/caritas_de.ts \
+  qt/locale/caritas_en.ts \
+  qt/locale/caritas_en_US.ts \
+  qt/locale/caritas_es.ts \
+  qt/locale/caritas_fi.ts \
+  qt/locale/caritas_fr_FR.ts \
+  qt/locale/caritas_it.ts \
+  qt/locale/caritas_ja.ts \
+  qt/locale/caritas_ko_KR.ts \
+  qt/locale/caritas_nl.ts \
+  qt/locale/caritas_pl.ts \
+  qt/locale/caritas_pt.ts \
+  qt/locale/caritas_pt_BR.ts \
+  qt/locale/caritas_ro_RO.ts \
+  qt/locale/caritas_ru.ts \
+  qt/locale/caritas_sk.ts \
+  qt/locale/caritas_sv.ts \
+  qt/locale/caritas_tr.ts \
+  qt/locale/caritas_uk.ts \
+  qt/locale/caritas_zh_CN.ts \
+  qt/locale/caritas_zh_TW.ts
 
 QT_FORMS_UI = \
   qt/forms/addressbookpage.ui \
@@ -116,16 +116,16 @@ BITCOIN_MM = \
   qt/macnotificationhandler.mm
 
 QT_MOC = \
-  qt/vitae.moc \
+  qt/caritas.moc \
   qt/bitcoinamountfield.moc \
   qt/intro.moc \
   qt/overviewpage.moc \
   qt/rpcconsole.moc
 
-QT_QRC_CPP = qt/qrc_vitae.cpp
-QT_QRC = qt/vitae.qrc
-QT_QRC_LOCALE_CPP = qt/qrc_vitae_locale.cpp
-QT_QRC_LOCALE = qt/vitae_locale.qrc
+QT_QRC_CPP = qt/qrc_caritas.cpp
+QT_QRC = qt/caritas.qrc
+QT_QRC_LOCALE_CPP = qt/qrc_caritas_locale.cpp
+QT_QRC_LOCALE = qt/caritas_locale.qrc
 
 PROTOBUF_CC = qt/paymentrequest.pb.cc
 PROTOBUF_H = qt/paymentrequest.pb.h
@@ -248,12 +248,12 @@ RES_ICONS = \
   qt/res/icons/tx_input.png \
   qt/res/icons/tx_output.png \
   qt/res/icons/tx_mined.png \
-  qt/res/icons/unit_vitae.png \
-  qt/res/icons/unit_mvitae.png \
-  qt/res/icons/unit_uvitae.png \
-  qt/res/icons/unit_tvitae.png \
-  qt/res/icons/unit_tmvitae.png \
-  qt/res/icons/unit_tuvitae.png
+  qt/res/icons/unit_caritas.png \
+  qt/res/icons/unit_mcaritas.png \
+  qt/res/icons/unit_ucaritas.png \
+  qt/res/icons/unit_tcaritas.png \
+  qt/res/icons/unit_tmcaritas.png \
+  qt/res/icons/unit_tucaritas.png
 
 BITCOIN_QT_CPP = \
   qt/bantablemodel.cpp \
@@ -329,7 +329,7 @@ RES_IMAGES = \
   qt/res/images/about.png \
   qt/res/images/splash.png \
   qt/res/images/splash_testnet.png \
-  qt/res/images/vitae_logo_horizontal.png \
+  qt/res/images/caritas_logo_horizontal.png \
   qt/res/images/downArrow_dark.png \
   qt/res/images/downArrow_small_dark.png \
   qt/res/images/downArrow_small.png \
@@ -347,7 +347,7 @@ RES_CSS = \
 
 RES_MOVIES = $(wildcard $(srcdir)/qt/res/movies/spinner-*.png)
 
-BITCOIN_RC = qt/res/vitae-qt-res.rc
+BITCOIN_RC = qt/res/caritas-qt-res.rc
 
 BITCOIN_QT_INCLUDES = -I$(builddir)/qt -I$(srcdir)/qt -I$(srcdir)/qt/forms \
   -I$(builddir)/qt/forms
@@ -367,69 +367,69 @@ QT_FORMS_H=$(join $(dir $(QT_FORMS_UI)),$(addprefix ui_, $(notdir $(QT_FORMS_UI:
 # Most files will depend on the forms and moc files as includes. Generate them
 # before anything else.
 $(QT_MOC): $(QT_FORMS_H)
-$(qt_libbitcoinqt_a_OBJECTS) $(qt_vitae_qt_OBJECTS) : | $(QT_MOC)
+$(qt_libbitcoinqt_a_OBJECTS) $(qt_caritas_qt_OBJECTS) : | $(QT_MOC)
 
 #Generating these with a half-written protobuf header leads to wacky results.
 #This makes sure it's done.
 $(QT_MOC): $(PROTOBUF_H)
 $(QT_MOC_CPP): $(PROTOBUF_H)
 
-# vitae-qt binary #
-qt_vitae_qt_CPPFLAGS = $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
+# caritas-qt binary #
+qt_caritas_qt_CPPFLAGS = $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
   $(QT_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS)
 
-qt_vitae_qt_SOURCES = qt/vitae.cpp
+qt_caritas_qt_SOURCES = qt/caritas.cpp
 if TARGET_DARWIN
-  qt_vitae_qt_SOURCES += $(BITCOIN_MM)
+  qt_caritas_qt_SOURCES += $(BITCOIN_MM)
 endif
 if TARGET_WINDOWS
-  qt_vitae_qt_SOURCES += $(BITCOIN_RC)
+  qt_caritas_qt_SOURCES += $(BITCOIN_RC)
 endif
-qt_vitae_qt_LDADD = qt/libbitcoinqt.a $(LIBBITCOIN_SERVER)
+qt_caritas_qt_LDADD = qt/libbitcoinqt.a $(LIBBITCOIN_SERVER)
 if ENABLE_WALLET
-qt_vitae_qt_LDADD += $(LIBBITCOIN_WALLET)
+qt_caritas_qt_LDADD += $(LIBBITCOIN_WALLET)
 endif
 if ENABLE_ZMQ
-qt_vitae_qt_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
+qt_caritas_qt_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
 endif
-qt_vitae_qt_LDADD += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CRYPTO) $(LIBUNIVALUE) $(LIBBITCOIN_ZEROCOIN) $(LIBLEVELDB) $(LIBMEMENV) \
+qt_caritas_qt_LDADD += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CRYPTO) $(LIBUNIVALUE) $(LIBBITCOIN_ZEROCOIN) $(LIBLEVELDB) $(LIBMEMENV) \
   $(BOOST_LIBS) $(QT_LIBS) $(QT_DBUS_LIBS) $(QR_LIBS) $(PROTOBUF_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(LIBSECP256K1) \
   $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
-qt_vitae_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
-qt_vitae_qt_LIBTOOLFLAGS = --tag CXX
+qt_caritas_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+qt_caritas_qt_LIBTOOLFLAGS = --tag CXX
 
 #locale/foo.ts -> locale/foo.qm
 QT_QM=$(QT_TS:.ts=.qm)
 
 .SECONDARY: $(QT_QM)
 
-qt/vitaestrings.cpp: $(libbitcoin_server_a_SOURCES) $(libbitcoin_wallet_a_SOURCES) $(libbitcoin_common_a_SOURCES)
+qt/caritasstrings.cpp: $(libbitcoin_server_a_SOURCES) $(libbitcoin_wallet_a_SOURCES) $(libbitcoin_common_a_SOURCES)
 	@test -n $(XGETTEXT) || echo "xgettext is required for updating translations"
 	$(AM_V_GEN) cd $(srcdir); XGETTEXT=$(XGETTEXT) $(PYTHON) ../share/qt/extract_strings_qt.py $^
 
-translate: qt/vitaestrings.cpp $(QT_FORMS_UI) $(QT_FORMS_UI) $(BITCOIN_QT_CPP) $(BITCOIN_QT_H) $(BITCOIN_MM)
+translate: qt/caritasstrings.cpp $(QT_FORMS_UI) $(QT_FORMS_UI) $(BITCOIN_QT_CPP) $(BITCOIN_QT_H) $(BITCOIN_MM)
 	@test -n $(LUPDATE) || echo "lupdate is required for updating translations"
-	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LUPDATE) $^ -locations relative -no-obsolete -ts qt/locale/vitae_en.ts
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LUPDATE) $^ -locations relative -no-obsolete -ts qt/locale/caritas_en.ts
 
 $(QT_QRC_LOCALE_CPP): $(QT_QRC_LOCALE) $(QT_QM)
 	@test -f $(RCC)
 	@test -f $(@D)/$(<F) || cp -f $< $(@D)
-	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name vitae_locale $(@D)/$(<F) | \
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name caritas_locale $(@D)/$(<F) | \
 	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
 
 $(QT_QRC_CPP): $(QT_QRC) $(QT_FORMS_H) $(RES_ICONS) $(RES_IMAGES) $(RES_CSS) $(RES_MOVIES) $(PROTOBUF_H)
 	@test -f $(RCC)
-	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name vitae $< | \
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name caritas $< | \
 	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
 
 CLEAN_QT = $(nodist_qt_libbitcoinqt_a_SOURCES) $(QT_QM) $(QT_FORMS_H) qt/*.gcda qt/*.gcno
 
 CLEANFILES += $(CLEAN_QT)
 
-vitae_qt_clean: FORCE
-	rm -f $(CLEAN_QT) $(qt_libbitcoinqt_a_OBJECTS) $(qt_vitae_qt_OBJECTS) qt/vitae-qt$(EXEEXT) $(LIBBITCOINQT)
+caritas_qt_clean: FORCE
+	rm -f $(CLEAN_QT) $(qt_libbitcoinqt_a_OBJECTS) $(qt_caritas_qt_OBJECTS) qt/caritas-qt$(EXEEXT) $(LIBBITCOINQT)
 
-vitae_qt : qt/vitae-qt$(EXEEXT)
+caritas_qt : qt/caritas-qt$(EXEEXT)
 
 ui_%.h: %.ui
 	@test -f $(UIC)
