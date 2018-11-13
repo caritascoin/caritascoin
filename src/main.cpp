@@ -2048,9 +2048,6 @@ bool AcceptableInputs(CTxMemPool& pool, CValidationState& state, const CTransact
 bool AcceptableFundamentalTxn(CTxMemPool& pool, CValidationState& state, const CTransaction& tx)
 {
     AssertLockHeld(cs_main);
-//    if (pfMissingInputs)
-//        *pfMissingInputs = false;
-
 
     if (!CheckTransaction(tx, chainActive.Height() >= Params().Zerocoin_StartHeight(), true, state))
         return error("AcceptableInputs: : CheckTransaction failed");
@@ -2324,21 +2321,27 @@ double ConvertBitsToDouble(unsigned int nBits)
 
 int64_t GetBlockValue(int nHeight)
 {
-    int64_t nSubsidy = 30 *COIN;
+    int64_t nSubsidy = 30 * COIN;
 
-    if(nHeight ==1){
-        return 1100000 * COIN;
+    if(nHeight <= Params().LAST_POW_BLOCK()){
+        return 1500 * COIN;
     }
-	if(nHeight >=259200 && nHeight<518400){
+    if (nHeight > Params().LAST_POW_BLOCK() && nHeight <= 40000) {
+        return 30 * COIN;
+    }
+	if(nHeight > 40000 && nHeight <= 412600){
+        return 40 * COIN;
+    }
+	if(nHeight > 412600 && nHeight <= 729400){
+        return 30 * COIN;
+    }
+    if(nHeight > 729400 && nHeight <= 1430200) {
         return 20 * COIN;
     }
-	if(nHeight >=518400 && nHeight<777600){
-        return 15 * COIN;
-    }
-	if(nHeight >=777600 && nHeight<1036800){
+    if(nHeight > 1430200 && nHeight <= 2131000) {
         return 10 * COIN;
     }
-	if(nHeight >=1036800){
+	if(nHeight > 2131000){
         return 5 * COIN;
     }
 

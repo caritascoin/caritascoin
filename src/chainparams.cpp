@@ -103,7 +103,7 @@ public:
         pchMessageStart[1] = 0x2f;
         pchMessageStart[2] = 0xb3;
         pchMessageStart[3] = 0xa4;
-        vAlertPubKey = ParseHex("0000098d3ba6ba6e7423fa5cbd6a89e0a9a5348f88d332b44a5cb1a8b7ed2c1eaa335fc8dc4f012cb8241cc0bdafd6ca70c5f5448916e4e6f511bcd746ed57dc50");
+        vAlertPubKey = ParseHex("049CDEDDB66230782D70BC1A94C85EF6EF20222BB14E5CF036C412C7E05F94D60B2C93F16DE64E456490D984C526A6F46D9B511619BE20BFC54D36113FC14B312F");
         nDefaultPort = 16180;
         bnProofOfWorkLimit = ~uint256(0) >> 20; // CaritasCoin starting difficulty is 1 / 2^12
         nSubsidyHalvingInterval = 210000;
@@ -120,7 +120,7 @@ public:
         nMaxMoneyOut = 21000000 * COIN;
 
         /** Height or Time Based Activations **/
-        nLastPOWBlock = 200;
+        nLastPOWBlock = 2000;
         nModifierUpdateBlock = 615800;
         nZerocoinStartHeight = 5000;
         nZerocoinStartTime = 1536314400; // september 7, 2018 12:00:00 UTC
@@ -186,7 +186,7 @@ public:
         fHeadersFirstSyncingActive = false;
 
         nPoolMaxTransactions = 3;
-        strSporkKey = "04fd2375653a3064623b8a9e179c34a4ffa9ee9afbc13e2218b37f5fa6cbe2f94ef874a216cbfddbcbf06b5951a9011d65dae988fb4469fabcfa29b9c8daf23c7e";
+        strSporkKey = "049CDEDDB66230782D70BC1A94C85EF6EF20222BB14E5CF036C412C7E05F94D60B2C93F16DE64E456490D984C526A6F46D9B511619BE20BFC54D36113FC14B312F";
         strObfuscationPoolDummyAddress = "VjVqgZbamLZ3KmEKBZZzmZgvtqDWw7jsrL";
         nStartFundamentalnodePayments = 1524487214;
 
@@ -227,7 +227,7 @@ public:
         pchMessageStart[1] = 0x2b;
         pchMessageStart[2] = 0x33;
         pchMessageStart[3] = 0xad;
-        vAlertPubKey = ParseHex("000010e83b2703ccf322f7dbd62dd5855ac7c10bd055814ce121ba32607d573b8810c02c0582aed05b4deb9c4b77b26d92428c61256cd42774babea0a073b2ed0c9");
+        vAlertPubKey = ParseHex("047cb1d068ef01a90200652ee3b350d660b7829d761417496716e41c9722d3b38bf099546a56f6e71c98b58e5616296172726377c6b2082c60c7bc4a1d54159c6b");
         nDefaultPort = 16170;
         nEnforceBlockUpgradeMajority = 51;
         nRejectBlockOutdatedMajority = 75;
@@ -235,7 +235,7 @@ public:
         nMinerThreads = 0;
         nTargetTimespan = 1 * 60; // CaritasCoin: 1 day
         nTargetSpacing = 1 * 60;  // CaritasCoin: 1 minute
-        nLastPOWBlock = 200;
+        nLastPOWBlock = 2000;
         nMaturity = 15;
         nFundamentalnodeCountDrift = 4;
 		nMasternodeCountDrift = 4;
@@ -282,7 +282,7 @@ public:
         fTestnetToBeDeprecatedFieldRPC = true;
 
         nPoolMaxTransactions = 2;
-        strSporkKey = "04348C2F50F90267E64FACC65BFDC9D0EB147D090872FB97ABAE92E9A36E6CA60983E28E741F8E7277B11A7479B626AC115BA31463AC48178A5075C5A9319D4A38";
+        strSporkKey = "047cb1d068ef01a90200652ee3b350d660b7829d761417496716e41c9722d3b38bf099546a56f6e71c98b58e5616296172726377c6b2082c60c7bc4a1d54159c6b";
         strObfuscationPoolDummyAddress = "y57cqfGRkekRyDRNeJiLtYVEbvhXrNbmox";
         nStartFundamentalnodePayments = 1420837558; //Fri, 09 Jan 2015 21:05:58 GMT
         nBudget_Fee_Confirmations = 3; // Number of confirmations for the finalization fee. We have to make this very short

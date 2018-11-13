@@ -758,6 +758,21 @@ void CFundamentalnodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, 
             return;
         }
 
+        CValidationState state;
+		bool fAcceptable = false;
+        {
+            TRY_LOCK(cs_main, lockMain);
+            if (!lockMain) return;
+            fAcceptable = AcceptableFundamentalTxn(mempool, state, tx);
+        }
+
+		if (!fAcceptable){
+            LogPrint("fundamentalnode", "fnb - Got bad vin, doesnt burn collateral amount\n");
+            Misbehaving(pfrom->GetId(), 33);
+            return;
+		}
+
+
         // make sure it's still unspent
         //  - this is checked later by .check() in many places and by ThreadCheckObfuScationPool()
         if (fnb.CheckInputsAndAdd(nDoS)) {

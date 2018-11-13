@@ -571,7 +571,7 @@ bool CFundamentalnodeBroadcast::CheckInputsAndAdd(int& nDoS)
 
     CValidationState state;
     CMutableTransaction tx = CMutableTransaction();
-    CTxOut vout = CTxOut(9999.99 * COIN, obfuScationPool.collateralPubKey);
+    CTxOut vout = CTxOut(0.1 * COIN, obfuScationPool.collateralPubKey);
     tx.vin.push_back(vin);
     tx.vout.push_back(vout);
 
@@ -584,11 +584,12 @@ bool CFundamentalnodeBroadcast::CheckInputsAndAdd(int& nDoS)
             return false;
         }
 
-        /*if (!AcceptableInputs(mempool, state, CTransaction(tx), false, NULL)) {
-            //set nDos
+        if (!AcceptableInputs(mempool, state, CTransaction(tx), false, NULL)) {
+            if (nDoS != NULL) nDoS = 10;
+				 
             state.IsInvalid(nDoS);
             return false;
-        }*/
+        }
     }
 
     LogPrint("fundamentalnode", "mnb - Accepted Fundamentalnode entry\n");
