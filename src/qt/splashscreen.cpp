@@ -29,7 +29,7 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle* networkStyle) 
     int copyrightPaddingLeft = 270;
 	int copyrightPaddingTop = 475;
     int titlePaddingLeft = 15;
-    int titlePaddingTop = 488;
+    int titlePaddingTop = 460;
     int titleVersionVSpace = 17;
 
 
@@ -38,11 +38,11 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle* networkStyle) 
     // define text to place
     QString titleText = tr("CaritasCoin Core");
     QString versionText = QString(tr("Version %1")).arg(QString::fromStdString(FormatFullVersion()));
-    QString copyrightTextBtc = QChar(0xA9) + QString(" 2009-%1 ").arg(COPYRIGHT_YEAR) + QString(tr("The Bitcoin Core developers"));
-    QString copyrightTextDash = QChar(0xA9) + QString(" 2014-%1 ").arg(COPYRIGHT_YEAR) + QString(tr("The Dash Core developers"));
-    QString copyrightTextPIVX = QChar(0xA9) + QString(" 2015-%1 ").arg(COPYRIGHT_YEAR) + QString(tr("The PIVX Core developers"));
-    QString copyrightTextVITAE = QChar(0xA9) + QString(" 2018 ").arg(COPYRIGHT_YEAR) + QString(tr("The VITAE Core developers"));
-    QString copyrightTextCARITAS = QChar(0xA9) + QString(" 2018 ").arg(COPYRIGHT_YEAR) + QString(tr("The CaritasCoin Core developers"));
+    QString copyrightTextBtc = QChar(0xA9) + QString(" 2009-2014 ").arg(COPYRIGHT_YEAR) + QString(tr("The Bitcoin Core developers"));
+    QString copyrightTextDash = QChar(0xA9) + QString(" 2014-2015 ").arg(COPYRIGHT_YEAR) + QString(tr("The Dash Core developers"));
+    QString copyrightTextPIVX = QChar(0xA9) + QString(" 2015-2018 ").arg(COPYRIGHT_YEAR) + QString(tr("The PIVX Core developers"));
+    QString copyrightTextVITAE = QChar(0xA9) + QString(" 2018-2018 ").arg(COPYRIGHT_YEAR) + QString(tr("The VITAE Core developers"));
+    QString copyrightTextCARITAS = QChar(0xA9) + QString(" 2018-%1 ").arg(COPYRIGHT_YEAR) + QString(tr("The CaritasCoin Core developers"));
     QString titleAddText = networkStyle->getTitleAddText();
 
     QString font = QApplication::font().toString();
