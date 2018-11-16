@@ -41,8 +41,8 @@ SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle* networkStyle) 
     QString copyrightTextBtc = QChar(0xA9) + QString(" 2009-2014 ").arg(COPYRIGHT_YEAR) + QString(tr("The Bitcoin Core developers"));
     QString copyrightTextDash = QChar(0xA9) + QString(" 2014-2015 ").arg(COPYRIGHT_YEAR) + QString(tr("The Dash Core developers"));
     QString copyrightTextPIVX = QChar(0xA9) + QString(" 2015-2018 ").arg(COPYRIGHT_YEAR) + QString(tr("The PIVX Core developers"));
-    QString copyrightTextVITAE = QChar(0xA9) + QString(" 2018-2018 ").arg(COPYRIGHT_YEAR) + QString(tr("The VITAE Core developers"));
-    QString copyrightTextCARITAS = QChar(0xA9) + QString(" 2018-%1 ").arg(COPYRIGHT_YEAR) + QString(tr("The CaritasCoin Core developers"));
+    QString copyrightTextVITAE = QChar(0xA9) + QString(" 2018 ").arg(COPYRIGHT_YEAR) + QString(tr("The VITAE Core developers"));
+    QString copyrightTextCARITAS = QChar(0xA9) + QString(" 2018 ").arg(COPYRIGHT_YEAR) + QString(tr("The CaritasCoin Core developers"));
     QString titleAddText = networkStyle->getTitleAddText();
 
     QString font = QApplication::font().toString();
