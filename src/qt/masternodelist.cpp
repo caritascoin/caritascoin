@@ -187,10 +187,13 @@ void MasternodeList::updateMyMasternodeInfo(QString strAlias, QString strAddr, C
         nNewRow = ui->tableWidgetMyMasternodes->rowCount();
         ui->tableWidgetMyMasternodes->insertRow(nNewRow);
     }
+
+    CTxDestination address1;
+    if(pmn){
         CScript pubkey;
-    pubkey = GetScriptForDestination(pmn->pubkey.GetID());
-        CTxDestination address1;
+        pubkey = GetScriptForDestination(pmn->pubkey.GetID());
         ExtractDestination(pubkey, address1);
+    }
     CBitcoinAddress address2(address1);
     QTableWidgetItem* aliasItem = new QTableWidgetItem(strAlias);
     QTableWidgetItem* addrItem = new QTableWidgetItem(pmn ? QString::fromStdString(pmn->addr.ToString()) : strAddr);
@@ -230,8 +233,7 @@ void MasternodeList::updateMyNodeList(bool fForce)
         CTxIn txin = CTxIn(uint256S(mne.getTxHash()), nOutputIndex);
         CMasternode* pmn = m_nodeman.Find(txin);
 
-                if(pmn != NULL){
-        updateMyMasternodeInfo(QString::fromStdString(mne.getAlias()), QString::fromStdString(mne.getIp()), pmn);}
+        updateMyMasternodeInfo(QString::fromStdString(mne.getAlias()), QString::fromStdString(mne.getIp()), pmn);
     }
     ui->tableWidgetMasternodes->setSortingEnabled(true);
 
