@@ -3,20 +3,20 @@
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
 // Copyright (c) 2018 The VITAE developers and CaritasCoin developers
- 
+
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "base58.h"
 #include "clientversion.h"
+#include "fundamentalnode-sync.h"
 #include "init.h"
 #include "main.h"
-#include "fundamentalnode-sync.h"
+#include "mn-spork.h"
 #include "net.h"
 #include "netbase.h"
 #include "rpcserver.h"
 #include "spork.h"
-#include "mn-spork.h"
 #include "timedata.h"
 #include "util.h"
 #ifdef ENABLE_WALLET
@@ -109,10 +109,10 @@ UniValue getinfo(const UniValue& params, bool fHelp)
     obj.push_back(Pair("proxy", (proxy.IsValid() ? proxy.proxy.ToStringIPPort() : string())));
     obj.push_back(Pair("difficulty", (double)GetDifficulty()));
     obj.push_back(Pair("testnet", Params().TestnetToBeDeprecatedFieldRPC()));
-    obj.push_back(Pair("moneysupply",ValueFromAmount(chainActive.Tip()->nMoneySupply)));
+    obj.push_back(Pair("moneysupply", ValueFromAmount(chainActive.Tip()->nMoneySupply)));
     UniValue zVitObj(UniValue::VOBJ);
     for (auto denom : libzerocoin::zerocoinDenomList) {
-        zVitObj.push_back(Pair(to_string(denom), ValueFromAmount(chainActive.Tip()->mapZerocoinSupply.at(denom) * (denom*COIN))));
+        zVitObj.push_back(Pair(to_string(denom), ValueFromAmount(chainActive.Tip()->mapZerocoinSupply.at(denom) * (denom * COIN))));
     }
     zVitObj.push_back(Pair("total", ValueFromAmount(chainActive.Tip()->GetZerocoinSupply())));
     obj.push_back(Pair("zCARITASsupply", zVitObj));
@@ -216,9 +216,10 @@ private:
 public:
     DescribeAddressVisitor(isminetype mineIn) : mine(mineIn) {}
 
-    UniValue operator()(const CNoDestination &dest) const { return UniValue(UniValue::VOBJ); }
+    UniValue operator()(const CNoDestination& dest) const { return UniValue(UniValue::VOBJ); }
 
-    UniValue operator()(const CKeyID &keyID) const {
+    UniValue operator()(const CKeyID& keyID) const
+    {
         UniValue obj(UniValue::VOBJ);
         CPubKey vchPubKey;
         obj.push_back(Pair("isscript", false));
@@ -230,7 +231,8 @@ public:
         return obj;
     }
 
-    UniValue operator()(const CScriptID &scriptID) const {
+    UniValue operator()(const CScriptID& scriptID) const
+    {
         UniValue obj(UniValue::VOBJ);
         obj.push_back(Pair("isscript", true));
         if (mine != ISMINE_NO) {
@@ -299,8 +301,8 @@ UniValue spork(const UniValue& params, bool fHelp)
 
 UniValue mnspork(const UniValue& params, bool fHelp)
 {
-    if(params.size() == 1 && params[0].get_str() == "show"){
-        std::map<int, CMNSporkMessage>::iterator it = mapMNSporksActive.begin();
+    if (params.size() == 1 && params[0].get_str() == "show") {
+        /*std::map<int, CMNSporkMessage>::iterator it = mapMNSporksActive.begin();
 
         //Object ret;
                 UniValue ret(UniValue::VOBJ);
@@ -308,32 +310,44 @@ UniValue mnspork(const UniValue& params, bool fHelp)
             ret.push_back(Pair(mn_sporkManager.GetMNSporkNameByID(it->second.nMNSporkID), it->second.nValue));
             it++;
         }
+        return ret;*/
+
+        UniValue ret(UniValue::VOBJ);
+        for (int nSporkID = MN_SPORK_START; nSporkID <= MN_SPORK_END; nSporkID++) {
+            if (mn_sporkManager.GetSporkNameByID(nSporkID) != "Unknown")
+                ret.push_back(Pair(mn_sporkManager.GetSporkNameByID(nSporkID), GetMNSporkValue(nSporkID)));
+        }
         return ret;
-    } else if (params.size() == 2){
+    } else if (params.size() == 1 && params[0].get_str() == "active") {
+        UniValue ret(UniValue::VOBJ);
+        for (int nSporkID = MN_SPORK_START; nSporkID <= MN_SPORK_END; nSporkID++) {
+            if (mn_sporkManager.GetSporkNameByID(nSporkID) != "Unknown")
+                ret.push_back(Pair(mn_sporkManager.GetSporkNameByID(nSporkID), IsMNSporkActive(nSporkID)?"enabled":"disabled" ));
+        }
+        return ret;
+    } else if (params.size() == 2) {
         int nMNSporkID = mn_sporkManager.GetMNSporkIDByName(params[0].get_str());
-        if(nMNSporkID == -1){
+        if (nMNSporkID == -1) {
             return "Invalid spork name";
         }
 
         // SPORK VALUE
         int64_t nValue = stoi(params[1].get_str());
-                //TODO: Add core method.
+        //TODO: Add core method.
 
         //broadcast new spork
-        if(mn_sporkManager.UpdateMNSpork(nMNSporkID, nValue)){
+        if (mn_sporkManager.UpdateMNSpork(nMNSporkID, nValue)) {
             return "success";
         } else {
             return "failure";
-
         }
-
     }
 
     throw runtime_error(
         "mnspork <name> [<value>]\n"
         "<name> is the corresponding spork name, or 'show' to show all current spork settings"
-        "<value> is a epoch datetime to enable or disable mnspork"
-        + HelpRequiringPassphrase());
+        "<value> is a epoch datetime to enable or disable mnspork" +
+        HelpRequiringPassphrase());
 }
 
 UniValue validateaddress(const UniValue& params, bool fHelp)
