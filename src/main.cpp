@@ -2323,6 +2323,11 @@ int64_t GetBlockValue(int nHeight)
 {
     int64_t nSubsidy = 30 * COIN;
 
+    if (Params().NetworkID() == CBaseChainParams::TESTNET) {
+        if (nHeight < 200 && nHeight > 0)
+            return 250000 * COIN;
+    }
+
     if(nHeight <= Params().LAST_POW_BLOCK()){ //LAST POW BLOCK 2000
         return 1500 * COIN;
     }
@@ -2332,24 +2337,21 @@ int64_t GetBlockValue(int nHeight)
 	if(nHeight > 117200 && nHeight <= 146000){
         return 40 * COIN;
     }
-	if(nHeight > 146000 && nHeight <= 318800){
+	if(nHeight > 146000 && nHeight <= 232400){
         return 30 * COIN;
     }
-    if(nHeight > 318800 && nHeight <= 1336400) {
+    if(nHeight > 232400 && nHeight <= 318800) {
         return 20 * COIN;
     }
-    if(nHeight > 1336400 && nHeight <= 2037200) {
+    if(nHeight > 318800 && nHeight <= 491600) {
+        return 15 * COIN;
+    }
+    if (nHeight > 491600 && nHeight <= 1192400) {
         return 10 * COIN;
     }
-	if(nHeight > 2037200){
+	if(nHeight > 1192400){
         return 5 * COIN;
     }
-
-    if (Params().NetworkID() == CBaseChainParams::TESTNET) {
-        if (nHeight < 200 && nHeight > 0)
-            return 250000 * COIN;
-    }
-
 
     return nSubsidy;
 }
