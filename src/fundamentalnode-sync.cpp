@@ -5,6 +5,7 @@
 
 // clang-format off
 #include "main.h"
+#include "net.h"
 #include "activefundamentalnode.h"
 #include "fundamentalnode-sync.h"
 #include "fundamentalnode-payments.h"
