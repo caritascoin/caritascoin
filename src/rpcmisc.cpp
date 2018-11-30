@@ -314,15 +314,15 @@ UniValue mnspork(const UniValue& params, bool fHelp)
 
         UniValue ret(UniValue::VOBJ);
         for (int nSporkID = MN_SPORK_START; nSporkID <= MN_SPORK_END; nSporkID++) {
-            if (mn_sporkManager.GetSporkNameByID(nSporkID) != "Unknown")
-                ret.push_back(Pair(mn_sporkManager.GetSporkNameByID(nSporkID), GetMNSporkValue(nSporkID)));
+            if (mn_sporkManager.GetMNSporkNameByID(nSporkID) != "Unknown")
+                ret.push_back(Pair(mn_sporkManager.GetMNSporkNameByID(nSporkID), GetMNSporkValue(nSporkID)));
         }
         return ret;
     } else if (params.size() == 1 && params[0].get_str() == "active") {
         UniValue ret(UniValue::VOBJ);
         for (int nSporkID = MN_SPORK_START; nSporkID <= MN_SPORK_END; nSporkID++) {
-            if (mn_sporkManager.GetSporkNameByID(nSporkID) != "Unknown")
-                ret.push_back(Pair(mn_sporkManager.GetSporkNameByID(nSporkID), IsMNSporkActive(nSporkID)?"enabled":"disabled" ));
+            if (mn_sporkManager.GetMNSporkNameByID(nSporkID) != "Unknown")
+                ret.push_back(Pair(mn_sporkManager.GetMNSporkNameByID(nSporkID), IsMNSporkActive(nSporkID)?"enabled":"disabled" ));
         }
         return ret;
     } else if (params.size() == 2) {
