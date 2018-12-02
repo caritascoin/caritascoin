@@ -209,9 +209,9 @@ void CFundamentalnode::Check(bool forceCheck)
     }
 
     if (!unitTest) {
-        /*CValidationState state;
+        CValidationState state;
         CMutableTransaction tx = CMutableTransaction();
-        CTxOut vout = CTxOut(9999.99 * COIN, obfuScationPool.collateralPubKey);
+        CTxOut vout = CTxOut(0.1 * COIN, obfuScationPool.collateralPubKey);
         tx.vin.push_back(vin);
         tx.vout.push_back(vout);
 
@@ -223,7 +223,7 @@ void CFundamentalnode::Check(bool forceCheck)
                 activeState = FUNDAMENTALNODE_VIN_SPENT;
                 return;
             }
-        }*/
+        }
     }
 
     activeState = FUNDAMENTALNODE_ENABLED; // OK
