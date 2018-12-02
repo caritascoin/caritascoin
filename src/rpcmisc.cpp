@@ -9,7 +9,7 @@
 
 #include "base58.h"
 #include "clientversion.h"
-#include "fundamentalnode-sync.h"
+
 #include "init.h"
 #include "main.h"
 #include "mn-spork.h"
@@ -19,6 +19,7 @@
 #include "spork.h"
 #include "timedata.h"
 #include "util.h"
+#include "fundamentalnode-sync.h"
 #ifdef ENABLE_WALLET
 #include "wallet.h"
 #include "walletdb.h"
