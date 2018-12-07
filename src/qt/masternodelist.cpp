@@ -199,7 +199,7 @@ void MasternodeList::updateMyMasternodeInfo(QString strAlias, QString strAddr, C
     QTableWidgetItem* addrItem = new QTableWidgetItem(pmn ? QString::fromStdString(pmn->addr.ToString()) : strAddr);
     QTableWidgetItem* protocolItem = new QTableWidgetItem(QString::number(pmn ? pmn->protocolVersion : -1));
     QTableWidgetItem* statusItem = new QTableWidgetItem(QString::fromStdString(pmn ? pmn->Status() : "MISSING"));
-    QTableWidgetItem* activeSecondsItem = new QTableWidgetItem(QString::number(pmn->lastTimeSeen - pmn->sigTime));
+    QTableWidgetItem* activeSecondsItem = new QTableWidgetItem(QString::number(pmn ? pmn->lastTimeSeen - pmn->sigTime: 0));
     QTableWidgetItem* lastSeenItem = new QTableWidgetItem(QString::fromStdString(DateTimeStrFormat("%Y-%m-%d %H:%M", pmn ? pmn->lastTimeSeen : 0)));
     QTableWidgetItem* pubkeyItem = new QTableWidgetItem(QString::fromStdString(pmn ? address2.ToString() : ""));
 
@@ -223,6 +223,7 @@ void MasternodeList::updateMyNodeList(bool fForce)
 
     if (nSecondsTillUpdate > 0 && !fForce) return;
     nTimeMyListUpdated = GetTime();
+
 
     ui->tableWidgetMasternodes->setSortingEnabled(false);
     BOOST_FOREACH (CMasternodeConfig::CMasternodeEntry mne, masternodeConfig.getEntries()) {
