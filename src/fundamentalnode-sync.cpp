@@ -241,6 +241,7 @@ void CFundamentalnodeSync::Process()
         /*
             Resync if we lose all fundamentalnodes from sleep/wake or failure to sync originally
         */
+        if (tick % 60 != 0) return;
         if (mnodeman.CountEnabled() == 0) {
             Reset();
         } else
