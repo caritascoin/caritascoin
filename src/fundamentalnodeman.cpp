@@ -733,7 +733,7 @@ void CFundamentalnodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, 
     if (strCommand == "fnb") { //Fundamentalnode Broadcast
         CFundamentalnodeBroadcast fnb;
         vRecv >> fnb;
-
+		
         if (mapSeenFundamentalnodeBroadcast.count(fnb.GetHash())) { //seen
             fundamentalnodeSync.AddedFundamentalnodeList(fnb.GetHash());
             return;
