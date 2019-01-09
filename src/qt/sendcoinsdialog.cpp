@@ -218,6 +218,10 @@ void SendCoinsDialog::on_sendButton_clicked()
 {
     bool IsFundamentalNodePayment = false;
 
+    if (ui->coralNodeBurnCheckbox->checkState()){
+        IsFundamentalNodePayment = true;
+    }
+
     if (!model || !model->getOptionsModel())
         return;
 
