@@ -218,7 +218,7 @@ void SendCoinsDialog::on_sendButton_clicked()
 {
     bool IsFundamentalNodePayment = false;
 
-    if (ui->coralNodeBurnCheckbox->checkState()){
+    if (ui->coralNodeBurnCheckbox->checkState() == Qt::Checked){
         IsFundamentalNodePayment = true;
     }
 
@@ -428,6 +428,7 @@ void SendCoinsDialog::send(QList<SendCoinsRecipient> recipients, QString strFee,
         accept();
         CoinControlDialog::coinControl->UnSelectAll();
         coinControlUpdateLabels();
+        ui->coralNodeBurnCheckbox->setChecked(false);
     }
     fNewRecipientAllowed = true;
 }
