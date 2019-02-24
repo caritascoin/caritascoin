@@ -16,14 +16,14 @@ BEGIN
     BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
-            VALUE "CompanyName",        "Vitae"
-            VALUE "FileDescription",    "Vitae-cli (OSS RPC client for Vitae)"
+            VALUE "CompanyName",        "Caritas"
+            VALUE "FileDescription",    "Caritas-cli (OSS RPC client for Caritas)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
             VALUE "InternalName",       "caritas-cli"
             VALUE "LegalCopyright",     COPYRIGHT_STR
             VALUE "LegalTrademarks1",   "Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php."
             VALUE "OriginalFilename",   "caritas-cli.exe"
-            VALUE "ProductName",        "Vitae-cli"
+            VALUE "ProductName",        "caritas-cli"
             VALUE "ProductVersion",     VER_PRODUCTVERSION_STR
         END
     END

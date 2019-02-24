@@ -11,7 +11,7 @@
 
 /**
  * CBaseChainParams defines the base parameters (shared between caritas-cli and caritasd)
- * of a given instance of the Vitae system.
+ * of a given instance of the Caritas system.
  */
 class CBaseChainParams
 {

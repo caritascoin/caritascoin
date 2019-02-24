@@ -269,22 +269,22 @@
 #define LT_OBJDIR ".libs/"
 
 /* Define to the address where bug reports for this package should be sent. */
-#define PACKAGE_BUGREPORT "www.vitae.org"
+#define PACKAGE_BUGREPORT "www.caritas.org"
 
 /* Define to the full name of this package. */
-#define PACKAGE_NAME "Vitae Core"
+#define PACKAGE_NAME "Caritas Core"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "Vitae Core 4.2.1"
+#define PACKAGE_STRING "Caritas Core 1.0.0.0"
 
 /* Define to the one symbol short name of this package. */
-#define PACKAGE_TARNAME "vitae"
+#define PACKAGE_TARNAME "caritas"
 
 /* Define to the home page for this package. */
 #define PACKAGE_URL ""
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "4.2.1"
+#define PACKAGE_VERSION "1.0.0.0"
 
 /* Define to necessary symbol if this constant
  uses a non-standard name on

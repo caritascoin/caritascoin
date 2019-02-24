@@ -42,7 +42,7 @@ The following are developer notes on how to build CARITAS on your native platfor
 
 Development
 ---------------------
-The Vitae repo's [root README](https://github.com/caritascoin/CARITAS/blob/master/README.md) contains relevant information on the development process and automated testing.
+The Caritas repo's [root README](https://github.com/caritascoin/CARITAS/blob/master/README.md) contains relevant information on the development process and automated testing.
 
 - [Developer Notes](developer-notes.md)
 - [Multiwallet Qt Development](multiwallet-qt.md)
