@@ -6,6 +6,7 @@
 #define BITCOIN_QT_PRIVACYDIALOG_H
 
 #include "guiutil.h"
+#include "chainparams.h"
 
 #include <QDialog>
 #include <QHeaderView>

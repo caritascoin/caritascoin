@@ -213,7 +213,7 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
     CAmount CaritasCoinAvailableBalance = balance - immatureBalance - nLockedBalance;
     CAmount nTotalWatchBalance = watchOnlyBalance + watchUnconfBalance + watchImmatureBalance;    
     CAmount nUnlockedBalance = nTotalBalance - nLockedBalance;
-    // zCARITAS Balance
+    // zCRTS Balance
     CAmount matureZerocoinBalance = zerocoinBalance - immatureZerocoinBalance;
     // Percentages
     QString szPercentage = "";
@@ -237,7 +237,7 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
     ui->labelWatchLocked->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, nWatchOnlyLockedBalance, false, BitcoinUnits::separatorAlways));
     ui->labelWatchTotal->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, nTotalWatchBalance, false, BitcoinUnits::separatorAlways));
 
-    // zCARITAS labels
+    // zCRTS labels
     ui->labelzBalance->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, zerocoinBalance, false, BitcoinUnits::separatorAlways));
     ui->labelzBalanceUnconfirmed->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, unconfirmedZerocoinBalance, false, BitcoinUnits::separatorAlways));
     ui->labelzBalanceMature->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, matureZerocoinBalance, false, BitcoinUnits::separatorAlways));
@@ -252,7 +252,7 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
     ui->labelzVITPercent->setText(szPercentage);
 
     // Adjust bubble-help according to AutoMint settings
-    QString automintHelp = tr("Current percentage of zCARITAS.\nIf AutoMint is enabled this percentage will settle around the configured AutoMint percentage (default = 10%).\n");
+    QString automintHelp = tr("Current percentage of zCRTS.\nIf AutoMint is enabled this percentage will settle around the configured AutoMint percentage (default = 10%).\n");
     bool fEnableZeromint = GetBoolArg("-enablezeromint", false);
     int nZeromintPercentage = GetArg("-zeromintpercentage", 10);
     if (fEnableZeromint) {
@@ -290,15 +290,15 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
     ui->labelImmature->setVisible(showImmature || showWatchOnlyImmature); // for symmetry reasons also show immature label when the watch-only one is shown
     ui->labelImmatureText->setVisible(showImmature || showWatchOnlyImmature);
     ui->labelWatchImmature->setVisible(showImmature && showWatchOnly); // show watch-only immature balance
-    bool showzCARITASAvailable = settingShowAllBalances || zerocoinBalance != matureZerocoinBalance;
-    bool showzCARITASUnconfirmed = settingShowAllBalances || unconfirmedZerocoinBalance != 0;
-    bool showzCARITASImmature = settingShowAllBalances || immatureZerocoinBalance != 0;
-    ui->labelzBalanceMature->setVisible(showzCARITASAvailable);
-    ui->labelzBalanceMatureText->setVisible(showzCARITASAvailable);
-    ui->labelzBalanceUnconfirmed->setVisible(showzCARITASUnconfirmed);
-    ui->labelzBalanceUnconfirmedText->setVisible(showzCARITASUnconfirmed);
-    ui->labelzBalanceImmature->setVisible(showzCARITASImmature);
-    ui->labelzBalanceImmatureText->setVisible(showzCARITASImmature);
+    bool showzCRTSAvailable = settingShowAllBalances || zerocoinBalance != matureZerocoinBalance;
+    bool showzCRTSUnconfirmed = settingShowAllBalances || unconfirmedZerocoinBalance != 0;
+    bool showzCRTSImmature = settingShowAllBalances || immatureZerocoinBalance != 0;
+    ui->labelzBalanceMature->setVisible(showzCRTSAvailable);
+    ui->labelzBalanceMatureText->setVisible(showzCRTSAvailable);
+    ui->labelzBalanceUnconfirmed->setVisible(showzCRTSUnconfirmed);
+    ui->labelzBalanceUnconfirmedText->setVisible(showzCRTSUnconfirmed);
+    ui->labelzBalanceImmature->setVisible(showzCRTSImmature);
+    ui->labelzBalanceImmatureText->setVisible(showzCRTSImmature);
     bool showPercentages = ! (zerocoinBalance == 0 && nTotalBalance == 0);
     ui->labelVITPercent->setVisible(showPercentages);
     ui->labelzVITPercent->setVisible(showPercentages);

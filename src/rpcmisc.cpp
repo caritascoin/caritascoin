@@ -68,17 +68,17 @@ UniValue getinfo(const UniValue& params, bool fHelp)
             "  \"difficulty\": xxxxxx,       (numeric) the current difficulty\n"
             "  \"testnet\": true|false,      (boolean) if the server is using testnet or not\n"
             "  \"moneysupply\" : \"supply\"       (numeric) The money supply when this block was added to the blockchain\n"
-            "  \"zCARITASsupply\" :\n"
+            "  \"zCRTSsupply\" :\n"
             "  {\n"
-            "     \"1\" : n,            (numeric) supply of 1 zCARITAS denomination\n"
-            "     \"5\" : n,            (numeric) supply of 5 zCARITAS denomination\n"
-            "     \"10\" : n,           (numeric) supply of 10 zCARITAS denomination\n"
-            "     \"50\" : n,           (numeric) supply of 50 zCARITAS denomination\n"
-            "     \"100\" : n,          (numeric) supply of 100 zCARITAS denomination\n"
-            "     \"500\" : n,          (numeric) supply of 500 zCARITAS denomination\n"
-            "     \"1000\" : n,         (numeric) supply of 1000 zCARITAS denomination\n"
-            "     \"5000\" : n,         (numeric) supply of 5000 zCARITAS denomination\n"
-            "     \"total\" : n,        (numeric) The total supply of all zCARITAS denominations\n"
+            "     \"1\" : n,            (numeric) supply of 1 zCRTS denomination\n"
+            "     \"5\" : n,            (numeric) supply of 5 zCRTS denomination\n"
+            "     \"10\" : n,           (numeric) supply of 10 zCRTS denomination\n"
+            "     \"50\" : n,           (numeric) supply of 50 zCRTS denomination\n"
+            "     \"100\" : n,          (numeric) supply of 100 zCRTS denomination\n"
+            "     \"500\" : n,          (numeric) supply of 500 zCRTS denomination\n"
+            "     \"1000\" : n,         (numeric) supply of 1000 zCRTS denomination\n"
+            "     \"5000\" : n,         (numeric) supply of 5000 zCRTS denomination\n"
+            "     \"total\" : n,        (numeric) The total supply of all zCRTS denominations\n"
             "  }\n"
             "  \"keypoololdest\": xxxxxx,    (numeric) the timestamp (seconds since GMT epoch) of the oldest pre-generated key in the key pool\n"
             "  \"keypoolsize\": xxxx,        (numeric) how many new keys are pre-generated\n"
@@ -116,7 +116,7 @@ UniValue getinfo(const UniValue& params, bool fHelp)
         zVitObj.push_back(Pair(to_string(denom), ValueFromAmount(chainActive.Tip()->mapZerocoinSupply.at(denom) * (denom * COIN))));
     }
     zVitObj.push_back(Pair("total", ValueFromAmount(chainActive.Tip()->GetZerocoinSupply())));
-    obj.push_back(Pair("zCARITASsupply", zVitObj));
+    obj.push_back(Pair("zCRTSsupply", zVitObj));
 
 #ifdef ENABLE_WALLET
     if (pwalletMain) {

@@ -16,6 +16,7 @@
 #include "coincontrol.h"
 #include "zVitcontroldialog.h"
 #include "spork.h"
+#include "chainparams.h"
 
 #include <QClipboard>
 #include <QSettings>
@@ -30,7 +31,7 @@ PrivacyDialog::PrivacyDialog(QWidget* parent) : QDialog(parent),
     nDisplayUnit = 0; // just make sure it's not unitialized
     ui->setupUi(this);
 
-    // "Spending 999999 zCARITAS ought to be enough for anybody." - Bill Gates, 2017
+    // "Spending 999999 zCRTS ought to be enough for anybody." - Bill Gates, 2017
     ui->zVITpayAmount->setValidator( new QDoubleValidator(0.0, 21000000.0, 20, this) );
     ui->labelMintAmountValue->setValidator( new QIntValidator(0, 999999, this) );
 
@@ -108,10 +109,10 @@ PrivacyDialog::PrivacyDialog(QWidget* parent) : QDialog(parent),
     //temporary disable for maintenance
     if(GetAdjustedTime() > GetSporkValue(SPORK_18_ZEROCOIN_MAINTENANCE_MODE)) {
         ui->pushButtonMintzVIT->setEnabled(false);
-        ui->pushButtonMintzVIT->setToolTip(tr("zCARITAS is currently disabled due to maintenance."));
+        ui->pushButtonMintzVIT->setToolTip(tr("zCRTS is currently disabled due to maintenance."));
 
         ui->pushButtonSpendzVIT->setEnabled(false);
-        ui->pushButtonSpendzVIT->setToolTip(tr("zCARITAS is currently disabled due to maintenance."));
+        ui->pushButtonSpendzVIT->setToolTip(tr("zCRTS is currently disabled due to maintenance."));
     }
 }
 
@@ -162,7 +163,14 @@ void PrivacyDialog::on_pushButtonMintzVIT_clicked()
 
     if(GetAdjustedTime() > GetSporkValue(SPORK_18_ZEROCOIN_MAINTENANCE_MODE)) {
         QMessageBox::information(this, tr("Mint Zerocoin"),
-                                 tr("zCARITAS is currently undergoing maintenance."), QMessageBox::Ok,
+                                 tr("zCRTS is currently undergoing maintenance."), QMessageBox::Ok,
+                                 QMessageBox::Ok);
+        return;
+    }
+
+    if(GetAdjustedTime() < Params().Zerocoin_StartTime()) {
+        QMessageBox::information(this, tr("Mint Zerocoin"),
+                                 tr("zCRTS not active yet."), QMessageBox::Ok,
                                  QMessageBox::Ok);
         return;
     }
@@ -190,7 +198,7 @@ void PrivacyDialog::on_pushButtonMintzVIT_clicked()
         return;
     }
 
-    ui->TEMintStatus->setPlainText(tr("Minting ") + ui->labelMintAmountValue->text() + " zCARITAS...");
+    ui->TEMintStatus->setPlainText(tr("Minting ") + ui->labelMintAmountValue->text() + " zCRTS...");
     ui->TEMintStatus->repaint ();
 
     int64_t nTime = GetTimeMillis();
@@ -208,7 +216,7 @@ void PrivacyDialog::on_pushButtonMintzVIT_clicked()
     double fDuration = (double)(GetTimeMillis() - nTime)/1000.0;
 
     // Minting successfully finished. Show some stats for entertainment.
-    QString strStatsHeader = tr("Successfully minted ") + ui->labelMintAmountValue->text() + tr(" zCARITAS in ") +
+    QString strStatsHeader = tr("Successfully minted ") + ui->labelMintAmountValue->text() + tr(" zCRTS in ") +
                              QString::number(fDuration) + tr(" sec. Used denominations:\n");
 
     // Clear amount to avoid double spending when accidentally clicking twice
@@ -273,7 +281,7 @@ void PrivacyDialog::on_pushButtonSpendzVIT_clicked()
 
     if(GetAdjustedTime() > GetSporkValue(SPORK_18_ZEROCOIN_MAINTENANCE_MODE)) {
         QMessageBox::information(this, tr("Mint Zerocoin"),
-                                 tr("zCARITAS is currently undergoing maintenance."), QMessageBox::Ok, QMessageBox::Ok);
+                                 tr("zCRTS is currently undergoing maintenance."), QMessageBox::Ok, QMessageBox::Ok);
         return;
     }
 
@@ -285,11 +293,11 @@ void PrivacyDialog::on_pushButtonSpendzVIT_clicked()
             // Unlock wallet was cancelled
             return;
         }
-        // Wallet is unlocked now, sedn zCARITAS
+        // Wallet is unlocked now, sedn zCRTS
         sendzVIT();
         return;
     }
-    // Wallet already unlocked or not encrypted at all, send zCARITAS
+    // Wallet already unlocked or not encrypted at all, send zCRTS
     sendzVIT();
 }
 
@@ -342,14 +350,14 @@ void PrivacyDialog::sendzVIT()
         return;
     }
 
-    // Convert change to zCARITAS
+    // Convert change to zCRTS
     bool fMintChange = ui->checkBoxMintChange->isChecked();
 
     // Persist minimize change setting
     fMinimizeChange = ui->checkBoxMinimizeChange->isChecked();
     settings.setValue("fMinimizeChange", fMinimizeChange);
 
-    // Warn for additional fees if amount is not an integer and change as zCARITAS is requested
+    // Warn for additional fees if amount is not an integer and change as zCRTS is requested
     bool fWholeNumber = floor(dAmount) == dAmount;
     double dzFee = 0.0;
 
@@ -385,7 +393,7 @@ void PrivacyDialog::sendzVIT()
 
     // General info
     QString strQuestionString = tr("Are you sure you want to send?<br /><br />");
-    QString strAmount = "<b>" + QString::number(dAmount, 'f', 8) + " zCARITAS</b>";
+    QString strAmount = "<b>" + QString::number(dAmount, 'f', 8) + " zCRTS</b>";
     QString strAddress = tr(" to address ") + QString::fromStdString(address.ToString()) + strAddressLabel + " <br />";
 
     if(ui->payTo->text().isEmpty()){
@@ -411,13 +419,13 @@ void PrivacyDialog::sendzVIT()
     ui->TEMintStatus->setPlainText(tr("Spending Zerocoin.\nComputationally expensive, might need several minutes depending on the selected Security Level and your hardware. \nPlease be patient..."));
     ui->TEMintStatus->repaint();
 
-    // use mints from zCARITAS selector if applicable
+    // use mints from zCRTS selector if applicable
     vector<CZerocoinMint> vMintsSelected;
     if (!ZVitControlDialog::listSelectedMints.empty()) {
         vMintsSelected = ZVitControlDialog::GetSelectedMints();
     }
 
-    // Spend zCARITAS
+    // Spend zCRTS
     CWalletTx wtxNew;
     CZerocoinSpendReceipt receipt;
     bool fSuccess = false;
@@ -433,7 +441,7 @@ void PrivacyDialog::sendzVIT()
     // Display errors during spend
     if (!fSuccess) {
         int nNeededSpends = receipt.GetNeededSpends(); // Number of spends we would need for this transaction
-        const int nMaxSpends = Params().Zerocoin_MaxSpendsPerTransaction(); // Maximum possible spends for one zCARITAS transaction
+        const int nMaxSpends = Params().Zerocoin_MaxSpendsPerTransaction(); // Maximum possible spends for one zCRTS transaction
         if (nNeededSpends > nMaxSpends) {
             QString strStatusMessage = tr("Too much inputs (") + QString::number(nNeededSpends, 10) + tr(") needed. \nMaximum allowed: ") + QString::number(nMaxSpends, 10);
             strStatusMessage += tr("\nEither mint higher denominations (so fewer inputs are needed) or reduce the amount to spend.");
@@ -451,7 +459,7 @@ void PrivacyDialog::sendzVIT()
     }
 
     if (walletModel && walletModel->getAddressTableModel()) {
-        // If zCARITAS was spent successfully update the addressbook with the label
+        // If zCRTS was spent successfully update the addressbook with the label
         std::string labelText = ui->addAsLabel->text().toStdString();
         if (!labelText.empty())
             walletModel->updateAddressBookLabels(address.Get(), labelText, "send");
@@ -459,7 +467,7 @@ void PrivacyDialog::sendzVIT()
             walletModel->updateAddressBookLabels(address.Get(), "(no label)", "send");
     }
 
-    // Clear zCARITAS selector in case it was used
+    // Clear zCRTS selector in case it was used
     ZVitControlDialog::listSelectedMints.clear();
     ui->labelzVitSelected_int->setText(QString("0"));
     ui->labelQuantitySelected_int->setText(QString("0"));
@@ -469,7 +477,7 @@ void PrivacyDialog::sendzVIT()
     CAmount nValueIn = 0;
     int nCount = 0;
     for (CZerocoinSpend spend : receipt.GetSpends()) {
-        strStats += tr("zCARITAS Spend #: ") + QString::number(nCount) + ", ";
+        strStats += tr("zCRTS Spend #: ") + QString::number(nCount) + ", ";
         strStats += tr("denomination: ") + QString::number(spend.GetDenomination()) + ", ";
         strStats += tr("serial: ") + spend.GetSerial().ToString().c_str() + "\n";
         strStats += tr("Spend is 1 of : ") + QString::number(spend.GetMintCount()) + " mints in the accumulator\n";
@@ -484,7 +492,7 @@ void PrivacyDialog::sendzVIT()
         strStats += tr("address: ");
         CTxDestination dest;
         if(txout.scriptPubKey.IsZerocoinMint())
-            strStats += tr("zCARITAS Mint");
+            strStats += tr("zCRTS Mint");
         else if(ExtractDestination(txout.scriptPubKey, dest))
             strStats += tr(CBitcoinAddress(dest).ToString().c_str());
         strStats += "\n";
@@ -647,7 +655,7 @@ void PrivacyDialog::setBalance(const CAmount& balance, const CAmount& unconfirme
 
         strDenomStats = strUnconfirmed + QString::number(mapDenomBalances.at(denom)) + " x " +
                         QString::number(nCoins) + " = <b>" +
-                        QString::number(nSumPerCoin) + " zCARITAS </b>";
+                        QString::number(nSumPerCoin) + " zCRTS </b>";
 
         switch (nCoins) {
             case libzerocoin::CoinDenomination::ZQ_ONE:
@@ -685,8 +693,8 @@ void PrivacyDialog::setBalance(const CAmount& balance, const CAmount& unconfirme
         nLockedBalance = walletModel->getLockedBalance();
     }
 
-    ui->labelzAvailableAmount->setText(QString::number(zerocoinBalance/COIN) + QString(" zCARITAS "));
-    ui->labelzAvailableAmount_2->setText(QString::number(matureZerocoinBalance/COIN) + QString(" zCARITAS "));
+    ui->labelzAvailableAmount->setText(QString::number(zerocoinBalance/COIN) + QString(" zCRTS "));
+    ui->labelzAvailableAmount_2->setText(QString::number(matureZerocoinBalance/COIN) + QString(" zCRTS "));
     ui->labelzVITAmountValue->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, balance - immatureBalance - nLockedBalance, false, BitcoinUnits::separatorAlways));
 
     // Display AutoMint status
@@ -703,11 +711,11 @@ void PrivacyDialog::setBalance(const CAmount& balance, const CAmount& unconfirme
     ui->label_AutoMintStatus->setText(strAutomintStatus);
 
     // Display global supply
-    ui->labelZsupplyAmount->setText(QString::number(chainActive.Tip()->GetZerocoinSupply()/COIN) + QString(" <b>zCARITAS </b> "));
+    ui->labelZsupplyAmount->setText(QString::number(chainActive.Tip()->GetZerocoinSupply()/COIN) + QString(" <b>zCRTS </b> "));
     for (auto denom : libzerocoin::zerocoinDenomList) {
         int64_t nSupply = chainActive.Tip()->mapZerocoinSupply.at(denom);
         QString strSupply = QString::number(nSupply) + " x " + QString::number(denom) + " = <b>" +
-                            QString::number(nSupply*denom) + " zCARITAS </b> ";
+                            QString::number(nSupply*denom) + " zCRTS </b> ";
         switch (denom) {
             case libzerocoin::CoinDenomination::ZQ_ONE:
                 ui->labelZsupplyAmount1->setText(strSupply);

@@ -546,7 +546,7 @@
     </message>
     <message>
         <location line="+11"/>
-        <source>Privacy Actions for zCARITAS</source>
+        <source>Privacy Actions for zCRTS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2419,12 +2419,12 @@ https://www.transifex.com/CaritasCoin-project/CaritasCoin-project-translations</
     </message>
     <message>
         <location line="-133"/>
-        <source>Percentage of incoming CaritasCoin which get automatically converted to zCARITAS via Zerocoin Protocol (min: 10%)</source>
+        <source>Percentage of incoming CaritasCoin which get automatically converted to zCRTS via Zerocoin Protocol (min: 10%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Percentage of autominted zCARITAS</source>
+        <source>Percentage of autominted zCRTS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2435,7 +2435,7 @@ https://www.transifex.com/CaritasCoin-project/CaritasCoin-project-translations</
     </message>
     <message>
         <location line="-13"/>
-        <source>Preferred Automint zCARITAS Denomination</source>
+        <source>Preferred Automint zCRTS Denomination</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2711,12 +2711,12 @@ https://www.transifex.com/CaritasCoin-project/CaritasCoin-project-translations</
     </message>
     <message>
         <location line="+35"/>
-        <source>zCARITAS:</source>
+        <source>zCRTS:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Current percentage of zCARITAS.
+        <source>Current percentage of zCRTS.
 If AutoMint is enabled this percentage will settle around the configured AutoMint percentage (default = 10%)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2729,7 +2729,7 @@ If AutoMint is enabled this percentage will settle around the configured AutoMin
     <message>
         <location line="-46"/>
         <location line="+13"/>
-        <source>Locked CaritasCoin or Masternode collaterals. These are excluded from zCARITAS minting.</source>
+        <source>Locked CaritasCoin or Masternode collaterals. These are excluded from zCRTS minting.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2749,7 +2749,7 @@ If AutoMint is enabled this percentage will settle around the configured AutoMin
     <message>
         <location line="+7"/>
         <location line="+10"/>
-        <source>Unlocked CaritasCoins. These can be used for zCARITAS minting.</source>
+        <source>Unlocked CaritasCoins. These can be used for zCRTS minting.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2766,7 +2766,7 @@ If AutoMint is enabled this percentage will settle around the configured AutoMin
         <location line="+14"/>
         <location line="+104"/>
         <source>Mature: more than 20 confirmation and more than 3 mints of the same denomination after it was minted.
-These zCARITAS are spendable.</source>
+These zCRTS are spendable.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2777,7 +2777,7 @@ These zCARITAS are spendable.</source>
     <message>
         <location line="+23"/>
         <location line="+35"/>
-        <source>All available zCARITAS, unconfirmed and immature zCARITAS included.</source>
+        <source>All available zCRTS, unconfirmed and immature zCRTS included.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2807,7 +2807,7 @@ Immature: confirmed, but less than 3 mints of the same denomination after it was
     </message>
     <message>
         <location line="+93"/>
-        <source>Current percentage of zCARITAS.
+        <source>Current percentage of zCRTS.
 If AutoMint is enabled this percentage will settle around the configured AutoMint percentage (default = 10%).
 </source>
         <translation type="unfinished"></translation>
@@ -2978,7 +2978,7 @@ To enable AutoMint change &apos;enablezeromint=0&apos; to &apos;enablezeromint=1
     </message>
     <message>
         <location line="+6"/>
-        <source>Zerocoin CaritasCoin (zCARITAS)</source>
+        <source>Zerocoin CaritasCoin (zCRTS)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2994,7 +2994,7 @@ To enable AutoMint change &apos;enablezeromint=0&apos; to &apos;enablezeromint=1
     <message>
         <location line="+52"/>
         <location line="+46"/>
-        <source>Enter an amount of CaritasCoin to convert to zCARITAS</source>
+        <source>Enter an amount of CaritasCoin to convert to zCRTS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3014,7 +3014,7 @@ To enable AutoMint change &apos;enablezeromint=0&apos; to &apos;enablezeromint=1
     <message>
         <location line="-349"/>
         <location line="+629"/>
-        <source>zCARITAS</source>
+        <source>zCRTS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3074,12 +3074,12 @@ To enable AutoMint change &apos;enablezeromint=0&apos; to &apos;enablezeromint=1
     </message>
     <message>
         <location line="+45"/>
-        <source>zCARITAS Control</source>
+        <source>zCRTS Control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>zCARITAS Selected:</source>
+        <source>zCRTS Selected:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3104,7 +3104,7 @@ To enable AutoMint change &apos;enablezeromint=0&apos; to &apos;enablezeromint=1
     </message>
     <message>
         <location line="+7"/>
-        <source>Available (mature and spendable) zCARITAS for spending</source>
+        <source>Available (mature and spendable) zCRTS for spending</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3114,15 +3114,15 @@ To enable AutoMint change &apos;enablezeromint=0&apos; to &apos;enablezeromint=1
     </message>
     <message>
         <location line="+16"/>
-        <source>Available (mature and spendable) zCARITAS for spending
+        <source>Available (mature and spendable) zCRTS for spending
 
-zCARITAS are mature when they have more than 20 confirmations AND more than 2 mints of the same denomination after them were minted</source>
+zCRTS are mature when they have more than 20 confirmations AND more than 2 mints of the same denomination after them were minted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+5"/>
         <location line="+417"/>
-        <source>0 zCARITAS</source>
+        <source>0 zCRTS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3213,7 +3213,7 @@ zCARITAS are mature when they have more than 20 confirmations AND more than 2 mi
     <message>
         <location line="+62"/>
         <location line="+38"/>
-        <source>Total Balance including unconfirmed and immature zCARITAS</source>
+        <source>Total Balance including unconfirmed and immature zCRTS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3424,13 +3424,13 @@ Immature: confirmed, but less than 2 mints of the same denomination after it was
     <message>
         <location line="+45"/>
         <location line="+3"/>
-        <source>zCARITAS is currently disabled due to maintenance.</source>
+        <source>zCRTS is currently disabled due to maintenance.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+50"/>
         <location line="+113"/>
-        <source>zCARITAS is currently undergoing maintenance.</source>
+        <source>zCRTS is currently undergoing maintenance.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3455,7 +3455,7 @@ Immature: confirmed, but less than 2 mints of the same denomination after it was
     </message>
     <message>
         <location line="+0"/>
-        <source> zCARITAS in </source>
+        <source> zCRTS in </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3567,7 +3567,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+15"/>
-        <source>zCARITAS Spend #: </source>
+        <source>zCRTS Spend #: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3597,7 +3597,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+3"/>
-        <source>zCARITAS Mint</source>
+        <source>zCRTS Mint</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5533,27 +5533,27 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+2"/>
-        <source>Converted CaritasCoin to zCARITAS</source>
+        <source>Converted CaritasCoin to zCRTS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Spent zCARITAS</source>
+        <source>Spent zCRTS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Received CaritasCoin from zCARITAS</source>
+        <source>Received CaritasCoin from zCRTS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Minted Change as zCARITAS from zCARITAS Spend</source>
+        <source>Minted Change as zCRTS from zCRTS Spend</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Converted zCARITAS to CaritasCoin</source>
+        <source>Converted zCRTS to CaritasCoin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5563,7 +5563,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+22"/>
-        <source>zCARITAS Accumulator</source>
+        <source>zCRTS Accumulator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5702,7 +5702,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+1"/>
-        <source>Received CaritasCoin from zCARITAS</source>
+        <source>Received CaritasCoin from zCRTS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5717,7 +5717,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+1"/>
-        <source>Zerocoin Spend, Change in zCARITAS</source>
+        <source>Zerocoin Spend, Change in zCRTS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5930,7 +5930,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     <name>ZVitControlDialog</name>
     <message>
         <location filename="../forms/zVitcontroldialog.ui" line="+20"/>
-        <source>Select zCARITAS to Spend</source>
+        <source>Select zCRTS to Spend</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5946,7 +5946,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="-7"/>
-        <source>zCARITAS</source>
+        <source>zCRTS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6841,7 +6841,7 @@ for example: alertnotify=echo %%s | mail -s &quot;CaritasCoin Alert&quot; admin@
     </message>
     <message>
         <location line="+2"/>
-        <source>Enable automatic wallet backups triggered after each zCARITAS minting (0-1, default: %u)</source>
+        <source>Enable automatic wallet backups triggered after each zCRTS minting (0-1, default: %u)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

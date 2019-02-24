@@ -3978,29 +3978,29 @@ void CWallet::AutoZeromint()
     CAmount nMintAmount = 0;
     CAmount nToMintAmount = 0;
 
-    // zCARITAS are integers > 0, so we can't mint 10% of 9 CaritasCoin
+    // zCRTS are integers > 0, so we can't mint 10% of 9 CaritasCoin
     if (nBalance < 10) {
-        LogPrint("zero", "CWallet::AutoZeromint(): available balance (%ld) too small for minting zCARITAS\n", nBalance);
+        LogPrint("zero", "CWallet::AutoZeromint(): available balance (%ld) too small for minting zCRTS\n", nBalance);
         return;
     }
 
-    // Percentage of zCARITAS we already have
+    // Percentage of zCRTS we already have
     double dPercentage = 100 * (double)nZerocoinBalance / (double)(nZerocoinBalance + nBalance);
 
     // Check if minting is actually needed
     if (dPercentage >= nZeromintPercentage) {
-        LogPrint("zero", "CWallet::AutoZeromint() @block %ld: percentage of existing zCARITAS (%lf%%) already >= configured percentage (%d%%). No minting needed...\n",
+        LogPrint("zero", "CWallet::AutoZeromint() @block %ld: percentage of existing zCRTS (%lf%%) already >= configured percentage (%d%%). No minting needed...\n",
             chainActive.Tip()->nHeight, dPercentage, nZeromintPercentage);
         return;
     }
 
-    // zCARITAS amount needed for the target percentage
+    // zCRTS amount needed for the target percentage
     nToMintAmount = ((nZerocoinBalance + nBalance) * nZeromintPercentage / 100);
 
-    // zCARITAS amount missing from target (must be minted)
+    // zCRTS amount missing from target (must be minted)
     nToMintAmount = (nToMintAmount - nZerocoinBalance) / COIN;
 
-    // Use the biggest denomination smaller than the needed zCARITAS We'll only mint exact denomination to make minting faster.
+    // Use the biggest denomination smaller than the needed zCRTS We'll only mint exact denomination to make minting faster.
     // Exception: for big amounts use 6666 (6666 = 1*5000 + 1*1000 + 1*500 + 1*100 + 1*50 + 1*10 + 1*5 + 1) to create all
     // possible denominations to avoid having 5000 denominations only.
     // If a preferred denomination is used (means nPreferredDenom != 0) do nothing until we have enough CaritasCoin to mint this denomination
@@ -4047,7 +4047,7 @@ void CWallet::AutoZeromint()
         nZerocoinBalance = GetZerocoinBalance(false);
         nBalance = GetUnlockedCoins();
         dPercentage = 100 * (double)nZerocoinBalance / (double)(nZerocoinBalance + nBalance);
-        LogPrintf("CWallet::AutoZeromint() @ block %ld: successfully minted %ld zCARITAS. Current percentage of zCARITAS: %lf%%\n",
+        LogPrintf("CWallet::AutoZeromint() @ block %ld: successfully minted %ld zCRTS. Current percentage of zCRTS: %lf%%\n",
             chainActive.Tip()->nHeight, nMintAmount, dPercentage);
         // Re-adjust startup time to delay next Automint for 5 minutes
         nStartupTime = GetAdjustedTime();
@@ -4496,7 +4496,7 @@ bool CWallet::CreateZerocoinMintTransaction(const CAmount nValue, CMutableTransa
             reservekey->ReturnKey();
     }
 
-    // Sign if these are caritas outputs - NOTE that zCARITAS outputs are signed later in SoK
+    // Sign if these are caritas outputs - NOTE that zCRTS outputs are signed later in SoK
     if (!isZCSpendChange) {
         int nIn = 0;
         for (const std::pair<const CWalletTx*, unsigned int>& coin : setCoins) {
@@ -4582,7 +4582,7 @@ bool CWallet::MintToTxIn(CZerocoinMint zerocoinSelected, int nSecurityLevel, con
         std::list<CBigNum> listCoinSpendSerial = CWalletDB(strWalletFile).ListSpentCoinsSerial();
         for (const CBigNum& item : listCoinSpendSerial) {
             if (spend.getCoinSerialNumber() == item) {
-                //Tried to spend an already spent zCARITAS
+                //Tried to spend an already spent zCRTS
                 zerocoinSelected.SetUsed(true);
                 if (!CWalletDB(strWalletFile).WriteZerocoinMint(zerocoinSelected))
                     LogPrintf("%s failed to write zerocoinmint\n", __func__);
@@ -4617,7 +4617,7 @@ bool CWallet::CreateZerocoinSpendTransaction(CAmount nValue, int nSecurityLevel,
     }
 
     if (nValue < 1) {
-        receipt.SetStatus(_("Value is below the the smallest available denomination (= 1) of zCARITAS"), nStatus);
+        receipt.SetStatus(_("Value is below the the smallest available denomination (= 1) of zCRTS"), nStatus);
         return false;
     }
 
@@ -4630,7 +4630,7 @@ bool CWallet::CreateZerocoinSpendTransaction(CAmount nValue, int nSecurityLevel,
     CAmount nValueSelected = 0;
     int nCoinsReturned = 0;                                             // Number of coins returned in change from function below (for debug)
     int nNeededSpends = 0;                                              // Number of spends which would be needed if selection failed
-    const int nMaxSpends = Params().Zerocoin_MaxSpendsPerTransaction(); // Maximum possible spends for one zCARITAS transaction
+    const int nMaxSpends = Params().Zerocoin_MaxSpendsPerTransaction(); // Maximum possible spends for one zCRTS transaction
     if (vSelectedMints.empty()) {
         listMints = walletdb.ListMintedCoins(true, true, true); // need to find mints to spend
         if (listMints.empty()) {
@@ -4645,7 +4645,7 @@ bool CWallet::CreateZerocoinSpendTransaction(CAmount nValue, int nSecurityLevel,
         if (!fWholeNumber)
             nValueToSelect = static_cast<CAmount>(ceil(dValue) * COIN);
 
-        // Select the zCARITAS mints to use in this spend
+        // Select the zCRTS mints to use in this spend
         std::map<libzerocoin::CoinDenomination, CAmount> DenomMap = GetMyZerocoinDistribution();
         vSelectedMints = SelectMintsFromList(nValueToSelect, nValueSelected, nMaxSpends, fMinimizeChange,
             nCoinsReturned, listMints, DenomMap, nNeededSpends);
@@ -5074,7 +5074,7 @@ bool CWallet::SpendZerocoin(CAmount nAmount, int nSecurityLevel, CWalletTx& wtxN
         walletdb.WriteZerocoinMint(mint);
     }
 
-    receipt.SetStatus("Spend Successful", ZVIT_SPEND_OKAY); // When we reach this point spending zCARITAS was successful
+    receipt.SetStatus("Spend Successful", ZVIT_SPEND_OKAY); // When we reach this point spending zCRTS was successful
 
     return true;
 }

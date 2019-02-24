@@ -878,6 +878,9 @@
                   <property name="text">
                    <string>Burn CoralNode Amount</string>
                   </property>
+                  <property name="checkable">
+                   <bool>false</bool>
+                  </property>
                  </widget>
                 </item>
                 <item>

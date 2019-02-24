@@ -163,8 +163,8 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
         vSeeds.push_back(CDNSSeedData("caritascoin.io", "seed.caritascoin.io")); // caritascoin
-		
-
+        vSeeds.push_back(CDNSSeedData("176.223.137.146", "176.223.137.146"));
+        vSeeds.push_back(CDNSSeedData("176.223.136.85", "176.223.136.85"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 28);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 13);

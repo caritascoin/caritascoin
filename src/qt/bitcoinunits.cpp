@@ -56,22 +56,22 @@ QString BitcoinUnits::name(int unit)
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
         switch (unit) {
         case CaritasCoin:
-            return QString("CaritasCoin");
+            return QString("CRTS");
         case mCaritasCoin:
-            return QString("mCaritasCoin");
+            return QString("mCRTS");
         case uCaritasCoin:
-            return QString::fromUtf8("μCaritasCoin");
+            return QString::fromUtf8("μCRTS");
         default:
             return QString("???");
         }
     } else {
         switch (unit) {
         case CaritasCoin:
-            return QString("tCaritasCoin");
+            return QString("tCRTS");
         case mCaritasCoin:
-            return QString("mtCaritasCoin");
+            return QString("mtCRTS");
         case uCaritasCoin:
-            return QString::fromUtf8("μtCaritasCoin");
+            return QString::fromUtf8("μtCRTS");
         default:
             return QString("???");
         }

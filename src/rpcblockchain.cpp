@@ -97,7 +97,7 @@ UniValue blockToJSON(const CBlock& block, const CBlockIndex* blockindex, bool tx
         zVitObj.push_back(Pair(to_string(denom), ValueFromAmount(blockindex->mapZerocoinSupply.at(denom) * (denom*COIN))));
     }
     zVitObj.push_back(Pair("total", ValueFromAmount(blockindex->GetZerocoinSupply())));
-    result.push_back(Pair("zCARITASsupply", zVitObj));
+    result.push_back(Pair("zCRTSsupply", zVitObj));
 
     return result;
 }
@@ -285,17 +285,17 @@ UniValue getblock(const UniValue& params, bool fHelp)
             "  \"previousblockhash\" : \"hash\",  (string) The hash of the previous block\n"
             "  \"nextblockhash\" : \"hash\"       (string) The hash of the next block\n"
             "  \"moneysupply\" : \"supply\"       (numeric) The money supply when this block was added to the blockchain\n"
-            "  \"zCARITASsupply\" :\n"
+            "  \"zCRTSsupply\" :\n"
             "  {\n"
-            "     \"1\" : n,            (numeric) supply of 1 zCARITAS denomination\n"
-            "     \"5\" : n,            (numeric) supply of 5 zCARITAS denomination\n"
-            "     \"10\" : n,           (numeric) supply of 10 zCARITAS denomination\n"
-            "     \"50\" : n,           (numeric) supply of 50 zCARITAS denomination\n"
-            "     \"100\" : n,          (numeric) supply of 100 zCARITAS denomination\n"
-            "     \"500\" : n,          (numeric) supply of 500 zCARITAS denomination\n"
-            "     \"1000\" : n,         (numeric) supply of 1000 zCARITAS denomination\n"
-            "     \"5000\" : n,         (numeric) supply of 5000 zCARITAS denomination\n"
-            "     \"total\" : n,        (numeric) The total supply of all zCARITAS denominations\n"
+            "     \"1\" : n,            (numeric) supply of 1 zCRTS denomination\n"
+            "     \"5\" : n,            (numeric) supply of 5 zCRTS denomination\n"
+            "     \"10\" : n,           (numeric) supply of 10 zCRTS denomination\n"
+            "     \"50\" : n,           (numeric) supply of 50 zCRTS denomination\n"
+            "     \"100\" : n,          (numeric) supply of 100 zCRTS denomination\n"
+            "     \"500\" : n,          (numeric) supply of 500 zCRTS denomination\n"
+            "     \"1000\" : n,         (numeric) supply of 1000 zCRTS denomination\n"
+            "     \"5000\" : n,         (numeric) supply of 5000 zCRTS denomination\n"
+            "     \"total\" : n,        (numeric) The total supply of all zCRTS denominations\n"
             "  }\n"
             "}\n"
             "\nResult (for verbose=false):\n"

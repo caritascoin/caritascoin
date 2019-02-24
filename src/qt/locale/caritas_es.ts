@@ -618,8 +618,8 @@
         <translation>&amp;Privacidad</translation>
     </message>
     <message>
-        <source>Privacy Action for zCARITAS and Obfuscation</source>
-        <translation>Privacidad con zCARITAS y Ofuscación</translation>
+        <source>Privacy Action for zCRTS and Obfuscation</source>
+        <translation>Privacidad con zCRTS y Ofuscación</translation>
     </message>
     <message>
         <source>&amp;Masternodes</source>
@@ -1696,12 +1696,12 @@ https://www.transifex.com/CaritasCoin-project/CaritasCoin-project-translations</
         <translation>Mapear un puerto utilizando &amp;UPnP</translation>
     </message>
     <message>
-        <source>Percentage of incoming CaritasCoin which get automatically converted to zCARITAS via Zerocoin Protocol (min: 10%)</source>
-        <translation>Porcentaje de CaritasCoins entrantes que serán automáticamente convertidos a zCARITAS a través del Protocolo Zerocoin (mín: 10%)</translation>
+        <source>Percentage of incoming CaritasCoin which get automatically converted to zCRTS via Zerocoin Protocol (min: 10%)</source>
+        <translation>Porcentaje de CaritasCoins entrantes que serán automáticamente convertidos a zCRTS a través del Protocolo Zerocoin (mín: 10%)</translation>
     </message>
     <message>
-        <source>Percentage of autominted zCARITAS</source>
-        <translation>Porcentaje de zCARITAS autogenerados</translation>
+        <source>Percentage of autominted zCRTS</source>
+        <translation>Porcentaje de zCRTS autogenerados</translation>
     </message>
     <message>
         <source>Wait with automatic conversion to Zerocoin until enough CaritasCoin for this denomination is available</source>

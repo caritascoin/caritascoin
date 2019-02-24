@@ -1500,16 +1500,16 @@ MultiSend: %1</translation>
 <context>
     <name>PrivacyDialog</name>
     <message>
-        <source>Enter an amount of CaritasCoin to convert to zCARITAS</source>
-        <translation>Vul de hoeveleheid in om CaritasCoin te converteren naar zCARITAS</translation>
+        <source>Enter an amount of CaritasCoin to convert to zCRTS</source>
+        <translation>Vul de hoeveleheid in om CaritasCoin te converteren naar zCRTS</translation>
     </message>
     <message>
         <source>0</source>
         <translation>0</translation>
     </message>
     <message>
-        <source>zCARITAS</source>
-        <translation>zCARITAS</translation>
+        <source>zCRTS</source>
+        <translation>zCRTS</translation>
     </message>
     <message>
         <source>Reset</source>
@@ -2739,8 +2739,8 @@ MultiSend: %1</translation>
 <context>
     <name>ZVitControlDialog</name>
     <message>
-        <source>Select zCARITAS to Spend</source>
-        <translation>Selecteer zCARITAS om te spenderen</translation>
+        <source>Select zCRTS to Spend</source>
+        <translation>Selecteer zCRTS om te spenderen</translation>
     </message>
     <message>
         <source>Quantity</source>
@@ -2751,8 +2751,8 @@ MultiSend: %1</translation>
         <translation>0</translation>
     </message>
     <message>
-        <source>zCARITAS</source>
-        <translation>zCARITAS</translation>
+        <source>zCRTS</source>
+        <translation>zCRTS</translation>
     </message>
     <message>
         <source>Select/Deselect All</source>

@@ -618,8 +618,8 @@
         <translation>&amp;Privatsphäre</translation>
     </message>
     <message>
-        <source>Privacy Action for zCARITAS and Obfuscation</source>
-        <translation>Privatsphäre Aktion für zCARITAS und Verschleierung</translation>
+        <source>Privacy Action for zCRTS and Obfuscation</source>
+        <translation>Privatsphäre Aktion für zCRTS und Verschleierung</translation>
     </message>
     <message>
         <source>&amp;Masternodes</source>
@@ -1707,20 +1707,20 @@ https://www.transifex.com/CaritasCoin-project/CaritasCoin-project-translations</
         <translation>Port mit &amp;UPnP mappen</translation>
     </message>
     <message>
-        <source>Percentage of incoming CaritasCoin which get automatically converted to zCARITAS via Zerocoin Protocol (min: 10%)</source>
-        <translation>Anteil des einkommenden CaritasCoin, welcher automatisch zu zCARITAS via Zerocoin Protokoll konvertiert wird (min: 10%)</translation>
+        <source>Percentage of incoming CaritasCoin which get automatically converted to zCRTS via Zerocoin Protocol (min: 10%)</source>
+        <translation>Anteil des einkommenden CaritasCoin, welcher automatisch zu zCRTS via Zerocoin Protokoll konvertiert wird (min: 10%)</translation>
     </message>
     <message>
-        <source>Percentage of autominted zCARITAS</source>
-        <translation>Prozentsatz der automatisierten zCARITAS</translation>
+        <source>Percentage of autominted zCRTS</source>
+        <translation>Prozentsatz der automatisierten zCRTS</translation>
     </message>
     <message>
         <source>Wait with automatic conversion to Zerocoin until enough CaritasCoin for this denomination is available</source>
         <translation>Warte mit automatischer Konvertierung zu Zerocoin, bis genügend CaritasCoin für diese Stückelung verfügbar ist</translation>
     </message>
     <message>
-        <source>Preferred Automint zCARITAS Denomination</source>
-        <translation>Bevorzugte automatisierte zCARITAS Stückelung </translation>
+        <source>Preferred Automint zCRTS Denomination</source>
+        <translation>Bevorzugte automatisierte zCRTS Stückelung </translation>
     </message>
     <message>
         <source>Connect to the CaritasCoin network through a SOCKS5 proxy.</source>
@@ -1926,8 +1926,8 @@ https://www.transifex.com/CaritasCoin-project/CaritasCoin-project-translations</
         <translation>CaritasCoin:</translation>
     </message>
     <message>
-        <source>zCARITAS:</source>
-        <translation>zCARITAS:</translation>
+        <source>zCRTS:</source>
+        <translation>zCRTS:</translation>
     </message>
     <message>
         <source>0 %</source>
@@ -2059,8 +2059,8 @@ https://www.transifex.com/CaritasCoin-project/CaritasCoin-project-translations</
         <translation>CaritasCoin, die über das Zerocin-Protokoll anonymisiert wurden</translation>
     </message>
     <message>
-        <source>Zerocoin CaritasCoin (zCARITAS)</source>
-        <translation>Zerocoin CaritasCoin (zCARITAS)</translation>
+        <source>Zerocoin CaritasCoin (zCRTS)</source>
+        <translation>Zerocoin CaritasCoin (zCRTS)</translation>
     </message>
     <message>
         <source>Zerocoin Actions:</source>
@@ -2071,8 +2071,8 @@ https://www.transifex.com/CaritasCoin-project/CaritasCoin-project-translations</
         <translation>Die angezeigte Information ist möglicherweise nicht mehr aktuell. Ihre Wallet synchronisiert sich automatisch mit dem CaritasCoin-Netzwerk, nachdem eine Verbindung hergestellt wurde. Aber dieser Vorgang ist noch nicht abgeschlossen.</translation>
     </message>
     <message>
-        <source>Enter an amount of CaritasCoin to convert to zCARITAS</source>
-        <translation>Eingabe des CaritasCoin-Betrags, um in zCARITAS umzuwandeln</translation>
+        <source>Enter an amount of CaritasCoin to convert to zCRTS</source>
+        <translation>Eingabe des CaritasCoin-Betrags, um in zCRTS umzuwandeln</translation>
     </message>
     <message>
         <source>Mint Zerocoin</source>
@@ -2083,8 +2083,8 @@ https://www.transifex.com/CaritasCoin-project/CaritasCoin-project-translations</
         <translation>0</translation>
     </message>
     <message>
-        <source>zCARITAS</source>
-        <translation>zCARITAS</translation>
+        <source>zCRTS</source>
+        <translation>zCRTS</translation>
     </message>
     <message>
         <source>Available for Minting:</source>
@@ -2127,12 +2127,12 @@ https://www.transifex.com/CaritasCoin-project/CaritasCoin-project-translations</
         <translation>Status und/oder Mitteilungen aus der letzten Präge-Action</translation>
     </message>
     <message>
-        <source>zCARITAS Control</source>
-        <translation>zCARITAS Kontrolle</translation>
+        <source>zCRTS Control</source>
+        <translation>zCRTS Kontrolle</translation>
     </message>
     <message>
-        <source>zCARITAS Selected:</source>
-        <translation>zCARITAS Ausgewählt:</translation>
+        <source>zCRTS Selected:</source>
+        <translation>zCRTS Ausgewählt:</translation>
     </message>
     <message>
         <source>Quantity Selected:</source>
@@ -2151,8 +2151,8 @@ https://www.transifex.com/CaritasCoin-project/CaritasCoin-project-translations</
         <translation>Verfügbare Bilanz:</translation>
     </message>
     <message>
-        <source>0 zCARITAS</source>
-        <translation>0 zCARITAS</translation>
+        <source>0 zCRTS</source>
+        <translation>0 zCRTS</translation>
     </message>
     <message>
         <source>Security Level for Zerocoin Transactions. More is better, but needs more time and resources.</source>
@@ -2387,8 +2387,8 @@ https://www.transifex.com/CaritasCoin-project/CaritasCoin-project-translations</
         <translation>Erfolgreich geprägt</translation>
     </message>
     <message>
-        <source> zCARITAS in </source>
-        <translation> zCARITAS in </translation>
+        <source> zCRTS in </source>
+        <translation> zCRTS in </translation>
     </message>
     <message>
         <source> sec. Used denominations:
@@ -2481,8 +2481,8 @@ Bitte haben Sie Geduld...</translation>
         <translation>Ausgeben Zerocoin fehlgeschlagen mit Status =</translation>
     </message>
     <message>
-        <source>zCARITAS Spend #: </source>
-        <translation>zCARITAS Ausgeben #:</translation>
+        <source>zCRTS Spend #: </source>
+        <translation>zCRTS Ausgeben #:</translation>
     </message>
     <message>
         <source>denomination: </source>
@@ -2505,8 +2505,8 @@ Bitte haben Sie Geduld...</translation>
         <translation>Adresse:</translation>
     </message>
     <message>
-        <source>zCARITAS Mint</source>
-        <translation>zCARITAS Prägen</translation>
+        <source>zCRTS Mint</source>
+        <translation>zCRTS Prägen</translation>
     </message>
     <message>
         <source>Sending successful, return code: </source>
@@ -3962,32 +3962,32 @@ Bitte haben Sie Geduld...</translation>
         <translation>Verschleiert</translation>
     </message>
     <message>
-        <source>Converted CaritasCoin to zCARITAS</source>
-        <translation>Umgewandeltes CaritasCoin zu zCARITAS</translation>
+        <source>Converted CaritasCoin to zCRTS</source>
+        <translation>Umgewandeltes CaritasCoin zu zCRTS</translation>
     </message>
     <message>
-        <source>Spent zCARITAS</source>
-        <translation>Ausgeben zCARITAS</translation>
+        <source>Spent zCRTS</source>
+        <translation>Ausgeben zCRTS</translation>
     </message>
     <message>
-        <source>Received CaritasCoin from zCARITAS</source>
-        <translation>Empfangene CaritasCoin von zCARITAS</translation>
+        <source>Received CaritasCoin from zCRTS</source>
+        <translation>Empfangene CaritasCoin von zCRTS</translation>
     </message>
     <message>
-        <source>Minted Change as zCARITAS from zCARITAS Spend</source>
-        <translation>Geprägtes Wechselgeld als zCARITAS von zCARITAS Ausgabe</translation>
+        <source>Minted Change as zCRTS from zCRTS Spend</source>
+        <translation>Geprägtes Wechselgeld als zCRTS von zCRTS Ausgabe</translation>
     </message>
     <message>
-        <source>Converted zCARITAS to CaritasCoin</source>
-        <translation>Umgewandeltes zCARITAS zu CaritasCoin</translation>
+        <source>Converted zCRTS to CaritasCoin</source>
+        <translation>Umgewandeltes zCRTS zu CaritasCoin</translation>
     </message>
     <message>
         <source>watch-only</source>
         <translation>nur beobachtet</translation>
     </message>
     <message>
-        <source>zCARITAS Accumulator</source>
-        <translation>zCARITAS Speicher</translation>
+        <source>zCRTS Accumulator</source>
+        <translation>zCRTS Speicher</translation>
     </message>
     <message>
         <source>(n/a)</source>
@@ -4097,8 +4097,8 @@ Bitte haben Sie Geduld...</translation>
         <translation>Masternode Vergütung</translation>
     </message>
     <message>
-        <source>Received CaritasCoin from zCARITAS</source>
-        <translation>Empfangen CaritasCoin von zCARITAS</translation>
+        <source>Received CaritasCoin from zCRTS</source>
+        <translation>Empfangen CaritasCoin von zCRTS</translation>
     </message>
     <message>
         <source>Zerocoin Mint</source>
@@ -4109,8 +4109,8 @@ Bitte haben Sie Geduld...</translation>
         <translation>Zerocoin Ausgabe</translation>
     </message>
     <message>
-        <source>Zerocoin Spend, Change in zCARITAS</source>
-        <translation>Zerocoin Ausgabe, Wechselgeld in zCARITAS</translation>
+        <source>Zerocoin Spend, Change in zCRTS</source>
+        <translation>Zerocoin Ausgabe, Wechselgeld in zCRTS</translation>
     </message>
     <message>
         <source>Zerocoin Spend to Self</source>
@@ -4280,8 +4280,8 @@ Bitte haben Sie Geduld...</translation>
 <context>
     <name>ZVitControlDialog</name>
     <message>
-        <source>Select zCARITAS to Spend</source>
-        <translation>Auswahl zCARITAS als Ausgabe</translation>
+        <source>Select zCRTS to Spend</source>
+        <translation>Auswahl zCRTS als Ausgabe</translation>
     </message>
     <message>
         <source>Quantity</source>
@@ -4292,8 +4292,8 @@ Bitte haben Sie Geduld...</translation>
         <translation>0</translation>
     </message>
     <message>
-        <source>zCARITAS</source>
-        <translation>zCARITAS</translation>
+        <source>zCRTS</source>
+        <translation>zCRTS</translation>
     </message>
     <message>
         <source>Select/Deselect All</source>

@@ -377,9 +377,9 @@ bool IsTransactionInChain(uint256 txId, int& nHeightTx);
 bool IsBlockHashInChain(const uint256& hashBlock);
 void PopulateInvalidOutPointMap();
 bool ValidOutPoint(const COutPoint out, int nHeight);
-void RecalculateZVITSpent();
-void RecalculateZVITMinted();
-bool RecalculateVITSupply(int nHeightStart);
+void RecalculateZCRTSSpent();
+void RecalculateZCRTSMinted();
+bool RecalculateZCRTSSupply(int nHeightStart);
 bool ReindexAccumulators(list<uint256>& listMissingCheckpoints, string& strError);
 
 

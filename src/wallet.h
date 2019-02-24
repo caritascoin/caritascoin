@@ -86,7 +86,7 @@ enum AvailableCoinsType {
     STAKABLE_COINS = 6                          // UTXO's that are valid for staking
 };
 
-// Possible states for zCARITAS send
+// Possible states for zCRTS send
 enum ZerocoinSpendStatus {
     ZVIT_SPEND_OKAY = 0,                            // No error
     ZVIT_SPEND_ERROR = 1,                           // Unspecified class of errors, more details are (hopefully) in the returning text

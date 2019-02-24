@@ -58,7 +58,7 @@ QT_TRANSLATE_NOOP("caritascoin-core", ""
 QT_TRANSLATE_NOOP("caritascoin-core", ""
 "Enable SwiftX, show confirmations for locked transactions (bool, default: %s)"),
 QT_TRANSLATE_NOOP("caritascoin-core", ""
-"Enable automatic wallet backups triggered after each zCARITAS minting (0-1, "
+"Enable automatic wallet backups triggered after each zCRTS minting (0-1, "
 "default: %u)"),
 QT_TRANSLATE_NOOP("caritascoin-core", ""
 "Enable spork administration functionality with the appropriate private key."),

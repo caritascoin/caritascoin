@@ -43,53 +43,53 @@ frequently tested on them.
 Notable Changes
 ===============
 
-Zerocoin (zCARITAS) Protocol
+Zerocoin (zCRTS) Protocol
 ---------------------
 
-At long last, the zCARITAS release is here and the zerocoin protocol has been fully implemented! This allows users to send transactions with 100% fungible coins and absolutely zero history or link-ability to their previous owners.
+At long last, the zCRTS release is here and the zerocoin protocol has been fully implemented! This allows users to send transactions with 100% fungible coins and absolutely zero history or link-ability to their previous owners.
 
-The Zerocoin protocol allows user to convert (mint) their *CARITAS* to zerocoins, which we call *zCARITAS*. When zCARITAS are converted back to CARITAS there is no trail associated with the coins being sent, such as who originally minted those coins. Essentially the only thing the receiver of the zCARITAS transaction will see is that it came from the zerocoin protocol.
+The Zerocoin protocol allows user to convert (mint) their *CARITAS* to zerocoins, which we call *zCRTS*. When zCRTS are converted back to CARITAS there is no trail associated with the coins being sent, such as who originally minted those coins. Essentially the only thing the receiver of the zCRTS transaction will see is that it came from the zerocoin protocol.
 
-### zCARITAS Denominations
-zCARITAS comes in specific denominations of 1, 5, 10, 50, 100, 500, 1000, and 5000. A denomination is a similar concept to paper currency, where you can hold a $100 bill but there is no available $99 bill for you to hold.
+### zCRTS Denominations
+zCRTS comes in specific denominations of 1, 5, 10, 50, 100, 500, 1000, and 5000. A denomination is a similar concept to paper currency, where you can hold a $100 bill but there is no available $99 bill for you to hold.
 
-Other implementations of the zerocoin protocol only allow for spending of one denomination/zerocoin at a time. The CARITAS implementation of zerocoin allows users to spend any amount of zCARITAS they would like (with certain limitations). If a user held two denominations of 5 and they send 7.75 to a merchant, the wallet will automatically grab the two denominations of 5 and then issue 2.25 CARITAS in change to the spender. There is currently a limit of up to 6 individual zerocoin `coins` that can be combined into a spend, where each `coin` could be a different or similar denomination
+Other implementations of the zerocoin protocol only allow for spending of one denomination/zerocoin at a time. The CARITAS implementation of zerocoin allows users to spend any amount of zCRTS they would like (with certain limitations). If a user held two denominations of 5 and they send 7.75 to a merchant, the wallet will automatically grab the two denominations of 5 and then issue 2.25 CARITAS in change to the spender. There is currently a limit of up to 6 individual zerocoin `coins` that can be combined into a spend, where each `coin` could be a different or similar denomination
 
 The CARITAS zerocoin implementation is structured in such a way that denominations aren't needed to be known by the average user.
 
 ### Fees
-zCARITAS transactions require more computation and disk space than typical CARITAS transactions, and as such require a higher transaction fee in order to prevent network spam. Fees are only charged when minting zCARITAS, each minted denomination is charged a flat rate of 0.01 CARITAS. zCARITAS spends are not charged a transaction fee unless the change is minted into zCARITAS, see the *Minting Change* section for details on fees for zCARITAS spends with minted change.
+zCRTS transactions require more computation and disk space than typical CARITAS transactions, and as such require a higher transaction fee in order to prevent network spam. Fees are only charged when minting zCRTS, each minted denomination is charged a flat rate of 0.01 CARITAS. zCRTS spends are not charged a transaction fee unless the change is minted into zCRTS, see the *Minting Change* section for details on fees for zCRTS spends with minted change.
 
-### Converting CARITAS to zCARITAS (*zCARITAS Mint*)
-**GUI** - Conversion from CARITAS to zCARITAS can be done using the `Privacy Dialog` in the QT wallet. Enter the amount of CARITAS you would like to convert and click `Mint Zerocoin`.
+### Converting CARITAS to zCRTS (*zCRTS Mint*)
+**GUI** - Conversion from CARITAS to zCRTS can be done using the `Privacy Dialog` in the QT wallet. Enter the amount of CARITAS you would like to convert and click `Mint Zerocoin`.
 
-**RPC** - Conversion from CARITAS to zCARITAS can be done using the `mintzerocoin` command.
+**RPC** - Conversion from CARITAS to zCRTS can be done using the `mintzerocoin` command.
 
-**Automint** - The CARITAS wallet is set to convert 10% of the wallets available CARITAS to zCARITAS automatically. This can be adjusted in the GUI within the Options dialog, which allows the preferred % to be adjusted as well as the ability to set the preferred zCARITAS denomination that will be minted. Automint is set to be triggered when additional blocks are added to the block chain and is programmed *not* to convert your coins all at once.
+**Automint** - The CARITAS wallet is set to convert 10% of the wallets available CARITAS to zCRTS automatically. This can be adjusted in the GUI within the Options dialog, which allows the preferred % to be adjusted as well as the ability to set the preferred zCRTS denomination that will be minted. Automint is set to be triggered when additional blocks are added to the block chain and is programmed *not* to convert your coins all at once.
 
 Automint can be disabled by adding `enablezeromint=0` to the wallet configuration file. The preferred mint % and denomination can also be set by the configuration file using `zeromintpercentage=<n>` and `preferredDenom=<n>`.
 
-### Converting zCARITAS to CARITAS (*zCARITAS Spend*)
-Redeeming zCARITAS is done by converting it back to CARITAS. With the 3.0.0 software release, users are not able to send zCARITAS to each other directly in an atomic fashion.
+### Converting zCRTS to CARITAS (*zCRTS Spend*)
+Redeeming zCRTS is done by converting it back to CARITAS. With the 3.0.0 software release, users are not able to send zCRTS to each other directly in an atomic fashion.
 
-**GUI** - Conversion from zCARITAS to CARITAS can be done using the `Privacy Dialog` in the QT wallet. Enter a CARITAS address that you would like to Pay To, enter the amount of CARITAS the receiver should be sent, click `Spend Zerocoin`.
+**GUI** - Conversion from zCRTS to CARITAS can be done using the `Privacy Dialog` in the QT wallet. Enter a CARITAS address that you would like to Pay To, enter the amount of CARITAS the receiver should be sent, click `Spend Zerocoin`.
 
-**RPC** - Conversion from zCARITAS to CARITAS can be done using the `spendzerocoin` command.
+**RPC** - Conversion from zCRTS to CARITAS can be done using the `spendzerocoin` command.
 
 ### Advanced Use & Privacy Considerations
-**Security Level** - When spending zCARITAS, a user is prompted to enter a *Security Level* choosing from 1-100. In an indirect way, the Security Level parameter allows the user to choose how many coins to obfuscate their transaction with.
+**Security Level** - When spending zCRTS, a user is prompted to enter a *Security Level* choosing from 1-100. In an indirect way, the Security Level parameter allows the user to choose how many coins to obfuscate their transaction with.
 
 A Security Level of 1 for example would take all of the minted coins in the blockchain before your mint was added to the blockchain, and would then add any coins that were minted within the next 10 blocks as well. A Security Level of 2 would do the same thing, except add the next 20 blocks worth of mints. A **Security Level of 100 will add the maximum amount of mints** up to the current end of the blockchain.
 
 The higher the Security Level, the more computation and time it will take to spend. Although it takes longer, a level of 100 is recommended for transactions that need maximum anonymity.
 
 
-**Minting Change** - The CARITAS implementation of the zerocoin protocol also allows the spender to choose how to receive their leftover change from a Spend transaction. For maximum anonymity it is recommended that the spender choose to receive the change in zCARITAS, which prevents situations where change from a zCARITAS spend that is redeemed in CARITAS is accidentally mixed with the rest of the users CARITAS, thus linking transactions back to a CARITAS address.
+**Minting Change** - The CARITAS implementation of the zerocoin protocol also allows the spender to choose how to receive their leftover change from a Spend transaction. For maximum anonymity it is recommended that the spender choose to receive the change in zCRTS, which prevents situations where change from a zCRTS spend that is redeemed in CARITAS is accidentally mixed with the rest of the users CARITAS, thus linking transactions back to a CARITAS address.
 
-Since the lowest denomination of zCARITAS is 1, and a fee is required to mint zCARITAS, in most situations a high fee will be paid to mint change. The fee is the remainder of the change that cannot be converted back to zCARITAS. For example this would mean a spending a denomination of 10 that yields change of 6.75 in change, would issue zCARITAS denominations of 5 and 1 back to the sender with the remaining 0.75 that is unmintable being contributed as a fee.
+Since the lowest denomination of zCRTS is 1, and a fee is required to mint zCRTS, in most situations a high fee will be paid to mint change. The fee is the remainder of the change that cannot be converted back to zCRTS. For example this would mean a spending a denomination of 10 that yields change of 6.75 in change, would issue zCRTS denominations of 5 and 1 back to the sender with the remaining 0.75 that is unmintable being contributed as a fee.
 
-**zCARITAS Control**
-Similar to the concept of Coin Control in the QT wallet, zCARITAS Control allows users to select exactly which zCARITAS mints they would like to spend. This gives a flexibility to choose which denominations can be picked for a spend that wouldn't otherwise be available.
+**zCRTS Control**
+Similar to the concept of Coin Control in the QT wallet, zCRTS Control allows users to select exactly which zCRTS mints they would like to spend. This gives a flexibility to choose which denominations can be picked for a spend that wouldn't otherwise be available.
 
 
 Tor Service Integration Improvements
@@ -110,7 +110,7 @@ the code changes and accompanying discussion, both the pull request and
 git merge commit are mentioned.
 
 ### Broad Features
-- #264 `15e84e5` zCARITAS is here! (Fuzzbawls Mrs-X Presstab Spock CARITAS)
+- #264 `15e84e5` zCRTS is here! (Fuzzbawls Mrs-X Presstab Spock CARITAS)
 
 ### P2P Protocol and Network Code
 - #242 `0ecd77f` [P2P] Improve TOR service connectivity (Fuzzbawls)
