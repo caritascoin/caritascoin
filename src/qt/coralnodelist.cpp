@@ -1,5 +1,5 @@
-#include "coralnodeist.h"
-#include "ui_coralnodeist.h"
+#include "coralnodelist.h"
+#include "ui_coralnodelist.h"
 
 #include "activecoralnode.h"
 #include "clientmodel.h"

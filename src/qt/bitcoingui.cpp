@@ -30,7 +30,7 @@
 #endif
 
 #include "init.h"
-#include "coralnodeist.h"
+#include "coralnodelist.h"
 #include "masternodelist.h"
 #include "ui_interface.h"
 #include "util.h"

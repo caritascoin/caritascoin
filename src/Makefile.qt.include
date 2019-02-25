@@ -39,7 +39,7 @@ QT_FORMS_UI = \
   qt/forms/editaddressdialog.ui \
   qt/forms/helpmessagedialog.ui \
   qt/forms/intro.ui \
-  qt/forms/coralnodeist.ui \
+  qt/forms/coralnodelist.ui \
   qt/forms/masternodelist.ui \
   qt/forms/multisenddialog.ui \
   qt/forms/multisigdialog.ui\
@@ -77,7 +77,7 @@ QT_MOC_CPP = \
   qt/moc_intro.cpp \
   qt/moc_macdockiconhandler.cpp \
   qt/moc_macnotificationhandler.cpp \
-  qt/moc_coralnodeist.cpp \
+  qt/moc_coralnodelist.cpp \
   qt/moc_masternodelist.cpp \
   qt/moc_multisenddialog.cpp \
   qt/moc_multisigdialog.cpp\
@@ -153,7 +153,7 @@ BITCOIN_QT_H = \
   qt/intro.h \
   qt/macdockiconhandler.h \
   qt/macnotificationhandler.h \
-  qt/coralnodeist.h \
+  qt/coralnodelist.h \
   qt/masternodelist.h \
   qt/multisenddialog.h \
   qt/multisigdialog.h\
@@ -266,7 +266,7 @@ BITCOIN_QT_CPP = \
   qt/csvmodelwriter.cpp \
   qt/guiutil.cpp \
   qt/intro.cpp \
-  qt/coralnodeist.cpp \
+  qt/coralnodelist.cpp \
   qt/masternodelist.cpp \
   qt/networkstyle.cpp \
   qt/notificator.cpp \
@@ -296,7 +296,7 @@ BITCOIN_QT_CPP += \
   qt/coincontroltreewidget.cpp \
   qt/obfuscationconfig.cpp \
   qt/editaddressdialog.cpp \
-  qt/coralnodeist.cpp \
+  qt/coralnodelist.cpp \
   qt/masternodelist.cpp \
   qt/multisenddialog.cpp \
   qt/multisigdialog.cpp\
