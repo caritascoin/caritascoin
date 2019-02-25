@@ -17,6 +17,12 @@
 #include "obfuscation.h"
 #include "masternode.h"
 
+#define ACTIVE_MASTERNODE_INITIAL 0 // initial state
+#define ACTIVE_MASTERNODE_SYNC_IN_PROCESS 1
+#define ACTIVE_MASTERNODE_INPUT_TOO_NEW 2
+#define ACTIVE_MASTERNODE_NOT_CAPABLE 3
+#define ACTIVE_MASTERNODE_STARTED 4
+
 // Responsible for activating the Masternode and pinging the network
 class CActiveMasternode
 {
@@ -31,6 +37,8 @@ public:
 
     int status;
     std::string notCapableReason;
+
+    std::string GetStatus();
 
     CActiveMasternode()
     {

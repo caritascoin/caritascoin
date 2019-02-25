@@ -287,7 +287,7 @@ UniValue masternode(const UniValue& params, bool fHelp)
 
     if (fHelp  ||
             (strCommand != "start" && strCommand != "start-alias" && strCommand != "start-many" && strCommand != "stop" && strCommand != "stop-alias" && strCommand != "stop-many" && strCommand != "list-conf" && strCommand != "count"  && strCommand != "enforce"
-             && strCommand != "debug" && strCommand != "current" && strCommand != "winners" && strCommand != "genkey" && strCommand != "connect" && strCommand != "outputs" /* && strCommand != "vote-many" && strCommand != "vote" */))
+             && strCommand != "debug" && strCommand != "current" && strCommand != "winners" && strCommand != "genkey" && strCommand != "connect" && strCommand != "outputs"  && strCommand != "status"/* && strCommand != "vote" */))
         throw runtime_error(
                 "masternode \"command\"... ( \"passphrase\" )\n"
                 "Set of commands to execute masternode related actions\n"
@@ -301,6 +301,7 @@ UniValue masternode(const UniValue& params, bool fHelp)
                 "  genkey       - Generate new masternodeprivkey\n"
                 "  enforce      - Enforce masternode payments\n"
                 "  outputs      - Print masternode compatible outputs\n"
+				"  status       - Print masternode status information\n"
                 "  start        - Start masternode configured in bitsend.conf\n"
                 "  start-alias  - Start single masternode by assigned alias configured in masternode.conf\n"
                 "  start-many   - Start all masternodes configured in masternode.conf\n"
@@ -785,7 +786,14 @@ UniValue masternode(const UniValue& params, bool fHelp)
         return obj;
 
     }
-
+    if (strCommand == "status") {
+        UniValue newParams(UniValue::VARR);
+        // forward params but skip command
+        for (unsigned int i = 1; i < params.size(); i++) {
+            newParams.push_back(params[i]);
+        }
+        return getmasternodestatus(newParams, fHelp);
+    }
     /*if(strCommand == "vote-many")
     {
         std::vector<CMasternodeConfig::CMasternodeEntry> mnEntries;
@@ -864,6 +872,43 @@ UniValue masternode(const UniValue& params, bool fHelp)
         }
         return masternodelist(newParams);
     }*/
+}
+
+UniValue getmasternodestatus(const UniValue& params, bool fHelp)
+{
+    if (fHelp || (params.size() != 0))
+        throw runtime_error(
+            "getmasternodestatus\n"
+            "\nPrint masternode status\n"
+
+            "\nResult:\n"
+            "{\n"
+            "  \"txhash\": \"xxxx\",      (string) Collateral transaction hash\n"
+            "  \"outputidx\": n,        (numeric) Collateral transaction output index number\n"
+            "  \"netaddr\": \"xxxx\",     (string) Masternode network address\n"
+            "  \"addr\": \"xxxx\",        (string) CaritasCoin address for masternode payments\n"
+            "  \"status\": \"xxxx\",      (string) Masternode status\n"
+            "  \"message\": \"xxxx\"      (string) Masternode status message\n"
+            "}\n"
+
+            "\nExamples:\n" +
+            HelpExampleCli("getmasternodestatus", "") + HelpExampleRpc("getmasternodestatus", ""));
+
+    if (!fMasterNode) throw runtime_error("This is not a masternode");
+
+    CMasternode* pmn = m_nodeman.Find(activeMasternode.vin);
+
+    if (pmn) {
+        UniValue mnObj(UniValue::VOBJ);
+        mnObj.push_back(Pair("txhash", activeMasternode.vin.prevout.hash.ToString()));
+        mnObj.push_back(Pair("outputidx", (uint64_t)activeMasternode.vin.prevout.n));
+        mnObj.push_back(Pair("netaddr", activeMasternode.service.ToString()));
+        mnObj.push_back(Pair("addr", CBitcoinAddress(pmn->pubkey.GetID()).ToString()));
+        mnObj.push_back(Pair("status", activeMasternode.status));
+        mnObj.push_back(Pair("message", activeMasternode.GetStatus()));
+        return mnObj;
+    }
+    throw runtime_error("Masternode not found in the list of available masternodes. Current status: " + activeMasternode.GetStatus());
 }
 
 UniValue masternodelist(const UniValue& params, bool fHelp)
