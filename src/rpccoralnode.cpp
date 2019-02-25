@@ -279,6 +279,43 @@ UniValue coralnode(const UniValue& params, bool fHelp)
     return NullUniValue;
 }
 
+UniValue getmasternodestatus(const UniValue& params, bool fHelp)
+{
+    if (fHelp || (params.size() != 0))
+        throw runtime_error(
+            "getmasternodestatus\n"
+            "\nPrint masternode status\n"
+
+            "\nResult:\n"
+            "{\n"
+            "  \"txhash\": \"xxxx\",      (string) Collateral transaction hash\n"
+            "  \"outputidx\": n,        (numeric) Collateral transaction output index number\n"
+            "  \"netaddr\": \"xxxx\",     (string) Masternode network address\n"
+            "  \"addr\": \"xxxx\",        (string) CaritasCoin address for masternode payments\n"
+            "  \"status\": \"xxxx\",      (string) Masternode status\n"
+            "  \"message\": \"xxxx\"      (string) Masternode status message\n"
+            "}\n"
+
+            "\nExamples:\n" +
+            HelpExampleCli("getmasternodestatus", "") + HelpExampleRpc("getmasternodestatus", ""));
+
+    if (!fMasterNode) throw runtime_error("This is not a masternode");
+
+    CMasternode* pmn = m_nodeman.Find(activeMasternode.vin);
+
+    if (pmn) {
+        UniValue mnObj(UniValue::VOBJ);
+        mnObj.push_back(Pair("txhash", activeMasternode.vin.prevout.hash.ToString()));
+        mnObj.push_back(Pair("outputidx", (uint64_t)activeMasternode.vin.prevout.n));
+        mnObj.push_back(Pair("netaddr", activeMasternode.service.ToString()));
+        mnObj.push_back(Pair("addr", CBitcoinAddress(pmn->pubkey.GetID()).ToString()));
+        mnObj.push_back(Pair("status", activeMasternode.status));
+        mnObj.push_back(Pair("message", activeMasternode.GetStatus()));
+        return mnObj;
+    }
+    throw runtime_error("Masternode not found in the list of available masternodes. Current status: " + activeMasternode.GetStatus());
+}
+
 UniValue masternode(const UniValue& params, bool fHelp)
 {
     string strCommand;
@@ -872,43 +909,6 @@ UniValue masternode(const UniValue& params, bool fHelp)
         }
         return masternodelist(newParams);
     }*/
-}
-
-UniValue getmasternodestatus(const UniValue& params, bool fHelp)
-{
-    if (fHelp || (params.size() != 0))
-        throw runtime_error(
-            "getmasternodestatus\n"
-            "\nPrint masternode status\n"
-
-            "\nResult:\n"
-            "{\n"
-            "  \"txhash\": \"xxxx\",      (string) Collateral transaction hash\n"
-            "  \"outputidx\": n,        (numeric) Collateral transaction output index number\n"
-            "  \"netaddr\": \"xxxx\",     (string) Masternode network address\n"
-            "  \"addr\": \"xxxx\",        (string) CaritasCoin address for masternode payments\n"
-            "  \"status\": \"xxxx\",      (string) Masternode status\n"
-            "  \"message\": \"xxxx\"      (string) Masternode status message\n"
-            "}\n"
-
-            "\nExamples:\n" +
-            HelpExampleCli("getmasternodestatus", "") + HelpExampleRpc("getmasternodestatus", ""));
-
-    if (!fMasterNode) throw runtime_error("This is not a masternode");
-
-    CMasternode* pmn = m_nodeman.Find(activeMasternode.vin);
-
-    if (pmn) {
-        UniValue mnObj(UniValue::VOBJ);
-        mnObj.push_back(Pair("txhash", activeMasternode.vin.prevout.hash.ToString()));
-        mnObj.push_back(Pair("outputidx", (uint64_t)activeMasternode.vin.prevout.n));
-        mnObj.push_back(Pair("netaddr", activeMasternode.service.ToString()));
-        mnObj.push_back(Pair("addr", CBitcoinAddress(pmn->pubkey.GetID()).ToString()));
-        mnObj.push_back(Pair("status", activeMasternode.status));
-        mnObj.push_back(Pair("message", activeMasternode.GetStatus()));
-        return mnObj;
-    }
-    throw runtime_error("Masternode not found in the list of available masternodes. Current status: " + activeMasternode.GetStatus());
 }
 
 UniValue masternodelist(const UniValue& params, bool fHelp)
