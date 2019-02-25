@@ -17,7 +17,7 @@
 #include "util.h"
 
 /*
-    At 15 signatures, 1/2 of the fundamentalnode network can be owned by
+    At 15 signatures, 1/2 of the coralnode network can be owned by
     one party without comprimising the security of SwiftX
     (1000/2150.0)**10 = 0.00047382219560689856
     (1000/2900.0)**10 = 2.3769498616783657e-05
@@ -68,10 +68,10 @@ int64_t GetAverageVoteTime();
 class CConsensusVote
 {
 public:
-    CTxIn vinFundamentalnode;
+    CTxIn vinCoralnode;
     uint256 txHash;
     int nBlockHeight;
-    std::vector<unsigned char> vchFundamentalNodeSignature;
+    std::vector<unsigned char> vchCoralNodeSignature;
 
     uint256 GetHash() const;
 
@@ -84,8 +84,8 @@ public:
     inline void SerializationOp(Stream& s, Operation ser_action, int nType, int nVersion)
     {
         READWRITE(txHash);
-        READWRITE(vinFundamentalnode);
-        READWRITE(vchFundamentalNodeSignature);
+        READWRITE(vinCoralnode);
+        READWRITE(vchCoralNodeSignature);
         READWRITE(nBlockHeight);
     }
 };

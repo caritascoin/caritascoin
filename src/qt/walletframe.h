@@ -54,8 +54,8 @@ public slots:
     void gotoOverviewPage();
     /** Switch to history (transactions) page */
     void gotoHistoryPage();
-    /** Switch to fundamentalnode page */
-    void gotoFundamentalnodePage();
+    /** Switch to coralnode page */
+    void gotoCoralnodePage();
     /** Switch to masternode page */
     void gotoMasternodePage();
     /** Switch to receive coins page */

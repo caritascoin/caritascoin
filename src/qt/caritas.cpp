@@ -25,7 +25,7 @@
 #include "paymentserver.h"
 #include "walletmodel.h"
 #endif
-#include "fundamentalnodeconfig.h"
+#include "coralnodeconfig.h"
 #include "masternodeconfig.h"
 
 #include "init.h"
@@ -637,11 +637,11 @@ int main(int argc, char* argv[])
     initTranslations(qtTranslatorBase, qtTranslator, translatorBase, translator);
 
 #ifdef ENABLE_WALLET
-    /// 7a. parse fundamentalnode.conf
+    /// 7a. parse coralnode.conf
     string strErr;
-    if (!fundamentalnodeConfig.read(strErr)) {
+    if (!coralnodeConfig.read(strErr)) {
         QMessageBox::critical(0, QObject::tr("CaritasCoin Core"),
-            QObject::tr("Error reading fundamentalnode configuration file: %1").arg(strErr.c_str()));
+            QObject::tr("Error reading coralnode configuration file: %1").arg(strErr.c_str()));
         return 0;
     }
 

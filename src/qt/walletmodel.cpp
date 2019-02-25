@@ -256,7 +256,7 @@ void WalletModel::updateAddressBookLabels(const CTxDestination& dest, const stri
     }
 }
 
-WalletModel::SendCoinsReturn WalletModel::prepareTransaction(WalletModelTransaction& transaction, const CCoinControl* coinControl, bool IsFundamentalNodePayment)
+WalletModel::SendCoinsReturn WalletModel::prepareTransaction(WalletModelTransaction& transaction, const CCoinControl* coinControl, bool IsCoralNodePayment)
 {
     CAmount total = 0;
     QList<SendCoinsRecipient> recipients = transaction.getRecipients();
@@ -265,8 +265,8 @@ WalletModel::SendCoinsReturn WalletModel::prepareTransaction(WalletModelTransact
     if (recipients.empty()) {
         return OK;
     }
-    if(IsFundamentalNodePayment){
-        LogPrintf(" ISFUNDAMENTALNODE passed to prepare Transaction \n ");
+    if(IsCoralNodePayment){
+        LogPrintf(" ISCORALNODE passed to prepare Transaction \n ");
     }
 
     if (isAnonymizeOnlyUnlocked()) {
@@ -336,7 +336,7 @@ WalletModel::SendCoinsReturn WalletModel::prepareTransaction(WalletModelTransact
             return TransactionCreationFailed;
         }
 
-        bool fCreated = wallet->CreateTransaction(vecSend, *newTx, *keyChange, nFeeRequired, strFailReason, coinControl, recipients[0].inputType, recipients[0].useSwiftTX,0, IsFundamentalNodePayment);
+        bool fCreated = wallet->CreateTransaction(vecSend, *newTx, *keyChange, nFeeRequired, strFailReason, coinControl, recipients[0].inputType, recipients[0].useSwiftTX,0, IsCoralNodePayment);
         transaction.setTransactionFee(nFeeRequired);
 
         if (recipients[0].useSwiftTX && newTx->GetValueOut() > GetSporkValue(SPORK_5_MAX_VALUE) * COIN) {

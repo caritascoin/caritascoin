@@ -31,7 +31,7 @@
 
 //CaritasCoin only features
 
-extern bool fFundamentalNode;
+extern bool fCoralNode;
 extern bool fLiteMode;
 extern bool fEnableSwiftTX;
 extern int nSwiftTXDepth;
@@ -41,8 +41,8 @@ extern int nPreferredDenom;
 extern int nAnonymizeCaritasCoinAmount;
 extern int nLiquidityProvider;
 extern bool fEnableZeromint;
-extern int64_t enforceFundamentalnodePaymentsTime;
-extern std::string strFundamentalNodeAddr;
+extern int64_t enforceCoralnodePaymentsTime;
+extern std::string strCoralNodeAddr;
 extern int keysLoaded;
 extern bool fSucessfullyLoaded;
 extern std::vector<int64_t> obfuScationDenominations;
@@ -123,7 +123,7 @@ bool TryCreateDirectory(const boost::filesystem::path& p);
 boost::filesystem::path GetDefaultDataDir();
 const boost::filesystem::path& GetDataDir(bool fNetSpecific = true);
 boost::filesystem::path GetConfigFile();
-boost::filesystem::path GetFundamentalnodeConfigFile();
+boost::filesystem::path GetCoralnodeConfigFile();
 boost::filesystem::path GetMasternodeConfigFile();
 #ifndef WIN32
 boost::filesystem::path GetPidFile();

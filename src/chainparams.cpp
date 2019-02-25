@@ -115,15 +115,15 @@ public:
         nTargetTimespan = 45; // CaritasCoin: 1 day
         nTargetSpacing = 45;  // CaritasCoin: 1 minute
         nMaturity = 8;
-        nFundamentalnodeCountDrift = 20;
+        nCoralnodeCountDrift = 20;
 		nMasternodeCountDrift = 20;
         nMaxMoneyOut = 21000000 * COIN;
 
         /** Height or Time Based Activations **/
         nLastPOWBlock = 2000;
         nModifierUpdateBlock = 615800;
-        nZerocoinStartHeight = 5000;
-        nZerocoinStartTime = 1536314400; // september 7, 2018 12:00:00 UTC
+        nZerocoinStartHeight = 200000;
+        nZerocoinStartTime = 1555928056;  //Monday, 22 April 2019 10:14:16 UTC
         nBlockEnforceSerialRange = 895400; //Enforce serial range starting this block
         nBlockRecalculateAccumulators = 908000; //Trigger a recalculation of accumulators
         nBlockFirstFraudulent = 891737; //First block that bad serials emerged
@@ -188,7 +188,7 @@ public:
         nPoolMaxTransactions = 3;
         strSporkKey = "049CDEDDB66230782D70BC1A94C85EF6EF20222BB14E5CF036C412C7E05F94D60B2C93F16DE64E456490D984C526A6F46D9B511619BE20BFC54D36113FC14B312F";
         strObfuscationPoolDummyAddress = "VjVqgZbamLZ3KmEKBZZzmZgvtqDWw7jsrL";
-        nStartFundamentalnodePayments = 1524487214;
+        nStartCoralnodePayments = 1524487214;
 
         /** Zerocoin */
         zerocoinModulus = "25195908475657893494027183240048398571429282126204032027777137836043662020707595556264018525880784"
@@ -237,7 +237,7 @@ public:
         nTargetSpacing = 1 * 60;  // CaritasCoin: 1 minute
         nLastPOWBlock = 2000;
         nMaturity = 15;
-        nFundamentalnodeCountDrift = 4;
+        nCoralnodeCountDrift = 4;
 		nMasternodeCountDrift = 4;
         nModifierUpdateBlock = 51197; //approx Mon, 17 Apr 2017 04:00:00 GMT
         nMaxMoneyOut = 43199500 * COIN;
@@ -284,7 +284,7 @@ public:
         nPoolMaxTransactions = 2;
         strSporkKey = "047cb1d068ef01a90200652ee3b350d660b7829d761417496716e41c9722d3b38bf099546a56f6e71c98b58e5616296172726377c6b2082c60c7bc4a1d54159c6b";
         strObfuscationPoolDummyAddress = "y57cqfGRkekRyDRNeJiLtYVEbvhXrNbmox";
-        nStartFundamentalnodePayments = 1420837558; //Fri, 09 Jan 2015 21:05:58 GMT
+        nStartCoralnodePayments = 1420837558; //Fri, 09 Jan 2015 21:05:58 GMT
         nBudget_Fee_Confirmations = 3; // Number of confirmations for the finalization fee. We have to make this very short
                                        // here because we only have a 8 block finalization window on testnet
     }

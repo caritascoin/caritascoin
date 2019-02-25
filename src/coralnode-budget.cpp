@@ -7,10 +7,10 @@
 #include "main.h"
 
 #include "addrman.h"
-#include "fundamentalnode-budget.h"
-#include "fundamentalnode-sync.h"
-#include "fundamentalnode.h"
-#include "fundamentalnodeman.h"
+#include "coralnode-budget.h"
+#include "coralnode-sync.h"
+#include "coralnode.h"
+#include "coralnodeman.h"
 #include "obfuscation.h"
 #include "util.h"
 #include <boost/filesystem.hpp>
@@ -40,7 +40,7 @@ bool IsBudgetCollateralValid(uint256 nTxCollateralHash, uint256 nExpectedHash, s
     uint256 nBlockHash;
     if (!GetTransaction(nTxCollateralHash, txCollateral, nBlockHash, true)) {
         strError = strprintf("Can't find collateral tx %s", txCollateral.ToString());
-        LogPrint("fundamentalnode","CBudgetProposalBroadcast::IsBudgetCollateralValid - %s\n", strError);
+        LogPrint("coralnode","CBudgetProposalBroadcast::IsBudgetCollateralValid - %s\n", strError);
         return false;
     }
 
@@ -54,14 +54,14 @@ bool IsBudgetCollateralValid(uint256 nTxCollateralHash, uint256 nExpectedHash, s
     BOOST_FOREACH (const CTxOut o, txCollateral.vout) {
         if (!o.scriptPubKey.IsNormalPaymentScript() && !o.scriptPubKey.IsUnspendable()) {
             strError = strprintf("Invalid Script %s", txCollateral.ToString());
-            LogPrint("fundamentalnode","CBudgetProposalBroadcast::IsBudgetCollateralValid - %s\n", strError);
+            LogPrint("coralnode","CBudgetProposalBroadcast::IsBudgetCollateralValid - %s\n", strError);
             return false;
         }
         if (o.scriptPubKey == findScript && o.nValue >= PROPOSAL_FEE_TX) foundOpReturn = true;
     }
     if (!foundOpReturn) {
         strError = strprintf("Couldn't find opReturn %s in %s", nExpectedHash.ToString(), txCollateral.ToString());
-        LogPrint("fundamentalnode","CBudgetProposalBroadcast::IsBudgetCollateralValid - %s\n", strError);
+        LogPrint("coralnode","CBudgetProposalBroadcast::IsBudgetCollateralValid - %s\n", strError);
         return false;
     }
 
@@ -90,7 +90,7 @@ bool IsBudgetCollateralValid(uint256 nTxCollateralHash, uint256 nExpectedHash, s
         return true;
     } else {
         strError = strprintf("Collateral requires at least %d confirmations - %d confirmations", Params().Budget_Fee_Confirmations(), conf);
-        LogPrint("fundamentalnode","CBudgetProposalBroadcast::IsBudgetCollateralValid - %s - %d confirmations\n", strError, conf);
+        LogPrint("coralnode","CBudgetProposalBroadcast::IsBudgetCollateralValid - %s - %d confirmations\n", strError, conf);
         return false;
     }
 }
@@ -101,11 +101,11 @@ void CBudgetManager::CheckOrphanVotes()
 
 
     std::string strError = "";
-    std::map<uint256, CBudgetVote>::iterator it1 = mapOrphanFundamentalnodeBudgetVotes.begin();
-    while (it1 != mapOrphanFundamentalnodeBudgetVotes.end()) {
+    std::map<uint256, CBudgetVote>::iterator it1 = mapOrphanCoralnodeBudgetVotes.begin();
+    while (it1 != mapOrphanCoralnodeBudgetVotes.end()) {
         if (budget.UpdateProposal(((*it1).second), NULL, strError)) {
-            LogPrint("fundamentalnode","CBudgetManager::CheckOrphanVotes - Proposal/Budget is known, activating and removing orphan vote\n");
-            mapOrphanFundamentalnodeBudgetVotes.erase(it1++);
+            LogPrint("coralnode","CBudgetManager::CheckOrphanVotes - Proposal/Budget is known, activating and removing orphan vote\n");
+            mapOrphanCoralnodeBudgetVotes.erase(it1++);
         } else {
             ++it1;
         }
@@ -113,13 +113,13 @@ void CBudgetManager::CheckOrphanVotes()
     std::map<uint256, CFinalizedBudgetVote>::iterator it2 = mapOrphanFinalizedBudgetVotes.begin();
     while (it2 != mapOrphanFinalizedBudgetVotes.end()) {
         if (budget.UpdateFinalizedBudget(((*it2).second), NULL, strError)) {
-            LogPrint("fundamentalnode","CBudgetManager::CheckOrphanVotes - Proposal/Budget is known, activating and removing orphan vote\n");
+            LogPrint("coralnode","CBudgetManager::CheckOrphanVotes - Proposal/Budget is known, activating and removing orphan vote\n");
             mapOrphanFinalizedBudgetVotes.erase(it2++);
         } else {
             ++it2;
         }
     }
-    LogPrint("fundamentalnode","CBudgetManager::CheckOrphanVotes - Done\n");
+    LogPrint("coralnode","CBudgetManager::CheckOrphanVotes - Done\n");
 }
 
 void CBudgetManager::SubmitFinalBudget()
@@ -136,7 +136,7 @@ void CBudgetManager::SubmitFinalBudget()
 
     int nBlockStart = nCurrentHeight - nCurrentHeight % GetBudgetPaymentCycleBlocks() + GetBudgetPaymentCycleBlocks();
     if (nSubmittedHeight >= nBlockStart){
-        LogPrint("fundamentalnode","CBudgetManager::SubmitFinalBudget - nSubmittedHeight(=%ld) < nBlockStart(=%ld) condition not fulfilled.\n", nSubmittedHeight, nBlockStart);
+        LogPrint("coralnode","CBudgetManager::SubmitFinalBudget - nSubmittedHeight(=%ld) < nBlockStart(=%ld) condition not fulfilled.\n", nSubmittedHeight, nBlockStart);
         return;
     }
     // Submit final budget during the last 2 days before payment for Mainnet, about 9 minutes for Testnet
@@ -144,8 +144,8 @@ void CBudgetManager::SubmitFinalBudget()
     int nOffsetToStart = nFinalizationStart - nCurrentHeight;
 
     if (nBlockStart - nCurrentHeight > ((GetBudgetPaymentCycleBlocks() / 30) * 2)){
-        LogPrint("fundamentalnode","CBudgetManager::SubmitFinalBudget - Too early for finalization. Current block is %ld, next Superblock is %ld.\n", nCurrentHeight, nBlockStart);
-        LogPrint("fundamentalnode","CBudgetManager::SubmitFinalBudget - First possible block for finalization: %ld. Last possible block for finalization: %ld. You have to wait for %ld block(s) until Budget finalization will be possible\n", nFinalizationStart, nBlockStart, nOffsetToStart);
+        LogPrint("coralnode","CBudgetManager::SubmitFinalBudget - Too early for finalization. Current block is %ld, next Superblock is %ld.\n", nCurrentHeight, nBlockStart);
+        LogPrint("coralnode","CBudgetManager::SubmitFinalBudget - First possible block for finalization: %ld. Last possible block for finalization: %ld. You have to wait for %ld block(s) until Budget finalization will be possible\n", nFinalizationStart, nBlockStart, nOffsetToStart);
 
         return;
     }
@@ -163,13 +163,13 @@ void CBudgetManager::SubmitFinalBudget()
     }
 
     if (vecTxBudgetPayments.size() < 1) {
-        LogPrint("fundamentalnode","CBudgetManager::SubmitFinalBudget - Found No Proposals For Period\n");
+        LogPrint("coralnode","CBudgetManager::SubmitFinalBudget - Found No Proposals For Period\n");
         return;
     }
 
     CFinalizedBudgetBroadcast tempBudget(strBudgetName, nBlockStart, vecTxBudgetPayments, 0);
     if (mapSeenFinalizedBudgets.count(tempBudget.GetHash())) {
-        LogPrint("fundamentalnode","CBudgetManager::SubmitFinalBudget - Budget already exists - %s\n", tempBudget.GetHash().ToString());
+        LogPrint("coralnode","CBudgetManager::SubmitFinalBudget - Budget already exists - %s\n", tempBudget.GetHash().ToString());
         nSubmittedHeight = nCurrentHeight;
         return; //already exists
     }
@@ -181,7 +181,7 @@ void CBudgetManager::SubmitFinalBudget()
     if (!mapCollateralTxids.count(tempBudget.GetHash())) {
         CWalletTx wtx;
         if (!pwalletMain->GetBudgetSystemCollateralTX(wtx, tempBudget.GetHash(), false)) {
-            LogPrint("fundamentalnode","CBudgetManager::SubmitFinalBudget - Can't make collateral transaction\n");
+            LogPrint("coralnode","CBudgetManager::SubmitFinalBudget - Can't make collateral transaction\n");
             return;
         }
 
@@ -201,7 +201,7 @@ void CBudgetManager::SubmitFinalBudget()
     uint256 nBlockHash;
 
     if (!GetTransaction(txidCollateral, txCollateral, nBlockHash, true)) {
-        LogPrint("fundamentalnode","CBudgetManager::SubmitFinalBudget - Can't find collateral tx %s", txidCollateral.ToString());
+        LogPrint("coralnode","CBudgetManager::SubmitFinalBudget - Can't find collateral tx %s", txidCollateral.ToString());
         return;
     }
 
@@ -220,7 +220,7 @@ void CBudgetManager::SubmitFinalBudget()
         -- This function is tied to NewBlock, so we will propagate this budget while the block is also propagating
     */
     if (conf < Params().Budget_Fee_Confirmations() + 1) {
-        LogPrint("fundamentalnode","CBudgetManager::SubmitFinalBudget - Collateral requires at least %d confirmations - %s - %d confirmations\n", Params().Budget_Fee_Confirmations() + 1, txidCollateral.ToString(), conf);
+        LogPrint("coralnode","CBudgetManager::SubmitFinalBudget - Collateral requires at least %d confirmations - %s - %d confirmations\n", Params().Budget_Fee_Confirmations() + 1, txidCollateral.ToString(), conf);
         return;
     }
 
@@ -229,7 +229,7 @@ void CBudgetManager::SubmitFinalBudget()
 
     std::string strError = "";
     if (!finalizedBudgetBroadcast.IsValid(strError)) {
-        LogPrint("fundamentalnode","CBudgetManager::SubmitFinalBudget - Invalid finalized budget - %s \n", strError);
+        LogPrint("coralnode","CBudgetManager::SubmitFinalBudget - Invalid finalized budget - %s \n", strError);
         return;
     }
 
@@ -238,7 +238,7 @@ void CBudgetManager::SubmitFinalBudget()
     finalizedBudgetBroadcast.Relay();
     budget.AddFinalizedBudget(finalizedBudgetBroadcast);
     nSubmittedHeight = nCurrentHeight;
-    LogPrint("fundamentalnode","CBudgetManager::SubmitFinalBudget - Done! %s\n", finalizedBudgetBroadcast.GetHash().ToString());
+    LogPrint("coralnode","CBudgetManager::SubmitFinalBudget - Done! %s\n", finalizedBudgetBroadcast.GetHash().ToString());
 }
 
 //
@@ -248,7 +248,7 @@ void CBudgetManager::SubmitFinalBudget()
 CBudgetDB::CBudgetDB()
 {
     pathDB = GetDataDir() / "budget.dat";
-    strMagicMessage = "FundamentalnodeBudget";
+    strMagicMessage = "CoralnodeBudget";
 }
 
 bool CBudgetDB::Write(const CBudgetManager& objToSave)
@@ -259,7 +259,7 @@ bool CBudgetDB::Write(const CBudgetManager& objToSave)
 
     // serialize, checksum data up to that point, then append checksum
     CDataStream ssObj(SER_DISK, CLIENT_VERSION);
-    ssObj << strMagicMessage;                   // fundamentalnode cache file specific magic message
+    ssObj << strMagicMessage;                   // coralnode cache file specific magic message
     ssObj << FLATDATA(Params().MessageStart()); // network specific magic number
     ssObj << objToSave;
     uint256 hash = Hash(ssObj.begin(), ssObj.end());
@@ -279,7 +279,7 @@ bool CBudgetDB::Write(const CBudgetManager& objToSave)
     }
     fileout.fclose();
 
-    LogPrint("fundamentalnode","Written info to budget.dat  %dms\n", GetTimeMillis() - nStart);
+    LogPrint("coralnode","Written info to budget.dat  %dms\n", GetTimeMillis() - nStart);
 
     return true;
 }
@@ -330,12 +330,12 @@ CBudgetDB::ReadResult CBudgetDB::Read(CBudgetManager& objToLoad, bool fDryRun)
     unsigned char pchMsgTmp[4];
     std::string strMagicMessageTmp;
     try {
-        // de-serialize file header (fundamentalnode cache file specific magic message) and ..
+        // de-serialize file header (coralnode cache file specific magic message) and ..
         ssObj >> strMagicMessageTmp;
 
         // ... verify the message matches predefined one
         if (strMagicMessage != strMagicMessageTmp) {
-            error("%s : Invalid fundamentalnode cache magic message", __func__);
+            error("%s : Invalid coralnode cache magic message", __func__);
             return IncorrectMagicMessage;
         }
 
@@ -357,13 +357,13 @@ CBudgetDB::ReadResult CBudgetDB::Read(CBudgetManager& objToLoad, bool fDryRun)
         return IncorrectFormat;
     }
 
-    LogPrint("fundamentalnode","Loaded info from budget.dat  %dms\n", GetTimeMillis() - nStart);
-    LogPrint("fundamentalnode","  %s\n", objToLoad.ToString());
+    LogPrint("coralnode","Loaded info from budget.dat  %dms\n", GetTimeMillis() - nStart);
+    LogPrint("coralnode","  %s\n", objToLoad.ToString());
     if (!fDryRun) {
-        LogPrint("fundamentalnode","Budget manager - cleaning....\n");
+        LogPrint("coralnode","Budget manager - cleaning....\n");
         objToLoad.CheckAndRemove();
-        LogPrint("fundamentalnode","Budget manager - result:\n");
-        LogPrint("fundamentalnode","  %s\n", objToLoad.ToString());
+        LogPrint("coralnode","Budget manager - result:\n");
+        LogPrint("coralnode","  %s\n", objToLoad.ToString());
     }
 
     return Ok;
@@ -376,24 +376,24 @@ void DumpBudgets()
     CBudgetDB budgetdb;
     CBudgetManager tempBudget;
 
-    LogPrint("fundamentalnode","Verifying budget.dat format...\n");
+    LogPrint("coralnode","Verifying budget.dat format...\n");
     CBudgetDB::ReadResult readResult = budgetdb.Read(tempBudget, true);
     // there was an error and it was not an error on file opening => do not proceed
     if (readResult == CBudgetDB::FileError)
-        LogPrint("fundamentalnode","Missing budgets file - budget.dat, will try to recreate\n");
+        LogPrint("coralnode","Missing budgets file - budget.dat, will try to recreate\n");
     else if (readResult != CBudgetDB::Ok) {
-        LogPrint("fundamentalnode","Error reading budget.dat: ");
+        LogPrint("coralnode","Error reading budget.dat: ");
         if (readResult == CBudgetDB::IncorrectFormat)
-            LogPrint("fundamentalnode","magic is ok but data has invalid format, will try to recreate\n");
+            LogPrint("coralnode","magic is ok but data has invalid format, will try to recreate\n");
         else {
-            LogPrint("fundamentalnode","file format is unknown or invalid, please fix it manually\n");
+            LogPrint("coralnode","file format is unknown or invalid, please fix it manually\n");
             return;
         }
     }
-    LogPrint("fundamentalnode","Writting info to budget.dat...\n");
+    LogPrint("coralnode","Writting info to budget.dat...\n");
     budgetdb.Write(budget);
 
-    LogPrint("fundamentalnode","Budget dump finished  %dms\n", GetTimeMillis() - nStart);
+    LogPrint("coralnode","Budget dump finished  %dms\n", GetTimeMillis() - nStart);
 }
 
 bool CBudgetManager::AddFinalizedBudget(CFinalizedBudget& finalizedBudget)
@@ -414,7 +414,7 @@ bool CBudgetManager::AddProposal(CBudgetProposal& budgetProposal)
     LOCK(cs);
     std::string strError = "";
     if (!budgetProposal.IsValid(strError)) {
-        LogPrint("fundamentalnode","CBudgetManager::AddProposal - invalid budget proposal - %s\n", strError);
+        LogPrint("coralnode","CBudgetManager::AddProposal - invalid budget proposal - %s\n", strError);
         return false;
     }
 
@@ -423,7 +423,7 @@ bool CBudgetManager::AddProposal(CBudgetProposal& budgetProposal)
     }
 
     mapProposals.insert(make_pair(budgetProposal.GetHash(), budgetProposal));
-    LogPrint("fundamentalnode","CBudgetManager::AddProposal - proposal %s added\n", budgetProposal.GetName ().c_str ());
+    LogPrint("coralnode","CBudgetManager::AddProposal - proposal %s added\n", budgetProposal.GetName ().c_str ());
     return true;
 }
 
@@ -443,10 +443,10 @@ void CBudgetManager::CheckAndRemove()
 
         pfinalizedBudget->fValid = pfinalizedBudget->IsValid(strError);
         if (!strError.empty ()) {
-            LogPrint("fundamentalnode","CBudgetManager::CheckAndRemove - Invalid finalized budget: %s\n", strError);
+            LogPrint("coralnode","CBudgetManager::CheckAndRemove - Invalid finalized budget: %s\n", strError);
         }
         else {
-            LogPrint("fundamentalnode","CBudgetManager::CheckAndRemove - Found valid finalized budget: %s %s\n",
+            LogPrint("coralnode","CBudgetManager::CheckAndRemove - Found valid finalized budget: %s %s\n",
                       pfinalizedBudget->strBudgetName.c_str(), pfinalizedBudget->nFeeTXHash.ToString().c_str());
         }
 
@@ -464,11 +464,11 @@ void CBudgetManager::CheckAndRemove()
         CBudgetProposal* pbudgetProposal = &((*it2).second);
         pbudgetProposal->fValid = pbudgetProposal->IsValid(strError);
         if (!strError.empty ()) {
-            LogPrint("fundamentalnode","CBudgetManager::CheckAndRemove - Invalid budget proposal - %s\n", strError);
+            LogPrint("coralnode","CBudgetManager::CheckAndRemove - Invalid budget proposal - %s\n", strError);
             strError = "";
         }
         else {
-             LogPrint("fundamentalnode","CBudgetManager::CheckAndRemove - Found valid budget proposal: %s %s\n",
+             LogPrint("coralnode","CBudgetManager::CheckAndRemove - Found valid budget proposal: %s %s\n",
                       pbudgetProposal->strProposalName.c_str(), pbudgetProposal->nFeeTXHash.ToString().c_str());
         }
         if (pbudgetProposal->fValid) {
@@ -483,7 +483,7 @@ void CBudgetManager::CheckAndRemove()
 
     // LogPrint("mnbudget", "CBudgetManager::CheckAndRemove - mapFinalizedBudgets cleanup - size after: %d\n", mapFinalizedBudgets.size());
     // LogPrint("mnbudget", "CBudgetManager::CheckAndRemove - mapProposals cleanup - size after: %d\n", mapProposals.size());
-    LogPrint("fundamentalnode","CBudgetManager::CheckAndRemove - PASSED\n");
+    LogPrint("coralnode","CBudgetManager::CheckAndRemove - PASSED\n");
 
 }
 
@@ -525,10 +525,10 @@ void CBudgetManager::FillBlockPayee(CMutableTransaction& txNew, CAmount nFees, b
             CTxDestination address1;
             ExtractDestination(payee, address1);
             CBitcoinAddress address2(address1);
-            LogPrint("fundamentalnode","CBudgetManager::FillBlockPayee - Budget payment to %s for %lld, nHighestCount = %d\n", address2.ToString(), nAmount, nHighestCount);
+            LogPrint("coralnode","CBudgetManager::FillBlockPayee - Budget payment to %s for %lld, nHighestCount = %d\n", address2.ToString(), nAmount, nHighestCount);
         }
         else {
-            LogPrint("fundamentalnode","CBudgetManager::FillBlockPayee - No Budget payment, nHighestCount = %d\n", nHighestCount);
+            LogPrint("coralnode","CBudgetManager::FillBlockPayee - No Budget payment, nHighestCount = %d\n", nHighestCount);
         }
     } else {
         //miners get the full amount on these blocks
@@ -545,7 +545,7 @@ void CBudgetManager::FillBlockPayee(CMutableTransaction& txNew, CAmount nFees, b
             ExtractDestination(payee, address1);
             CBitcoinAddress address2(address1);
 
-            LogPrint("fundamentalnode","CBudgetManager::FillBlockPayee - Budget payment to %s for %lld\n", address2.ToString(), nAmount);
+            LogPrint("coralnode","CBudgetManager::FillBlockPayee - Budget payment to %s for %lld\n", address2.ToString(), nAmount);
         }
     }
 }
@@ -606,10 +606,10 @@ bool CBudgetManager::IsBudgetPaymentBlock(int nBlockHeight)
         ++it;
     }
 
-    LogPrint("fundamentalnode","CBudgetManager::IsBudgetPaymentBlock() - nHighestCount: %lli, 5%% of Fundamentalnodes: %lli. Number of budgets: %lli\n",
+    LogPrint("coralnode","CBudgetManager::IsBudgetPaymentBlock() - nHighestCount: %lli, 5%% of Coralnodes: %lli. Number of budgets: %lli\n",
               nHighestCount, nFivePercent, mapFinalizedBudgets.size());
 
-    // If budget doesn't have 5% of the network votes, then we should pay a fundamentalnode instead
+    // If budget doesn't have 5% of the network votes, then we should pay a coralnode instead
     if (nHighestCount > nFivePercent) return true;
 
     return false;
@@ -637,10 +637,10 @@ bool CBudgetManager::IsTransactionValid(const CTransaction& txNew, int nBlockHei
         ++it;
     }
 
-    LogPrint("fundamentalnode","CBudgetManager::IsTransactionValid() - nHighestCount: %lli, 5%% of Fundamentalnodes: %lli mapFinalizedBudgets.size(): %ld\n",
+    LogPrint("coralnode","CBudgetManager::IsTransactionValid() - nHighestCount: %lli, 5%% of Coralnodes: %lli mapFinalizedBudgets.size(): %ld\n",
               nHighestCount, nFivePercent, mapFinalizedBudgets.size());
     /*
-        If budget doesn't have 5% of the network votes, then we should pay a fundamentalnode instead
+        If budget doesn't have 5% of the network votes, then we should pay a coralnode instead
     */
     if (nHighestCount < nFivePercent) return false;
 
@@ -731,14 +731,14 @@ std::vector<CBudgetProposal*> CBudgetManager::GetBudget()
     while (it2 != vBudgetPorposalsSort.end()) {
         CBudgetProposal* pbudgetProposal = (*it2).first;
 
-        LogPrint("fundamentalnode","CBudgetManager::GetBudget() - Processing Budget %s\n", pbudgetProposal->strProposalName.c_str());
+        LogPrint("coralnode","CBudgetManager::GetBudget() - Processing Budget %s\n", pbudgetProposal->strProposalName.c_str());
         //prop start/end should be inside this period
         if (pbudgetProposal->fValid && pbudgetProposal->nBlockStart <= nBlockStart &&
             pbudgetProposal->nBlockEnd >= nBlockEnd &&
             pbudgetProposal->GetYeas() - pbudgetProposal->GetNays() > mnodeman.CountEnabled(ActiveProtocol()) / 10 &&
             pbudgetProposal->IsEstablished()) {
 
-            LogPrint("fundamentalnode","CBudgetManager::GetBudget() -   Check 1 passed: valid=%d | %ld <= %ld | %ld >= %ld | Yeas=%d Nays=%d Count=%d | established=%d\n",
+            LogPrint("coralnode","CBudgetManager::GetBudget() -   Check 1 passed: valid=%d | %ld <= %ld | %ld >= %ld | Yeas=%d Nays=%d Count=%d | established=%d\n",
                       pbudgetProposal->fValid, pbudgetProposal->nBlockStart, nBlockStart, pbudgetProposal->nBlockEnd,
                       nBlockEnd, pbudgetProposal->GetYeas(), pbudgetProposal->GetNays(), mnodeman.CountEnabled(ActiveProtocol()) / 10,
                       pbudgetProposal->IsEstablished());
@@ -747,14 +747,14 @@ std::vector<CBudgetProposal*> CBudgetManager::GetBudget()
                 pbudgetProposal->SetAllotted(pbudgetProposal->GetAmount());
                 nBudgetAllocated += pbudgetProposal->GetAmount();
                 vBudgetProposalsRet.push_back(pbudgetProposal);
-                LogPrint("fundamentalnode","CBudgetManager::GetBudget() -     Check 2 passed: Budget added\n");
+                LogPrint("coralnode","CBudgetManager::GetBudget() -     Check 2 passed: Budget added\n");
             } else {
                 pbudgetProposal->SetAllotted(0);
-                LogPrint("fundamentalnode","CBudgetManager::GetBudget() -     Check 2 failed: no amount allotted\n");
+                LogPrint("coralnode","CBudgetManager::GetBudget() -     Check 2 failed: no amount allotted\n");
             }
         }
         else {
-            LogPrint("fundamentalnode","CBudgetManager::GetBudget() -   Check 1 failed: valid=%d | %ld <= %ld | %ld >= %ld | Yeas=%d Nays=%d Count=%d | established=%d\n",
+            LogPrint("coralnode","CBudgetManager::GetBudget() -   Check 1 failed: valid=%d | %ld <= %ld | %ld >= %ld | Yeas=%d Nays=%d Count=%d | established=%d\n",
                       pbudgetProposal->fValid, pbudgetProposal->nBlockStart, nBlockStart, pbudgetProposal->nBlockEnd,
                       nBlockEnd, pbudgetProposal->GetYeas(), pbudgetProposal->GetNays(), mnodeman.CountEnabled(ActiveProtocol()) / 10,
                       pbudgetProposal->IsEstablished());
@@ -819,7 +819,7 @@ std::string CBudgetManager::GetRequiredPaymentsString(int nBlockHeight)
                     ret += payment.nProposalHash.ToString();
                 }
             } else {
-                LogPrint("fundamentalnode","CBudgetManager::GetRequiredPaymentsString - Couldn't find budget payment for block %d\n", nBlockHeight);
+                LogPrint("coralnode","CBudgetManager::GetRequiredPaymentsString - Couldn't find budget payment for block %d\n", nBlockHeight);
             }
         }
 
@@ -849,7 +849,7 @@ void CBudgetManager::NewBlock()
     TRY_LOCK(cs, fBudgetNewBlock);
     if (!fBudgetNewBlock) return;
 
-    if (fundamentalnodeSync.RequestedFundamentalnodeAssets <= FUNDAMENTALNODE_SYNC_BUDGET) return;
+    if (coralnodeSync.RequestedCoralnodeAssets <= CORALNODE_SYNC_BUDGET) return;
 
     if (strBudgetMode == "suggest") { //suggest the budget we see
         SubmitFinalBudget();
@@ -859,8 +859,8 @@ void CBudgetManager::NewBlock()
     if (chainActive.Height() % 14 != 0) return;
 
     // incremental sync with our peers
-    if (fundamentalnodeSync.IsSynced()) {
-        LogPrint("fundamentalnode","CBudgetManager::NewBlock - incremental sync started\n");
+    if (coralnodeSync.IsSynced()) {
+        LogPrint("coralnode","CBudgetManager::NewBlock - incremental sync started\n");
         if (chainActive.Height() % 1440 == rand() % 1440) {
             ClearSeen();
             ResetSync();
@@ -879,7 +879,7 @@ void CBudgetManager::NewBlock()
 
     //remove invalid votes once in a while (we have to check the signatures and validity of every vote, somewhat CPU intensive)
 
-    LogPrint("fundamentalnode","CBudgetManager::NewBlock - askedForSourceProposalOrBudget cleanup - size: %d\n", askedForSourceProposalOrBudget.size());
+    LogPrint("coralnode","CBudgetManager::NewBlock - askedForSourceProposalOrBudget cleanup - size: %d\n", askedForSourceProposalOrBudget.size());
     std::map<uint256, int64_t>::iterator it = askedForSourceProposalOrBudget.begin();
     while (it != askedForSourceProposalOrBudget.end()) {
         if ((*it).second > GetTime() - (60 * 60 * 24)) {
@@ -889,21 +889,21 @@ void CBudgetManager::NewBlock()
         }
     }
 
-    LogPrint("fundamentalnode","CBudgetManager::NewBlock - mapProposals cleanup - size: %d\n", mapProposals.size());
+    LogPrint("coralnode","CBudgetManager::NewBlock - mapProposals cleanup - size: %d\n", mapProposals.size());
     std::map<uint256, CBudgetProposal>::iterator it2 = mapProposals.begin();
     while (it2 != mapProposals.end()) {
         (*it2).second.CleanAndRemove(false);
         ++it2;
     }
 
-    LogPrint("fundamentalnode","CBudgetManager::NewBlock - mapFinalizedBudgets cleanup - size: %d\n", mapFinalizedBudgets.size());
+    LogPrint("coralnode","CBudgetManager::NewBlock - mapFinalizedBudgets cleanup - size: %d\n", mapFinalizedBudgets.size());
     std::map<uint256, CFinalizedBudget>::iterator it3 = mapFinalizedBudgets.begin();
     while (it3 != mapFinalizedBudgets.end()) {
         (*it3).second.CleanAndRemove(false);
         ++it3;
     }
 
-    LogPrint("fundamentalnode","CBudgetManager::NewBlock - vecImmatureBudgetProposals cleanup - size: %d\n", vecImmatureBudgetProposals.size());
+    LogPrint("coralnode","CBudgetManager::NewBlock - vecImmatureBudgetProposals cleanup - size: %d\n", vecImmatureBudgetProposals.size());
     std::vector<CBudgetProposalBroadcast>::iterator it4 = vecImmatureBudgetProposals.begin();
     while (it4 != vecImmatureBudgetProposals.end()) {
         std::string strError = "";
@@ -914,7 +914,7 @@ void CBudgetManager::NewBlock()
         }
 
         if (!(*it4).IsValid(strError)) {
-            LogPrint("fundamentalnode","fprop (immature) - invalid budget proposal - %s\n", strError);
+            LogPrint("coralnode","fprop (immature) - invalid budget proposal - %s\n", strError);
             it4 = vecImmatureBudgetProposals.erase(it4);
             continue;
         }
@@ -924,11 +924,11 @@ void CBudgetManager::NewBlock()
             (*it4).Relay();
         }
 
-        LogPrint("fundamentalnode","fprop (immature) - new budget - %s\n", (*it4).GetHash().ToString());
+        LogPrint("coralnode","fprop (immature) - new budget - %s\n", (*it4).GetHash().ToString());
         it4 = vecImmatureBudgetProposals.erase(it4);
     }
 
-    LogPrint("fundamentalnode","CBudgetManager::NewBlock - vecImmatureFinalizedBudgets cleanup - size: %d\n", vecImmatureFinalizedBudgets.size());
+    LogPrint("coralnode","CBudgetManager::NewBlock - vecImmatureFinalizedBudgets cleanup - size: %d\n", vecImmatureFinalizedBudgets.size());
     std::vector<CFinalizedBudgetBroadcast>::iterator it5 = vecImmatureFinalizedBudgets.begin();
     while (it5 != vecImmatureFinalizedBudgets.end()) {
         std::string strError = "";
@@ -939,12 +939,12 @@ void CBudgetManager::NewBlock()
         }
 
         if (!(*it5).IsValid(strError)) {
-            LogPrint("fundamentalnode","fbs (immature) - invalid finalized budget - %s\n", strError);
+            LogPrint("coralnode","fbs (immature) - invalid finalized budget - %s\n", strError);
             it5 = vecImmatureFinalizedBudgets.erase(it5);
             continue;
         }
 
-        LogPrint("fundamentalnode","fbs (immature) - new finalized budget - %s\n", (*it5).GetHash().ToString());
+        LogPrint("coralnode","fbs (immature) - new finalized budget - %s\n", (*it5).GetHash().ToString());
 
         CFinalizedBudget finalizedBudget((*it5));
         if (AddFinalizedBudget(finalizedBudget)) {
@@ -953,25 +953,25 @@ void CBudgetManager::NewBlock()
 
         it5 = vecImmatureFinalizedBudgets.erase(it5);
     }
-    LogPrint("fundamentalnode","CBudgetManager::NewBlock - PASSED\n");
+    LogPrint("coralnode","CBudgetManager::NewBlock - PASSED\n");
 }
 
 void CBudgetManager::ProcessMessage(CNode* pfrom, std::string& strCommand, CDataStream& vRecv)
 {
     // lite mode is not supported
     if (fLiteMode) return;
-    if (!fundamentalnodeSync.IsBlockchainSynced()) return;
+    if (!coralnodeSync.IsBlockchainSynced()) return;
 
     LOCK(cs_budget);
 
-    if (strCommand == "fnvs") { //Fundamentalnode vote sync
+    if (strCommand == "fnvs") { //Coralnode vote sync
         uint256 nProp;
         vRecv >> nProp;
 
         if (Params().NetworkID() == CBaseChainParams::MAIN) {
             if (nProp == 0) {
                 if (pfrom->HasFulfilledRequest("fnvs")) {
-                    LogPrint("fundamentalnode","fnvs - peer already asked me for the list\n");
+                    LogPrint("coralnode","fnvs - peer already asked me for the list\n");
                     Misbehaving(pfrom->GetId(), 20);
                     return;
                 }
@@ -980,30 +980,30 @@ void CBudgetManager::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
         }
 
         Sync(pfrom, nProp);
-        LogPrint("mnbudget", "fnvs - Sent Fundamentalnode votes to peer %i\n", pfrom->GetId());
+        LogPrint("mnbudget", "fnvs - Sent Coralnode votes to peer %i\n", pfrom->GetId());
     }
 
-    if (strCommand == "fprop") { //Fundamentalnode Proposal
+    if (strCommand == "fprop") { //Coralnode Proposal
         CBudgetProposalBroadcast budgetProposalBroadcast;
         vRecv >> budgetProposalBroadcast;
 
-        if (mapSeenFundamentalnodeBudgetProposals.count(budgetProposalBroadcast.GetHash())) {
-            fundamentalnodeSync.AddedBudgetItem(budgetProposalBroadcast.GetHash());
+        if (mapSeenCoralnodeBudgetProposals.count(budgetProposalBroadcast.GetHash())) {
+            coralnodeSync.AddedBudgetItem(budgetProposalBroadcast.GetHash());
             return;
         }
 
         std::string strError = "";
         int nConf = 0;
         if (!IsBudgetCollateralValid(budgetProposalBroadcast.nFeeTXHash, budgetProposalBroadcast.GetHash(), strError, budgetProposalBroadcast.nTime, nConf)) {
-            LogPrint("fundamentalnode","Proposal FeeTX is not valid - %s - %s\n", budgetProposalBroadcast.nFeeTXHash.ToString(), strError);
+            LogPrint("coralnode","Proposal FeeTX is not valid - %s - %s\n", budgetProposalBroadcast.nFeeTXHash.ToString(), strError);
             if (nConf >= 1) vecImmatureBudgetProposals.push_back(budgetProposalBroadcast);
             return;
         }
 
-        mapSeenFundamentalnodeBudgetProposals.insert(make_pair(budgetProposalBroadcast.GetHash(), budgetProposalBroadcast));
+        mapSeenCoralnodeBudgetProposals.insert(make_pair(budgetProposalBroadcast.GetHash(), budgetProposalBroadcast));
 
         if (!budgetProposalBroadcast.IsValid(strError)) {
-            LogPrint("fundamentalnode","fprop - invalid budget proposal - %s\n", strError);
+            LogPrint("coralnode","fprop - invalid budget proposal - %s\n", strError);
             return;
         }
 
@@ -1011,37 +1011,37 @@ void CBudgetManager::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
         if (AddProposal(budgetProposal)) {
             budgetProposalBroadcast.Relay();
         }
-        fundamentalnodeSync.AddedBudgetItem(budgetProposalBroadcast.GetHash());
+        coralnodeSync.AddedBudgetItem(budgetProposalBroadcast.GetHash());
 
-        LogPrint("fundamentalnode","fprop - new budget - %s\n", budgetProposalBroadcast.GetHash().ToString());
+        LogPrint("coralnode","fprop - new budget - %s\n", budgetProposalBroadcast.GetHash().ToString());
 
         //We might have active votes for this proposal that are valid now
         CheckOrphanVotes();
     }
 
-    if (strCommand == "fvote") { //Fundamentalnode Vote
+    if (strCommand == "fvote") { //Coralnode Vote
         CBudgetVote vote;
         vRecv >> vote;
         vote.fValid = true;
 
-        if (mapSeenFundamentalnodeBudgetVotes.count(vote.GetHash())) {
-            fundamentalnodeSync.AddedBudgetItem(vote.GetHash());
+        if (mapSeenCoralnodeBudgetVotes.count(vote.GetHash())) {
+            coralnodeSync.AddedBudgetItem(vote.GetHash());
             return;
         }
 
-        CFundamentalnode* pmn = mnodeman.Find(vote.vin);
+        CCoralnode* pmn = mnodeman.Find(vote.vin);
         if (pmn == NULL) {
-            LogPrint("fundamentalnode","fvote - unknown fundamentalnode - vin: %s\n", vote.vin.prevout.hash.ToString());
+            LogPrint("coralnode","fvote - unknown coralnode - vin: %s\n", vote.vin.prevout.hash.ToString());
             mnodeman.AskForMN(pfrom, vote.vin);
             return;
         }
 
 
-        mapSeenFundamentalnodeBudgetVotes.insert(make_pair(vote.GetHash(), vote));
+        mapSeenCoralnodeBudgetVotes.insert(make_pair(vote.GetHash(), vote));
         if (!vote.SignatureValid(true)) {
-            LogPrint("fundamentalnode","fvote - signature invalid\n");
-            if (fundamentalnodeSync.IsSynced()) Misbehaving(pfrom->GetId(), 20);
-            // it could just be a non-synced fundamentalnode
+            LogPrint("coralnode","fvote - signature invalid\n");
+            if (coralnodeSync.IsSynced()) Misbehaving(pfrom->GetId(), 20);
+            // it could just be a non-synced coralnode
             mnodeman.AskForMN(pfrom, vote.vin);
             return;
         }
@@ -1049,10 +1049,10 @@ void CBudgetManager::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
         std::string strError = "";
         if (UpdateProposal(vote, pfrom, strError)) {
             vote.Relay();
-            fundamentalnodeSync.AddedBudgetItem(vote.GetHash());
+            coralnodeSync.AddedBudgetItem(vote.GetHash());
         }
 
-        LogPrint("fundamentalnode","fvote - new budget vote for budget %s - %s\n", vote.nProposalHash.ToString(),  vote.GetHash().ToString());
+        LogPrint("coralnode","fvote - new budget vote for budget %s - %s\n", vote.nProposalHash.ToString(),  vote.GetHash().ToString());
     }
 
     if (strCommand == "fbs") { //Finalized Budget Suggestion
@@ -1060,14 +1060,14 @@ void CBudgetManager::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
         vRecv >> finalizedBudgetBroadcast;
 
         if (mapSeenFinalizedBudgets.count(finalizedBudgetBroadcast.GetHash())) {
-            fundamentalnodeSync.AddedBudgetItem(finalizedBudgetBroadcast.GetHash());
+            coralnodeSync.AddedBudgetItem(finalizedBudgetBroadcast.GetHash());
             return;
         }
 
         std::string strError = "";
         int nConf = 0;
         if (!IsBudgetCollateralValid(finalizedBudgetBroadcast.nFeeTXHash, finalizedBudgetBroadcast.GetHash(), strError, finalizedBudgetBroadcast.nTime, nConf)) {
-            LogPrint("fundamentalnode","Finalized Budget FeeTX is not valid - %s - %s\n", finalizedBudgetBroadcast.nFeeTXHash.ToString(), strError);
+            LogPrint("coralnode","Finalized Budget FeeTX is not valid - %s - %s\n", finalizedBudgetBroadcast.nFeeTXHash.ToString(), strError);
 
             if (nConf >= 1) vecImmatureFinalizedBudgets.push_back(finalizedBudgetBroadcast);
             return;
@@ -1076,17 +1076,17 @@ void CBudgetManager::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
         mapSeenFinalizedBudgets.insert(make_pair(finalizedBudgetBroadcast.GetHash(), finalizedBudgetBroadcast));
 
         if (!finalizedBudgetBroadcast.IsValid(strError)) {
-            LogPrint("fundamentalnode","fbs - invalid finalized budget - %s\n", strError);
+            LogPrint("coralnode","fbs - invalid finalized budget - %s\n", strError);
             return;
         }
 
-        LogPrint("fundamentalnode","fbs - new finalized budget - %s\n", finalizedBudgetBroadcast.GetHash().ToString());
+        LogPrint("coralnode","fbs - new finalized budget - %s\n", finalizedBudgetBroadcast.GetHash().ToString());
 
         CFinalizedBudget finalizedBudget(finalizedBudgetBroadcast);
         if (AddFinalizedBudget(finalizedBudget)) {
             finalizedBudgetBroadcast.Relay();
         }
-        fundamentalnodeSync.AddedBudgetItem(finalizedBudgetBroadcast.GetHash());
+        coralnodeSync.AddedBudgetItem(finalizedBudgetBroadcast.GetHash());
 
         //we might have active votes for this budget that are now valid
         CheckOrphanVotes();
@@ -1098,22 +1098,22 @@ void CBudgetManager::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
         vote.fValid = true;
 
         if (mapSeenFinalizedBudgetVotes.count(vote.GetHash())) {
-            fundamentalnodeSync.AddedBudgetItem(vote.GetHash());
+            coralnodeSync.AddedBudgetItem(vote.GetHash());
             return;
         }
 
-        CFundamentalnode* pmn = mnodeman.Find(vote.vin);
+        CCoralnode* pmn = mnodeman.Find(vote.vin);
         if (pmn == NULL) {
-            LogPrint("mnbudget", "fbvote - unknown fundamentalnode - vin: %s\n", vote.vin.prevout.hash.ToString());
+            LogPrint("mnbudget", "fbvote - unknown coralnode - vin: %s\n", vote.vin.prevout.hash.ToString());
             mnodeman.AskForMN(pfrom, vote.vin);
             return;
         }
 
         mapSeenFinalizedBudgetVotes.insert(make_pair(vote.GetHash(), vote));
         if (!vote.SignatureValid(true)) {
-            LogPrint("fundamentalnode","fbvote - signature invalid\n");
-            if (fundamentalnodeSync.IsSynced()) Misbehaving(pfrom->GetId(), 20);
-            // it could just be a non-synced fundamentalnode
+            LogPrint("coralnode","fbvote - signature invalid\n");
+            if (coralnodeSync.IsSynced()) Misbehaving(pfrom->GetId(), 20);
+            // it could just be a non-synced coralnode
             mnodeman.AskForMN(pfrom, vote.vin);
             return;
         }
@@ -1121,11 +1121,11 @@ void CBudgetManager::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
         std::string strError = "";
         if (UpdateFinalizedBudget(vote, pfrom, strError)) {
             vote.Relay();
-            fundamentalnodeSync.AddedBudgetItem(vote.GetHash());
+            coralnodeSync.AddedBudgetItem(vote.GetHash());
 
-            LogPrint("fundamentalnode","fbvote - new finalized budget vote - %s\n", vote.GetHash().ToString());
+            LogPrint("coralnode","fbvote - new finalized budget vote - %s\n", vote.GetHash().ToString());
         } else {
-            LogPrint("fundamentalnode","fbvote - rejected finalized budget vote - %s - %s\n", vote.GetHash().ToString(), strError);
+            LogPrint("coralnode","fbvote - rejected finalized budget vote - %s - %s\n", vote.GetHash().ToString(), strError);
         }
     }
 }
@@ -1142,8 +1142,8 @@ void CBudgetManager::ResetSync()
     LOCK(cs);
 
 
-    std::map<uint256, CBudgetProposalBroadcast>::iterator it1 = mapSeenFundamentalnodeBudgetProposals.begin();
-    while (it1 != mapSeenFundamentalnodeBudgetProposals.end()) {
+    std::map<uint256, CBudgetProposalBroadcast>::iterator it1 = mapSeenCoralnodeBudgetProposals.begin();
+    while (it1 != mapSeenCoralnodeBudgetProposals.end()) {
         CBudgetProposal* pbudgetProposal = FindProposal((*it1).first);
         if (pbudgetProposal && pbudgetProposal->fValid) {
             //mark votes
@@ -1179,8 +1179,8 @@ void CBudgetManager::MarkSynced()
         Mark that we've sent all valid items
     */
 
-    std::map<uint256, CBudgetProposalBroadcast>::iterator it1 = mapSeenFundamentalnodeBudgetProposals.begin();
-    while (it1 != mapSeenFundamentalnodeBudgetProposals.end()) {
+    std::map<uint256, CBudgetProposalBroadcast>::iterator it1 = mapSeenCoralnodeBudgetProposals.begin();
+    while (it1 != mapSeenCoralnodeBudgetProposals.end()) {
         CBudgetProposal* pbudgetProposal = FindProposal((*it1).first);
         if (pbudgetProposal && pbudgetProposal->fValid) {
             //mark votes
@@ -1227,8 +1227,8 @@ void CBudgetManager::Sync(CNode* pfrom, uint256 nProp, bool fPartial)
 
     int nInvCount = 0;
 
-    std::map<uint256, CBudgetProposalBroadcast>::iterator it1 = mapSeenFundamentalnodeBudgetProposals.begin();
-    while (it1 != mapSeenFundamentalnodeBudgetProposals.end()) {
+    std::map<uint256, CBudgetProposalBroadcast>::iterator it1 = mapSeenCoralnodeBudgetProposals.begin();
+    while (it1 != mapSeenCoralnodeBudgetProposals.end()) {
         CBudgetProposal* pbudgetProposal = FindProposal((*it1).first);
         if (pbudgetProposal && pbudgetProposal->fValid && (nProp == 0 || (*it1).first == nProp)) {
             pfrom->PushInventory(CInv(MSG_BUDGET_PROPOSAL, (*it1).second.GetHash()));
@@ -1249,7 +1249,7 @@ void CBudgetManager::Sync(CNode* pfrom, uint256 nProp, bool fPartial)
         ++it1;
     }
 
-    pfrom->PushMessage("ssc", FUNDAMENTALNODE_SYNC_BUDGET_PROP, nInvCount);
+    pfrom->PushMessage("ssc", CORALNODE_SYNC_BUDGET_PROP, nInvCount);
 
     LogPrint("mnbudget", "CBudgetManager::Sync - sent %d items\n", nInvCount);
 
@@ -1277,7 +1277,7 @@ void CBudgetManager::Sync(CNode* pfrom, uint256 nProp, bool fPartial)
         ++it3;
     }
 
-    pfrom->PushMessage("ssc", FUNDAMENTALNODE_SYNC_BUDGET_FIN, nInvCount);
+    pfrom->PushMessage("ssc", CORALNODE_SYNC_BUDGET_FIN, nInvCount);
     LogPrint("mnbudget", "CBudgetManager::Sync - sent %d items\n", nInvCount);
 }
 
@@ -1289,10 +1289,10 @@ bool CBudgetManager::UpdateProposal(CBudgetVote& vote, CNode* pfrom, std::string
         if (pfrom) {
             // only ask for missing items after our syncing process is complete --
             //   otherwise we'll think a full sync succeeded when they return a result
-            if (!fundamentalnodeSync.IsSynced()) return false;
+            if (!coralnodeSync.IsSynced()) return false;
 
-            LogPrint("fundamentalnode","CBudgetManager::UpdateProposal - Unknown proposal %d, asking for source proposal\n", vote.nProposalHash.ToString());
-            mapOrphanFundamentalnodeBudgetVotes[vote.nProposalHash] = vote;
+            LogPrint("coralnode","CBudgetManager::UpdateProposal - Unknown proposal %d, asking for source proposal\n", vote.nProposalHash.ToString());
+            mapOrphanCoralnodeBudgetVotes[vote.nProposalHash] = vote;
 
             if (!askedForSourceProposalOrBudget.count(vote.nProposalHash)) {
                 pfrom->PushMessage("fnvs", vote.nProposalHash);
@@ -1316,9 +1316,9 @@ bool CBudgetManager::UpdateFinalizedBudget(CFinalizedBudgetVote& vote, CNode* pf
         if (pfrom) {
             // only ask for missing items after our syncing process is complete --
             //   otherwise we'll think a full sync succeeded when they return a result
-            if (!fundamentalnodeSync.IsSynced()) return false;
+            if (!coralnodeSync.IsSynced()) return false;
 
-            LogPrint("fundamentalnode","CBudgetManager::UpdateFinalizedBudget - Unknown Finalized Proposal %s, asking for source budget\n", vote.nBudgetHash.ToString());
+            LogPrint("coralnode","CBudgetManager::UpdateFinalizedBudget - Unknown Finalized Proposal %s, asking for source budget\n", vote.nBudgetHash.ToString());
             mapOrphanFinalizedBudgetVotes[vote.nBudgetHash] = vote;
 
             if (!askedForSourceProposalOrBudget.count(vote.nBudgetHash)) {
@@ -1330,7 +1330,7 @@ bool CBudgetManager::UpdateFinalizedBudget(CFinalizedBudgetVote& vote, CNode* pf
         strError = "Finalized Budget " + vote.nBudgetHash.ToString() +  " not found!";
         return false;
     }
-    LogPrint("fundamentalnode","CBudgetManager::UpdateFinalizedBudget - Finalized Proposal %s added\n", vote.nBudgetHash.ToString());
+    LogPrint("coralnode","CBudgetManager::UpdateFinalizedBudget - Finalized Proposal %s added\n", vote.nBudgetHash.ToString());
     return mapFinalizedBudgets[vote.nBudgetHash].AddOrUpdateVote(vote, strError);
 }
 
@@ -1480,7 +1480,7 @@ bool CBudgetProposal::AddOrUpdateVote(CBudgetVote& vote, std::string& strError)
     return true;
 }
 
-// If fundamentalnode voted for a proposal, but is now invalid -- remove the vote
+// If coralnode voted for a proposal, but is now invalid -- remove the vote
 void CBudgetProposal::CleanAndRemove(bool fSignatureCheck)
 {
     std::map<uint256, CBudgetVote>::iterator it = mapVotes.begin();
@@ -1645,7 +1645,7 @@ void CBudgetVote::Relay()
     RelayInv(inv);
 }
 
-bool CBudgetVote::Sign(CKey& keyFundamentalnode, CPubKey& pubKeyFundamentalnode)
+bool CBudgetVote::Sign(CKey& keyCoralnode, CPubKey& pubKeyCoralnode)
 {
     // Choose coins to use
     CPubKey pubKeyCollateralAddress;
@@ -1654,13 +1654,13 @@ bool CBudgetVote::Sign(CKey& keyFundamentalnode, CPubKey& pubKeyFundamentalnode)
     std::string errorMessage;
     std::string strMessage = vin.prevout.ToStringShort() + nProposalHash.ToString() + boost::lexical_cast<std::string>(nVote) + boost::lexical_cast<std::string>(nTime);
 
-    if (!obfuScationSigner.SignMessage(strMessage, errorMessage, vchSig, keyFundamentalnode)) {
-        LogPrint("fundamentalnode","CBudgetVote::Sign - Error upon calling SignMessage");
+    if (!obfuScationSigner.SignMessage(strMessage, errorMessage, vchSig, keyCoralnode)) {
+        LogPrint("coralnode","CBudgetVote::Sign - Error upon calling SignMessage");
         return false;
     }
 
-    if (!obfuScationSigner.VerifyMessage(pubKeyFundamentalnode, vchSig, strMessage, errorMessage)) {
-        LogPrint("fundamentalnode","CBudgetVote::Sign - Error upon calling VerifyMessage");
+    if (!obfuScationSigner.VerifyMessage(pubKeyCoralnode, vchSig, strMessage, errorMessage)) {
+        LogPrint("coralnode","CBudgetVote::Sign - Error upon calling VerifyMessage");
         return false;
     }
 
@@ -1672,19 +1672,19 @@ bool CBudgetVote::SignatureValid(bool fSignatureCheck)
     std::string errorMessage;
     std::string strMessage = vin.prevout.ToStringShort() + nProposalHash.ToString() + boost::lexical_cast<std::string>(nVote) + boost::lexical_cast<std::string>(nTime);
 
-    CFundamentalnode* pmn = mnodeman.Find(vin);
+    CCoralnode* pmn = mnodeman.Find(vin);
 
     if (pmn == NULL) {
         if (fDebug){
-            LogPrint("fundamentalnode","CBudgetVote::SignatureValid() - Unknown Fundamentalnode - %s\n", vin.prevout.hash.ToString());
+            LogPrint("coralnode","CBudgetVote::SignatureValid() - Unknown Coralnode - %s\n", vin.prevout.hash.ToString());
         }
         return false;
     }
 
     if (!fSignatureCheck) return true;
 
-    if (!obfuScationSigner.VerifyMessage(pmn->pubKeyFundamentalnode, vchSig, strMessage, errorMessage)) {
-        LogPrint("fundamentalnode","CBudgetVote::SignatureValid() - Verify message failed\n");
+    if (!obfuScationSigner.VerifyMessage(pmn->pubKeyCoralnode, vchSig, strMessage, errorMessage)) {
+        LogPrint("coralnode","CBudgetVote::SignatureValid() - Verify message failed\n");
         return false;
     }
 
@@ -1747,7 +1747,7 @@ bool CFinalizedBudget::AddOrUpdateVote(CFinalizedBudgetVote& vote, std::string& 
     return true;
 }
 
-//evaluate if we should vote for this. Fundamentalnode only
+//evaluate if we should vote for this. Coralnode only
 void CFinalizedBudget::AutoCheck()
 {
     LOCK(cs);
@@ -1755,14 +1755,14 @@ void CFinalizedBudget::AutoCheck()
     CBlockIndex* pindexPrev = chainActive.Tip();
     if (!pindexPrev) return;
 
-    LogPrint("fundamentalnode","CFinalizedBudget::AutoCheck - %lli - %d\n", pindexPrev->nHeight, fAutoChecked);
+    LogPrint("coralnode","CFinalizedBudget::AutoCheck - %lli - %d\n", pindexPrev->nHeight, fAutoChecked);
 
-    if (!fFundamentalNode || fAutoChecked) return;
+    if (!fCoralNode || fAutoChecked) return;
 
     //do this 1 in 4 blocks -- spread out the voting activity on mainnet
     // -- this function is only called every fourteenth block, so this is really 1 in 56 blocks
     if (Params().NetworkID() == CBaseChainParams::MAIN && rand() % 4 != 0) {
-        LogPrint("fundamentalnode","CFinalizedBudget::AutoCheck - waiting\n");
+        LogPrint("coralnode","CFinalizedBudget::AutoCheck - waiting\n");
         return;
     }
 
@@ -1775,24 +1775,24 @@ void CFinalizedBudget::AutoCheck()
 
 
         for (unsigned int i = 0; i < vecBudgetPayments.size(); i++) {
-            LogPrint("fundamentalnode","CFinalizedBudget::AutoCheck - nProp %d %s\n", i, vecBudgetPayments[i].nProposalHash.ToString());
-            LogPrint("fundamentalnode","CFinalizedBudget::AutoCheck - Payee %d %s\n", i, vecBudgetPayments[i].payee.ToString());
-            LogPrint("fundamentalnode","CFinalizedBudget::AutoCheck - nAmount %d %lli\n", i, vecBudgetPayments[i].nAmount);
+            LogPrint("coralnode","CFinalizedBudget::AutoCheck - nProp %d %s\n", i, vecBudgetPayments[i].nProposalHash.ToString());
+            LogPrint("coralnode","CFinalizedBudget::AutoCheck - Payee %d %s\n", i, vecBudgetPayments[i].payee.ToString());
+            LogPrint("coralnode","CFinalizedBudget::AutoCheck - nAmount %d %lli\n", i, vecBudgetPayments[i].nAmount);
         }
 
         for (unsigned int i = 0; i < vBudgetProposals.size(); i++) {
-            LogPrint("fundamentalnode","CFinalizedBudget::AutoCheck - nProp %d %s\n", i, vBudgetProposals[i]->GetHash().ToString());
-            LogPrint("fundamentalnode","CFinalizedBudget::AutoCheck - Payee %d %s\n", i, vBudgetProposals[i]->GetPayee().ToString());
-            LogPrint("fundamentalnode","CFinalizedBudget::AutoCheck - nAmount %d %lli\n", i, vBudgetProposals[i]->GetAmount());
+            LogPrint("coralnode","CFinalizedBudget::AutoCheck - nProp %d %s\n", i, vBudgetProposals[i]->GetHash().ToString());
+            LogPrint("coralnode","CFinalizedBudget::AutoCheck - Payee %d %s\n", i, vBudgetProposals[i]->GetPayee().ToString());
+            LogPrint("coralnode","CFinalizedBudget::AutoCheck - nAmount %d %lli\n", i, vBudgetProposals[i]->GetAmount());
         }
 
         if (vBudgetProposals.size() == 0) {
-            LogPrint("fundamentalnode","CFinalizedBudget::AutoCheck - Can't get Budget, aborting\n");
+            LogPrint("coralnode","CFinalizedBudget::AutoCheck - Can't get Budget, aborting\n");
             return;
         }
 
         if (vBudgetProposals.size() != vecBudgetPayments.size()) {
-            LogPrint("fundamentalnode","CFinalizedBudget::AutoCheck - Budget length doesn't match. vBudgetProposals.size()=%ld != vecBudgetPayments.size()=%ld\n",
+            LogPrint("coralnode","CFinalizedBudget::AutoCheck - Budget length doesn't match. vBudgetProposals.size()=%ld != vecBudgetPayments.size()=%ld\n",
                       vBudgetProposals.size(), vecBudgetPayments.size());
             return;
         }
@@ -1800,32 +1800,32 @@ void CFinalizedBudget::AutoCheck()
 
         for (unsigned int i = 0; i < vecBudgetPayments.size(); i++) {
             if (i > vBudgetProposals.size() - 1) {
-                LogPrint("fundamentalnode","CFinalizedBudget::AutoCheck - Proposal size mismatch, i=%d > (vBudgetProposals.size() - 1)=%d\n", i, vBudgetProposals.size() - 1);
+                LogPrint("coralnode","CFinalizedBudget::AutoCheck - Proposal size mismatch, i=%d > (vBudgetProposals.size() - 1)=%d\n", i, vBudgetProposals.size() - 1);
                 return;
             }
 
             if (vecBudgetPayments[i].nProposalHash != vBudgetProposals[i]->GetHash()) {
-                LogPrint("fundamentalnode","CFinalizedBudget::AutoCheck - item #%d doesn't match %s %s\n", i, vecBudgetPayments[i].nProposalHash.ToString(), vBudgetProposals[i]->GetHash().ToString());
+                LogPrint("coralnode","CFinalizedBudget::AutoCheck - item #%d doesn't match %s %s\n", i, vecBudgetPayments[i].nProposalHash.ToString(), vBudgetProposals[i]->GetHash().ToString());
                 return;
             }
 
             // if(vecBudgetPayments[i].payee != vBudgetProposals[i]->GetPayee()){ -- triggered with false positive
             if (vecBudgetPayments[i].payee.ToString() != vBudgetProposals[i]->GetPayee().ToString()) {
-                LogPrint("fundamentalnode","CFinalizedBudget::AutoCheck - item #%d payee doesn't match %s %s\n", i, vecBudgetPayments[i].payee.ToString(), vBudgetProposals[i]->GetPayee().ToString());
+                LogPrint("coralnode","CFinalizedBudget::AutoCheck - item #%d payee doesn't match %s %s\n", i, vecBudgetPayments[i].payee.ToString(), vBudgetProposals[i]->GetPayee().ToString());
                 return;
             }
 
             if (vecBudgetPayments[i].nAmount != vBudgetProposals[i]->GetAmount()) {
-                LogPrint("fundamentalnode","CFinalizedBudget::AutoCheck - item #%d payee doesn't match %lli %lli\n", i, vecBudgetPayments[i].nAmount, vBudgetProposals[i]->GetAmount());
+                LogPrint("coralnode","CFinalizedBudget::AutoCheck - item #%d payee doesn't match %lli %lli\n", i, vecBudgetPayments[i].nAmount, vBudgetProposals[i]->GetAmount());
                 return;
             }
         }
 
-        LogPrint("fundamentalnode","CFinalizedBudget::AutoCheck - Finalized Budget Matches! Submitting Vote.\n");
+        LogPrint("coralnode","CFinalizedBudget::AutoCheck - Finalized Budget Matches! Submitting Vote.\n");
         SubmitVote();
     }
 }
-// If fundamentalnode voted for a proposal, but is now invalid -- remove the vote
+// If coralnode voted for a proposal, but is now invalid -- remove the vote
 void CFinalizedBudget::CleanAndRemove(bool fSignatureCheck)
 {
     std::map<uint256, CFinalizedBudgetVote>::iterator it = mapVotes.begin();
@@ -1876,7 +1876,7 @@ std::string CFinalizedBudget::GetStatus()
     for (int nBlockHeight = GetBlockStart(); nBlockHeight <= GetBlockEnd(); nBlockHeight++) {
         CTxBudgetPayment budgetPayment;
         if (!GetBudgetPaymentByBlock(nBlockHeight, budgetPayment)) {
-            LogPrint("fundamentalnode","CFinalizedBudget::GetStatus - Couldn't find budget payment for block %lld\n", nBlockHeight);
+            LogPrint("coralnode","CFinalizedBudget::GetStatus - Couldn't find budget payment for block %lld\n", nBlockHeight);
             continue;
         }
 
@@ -1969,12 +1969,12 @@ bool CFinalizedBudget::IsTransactionValid(const CTransaction& txNew, int nBlockH
 {
     int nCurrentBudgetPayment = nBlockHeight - GetBlockStart();
     if (nCurrentBudgetPayment < 0) {
-        LogPrint("fundamentalnode","CFinalizedBudget::IsTransactionValid - Invalid block - height: %d start: %d\n", nBlockHeight, GetBlockStart());
+        LogPrint("coralnode","CFinalizedBudget::IsTransactionValid - Invalid block - height: %d start: %d\n", nBlockHeight, GetBlockStart());
         return false;
     }
 
     if (nCurrentBudgetPayment > (int)vecBudgetPayments.size() - 1) {
-        LogPrint("fundamentalnode","CFinalizedBudget::IsTransactionValid - Invalid block - current budget payment: %d of %d\n", nCurrentBudgetPayment + 1, (int)vecBudgetPayments.size());
+        LogPrint("coralnode","CFinalizedBudget::IsTransactionValid - Invalid block - current budget payment: %d of %d\n", nCurrentBudgetPayment + 1, (int)vecBudgetPayments.size());
         return false;
     }
 
@@ -1982,7 +1982,7 @@ bool CFinalizedBudget::IsTransactionValid(const CTransaction& txNew, int nBlockH
     BOOST_FOREACH (CTxOut out, txNew.vout) {
         if (vecBudgetPayments[nCurrentBudgetPayment].payee == out.scriptPubKey && vecBudgetPayments[nCurrentBudgetPayment].nAmount == out.nValue) {
             found = true;
-            LogPrint("fundamentalnode","CFinalizedBudget::IsTransactionValid - Found valid Budget Payment of %d for %d\n",
+            LogPrint("coralnode","CFinalizedBudget::IsTransactionValid - Found valid Budget Payment of %d for %d\n",
                       vecBudgetPayments[nCurrentBudgetPayment].nAmount, vecBudgetPayments[nCurrentBudgetPayment].nProposalHash.Get32());
         }
     }
@@ -1992,7 +1992,7 @@ bool CFinalizedBudget::IsTransactionValid(const CTransaction& txNew, int nBlockH
         ExtractDestination(vecBudgetPayments[nCurrentBudgetPayment].payee, address1);
         CBitcoinAddress address2(address1);
 
-        LogPrint("fundamentalnode","CFinalizedBudget::IsTransactionValid - Missing required payment - %s: %d c: %d\n",
+        LogPrint("coralnode","CFinalizedBudget::IsTransactionValid - Missing required payment - %s: %d c: %d\n",
                   address2.ToString(), vecBudgetPayments[nCurrentBudgetPayment].nAmount, nCurrentBudgetPayment);
     }
 
@@ -2001,29 +2001,29 @@ bool CFinalizedBudget::IsTransactionValid(const CTransaction& txNew, int nBlockH
 
 void CFinalizedBudget::SubmitVote()
 {
-    CPubKey pubKeyFundamentalnode;
-    CKey keyFundamentalnode;
+    CPubKey pubKeyCoralnode;
+    CKey keyCoralnode;
     std::string errorMessage;
 
-    if (!obfuScationSigner.SetKey(strFundamentalNodePrivKey, errorMessage, keyFundamentalnode, pubKeyFundamentalnode)) {
-        LogPrint("fundamentalnode","CFinalizedBudget::SubmitVote - Error upon calling SetKey\n");
+    if (!obfuScationSigner.SetKey(strCoralNodePrivKey, errorMessage, keyCoralnode, pubKeyCoralnode)) {
+        LogPrint("coralnode","CFinalizedBudget::SubmitVote - Error upon calling SetKey\n");
         return;
     }
 
-    CFinalizedBudgetVote vote(activeFundamentalnode.vin, GetHash());
-    if (!vote.Sign(keyFundamentalnode, pubKeyFundamentalnode)) {
-        LogPrint("fundamentalnode","CFinalizedBudget::SubmitVote - Failure to sign.");
+    CFinalizedBudgetVote vote(activeCoralnode.vin, GetHash());
+    if (!vote.Sign(keyCoralnode, pubKeyCoralnode)) {
+        LogPrint("coralnode","CFinalizedBudget::SubmitVote - Failure to sign.");
         return;
     }
 
     std::string strError = "";
     if (budget.UpdateFinalizedBudget(vote, NULL, strError)) {
-        LogPrint("fundamentalnode","CFinalizedBudget::SubmitVote  - new finalized budget vote - %s\n", vote.GetHash().ToString());
+        LogPrint("coralnode","CFinalizedBudget::SubmitVote  - new finalized budget vote - %s\n", vote.GetHash().ToString());
 
         budget.mapSeenFinalizedBudgetVotes.insert(make_pair(vote.GetHash(), vote));
         vote.Relay();
     } else {
-        LogPrint("fundamentalnode","CFinalizedBudget::SubmitVote : Error submitting vote - %s\n", strError);
+        LogPrint("coralnode","CFinalizedBudget::SubmitVote : Error submitting vote - %s\n", strError);
     }
 }
 
@@ -2089,7 +2089,7 @@ void CFinalizedBudgetVote::Relay()
     RelayInv(inv);
 }
 
-bool CFinalizedBudgetVote::Sign(CKey& keyFundamentalnode, CPubKey& pubKeyFundamentalnode)
+bool CFinalizedBudgetVote::Sign(CKey& keyCoralnode, CPubKey& pubKeyCoralnode)
 {
     // Choose coins to use
     CPubKey pubKeyCollateralAddress;
@@ -2098,13 +2098,13 @@ bool CFinalizedBudgetVote::Sign(CKey& keyFundamentalnode, CPubKey& pubKeyFundame
     std::string errorMessage;
     std::string strMessage = vin.prevout.ToStringShort() + nBudgetHash.ToString() + boost::lexical_cast<std::string>(nTime);
 
-    if (!obfuScationSigner.SignMessage(strMessage, errorMessage, vchSig, keyFundamentalnode)) {
-        LogPrint("fundamentalnode","CFinalizedBudgetVote::Sign - Error upon calling SignMessage");
+    if (!obfuScationSigner.SignMessage(strMessage, errorMessage, vchSig, keyCoralnode)) {
+        LogPrint("coralnode","CFinalizedBudgetVote::Sign - Error upon calling SignMessage");
         return false;
     }
 
-    if (!obfuScationSigner.VerifyMessage(pubKeyFundamentalnode, vchSig, strMessage, errorMessage)) {
-        LogPrint("fundamentalnode","CFinalizedBudgetVote::Sign - Error upon calling VerifyMessage");
+    if (!obfuScationSigner.VerifyMessage(pubKeyCoralnode, vchSig, strMessage, errorMessage)) {
+        LogPrint("coralnode","CFinalizedBudgetVote::Sign - Error upon calling VerifyMessage");
         return false;
     }
 
@@ -2117,17 +2117,17 @@ bool CFinalizedBudgetVote::SignatureValid(bool fSignatureCheck)
 
     std::string strMessage = vin.prevout.ToStringShort() + nBudgetHash.ToString() + boost::lexical_cast<std::string>(nTime);
 
-    CFundamentalnode* pmn = mnodeman.Find(vin);
+    CCoralnode* pmn = mnodeman.Find(vin);
 
     if (pmn == NULL) {
-        LogPrint("fundamentalnode","CFinalizedBudgetVote::SignatureValid() - Unknown Fundamentalnode %s\n", strMessage);
+        LogPrint("coralnode","CFinalizedBudgetVote::SignatureValid() - Unknown Coralnode %s\n", strMessage);
         return false;
     }
 
     if (!fSignatureCheck) return true;
 
-    if (!obfuScationSigner.VerifyMessage(pmn->pubKeyFundamentalnode, vchSig, strMessage, errorMessage)) {
-        LogPrint("fundamentalnode","CFinalizedBudgetVote::SignatureValid() - Verify message failed %s %s\n", strMessage, errorMessage);
+    if (!obfuScationSigner.VerifyMessage(pmn->pubKeyCoralnode, vchSig, strMessage, errorMessage)) {
+        LogPrint("coralnode","CFinalizedBudgetVote::SignatureValid() - Verify message failed %s %s\n", strMessage, errorMessage);
         return false;
     }
 
@@ -2138,7 +2138,7 @@ std::string CBudgetManager::ToString() const
 {
     std::ostringstream info;
 
-    info << "Proposals: " << (int)mapProposals.size() << ", Budgets: " << (int)mapFinalizedBudgets.size() << ", Seen Budgets: " << (int)mapSeenFundamentalnodeBudgetProposals.size() << ", Seen Budget Votes: " << (int)mapSeenFundamentalnodeBudgetVotes.size() << ", Seen Final Budgets: " << (int)mapSeenFinalizedBudgets.size() << ", Seen Final Budget Votes: " << (int)mapSeenFinalizedBudgetVotes.size();
+    info << "Proposals: " << (int)mapProposals.size() << ", Budgets: " << (int)mapFinalizedBudgets.size() << ", Seen Budgets: " << (int)mapSeenCoralnodeBudgetProposals.size() << ", Seen Budget Votes: " << (int)mapSeenCoralnodeBudgetVotes.size() << ", Seen Final Budgets: " << (int)mapSeenFinalizedBudgets.size() << ", Seen Final Budget Votes: " << (int)mapSeenFinalizedBudgetVotes.size();
 
     return info.str();
 }

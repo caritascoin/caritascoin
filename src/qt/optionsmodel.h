@@ -48,7 +48,7 @@ public:
         ZeromintPrefDenom,   // int
         HideZeroBalances,    // bool
         AnonymizeCaritasCoinAmount, //int
-        ShowFundamentalnodesTab,  // bool
+        ShowCoralnodesTab,  // bool
 		ShowMasternodesTab,  // bool
         Listen,              // bool
         StakeSplitThreshold, // int

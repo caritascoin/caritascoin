@@ -9,7 +9,7 @@
 #include "base58.h"
 #include "key.h"
 #include "main.h"
-#include "fundamentalnode-budget.h"
+#include "coralnode-budget.h"
 #include "net.h"
 #include "protocol.h"
 #include "sync.h"
@@ -61,7 +61,7 @@ void LoadSporksFromDB()
 
 void ProcessSpork(CNode* pfrom, std::string& strCommand, CDataStream& vRecv)
 {
-    if (fLiteMode) return; //disable all obfuscation/fundamentalnode related functionality
+    if (fLiteMode) return; //disable all obfuscation/coralnode related functionality
 
     if (strCommand == "spork") {
         //LogPrintf("ProcessSpork::spork\n");
@@ -122,10 +122,10 @@ int64_t GetSporkValue(int nSporkID)
         if (nSporkID == SPORK_2_SWIFTTX) r = SPORK_2_SWIFTTX_DEFAULT;
         if (nSporkID == SPORK_3_SWIFTTX_BLOCK_FILTERING) r = SPORK_3_SWIFTTX_BLOCK_FILTERING_DEFAULT;
         if (nSporkID == SPORK_5_MAX_VALUE) r = SPORK_5_MAX_VALUE_DEFAULT;
-        if (nSporkID == SPORK_7_FUNDAMENTALNODE_SCANNING) r = SPORK_7_FUNDAMENTALNODE_SCANNING_DEFAULT;
-        if (nSporkID == SPORK_8_FUNDAMENTALNODE_PAYMENT_ENFORCEMENT) r = SPORK_8_FUNDAMENTALNODE_PAYMENT_ENFORCEMENT_DEFAULT;
-        if (nSporkID == SPORK_9_FUNDAMENTALNODE_BUDGET_ENFORCEMENT) r = SPORK_9_FUNDAMENTALNODE_BUDGET_ENFORCEMENT_DEFAULT;
-        if (nSporkID == SPORK_10_FUNDAMENTALNODE_PAY_UPDATED_NODES) r = SPORK_10_FUNDAMENTALNODE_PAY_UPDATED_NODES_DEFAULT;
+        if (nSporkID == SPORK_7_CORALNODE_SCANNING) r = SPORK_7_CORALNODE_SCANNING_DEFAULT;
+        if (nSporkID == SPORK_8_CORALNODE_PAYMENT_ENFORCEMENT) r = SPORK_8_CORALNODE_PAYMENT_ENFORCEMENT_DEFAULT;
+        if (nSporkID == SPORK_9_CORALNODE_BUDGET_ENFORCEMENT) r = SPORK_9_CORALNODE_BUDGET_ENFORCEMENT_DEFAULT;
+        if (nSporkID == SPORK_10_CORALNODE_PAY_UPDATED_NODES) r = SPORK_10_CORALNODE_PAY_UPDATED_NODES_DEFAULT;
         if (nSporkID == SPORK_13_ENABLE_SUPERBLOCKS) r = SPORK_13_ENABLE_SUPERBLOCKS_DEFAULT;
         if (nSporkID == SPORK_14_NEW_PROTOCOL_ENFORCEMENT) r = SPORK_14_NEW_PROTOCOL_ENFORCEMENT_DEFAULT;
         if (nSporkID == SPORK_15_NEW_PROTOCOL_ENFORCEMENT_2) r = SPORK_15_NEW_PROTOCOL_ENFORCEMENT_2_DEFAULT;
@@ -201,17 +201,17 @@ bool CSporkManager::Sign(CSporkMessage& spork)
     std::string errorMessage = "";
 
     if (!obfuScationSigner.SetKey(strMasterPrivKey, errorMessage, key2, pubkey2)) {
-        LogPrintf("CFundamentalnodePayments::Sign - ERROR: Invalid fundamentalnodeprivkey: '%s'\n", errorMessage);
+        LogPrintf("CCoralnodePayments::Sign - ERROR: Invalid coralnodeprivkey: '%s'\n", errorMessage);
         return false;
     }
 
     if (!obfuScationSigner.SignMessage(strMessage, errorMessage, spork.vchSig, key2)) {
-        LogPrintf("CFundamentalnodePayments::Sign - Sign message failed");
+        LogPrintf("CCoralnodePayments::Sign - Sign message failed");
         return false;
     }
 
     if (!obfuScationSigner.VerifyMessage(pubkey2, spork.vchSig, strMessage, errorMessage)) {
-        LogPrintf("CFundamentalnodePayments::Sign - Verify message failed");
+        LogPrintf("CCoralnodePayments::Sign - Verify message failed");
         return false;
     }
 
@@ -263,10 +263,10 @@ int CSporkManager::GetSporkIDByName(std::string strName)
     if (strName == "SPORK_2_SWIFTTX") return SPORK_2_SWIFTTX;
     if (strName == "SPORK_3_SWIFTTX_BLOCK_FILTERING") return SPORK_3_SWIFTTX_BLOCK_FILTERING;
     if (strName == "SPORK_5_MAX_VALUE") return SPORK_5_MAX_VALUE;
-    if (strName == "SPORK_7_FUNDAMENTALNODE_SCANNING") return SPORK_7_FUNDAMENTALNODE_SCANNING;
-    if (strName == "SPORK_8_FUNDAMENTALNODE_PAYMENT_ENFORCEMENT") return SPORK_8_FUNDAMENTALNODE_PAYMENT_ENFORCEMENT;
-    if (strName == "SPORK_9_FUNDAMENTALNODE_BUDGET_ENFORCEMENT") return SPORK_9_FUNDAMENTALNODE_BUDGET_ENFORCEMENT;
-    if (strName == "SPORK_10_FUNDAMENTALNODE_PAY_UPDATED_NODES") return SPORK_10_FUNDAMENTALNODE_PAY_UPDATED_NODES;
+    if (strName == "SPORK_7_CORALNODE_SCANNING") return SPORK_7_CORALNODE_SCANNING;
+    if (strName == "SPORK_8_CORALNODE_PAYMENT_ENFORCEMENT") return SPORK_8_CORALNODE_PAYMENT_ENFORCEMENT;
+    if (strName == "SPORK_9_CORALNODE_BUDGET_ENFORCEMENT") return SPORK_9_CORALNODE_BUDGET_ENFORCEMENT;
+    if (strName == "SPORK_10_CORALNODE_PAY_UPDATED_NODES") return SPORK_10_CORALNODE_PAY_UPDATED_NODES;
     if (strName == "SPORK_13_ENABLE_SUPERBLOCKS") return SPORK_13_ENABLE_SUPERBLOCKS;
     if (strName == "SPORK_14_NEW_PROTOCOL_ENFORCEMENT") return SPORK_14_NEW_PROTOCOL_ENFORCEMENT;
     if (strName == "SPORK_15_NEW_PROTOCOL_ENFORCEMENT_2") return SPORK_15_NEW_PROTOCOL_ENFORCEMENT_2;
@@ -282,10 +282,10 @@ std::string CSporkManager::GetSporkNameByID(int id)
     if (id == SPORK_2_SWIFTTX) return "SPORK_2_SWIFTTX";
     if (id == SPORK_3_SWIFTTX_BLOCK_FILTERING) return "SPORK_3_SWIFTTX_BLOCK_FILTERING";
     if (id == SPORK_5_MAX_VALUE) return "SPORK_5_MAX_VALUE";
-    if (id == SPORK_7_FUNDAMENTALNODE_SCANNING) return "SPORK_7_FUNDAMENTALNODE_SCANNING";
-    if (id == SPORK_8_FUNDAMENTALNODE_PAYMENT_ENFORCEMENT) return "SPORK_8_FUNDAMENTALNODE_PAYMENT_ENFORCEMENT";
-    if (id == SPORK_9_FUNDAMENTALNODE_BUDGET_ENFORCEMENT) return "SPORK_9_FUNDAMENTALNODE_BUDGET_ENFORCEMENT";
-    if (id == SPORK_10_FUNDAMENTALNODE_PAY_UPDATED_NODES) return "SPORK_10_FUNDAMENTALNODE_PAY_UPDATED_NODES";
+    if (id == SPORK_7_CORALNODE_SCANNING) return "SPORK_7_CORALNODE_SCANNING";
+    if (id == SPORK_8_CORALNODE_PAYMENT_ENFORCEMENT) return "SPORK_8_CORALNODE_PAYMENT_ENFORCEMENT";
+    if (id == SPORK_9_CORALNODE_BUDGET_ENFORCEMENT) return "SPORK_9_CORALNODE_BUDGET_ENFORCEMENT";
+    if (id == SPORK_10_CORALNODE_PAY_UPDATED_NODES) return "SPORK_10_CORALNODE_PAY_UPDATED_NODES";
     if (id == SPORK_13_ENABLE_SUPERBLOCKS) return "SPORK_13_ENABLE_SUPERBLOCKS";
     if (id == SPORK_14_NEW_PROTOCOL_ENFORCEMENT) return "SPORK_14_NEW_PROTOCOL_ENFORCEMENT";
     if (id == SPORK_15_NEW_PROTOCOL_ENFORCEMENT_2) return "SPORK_15_NEW_PROTOCOL_ENFORCEMENT_2";

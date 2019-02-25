@@ -3,8 +3,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef SRC_FUNDAMENTALNODECONFIG_H_
-#define SRC_FUNDAMENTALNODECONFIG_H_
+#ifndef SRC_CORALNODECONFIG_H_
+#define SRC_CORALNODECONFIG_H_
 
 #include <string>
 #include <vector>
@@ -12,13 +12,13 @@
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 
-class CFundamentalnodeConfig;
-extern CFundamentalnodeConfig fundamentalnodeConfig;
+class CCoralnodeConfig;
+extern CCoralnodeConfig coralnodeConfig;
 
-class CFundamentalnodeConfig
+class CCoralnodeConfig
 {
 public:
-    class CFundamentalnodeEntry
+    class CCoralnodeEntry
     {
     private:
         std::string alias;
@@ -28,7 +28,7 @@ public:
         std::string outputIndex;
 
     public:
-        CFundamentalnodeEntry(std::string alias, std::string ip, std::string privKey, std::string txHash, std::string outputIndex)
+        CCoralnodeEntry(std::string alias, std::string ip, std::string privKey, std::string txHash, std::string outputIndex)
         {
             this->alias = alias;
             this->ip = ip;
@@ -90,16 +90,16 @@ public:
         }
     };
 
-    CFundamentalnodeConfig()
+    CCoralnodeConfig()
     {
-        entries = std::vector<CFundamentalnodeEntry>();
+        entries = std::vector<CCoralnodeEntry>();
     }
 
     void clear();
     bool read(std::string& strErr);
     void add(std::string alias, std::string ip, std::string privKey, std::string txHash, std::string outputIndex);
 
-    std::vector<CFundamentalnodeEntry>& getEntries()
+    std::vector<CCoralnodeEntry>& getEntries()
     {
         return entries;
     }
@@ -107,15 +107,15 @@ public:
     int getCount()
     {
         int c = -1;
-        BOOST_FOREACH (CFundamentalnodeEntry e, entries) {
+        BOOST_FOREACH (CCoralnodeEntry e, entries) {
             if (e.getAlias() != "") c++;
         }
         return c;
     }
 
 private:
-    std::vector<CFundamentalnodeEntry> entries;
+    std::vector<CCoralnodeEntry> entries;
 };
 
 
-#endif /* SRC_FUNDAMENTALNODECONFIG_H_ */
+#endif /* SRC_CORALNODECONFIG_H_ */

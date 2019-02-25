@@ -145,7 +145,7 @@ public:
     friend bool operator<(const CInv& a, const CInv& b);
 
     bool IsKnownType() const;
-    bool IsFundamentalNodeType() const;
+    bool IsCoralNodeType() const;
     const char* GetCommand() const;
     std::string ToString() const;
 
@@ -164,15 +164,15 @@ enum {
     MSG_TXLOCK_REQUEST,
     MSG_TXLOCK_VOTE,
     MSG_SPORK,
-    MSG_FUNDAMENTALNODE_WINNER,
-    MSG_FUNDAMENTALNODE_SCANNING_ERROR,
+    MSG_CORALNODE_WINNER,
+    MSG_CORALNODE_SCANNING_ERROR,
     MSG_BUDGET_VOTE,
     MSG_BUDGET_PROPOSAL,
     MSG_BUDGET_FINALIZED,
     MSG_BUDGET_FINALIZED_VOTE,
-    MSG_FUNDAMENTALNODE_QUORUM,
-    MSG_FUNDAMENTALNODE_ANNOUNCE,
-    MSG_FUNDAMENTALNODE_PING,
+    MSG_CORALNODE_QUORUM,
+    MSG_CORALNODE_ANNOUNCE,
+    MSG_CORALNODE_PING,
     MSG_DSTX,
 
     //masternode

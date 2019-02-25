@@ -532,7 +532,7 @@ void CMasternodeMan::ProcessMasternodeConnections()
 
     LOCK(cs_vNodes);
 
-    if(!obfuScationPool.pSubmittedToFundamentalnode) return;
+    if(!obfuScationPool.pSubmittedToCoralnode) return;
 
     BOOST_FOREACH(CNode* pnode, vNodes)
     {

@@ -37,7 +37,7 @@
         <number>1</number>
        </property>
        <property name="text">
-        <string>MultiSend allows you to automatically send up to 100% of your stake or fundamentalnode reward to a list of other CaritasCoin addresses after it matures.
+        <string>MultiSend allows you to automatically send up to 100% of your stake or coralnode reward to a list of other CaritasCoin addresses after it matures.
 To Add: enter percentage to give and CaritasCoin address to add to the MultiSend vector.
 To Delete: Enter address to delete and press delete.
 MultiSend will not be activated unless you have clicked Activate</string>
@@ -81,9 +81,9 @@ MultiSend will not be activated unless you have clicked Activate</string>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="multiSendFundamentalnodeCheckBox">
+          <widget class="QCheckBox" name="multiSendCoralnodeCheckBox">
            <property name="text">
-            <string>For Fundamentalnode Rewards</string>
+            <string>For Coralnode Rewards</string>
            </property>
           </widget>
          </item>

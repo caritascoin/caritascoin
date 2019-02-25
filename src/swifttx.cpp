@@ -5,10 +5,10 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "swifttx.h"
-#include "activefundamentalnode.h"
+#include "activecoralnode.h"
 #include "base58.h"
 #include "key.h"
-#include "fundamentalnodeman.h"
+#include "coralnodeman.h"
 #include "net.h"
 #include "obfuscation.h"
 #include "protocol.h"
@@ -31,15 +31,15 @@ int nCompleteTXLocks;
 //txlock - Locks transaction
 //
 //step 1.) Broadcast intention to lock transaction inputs, "txlreg", CTransaction
-//step 2.) Top SWIFTTX_SIGNATURES_TOTAL fundamentalnodes, open connect to top 1 fundamentalnode.
+//step 2.) Top SWIFTTX_SIGNATURES_TOTAL coralnodes, open connect to top 1 coralnode.
 //         Send "txvote", CTransaction, Signature, Approve
-//step 3.) Top 1 fundamentalnode, waits for SWIFTTX_SIGNATURES_REQUIRED messages. Upon success, sends "txlock'
+//step 3.) Top 1 coralnode, waits for SWIFTTX_SIGNATURES_REQUIRED messages. Upon success, sends "txlock'
 
 void ProcessMessageSwiftTX(CNode* pfrom, std::string& strCommand, CDataStream& vRecv)
 {
-    if (fLiteMode) return; //disable all obfuscation/fundamentalnode related functionality
+    if (fLiteMode) return; //disable all obfuscation/coralnode related functionality
     if (!IsSporkActive(SPORK_2_SWIFTTX)) return;
-    if (!fundamentalnodeSync.IsBlockchainSynced()) return;
+    if (!coralnodeSync.IsBlockchainSynced()) return;
 
     if (strCommand == "ix") {
         //LogPrintf("ProcessMessageSwiftTX::ix\n");
@@ -139,23 +139,23 @@ void ProcessMessageSwiftTX(CNode* pfrom, std::string& strCommand, CDataStream& v
         if (ProcessConsensusVote(pfrom, ctx)) {
             //Spam/Dos protection
             /*
-                Fundamentalnodes will sometimes propagate votes before the transaction is known to the client.
+                Coralnodes will sometimes propagate votes before the transaction is known to the client.
                 This tracks those messages and allows it at the same rate of the rest of the network, if
                 a peer violates it, it will simply be ignored
             */
             if (!mapTxLockReq.count(ctx.txHash) && !mapTxLockReqRejected.count(ctx.txHash)) {
-                if (!mapUnknownVotes.count(ctx.vinFundamentalnode.prevout.hash)) {
-                    mapUnknownVotes[ctx.vinFundamentalnode.prevout.hash] = GetTime() + (60 * 10);
+                if (!mapUnknownVotes.count(ctx.vinCoralnode.prevout.hash)) {
+                    mapUnknownVotes[ctx.vinCoralnode.prevout.hash] = GetTime() + (60 * 10);
                 }
 
-                if (mapUnknownVotes[ctx.vinFundamentalnode.prevout.hash] > GetTime() &&
-                    mapUnknownVotes[ctx.vinFundamentalnode.prevout.hash] - GetAverageVoteTime() > 60 * 10) {
-                    LogPrintf("ProcessMessageSwiftTX::ix - fundamentalnode is spamming transaction votes: %s %s\n",
-                        ctx.vinFundamentalnode.ToString().c_str(),
+                if (mapUnknownVotes[ctx.vinCoralnode.prevout.hash] > GetTime() &&
+                    mapUnknownVotes[ctx.vinCoralnode.prevout.hash] - GetAverageVoteTime() > 60 * 10) {
+                    LogPrintf("ProcessMessageSwiftTX::ix - coralnode is spamming transaction votes: %s %s\n",
+                        ctx.vinCoralnode.ToString().c_str(),
                         ctx.txHash.ToString().c_str());
                     return;
                 } else {
-                    mapUnknownVotes[ctx.vinFundamentalnode.prevout.hash] = GetTime() + (60 * 10);
+                    mapUnknownVotes[ctx.vinCoralnode.prevout.hash] = GetTime() + (60 * 10);
                 }
             }
             RelayInv(inv);
@@ -226,7 +226,7 @@ int64_t CreateNewLock(CTransaction tx)
 
     /*
         Use a blockheight newer than the input.
-        This prevents attackers from using transaction mallibility to predict which fundamentalnodes
+        This prevents attackers from using transaction mallibility to predict which coralnodes
         they'll use.
     */
     int nBlockHeight = (chainActive.Tip()->nHeight - nTxAge) + 4;
@@ -252,17 +252,17 @@ int64_t CreateNewLock(CTransaction tx)
 // check if we need to vote on this transaction
 void DoConsensusVote(CTransaction& tx, int64_t nBlockHeight)
 {
-    if (!fFundamentalNode) return;
+    if (!fCoralNode) return;
 
-    int n = mnodeman.GetFundamentalnodeRank(activeFundamentalnode.vin, nBlockHeight, MIN_SWIFTTX_PROTO_VERSION);
+    int n = mnodeman.GetCoralnodeRank(activeCoralnode.vin, nBlockHeight, MIN_SWIFTTX_PROTO_VERSION);
 
     if (n == -1) {
-        LogPrint("swiftx", "SwiftX::DoConsensusVote - Unknown Fundamentalnode\n");
+        LogPrint("swiftx", "SwiftX::DoConsensusVote - Unknown Coralnode\n");
         return;
     }
 
     if (n > SWIFTTX_SIGNATURES_TOTAL) {
-        LogPrint("swiftx", "SwiftX::DoConsensusVote - Fundamentalnode not in the top %d (%d)\n", SWIFTTX_SIGNATURES_TOTAL, n);
+        LogPrint("swiftx", "SwiftX::DoConsensusVote - Coralnode not in the top %d (%d)\n", SWIFTTX_SIGNATURES_TOTAL, n);
         return;
     }
     /*
@@ -272,7 +272,7 @@ void DoConsensusVote(CTransaction& tx, int64_t nBlockHeight)
     LogPrint("swiftx", "SwiftX::DoConsensusVote - In the top %d (%d)\n", SWIFTTX_SIGNATURES_TOTAL, n);
 
     CConsensusVote ctx;
-    ctx.vinFundamentalnode = activeFundamentalnode.vin;
+    ctx.vinCoralnode = activeCoralnode.vin;
     ctx.txHash = tx.GetHash();
     ctx.nBlockHeight = nBlockHeight;
     if (!ctx.Sign()) {
@@ -293,28 +293,28 @@ void DoConsensusVote(CTransaction& tx, int64_t nBlockHeight)
 //received a consensus vote
 bool ProcessConsensusVote(CNode* pnode, CConsensusVote& ctx)
 {
-    int n = mnodeman.GetFundamentalnodeRank(ctx.vinFundamentalnode, ctx.nBlockHeight, MIN_SWIFTTX_PROTO_VERSION);
+    int n = mnodeman.GetCoralnodeRank(ctx.vinCoralnode, ctx.nBlockHeight, MIN_SWIFTTX_PROTO_VERSION);
 
-    CFundamentalnode* pmn = mnodeman.Find(ctx.vinFundamentalnode);
+    CCoralnode* pmn = mnodeman.Find(ctx.vinCoralnode);
     if (pmn != NULL)
-        LogPrint("swiftx", "SwiftX::ProcessConsensusVote - Fundamentalnode ADDR %s %d\n", pmn->addr.ToString().c_str(), n);
+        LogPrint("swiftx", "SwiftX::ProcessConsensusVote - Coralnode ADDR %s %d\n", pmn->addr.ToString().c_str(), n);
 
     if (n == -1) {
         //can be caused by past versions trying to vote with an invalid protocol
-        LogPrint("swiftx", "SwiftX::ProcessConsensusVote - Unknown Fundamentalnode\n");
-        mnodeman.AskForMN(pnode, ctx.vinFundamentalnode);
+        LogPrint("swiftx", "SwiftX::ProcessConsensusVote - Unknown Coralnode\n");
+        mnodeman.AskForMN(pnode, ctx.vinCoralnode);
         return false;
     }
 
     if (n > SWIFTTX_SIGNATURES_TOTAL) {
-        LogPrint("swiftx", "SwiftX::ProcessConsensusVote - Fundamentalnode not in the top %d (%d) - %s\n", SWIFTTX_SIGNATURES_TOTAL, n, ctx.GetHash().ToString().c_str());
+        LogPrint("swiftx", "SwiftX::ProcessConsensusVote - Coralnode not in the top %d (%d) - %s\n", SWIFTTX_SIGNATURES_TOTAL, n, ctx.GetHash().ToString().c_str());
         return false;
     }
 
     if (!ctx.SignatureValid()) {
         LogPrintf("SwiftX::ProcessConsensusVote - Signature invalid\n");
-        // don't ban, it could just be a non-synced fundamentalnode
-        mnodeman.AskForMN(pnode, ctx.vinFundamentalnode);
+        // don't ban, it could just be a non-synced coralnode
+        mnodeman.AskForMN(pnode, ctx.vinCoralnode);
         return false;
     }
 
@@ -452,7 +452,7 @@ void CleanTransactionLocksList()
 
 uint256 CConsensusVote::GetHash() const
 {
-    return vinFundamentalnode.prevout.hash + vinFundamentalnode.prevout.n + txHash;
+    return vinCoralnode.prevout.hash + vinCoralnode.prevout.n + txHash;
 }
 
 
@@ -462,14 +462,14 @@ bool CConsensusVote::SignatureValid()
     std::string strMessage = txHash.ToString().c_str() + boost::lexical_cast<std::string>(nBlockHeight);
     //LogPrintf("verify strMessage %s \n", strMessage.c_str());
 
-    CFundamentalnode* pmn = mnodeman.Find(vinFundamentalnode);
+    CCoralnode* pmn = mnodeman.Find(vinCoralnode);
 
     if (pmn == NULL) {
-        LogPrintf("SwiftX::CConsensusVote::SignatureValid() - Unknown Fundamentalnode\n");
+        LogPrintf("SwiftX::CConsensusVote::SignatureValid() - Unknown Coralnode\n");
         return false;
     }
 
-    if (!obfuScationSigner.VerifyMessage(pmn->pubKeyFundamentalnode, vchFundamentalNodeSignature, strMessage, errorMessage)) {
+    if (!obfuScationSigner.VerifyMessage(pmn->pubKeyCoralnode, vchCoralNodeSignature, strMessage, errorMessage)) {
         LogPrintf("SwiftX::CConsensusVote::SignatureValid() - Verify message failed\n");
         return false;
     }
@@ -485,19 +485,19 @@ bool CConsensusVote::Sign()
     CPubKey pubkey2;
     std::string strMessage = txHash.ToString().c_str() + boost::lexical_cast<std::string>(nBlockHeight);
     //LogPrintf("signing strMessage %s \n", strMessage.c_str());
-    //LogPrintf("signing privkey %s \n", strFundamentalNodePrivKey.c_str());
+    //LogPrintf("signing privkey %s \n", strCoralNodePrivKey.c_str());
 
-    if (!obfuScationSigner.SetKey(strFundamentalNodePrivKey, errorMessage, key2, pubkey2)) {
-        LogPrintf("CConsensusVote::Sign() - ERROR: Invalid fundamentalnodeprivkey: '%s'\n", errorMessage.c_str());
+    if (!obfuScationSigner.SetKey(strCoralNodePrivKey, errorMessage, key2, pubkey2)) {
+        LogPrintf("CConsensusVote::Sign() - ERROR: Invalid coralnodeprivkey: '%s'\n", errorMessage.c_str());
         return false;
     }
 
-    if (!obfuScationSigner.SignMessage(strMessage, errorMessage, vchFundamentalNodeSignature, key2)) {
+    if (!obfuScationSigner.SignMessage(strMessage, errorMessage, vchCoralNodeSignature, key2)) {
         LogPrintf("CConsensusVote::Sign() - Sign message failed");
         return false;
     }
 
-    if (!obfuScationSigner.VerifyMessage(pubkey2, vchFundamentalNodeSignature, strMessage, errorMessage)) {
+    if (!obfuScationSigner.VerifyMessage(pubkey2, vchCoralNodeSignature, strMessage, errorMessage)) {
         LogPrintf("CConsensusVote::Sign() - Verify message failed");
         return false;
     }
@@ -509,15 +509,15 @@ bool CConsensusVote::Sign()
 bool CTransactionLock::SignaturesValid()
 {
     BOOST_FOREACH (CConsensusVote vote, vecConsensusVotes) {
-        int n = mnodeman.GetFundamentalnodeRank(vote.vinFundamentalnode, vote.nBlockHeight, MIN_SWIFTTX_PROTO_VERSION);
+        int n = mnodeman.GetCoralnodeRank(vote.vinCoralnode, vote.nBlockHeight, MIN_SWIFTTX_PROTO_VERSION);
 
         if (n == -1) {
-            LogPrintf("CTransactionLock::SignaturesValid() - Unknown Fundamentalnode\n");
+            LogPrintf("CTransactionLock::SignaturesValid() - Unknown Coralnode\n");
             return false;
         }
 
         if (n > SWIFTTX_SIGNATURES_TOTAL) {
-            LogPrintf("CTransactionLock::SignaturesValid() - Fundamentalnode not in the top %s\n", SWIFTTX_SIGNATURES_TOTAL);
+            LogPrintf("CTransactionLock::SignaturesValid() - Coralnode not in the top %s\n", SWIFTTX_SIGNATURES_TOTAL);
             return false;
         }
 

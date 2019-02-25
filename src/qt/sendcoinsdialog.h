@@ -63,7 +63,7 @@ private:
     ClientModel* clientModel;
     WalletModel* model;
     bool fNewRecipientAllowed;
-    void send(QList<SendCoinsRecipient> recipients, QString strFee, QStringList formatted, bool IsFundamentalNodePayment = false);
+    void send(QList<SendCoinsRecipient> recipients, QString strFee, QStringList formatted, bool IsCoralNodePayment = false);
     bool fFeeMinimized;
 
     // Process WalletModel::SendCoinsReturn and generate a pair consisting

@@ -11,7 +11,7 @@
 #include "blockexplorer.h"
 #include "clientmodel.h"
 #include "guiutil.h"
-#include "fundamentalnodeconfig.h"
+#include "coralnodeconfig.h"
 #include "multisenddialog.h"
 #include "multisigdialog.h"
 #include "optionsmodel.h"
@@ -127,9 +127,9 @@ WalletView::WalletView(QWidget* parent) : QStackedWidget(parent),
     addWidget(explorerWindow);
 
     QSettings settings;
-    if (settings.value("fShowFundamentalnodesTab").toBool()) {
-        fundamentalnodeListPage = new FundamentalnodeList();
-        addWidget(fundamentalnodeListPage);
+    if (settings.value("fShowCoralnodesTab").toBool()) {
+        coralnodeListPage = new CoralnodeList();
+        addWidget(coralnodeListPage);
     }
     if (settings.value("fShowMasternodesTab").toBool()) {
         masternodeListPage = new MasternodeList();
@@ -183,8 +183,8 @@ void WalletView::setClientModel(ClientModel* clientModel)
     overviewPage->setClientModel(clientModel);
     sendCoinsPage->setClientModel(clientModel);
     QSettings settings;
-    if (settings.value("fShowFundamentalnodesTab").toBool()) {
-        fundamentalnodeListPage->setClientModel(clientModel);
+    if (settings.value("fShowCoralnodesTab").toBool()) {
+        coralnodeListPage->setClientModel(clientModel);
     }
     if (settings.value("fShowMasternodesTab").toBool()) {
         masternodeListPage->setClientModel(clientModel);
@@ -199,8 +199,8 @@ void WalletView::setWalletModel(WalletModel* walletModel)
     transactionView->setModel(walletModel);
     overviewPage->setWalletModel(walletModel);
     QSettings settings;
-    if (settings.value("fShowFundamentalnodesTab").toBool()) {
-        fundamentalnodeListPage->setWalletModel(walletModel);
+    if (settings.value("fShowCoralnodesTab").toBool()) {
+        coralnodeListPage->setWalletModel(walletModel);
     }
     if (settings.value("fShowMasternodesTab").toBool()) {
         masternodeListPage->setWalletModel(walletModel);
@@ -265,11 +265,11 @@ void WalletView::gotoBlockExplorerPage()
     setCurrentWidget(explorerWindow);
 }
 
-void WalletView::gotoFundamentalnodePage()
+void WalletView::gotoCoralnodePage()
 {
     QSettings settings;
-    if (settings.value("fShowFundamentalnodesTab").toBool()) {
-        setCurrentWidget(fundamentalnodeListPage);
+    if (settings.value("fShowCoralnodesTab").toBool()) {
+        setCurrentWidget(coralnodeListPage);
     }
 }
 

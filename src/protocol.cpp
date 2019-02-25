@@ -145,7 +145,7 @@ bool CInv::IsKnownType() const
     return (type >= 1 && type < (int)ARRAYLEN(ppszTypeName));
 }
 
-bool CInv::IsFundamentalNodeType() const{
+bool CInv::IsCoralNodeType() const{
  	return (type >= 6);
 }
 

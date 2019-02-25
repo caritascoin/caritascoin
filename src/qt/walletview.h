@@ -6,7 +6,7 @@
 #define BITCOIN_QT_WALLETVIEW_H
 
 #include "amount.h"
-#include "fundamentalnodelist.h"
+#include "coralnodeist.h"
 #include "masternodelist.h"
 
 #include <QStackedWidget>
@@ -67,7 +67,7 @@ private:
     PrivacyDialog* privacyPage;
     SendCoinsDialog* sendCoinsPage;
     BlockExplorer* explorerWindow;
-    FundamentalnodeList* fundamentalnodeListPage;
+    CoralnodeList* coralnodeListPage;
     MasternodeList* masternodeListPage;
 
     TransactionView* transactionView;
@@ -80,8 +80,8 @@ public slots:
     void gotoOverviewPage();
     /** Switch to history (transactions) page */
     void gotoHistoryPage();
-    /** Switch to fundamentalnode page */
-    void gotoFundamentalnodePage();
+    /** Switch to coralnode page */
+    void gotoCoralnodePage();
     /** Switch to masternode page */
     void gotoMasternodePage();
     /** Switch to explorer page */

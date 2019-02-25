@@ -21,7 +21,7 @@
 #include "util.h"
 
 #ifdef ENABLE_WALLET
-#include "fundamentalnodeconfig.h"
+#include "coralnodeconfig.h"
 #include "masternodeconfig.h"
 #include "wallet.h"
 #include "walletdb.h"
@@ -93,8 +93,8 @@ void OptionsModel::Init()
 
     nAnonymizeCaritasCoinAmount = settings.value("nAnonymizeCaritasCoinAmount").toLongLong();
 
-    if (!settings.contains("fShowFundamentalnodesTab"))
-        settings.setValue("fShowFundamentalnodesTab", fundamentalnodeConfig.getCount());
+    if (!settings.contains("fShowCoralnodesTab"))
+        settings.setValue("fShowCoralnodesTab", coralnodeConfig.getCount());
 
     if (!settings.contains("fShowMasternodesTab"))
         settings.setValue("fShowMasternodesTab", masternodeConfig.getCount());
@@ -228,8 +228,8 @@ QVariant OptionsModel::data(const QModelIndex& index, int role) const
 #ifdef ENABLE_WALLET
         case SpendZeroConfChange:
             return settings.value("bSpendZeroConfChange");
-        case ShowFundamentalnodesTab:
-            return settings.value("fShowFundamentalnodesTab");
+        case ShowCoralnodesTab:
+            return settings.value("fShowCoralnodesTab");
 	    case ShowMasternodesTab:
             return settings.value("fShowMasternodesTab");
 			
@@ -333,9 +333,9 @@ bool OptionsModel::setData(const QModelIndex& index, const QVariant& value, int 
                 setRestartRequired(true);
             }
             break;
-        case ShowFundamentalnodesTab:
-            if (settings.value("fShowFundamentalnodesTab") != value) {
-                settings.setValue("fShowFundamentalnodesTab", value);
+        case ShowCoralnodesTab:
+            if (settings.value("fShowCoralnodesTab") != value) {
+                settings.setValue("fShowCoralnodesTab", value);
                 setRestartRequired(true);
             }
             break;

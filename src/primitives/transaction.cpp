@@ -72,7 +72,7 @@ CTxOut::CTxOut(const CAmount& nValueIn, CScript scriptPubKeyIn)
     nRounds = -10;
 }
 
-bool COutPoint::IsFundamentalnodeReward(const CTransaction* tx) const
+bool COutPoint::IsCoralnodeReward(const CTransaction* tx) const
 {
     if(!tx->IsCoinStake())
         return false;

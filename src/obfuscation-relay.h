@@ -8,15 +8,15 @@
 #ifndef OBFUSCATION_RELAY_H
 #define OBFUSCATION_RELAY_H
 
-#include "activefundamentalnode.h"
+#include "activecoralnode.h"
 #include "main.h"
-#include "fundamentalnodeman.h"
+#include "coralnodeman.h"
 
 
 class CObfuScationRelay
 {
 public:
-    CTxIn vinFundamentalnode;
+    CTxIn vinCoralnode;
     vector<unsigned char> vchSig;
     vector<unsigned char> vchSig2;
     int nBlockHeight;
@@ -25,14 +25,14 @@ public:
     CTxOut out;
 
     CObfuScationRelay();
-    CObfuScationRelay(CTxIn& vinFundamentalnodeIn, vector<unsigned char>& vchSigIn, int nBlockHeightIn, int nRelayTypeIn, CTxIn& in2, CTxOut& out2);
+    CObfuScationRelay(CTxIn& vinCoralnodeIn, vector<unsigned char>& vchSigIn, int nBlockHeightIn, int nRelayTypeIn, CTxIn& in2, CTxOut& out2);
 
     ADD_SERIALIZE_METHODS;
 
     template <typename Stream, typename Operation>
     inline void SerializationOp(Stream& s, Operation ser_action, int nType, int nVersion)
     {
-        READWRITE(vinFundamentalnode);
+        READWRITE(vinCoralnode);
         READWRITE(vchSig);
         READWRITE(vchSig2);
         READWRITE(nBlockHeight);

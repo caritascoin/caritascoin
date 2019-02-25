@@ -263,23 +263,23 @@ extern UniValue invalidateblock(const UniValue& params, bool fHelp);
 extern UniValue reconsiderblock(const UniValue& params, bool fHelp);
 extern UniValue getinvalid(const UniValue& params, bool fHelp);
 
-extern UniValue obfuscation(const UniValue& params, bool fHelp); // in rpcfundamentalnode.cpp
+extern UniValue obfuscation(const UniValue& params, bool fHelp); // in rpccoralnode.cpp
 extern UniValue getpoolinfo(const UniValue& params, bool fHelp);
-extern UniValue fundamentalnode(const UniValue& params, bool fHelp);
-extern UniValue listfundamentalnodes(const UniValue& params, bool fHelp);
-extern UniValue getfundamentalnodecount(const UniValue& params, bool fHelp);
-extern UniValue fundamentalnodeconnect(const UniValue& params, bool fHelp);
-extern UniValue fundamentalnodecurrent(const UniValue& params, bool fHelp);
-extern UniValue fundamentalnodedebug(const UniValue& params, bool fHelp);
-extern UniValue startfundamentalnode(const UniValue& params, bool fHelp);
-extern UniValue createfundamentalnodekey(const UniValue& params, bool fHelp);
-extern UniValue getfundamentalnodeoutputs(const UniValue& params, bool fHelp);
-extern UniValue listfundamentalnodeconf(const UniValue& params, bool fHelp);
-extern UniValue getfundamentalnodestatus(const UniValue& params, bool fHelp);
-extern UniValue getfundamentalnodewinners(const UniValue& params, bool fHelp);
-extern UniValue getfundamentalnodescores(const UniValue& params, bool fHelp);
+extern UniValue coralnode(const UniValue& params, bool fHelp);
+extern UniValue listcoralnodes(const UniValue& params, bool fHelp);
+extern UniValue getcoralnodecount(const UniValue& params, bool fHelp);
+extern UniValue coralnodeconnect(const UniValue& params, bool fHelp);
+extern UniValue coralnodecurrent(const UniValue& params, bool fHelp);
+extern UniValue coralnodedebug(const UniValue& params, bool fHelp);
+extern UniValue startcoralnode(const UniValue& params, bool fHelp);
+extern UniValue createcoralnodekey(const UniValue& params, bool fHelp);
+extern UniValue getcoralnodeoutputs(const UniValue& params, bool fHelp);
+extern UniValue listcoralnodeconf(const UniValue& params, bool fHelp);
+extern UniValue getcoralnodestatus(const UniValue& params, bool fHelp);
+extern UniValue getcoralnodewinners(const UniValue& params, bool fHelp);
+extern UniValue getcoralnodescores(const UniValue& params, bool fHelp);
 
-extern UniValue fnbudget(const UniValue& params, bool fHelp); // in rpcfundamentalnode-budget.cpp
+extern UniValue fnbudget(const UniValue& params, bool fHelp); // in rpccoralnode-budget.cpp
 extern UniValue preparebudget(const UniValue& params, bool fHelp);
 extern UniValue submitbudget(const UniValue& params, bool fHelp);
 extern UniValue fnbudgetvote(const UniValue& params, bool fHelp);

@@ -254,12 +254,12 @@
            </widget>
           </item>
           <item>
-           <widget class="QCheckBox" name="showFundamentalnodesTab">
+           <widget class="QCheckBox" name="showCoralnodesTab">
             <property name="toolTip">
-             <string>Show additional tab listing all your fundamentalnodes in first sub-tab&lt;br/&gt;and all fundamentalnodes on the network in second sub-tab.</string>
+             <string>Show additional tab listing all your coralnodes in first sub-tab&lt;br/&gt;and all coralnodes on the network in second sub-tab.</string>
             </property>
             <property name="text">
-             <string>Show Fundamentalnodes Tab</string>
+             <string>Show Coralnodes Tab</string>
             </property>
            </widget>
           </item>

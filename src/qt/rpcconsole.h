@@ -86,8 +86,8 @@ public slots:
     void setNumConnections(int count);
     /** Set number of blocks shown in the UI */
     void setNumBlocks(int count);
-    /** Set number of fundamentalnodes shown in the UI */
-    void setFundamentalnodeCount(const QString& strFundamentalnodes);
+    /** Set number of coralnodes shown in the UI */
+    void setCoralnodeCount(const QString& strCoralnodes);
 	/** Set number of masternodes shown in the UI */
     void setMasternodeCount(const QString& strMasternodes);
     /** Go forward or back in history */
@@ -108,7 +108,7 @@ public slots:
     void showConfEditor();
     /** Open external (default) editor with masternode.conf */
     void showMNConfEditor();
-	/** Open external (default) editor with fundamentalnode.conf */
+	/** Open external (default) editor with coralnode.conf */
     void showFNConfEditor();
     /** Handle selection of peer in peers list */
     void peerSelected(const QItemSelection& selected, const QItemSelection& deselected);

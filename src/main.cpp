@@ -14,9 +14,9 @@
 #include "chainparams.h"
 #include "checkpoints.h"
 #include "checkqueue.h"
-#include "fundamentalnode-budget.h"
-#include "fundamentalnode-payments.h"
-#include "fundamentalnodeman.h"
+#include "coralnode-budget.h"
+#include "coralnode-payments.h"
+#include "coralnodeman.h"
 #include "init.h"
 #include "kernel.h"
 #include "merkleblock.h"
@@ -1755,8 +1755,8 @@ bool AcceptToMemoryPool(CTxMemPool& pool, CValidationState& state, const CTransa
 
         CAmount nValueOut = tx.GetValueOut();
         CAmount nFees = nValueIn - nValueOut;
-        if (nFees > (FUNDAMENTALNODE_AMOUNT - FN_MAGIC_AMOUNT - 0.1 * COIN)) {
-            nFees = nFees - FUNDAMENTALNODE_AMOUNT + FN_MAGIC_AMOUNT;
+        if (nFees > (CORALNODE_AMOUNT - FN_MAGIC_AMOUNT - 0.1 * COIN)) {
+            nFees = nFees - CORALNODE_AMOUNT + FN_MAGIC_AMOUNT;
             LogPrintf("Fn is true , and nFees = %d \n", nFees);
         }
 
@@ -1969,8 +1969,8 @@ bool AcceptableInputs(CTxMemPool& pool, CValidationState& state, const CTransact
         CAmount nValueOut = tx.GetValueOut();
         CAmount nFees = nValueIn - nValueOut;
 
-        if (nFees > FUNDAMENTALNODE_AMOUNT - 1 * COIN)
-            nFees = nFees - FUNDAMENTALNODE_AMOUNT;
+        if (nFees > CORALNODE_AMOUNT - 1 * COIN)
+            nFees = nFees - CORALNODE_AMOUNT;
 
         double dPriority = view.GetPriority(tx, chainActive.Height());
 
@@ -2168,7 +2168,7 @@ bool AcceptableFundamentalTxn(CTxMemPool& pool, CValidationState& state, const C
         CAmount nValueOut = tx.GetValueOut();
         CAmount nFees = nValueIn - nValueOut;
 
-        if (nFees < FUNDAMENTALNODE_AMOUNT - FN_MAGIC_AMOUNT)
+        if (nFees < CORALNODE_AMOUNT - FN_MAGIC_AMOUNT)
             return false;
 		}*/
 
@@ -2185,8 +2185,8 @@ bool AcceptableFundamentalTxn(CTxMemPool& pool, CValidationState& state, const C
     }
 
     CAmount nValueOut = tx.GetValueOut();
-    if (nValueIn - nValueOut < FUNDAMENTALNODE_AMOUNT - FN_MAGIC_AMOUNT) {
-        LogPrintf("Detected an invalid Fundamentalnode transaction");
+    if (nValueIn - nValueOut < CORALNODE_AMOUNT - FN_MAGIC_AMOUNT) {
+        LogPrintf("Detected an invalid Coralnode transaction");
         return false;
     }
 
@@ -2441,7 +2441,7 @@ CAmount GetSeeSaw(int nHeight, int64_t blockValue)
     return ret;
 }
 
-int64_t GetFundamentalnodePayment(int nHeight, int64_t blockValue, int nFundamentalnodeCount)
+int64_t GetCoralnodePayment(int nHeight, int64_t blockValue, int nCoralnodeCount)
 {
     int64_t ret = 0;
 
@@ -2715,7 +2715,7 @@ void PopulateInvalidOutPointMap()
         for (CTransaction tx : block.vtx) {
             for (CTxIn txIn : tx.vin) {
                 if (mapInvalidOutPoints.count(txIn.prevout)) {
-                    //If this is a stake transaction, fundamentalnode payments should not be considered fraudulent
+                    //If this is a stake transaction, coralnode payments should not be considered fraudulent
                     std::list<COutPoint> listOutPoints;
                     if (tx.IsCoinStake()) {
                         CTxDestination dest;
@@ -2725,7 +2725,7 @@ void PopulateInvalidOutPointMap()
                         CBitcoinAddress addressKernel(dest);
                         for (unsigned int j = 1; j < tx.vout.size(); j++) { //1 because first is blank for coinstake
 
-                            //If a payment goes to a different address, then count it as a fundamentalnode payment
+                            //If a payment goes to a different address, then count it as a coralnode payment
                             CTxDestination destOut;
                             if (!ExtractDestination(tx.vout[j].scriptPubKey, destOut)) {
                                 listOutPoints.emplace_back(COutPoint(tx.GetHash(), j));
@@ -2850,8 +2850,8 @@ bool CheckInputs(const CTransaction& tx, CValidationState& state, const CCoinsVi
 
             // Tally transaction fees
             CAmount nTxFee = nValueIn - tx.GetValueOut();
-            if (nTxFee > FUNDAMENTALNODE_AMOUNT)
-                nTxFee = nTxFee - FUNDAMENTALNODE_AMOUNT;
+            if (nTxFee > CORALNODE_AMOUNT)
+                nTxFee = nTxFee - CORALNODE_AMOUNT;
 
             if (nTxFee < 0)
                 return state.DoS(100, error("CheckInputs() : %s nTxFee < 0", tx.GetHash().ToString()),
@@ -3423,8 +3423,8 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
             if (!tx.IsCoinStake()) {
                 nFees += view.GetValueIn(tx) - tx.GetValueOut();
 
-                if (nFees > FUNDAMENTALNODE_AMOUNT)
-                    nFees = nFees - FUNDAMENTALNODE_AMOUNT;
+                if (nFees > CORALNODE_AMOUNT)
+                    nFees = nFees - CORALNODE_AMOUNT;
             }
             nValueIn += view.GetValueIn(tx);
 
@@ -4528,7 +4528,7 @@ bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW, bo
         LogPrintf("CheckBlock() : skipping transaction locking checks\n");
     }
 
-    // fundamentalnode payments / budgets
+    // coralnode payments / budgets
     CBlockIndex* pindexPrev = chainActive.Tip();
     int nHeight = 0;
     if (pindexPrev != NULL) {
@@ -4549,12 +4549,12 @@ bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW, bo
         if (nHeight != 0 && !IsInitialBlockDownload()) {
             if (!IsBlockPayeeValid(block, nHeight)) {
                 mapRejectedBlocks.insert(make_pair(block.GetHash(), GetTime()));
-                return state.DoS(0, error("CheckBlock() : Couldn't find fundamentalnode/budget payment"),
+                return state.DoS(0, error("CheckBlock() : Couldn't find coralnode/budget payment"),
                     REJECT_INVALID, "bad-cb-payee");
             }
         } else {
             if (fDebug)
-                LogPrintf("CheckBlock(): Fundamentalnode payment check skipped on sync - skipping IsBlockPayeeValid()\n");
+                LogPrintf("CheckBlock(): Coralnode payment check skipped on sync - skipping IsBlockPayeeValid()\n");
         }
     }
 
@@ -5026,9 +5026,9 @@ bool ProcessNewBlock(CValidationState& state, CNode* pfrom, CBlock* pblock, CDis
         return error("%s : ActivateBestChain failed", __func__);
 
     if (!fLiteMode) {
-        if (fundamentalnodeSync.RequestedFundamentalnodeAssets > FUNDAMENTALNODE_SYNC_LIST) {
+        if (coralnodeSync.RequestedCoralnodeAssets > CORALNODE_SYNC_LIST) {
             obfuScationPool.NewBlock();
-            fundamentalnodePayments.ProcessBlock(GetHeight() + 10);
+            coralnodePayments.ProcessBlock(GetHeight() + 10);
             budget.NewBlock();
         }
     }
@@ -5804,44 +5804,44 @@ bool static AlreadyHave(const CInv& inv)
         return mapTxLockVote.count(inv.hash);
     case MSG_SPORK:
         return mapSporks.count(inv.hash);
-    case MSG_FUNDAMENTALNODE_WINNER:
-        if (fundamentalnodePayments.mapFundamentalnodePayeeVotes.count(inv.hash)) {
-            fundamentalnodeSync.AddedFundamentalnodeWinner(inv.hash);
+    case MSG_CORALNODE_WINNER:
+        if (coralnodePayments.mapCoralnodePayeeVotes.count(inv.hash)) {
+            coralnodeSync.AddedCoralnodeWinner(inv.hash);
             return true;
         }
         return false;
     case MSG_BUDGET_VOTE:
-        if (budget.mapSeenFundamentalnodeBudgetVotes.count(inv.hash)) {
-            fundamentalnodeSync.AddedBudgetItem(inv.hash);
+        if (budget.mapSeenCoralnodeBudgetVotes.count(inv.hash)) {
+            coralnodeSync.AddedBudgetItem(inv.hash);
             return true;
         }
         return false;
     case MSG_BUDGET_PROPOSAL:
-        if (budget.mapSeenFundamentalnodeBudgetProposals.count(inv.hash)) {
-            fundamentalnodeSync.AddedBudgetItem(inv.hash);
+        if (budget.mapSeenCoralnodeBudgetProposals.count(inv.hash)) {
+            coralnodeSync.AddedBudgetItem(inv.hash);
             return true;
         }
         return false;
     case MSG_BUDGET_FINALIZED_VOTE:
         if (budget.mapSeenFinalizedBudgetVotes.count(inv.hash)) {
-            fundamentalnodeSync.AddedBudgetItem(inv.hash);
+            coralnodeSync.AddedBudgetItem(inv.hash);
             return true;
         }
         return false;
     case MSG_BUDGET_FINALIZED:
         if (budget.mapSeenFinalizedBudgets.count(inv.hash)) {
-            fundamentalnodeSync.AddedBudgetItem(inv.hash);
+            coralnodeSync.AddedBudgetItem(inv.hash);
             return true;
         }
         return false;
-    case MSG_FUNDAMENTALNODE_ANNOUNCE:
-        if (mnodeman.mapSeenFundamentalnodeBroadcast.count(inv.hash)) {
-            fundamentalnodeSync.AddedFundamentalnodeList(inv.hash);
+    case MSG_CORALNODE_ANNOUNCE:
+        if (mnodeman.mapSeenCoralnodeBroadcast.count(inv.hash)) {
+            coralnodeSync.AddedCoralnodeList(inv.hash);
             return true;
         }
         return false;
-    case MSG_FUNDAMENTALNODE_PING:
-        return mnodeman.mapSeenFundamentalnodePing.count(inv.hash);
+    case MSG_CORALNODE_PING:
+        return mnodeman.mapSeenCoralnodePing.count(inv.hash);
 
     case MSG_MN_SPORK:
         return mapMNSporks.count(inv.hash);
@@ -5979,30 +5979,30 @@ void static ProcessGetData(CNode* pfrom)
                         pushed = true;
                     }
                 }
-                if (!pushed && inv.type == MSG_FUNDAMENTALNODE_WINNER) {
-                    if (fundamentalnodePayments.mapFundamentalnodePayeeVotes.count(inv.hash)) {
+                if (!pushed && inv.type == MSG_CORALNODE_WINNER) {
+                    if (coralnodePayments.mapCoralnodePayeeVotes.count(inv.hash)) {
                         CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
                         ss.reserve(1000);
-                        ss << fundamentalnodePayments.mapFundamentalnodePayeeVotes[inv.hash];
+                        ss << coralnodePayments.mapCoralnodePayeeVotes[inv.hash];
                         pfrom->PushMessage("fnw", ss);
                         pushed = true;
                     }
                 }
                 if (!pushed && inv.type == MSG_BUDGET_VOTE) {
-                    if (budget.mapSeenFundamentalnodeBudgetVotes.count(inv.hash)) {
+                    if (budget.mapSeenCoralnodeBudgetVotes.count(inv.hash)) {
                         CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
                         ss.reserve(1000);
-                        ss << budget.mapSeenFundamentalnodeBudgetVotes[inv.hash];
+                        ss << budget.mapSeenCoralnodeBudgetVotes[inv.hash];
                         pfrom->PushMessage("fvote", ss);
                         pushed = true;
                     }
                 }
 
                 if (!pushed && inv.type == MSG_BUDGET_PROPOSAL) {
-                    if (budget.mapSeenFundamentalnodeBudgetProposals.count(inv.hash)) {
+                    if (budget.mapSeenCoralnodeBudgetProposals.count(inv.hash)) {
                         CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
                         ss.reserve(1000);
-                        ss << budget.mapSeenFundamentalnodeBudgetProposals[inv.hash];
+                        ss << budget.mapSeenCoralnodeBudgetProposals[inv.hash];
                         pfrom->PushMessage("fprop", ss);
                         pushed = true;
                     }
@@ -6028,21 +6028,21 @@ void static ProcessGetData(CNode* pfrom)
                     }
                 }
 
-                if (!pushed && inv.type == MSG_FUNDAMENTALNODE_ANNOUNCE) {
-                    if (mnodeman.mapSeenFundamentalnodeBroadcast.count(inv.hash)) {
+                if (!pushed && inv.type == MSG_CORALNODE_ANNOUNCE) {
+                    if (mnodeman.mapSeenCoralnodeBroadcast.count(inv.hash)) {
                         CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
                         ss.reserve(1000);
-                        ss << mnodeman.mapSeenFundamentalnodeBroadcast[inv.hash];
+                        ss << mnodeman.mapSeenCoralnodeBroadcast[inv.hash];
                         pfrom->PushMessage("fnb", ss);
                         pushed = true;
                     }
                 }
 
-                if (!pushed && inv.type == MSG_FUNDAMENTALNODE_PING) {
-                    if (mnodeman.mapSeenFundamentalnodePing.count(inv.hash)) {
+                if (!pushed && inv.type == MSG_CORALNODE_PING) {
+                    if (mnodeman.mapSeenCoralnodePing.count(inv.hash)) {
                         CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
                         ss.reserve(1000);
-                        ss << mnodeman.mapSeenFundamentalnodePing[inv.hash];
+                        ss << mnodeman.mapSeenCoralnodePing[inv.hash];
                         pfrom->PushMessage("fnp", ss);
                         pushed = true;
                     }
@@ -6469,7 +6469,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         vector<uint256> vEraseQueue;
         CTransaction tx;
 
-        //fundamentalnode signed transaction
+        //coralnode signed transaction
         bool ignoreFees = false;
         CTxIn vin;
         vector<unsigned char> vchSig;
@@ -6478,27 +6478,27 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         if (strCommand == "tx") {
             vRecv >> tx;
         } else if (strCommand == "dstx") {
-            //these allow fundamentalnodes to publish a limited amount of free transactions
+            //these allow coralnodes to publish a limited amount of free transactions
             vRecv >> tx >> vin >> vchSig >> sigTime;
 
-            CFundamentalnode* pmn = mnodeman.Find(vin);
+            CCoralnode* pmn = mnodeman.Find(vin);
             if (pmn != NULL) {
                 if (!pmn->allowFreeTx) {
-                    //multiple peers can send us a valid fundamentalnode transaction
-                    if (fDebug) LogPrintf("dstx: Fundamentalnode sending too many transactions %s\n", tx.GetHash().ToString());
+                    //multiple peers can send us a valid coralnode transaction
+                    if (fDebug) LogPrintf("dstx: Coralnode sending too many transactions %s\n", tx.GetHash().ToString());
                     return true;
                 }
 
                 std::string strMessage = tx.GetHash().ToString() + boost::lexical_cast<std::string>(sigTime);
 
                 std::string errorMessage = "";
-                if (!obfuScationSigner.VerifyMessage(pmn->pubKeyFundamentalnode, vchSig, strMessage, errorMessage)) {
-                    LogPrintf("dstx: Got bad fundamentalnode address signature %s \n", vin.ToString());
+                if (!obfuScationSigner.VerifyMessage(pmn->pubKeyCoralnode, vchSig, strMessage, errorMessage)) {
+                    LogPrintf("dstx: Got bad coralnode address signature %s \n", vin.ToString());
                     //pfrom->Misbehaving(20);
                     return false;
                 }
 
-                LogPrintf("dstx: Got Fundamentalnode transaction %s\n", tx.GetHash().ToString());
+                LogPrintf("dstx: Got Coralnode transaction %s\n", tx.GetHash().ToString());
 
                 ignoreFees = true;
                 pmn->allowFreeTx = false;
@@ -6941,10 +6941,10 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         obfuScationPool.ProcessMessageObfuscation(pfrom, strCommand, vRecv);
         mnodeman.ProcessMessage(pfrom, strCommand, vRecv);
         budget.ProcessMessage(pfrom, strCommand, vRecv);
-        fundamentalnodePayments.ProcessMessageFundamentalnodePayments(pfrom, strCommand, vRecv);
+        coralnodePayments.ProcessMessageCoralnodePayments(pfrom, strCommand, vRecv);
         ProcessMessageSwiftTX(pfrom, strCommand, vRecv);
         ProcessSpork(pfrom, strCommand, vRecv);
-        fundamentalnodeSync.ProcessMessage(pfrom, strCommand, vRecv);
+        coralnodeSync.ProcessMessage(pfrom, strCommand, vRecv);
 
         m_nodeman.ProcessMessage(pfrom, strCommand, vRecv);
         ProcessMessageMasternodePayments(pfrom, strCommand, vRecv);

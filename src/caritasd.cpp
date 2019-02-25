@@ -10,7 +10,7 @@
 #include "clientversion.h"
 #include "init.h"
 #include "main.h"
-#include "fundamentalnodeconfig.h"
+#include "coralnodeconfig.h"
 #include "noui.h"
 #include "scheduler.h"
 #include "rpcserver.h"
@@ -107,10 +107,10 @@ bool AppInit(int argc, char* argv[])
             return false;
         }
 
-        // parse fundamentalnode.conf
+        // parse coralnode.conf
         std::string strErr;
-        if (!fundamentalnodeConfig.read(strErr)) {
-            fprintf(stderr, "Error reading fundamentalnode configuration file: %s\n", strErr.c_str());
+        if (!coralnodeConfig.read(strErr)) {
+            fprintf(stderr, "Error reading coralnode configuration file: %s\n", strErr.c_str());
             return false;
         }
 

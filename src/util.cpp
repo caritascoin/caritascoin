@@ -106,10 +106,10 @@ std::string to_internal(const std::string&);
 using namespace std;
 
 // CaritasCoin only features
-// fundamentalnode
-bool fFundamentalNode = false;
-string strFundamentalNodePrivKey = "";
-string strFundamentalNodeAddr = "";
+// coralnode
+bool fCoralNode = false;
+string strCoralNodePrivKey = "";
+string strCoralNodeAddr = "";
 bool fLiteMode = false;
 // SwiftX
 bool fEnableSwiftTX = true;
@@ -123,7 +123,7 @@ const int64_t AUTOMINT_DELAY = (60 * 5); // Wait at least 5 minutes until Automi
 int nAnonymizeCaritasCoinAmount = 1000;
 int nLiquidityProvider = 0;
 /** Spork enforcement enabled time */
-int64_t enforceFundamentalnodePaymentsTime = 4085657524;
+int64_t enforceCoralnodePaymentsTime = 4085657524;
 bool fSucessfullyLoaded = false;
 /** All denominations used by obfuscation */
 std::vector<int64_t> obfuScationDenominations;
@@ -249,7 +249,7 @@ bool LogAcceptCategory(const char* category)
             if (ptrCategory->count(string("caritas"))) {
                 ptrCategory->insert(string("obfuscation"));
                 ptrCategory->insert(string("swiftx"));
-                ptrCategory->insert(string("fundamentalnode"));
+                ptrCategory->insert(string("coralnode"));
                 ptrCategory->insert(string("fnpayments"));
                 ptrCategory->insert(string("zero"));
                 ptrCategory->insert(string("fnbudget"));
@@ -507,9 +507,9 @@ boost::filesystem::path GetConfigFile()
     return pathConfigFile;
 }
 
-boost::filesystem::path GetFundamentalnodeConfigFile()
+boost::filesystem::path GetCoralnodeConfigFile()
 {
-    boost::filesystem::path pathConfigFile(GetArg("-fnconf", "fundamentalnode.conf"));
+    boost::filesystem::path pathConfigFile(GetArg("-fnconf", "coralnode.conf"));
     if (!pathConfigFile.is_complete()) pathConfigFile = GetDataDir() / pathConfigFile;
     return pathConfigFile;
 }

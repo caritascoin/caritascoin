@@ -3,11 +3,11 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "fundamentalnode-payments.h"
+#include "coralnode-payments.h"
 #include "addrman.h"
-#include "fundamentalnode-budget.h"
-#include "fundamentalnode-sync.h"
-#include "fundamentalnodeman.h"
+#include "coralnode-budget.h"
+#include "coralnode-sync.h"
+#include "coralnodeman.h"
 #include "obfuscation.h"
 #include "spork.h"
 #include "sync.h"
@@ -22,29 +22,29 @@
 #include <boost/lexical_cast.hpp>
 
 /** Object for who's going to get paid on which blocks */
-CFundamentalnodePayments fundamentalnodePayments;
+CCoralnodePayments coralnodePayments;
 
 CCriticalSection cs_vecPayments;
-CCriticalSection cs_mapFundamentalnodeBlocks;
-CCriticalSection cs_mapFundamentalnodePayeeVotes;
+CCriticalSection cs_mapCoralnodeBlocks;
+CCriticalSection cs_mapCoralnodePayeeVotes;
 
 //
-// CFundamentalnodePaymentDB
+// CCoralnodePaymentDB
 //
 
-CFundamentalnodePaymentDB::CFundamentalnodePaymentDB()
+CCoralnodePaymentDB::CCoralnodePaymentDB()
 {
     pathDB = GetDataDir() / "fnpayments.dat";
-    strMagicMessage = "FundamentalnodePayments";
+    strMagicMessage = "CoralnodePayments";
 }
 
-bool CFundamentalnodePaymentDB::Write(const CFundamentalnodePayments& objToSave)
+bool CCoralnodePaymentDB::Write(const CCoralnodePayments& objToSave)
 {
     int64_t nStart = GetTimeMillis();
 
     // serialize, checksum data up to that point, then append checksum
     CDataStream ssObj(SER_DISK, CLIENT_VERSION);
-    ssObj << strMagicMessage;                   // fundamentalnode cache file specific magic message
+    ssObj << strMagicMessage;                   // coralnode cache file specific magic message
     ssObj << FLATDATA(Params().MessageStart()); // network specific magic number
     ssObj << objToSave;
     uint256 hash = Hash(ssObj.begin(), ssObj.end());
@@ -64,12 +64,12 @@ bool CFundamentalnodePaymentDB::Write(const CFundamentalnodePayments& objToSave)
     }
     fileout.fclose();
 
-    LogPrint("fundamentalnode","Written info to mnpayments.dat  %dms\n", GetTimeMillis() - nStart);
+    LogPrint("coralnode","Written info to mnpayments.dat  %dms\n", GetTimeMillis() - nStart);
 
     return true;
 }
 
-CFundamentalnodePaymentDB::ReadResult CFundamentalnodePaymentDB::Read(CFundamentalnodePayments& objToLoad, bool fDryRun)
+CCoralnodePaymentDB::ReadResult CCoralnodePaymentDB::Read(CCoralnodePayments& objToLoad, bool fDryRun)
 {
     int64_t nStart = GetTimeMillis();
     // open input file, and associate with CAutoFile
@@ -112,12 +112,12 @@ CFundamentalnodePaymentDB::ReadResult CFundamentalnodePaymentDB::Read(CFundament
     unsigned char pchMsgTmp[4];
     std::string strMagicMessageTmp;
     try {
-        // de-serialize file header (fundamentalnode cache file specific magic message) and ..
+        // de-serialize file header (coralnode cache file specific magic message) and ..
         ssObj >> strMagicMessageTmp;
 
         // ... verify the message matches predefined one
         if (strMagicMessage != strMagicMessageTmp) {
-            error("%s : Invalid fundamentalnode payement cache magic message", __func__);
+            error("%s : Invalid coralnode payement cache magic message", __func__);
             return IncorrectMagicMessage;
         }
 
@@ -131,7 +131,7 @@ CFundamentalnodePaymentDB::ReadResult CFundamentalnodePaymentDB::Read(CFundament
             return IncorrectMagicNumber;
         }
 
-        // de-serialize data into CFundamentalnodePayments object
+        // de-serialize data into CCoralnodePayments object
         ssObj >> objToLoad;
     } catch (std::exception& e) {
         objToLoad.Clear();
@@ -139,43 +139,43 @@ CFundamentalnodePaymentDB::ReadResult CFundamentalnodePaymentDB::Read(CFundament
         return IncorrectFormat;
     }
 
-    LogPrint("fundamentalnode","Loaded info from mnpayments.dat  %dms\n", GetTimeMillis() - nStart);
-    LogPrint("fundamentalnode","  %s\n", objToLoad.ToString());
+    LogPrint("coralnode","Loaded info from mnpayments.dat  %dms\n", GetTimeMillis() - nStart);
+    LogPrint("coralnode","  %s\n", objToLoad.ToString());
     if (!fDryRun) {
-        LogPrint("fundamentalnode","Fundamentalnode payments manager - cleaning....\n");
+        LogPrint("coralnode","Coralnode payments manager - cleaning....\n");
         objToLoad.CleanPaymentList();
-        LogPrint("fundamentalnode","Fundamentalnode payments manager - result:\n");
-        LogPrint("fundamentalnode","  %s\n", objToLoad.ToString());
+        LogPrint("coralnode","Coralnode payments manager - result:\n");
+        LogPrint("coralnode","  %s\n", objToLoad.ToString());
     }
 
     return Ok;
 }
 
-void DumpFundamentalnodePayments()
+void DumpCoralnodePayments()
 {
     int64_t nStart = GetTimeMillis();
 
-    CFundamentalnodePaymentDB paymentdb;
-    CFundamentalnodePayments tempPayments;
+    CCoralnodePaymentDB paymentdb;
+    CCoralnodePayments tempPayments;
 
-    LogPrint("fundamentalnode","Verifying mnpayments.dat format...\n");
-    CFundamentalnodePaymentDB::ReadResult readResult = paymentdb.Read(tempPayments, true);
+    LogPrint("coralnode","Verifying mnpayments.dat format...\n");
+    CCoralnodePaymentDB::ReadResult readResult = paymentdb.Read(tempPayments, true);
     // there was an error and it was not an error on file opening => do not proceed
-    if (readResult == CFundamentalnodePaymentDB::FileError)
-        LogPrint("fundamentalnode","Missing budgets file - mnpayments.dat, will try to recreate\n");
-    else if (readResult != CFundamentalnodePaymentDB::Ok) {
-        LogPrint("fundamentalnode","Error reading mnpayments.dat: ");
-        if (readResult == CFundamentalnodePaymentDB::IncorrectFormat)
-            LogPrint("fundamentalnode","magic is ok but data has invalid format, will try to recreate\n");
+    if (readResult == CCoralnodePaymentDB::FileError)
+        LogPrint("coralnode","Missing budgets file - mnpayments.dat, will try to recreate\n");
+    else if (readResult != CCoralnodePaymentDB::Ok) {
+        LogPrint("coralnode","Error reading mnpayments.dat: ");
+        if (readResult == CCoralnodePaymentDB::IncorrectFormat)
+            LogPrint("coralnode","magic is ok but data has invalid format, will try to recreate\n");
         else {
-            LogPrint("fundamentalnode","file format is unknown or invalid, please fix it manually\n");
+            LogPrint("coralnode","file format is unknown or invalid, please fix it manually\n");
             return;
         }
     }
-    LogPrint("fundamentalnode","Writting info to mnpayments.dat...\n");
-    paymentdb.Write(fundamentalnodePayments);
+    LogPrint("coralnode","Writting info to mnpayments.dat...\n");
+    paymentdb.Write(coralnodePayments);
 
-    LogPrint("fundamentalnode","Budget dump finished  %dms\n", GetTimeMillis() - nStart);
+    LogPrint("coralnode","Budget dump finished  %dms\n", GetTimeMillis() - nStart);
 }
 
 bool IsBlockValueValid(const CBlock& block, CAmount nExpectedValue, CAmount nMinted)
@@ -193,12 +193,12 @@ bool IsBlockValueValid(const CBlock& block, CAmount nExpectedValue, CAmount nMin
     }
 
     if (nHeight == 0) {
-        LogPrint("fundamentalnode","IsBlockValueValid() : WARNING: Couldn't find previous block\n");
+        LogPrint("coralnode","IsBlockValueValid() : WARNING: Couldn't find previous block\n");
     }
 
     //LogPrintf("XX69----------> IsBlockValueValid(): nMinted: %d, nExpectedValue: %d\n", FormatMoney(nMinted), FormatMoney(nExpectedValue));
 
-    if (!fundamentalnodeSync.IsSynced()) { //there is no budget data to use to check anything
+    if (!coralnodeSync.IsSynced()) { //there is no budget data to use to check anything
         //super blocks will always be on these blocks, max 100 per budgeting
         if (nHeight % GetBudgetPaymentCycleBlocks() < 100) {
             return true;
@@ -229,7 +229,7 @@ bool IsBlockValueValid(const CBlock& block, CAmount nExpectedValue, CAmount nMin
 
 bool IsBlockPayeeValid(const CBlock& block, int nBlockHeight)
 {
-    if (!fundamentalnodeSync.IsSynced()) { //there is no budget data to use to check anything -- find the longest chain
+    if (!coralnodeSync.IsSynced()) { //there is no budget data to use to check anything -- find the longest chain
         LogPrint("mnpayments", "Client not synced, skipping block payee checks\n");
         return true;
     }
@@ -314,23 +314,23 @@ bool IsBlockPayeeValid(const CBlock& block, int nBlockHeight)
             if (budget.IsTransactionValid(txNew, nBlockHeight))
                 return true;
 
-            LogPrint("fundamentalnode","Invalid budget payment detected %s\n", txNew.ToString().c_str());
-            if (IsSporkActive(SPORK_9_FUNDAMENTALNODE_BUDGET_ENFORCEMENT))
+            LogPrint("coralnode","Invalid budget payment detected %s\n", txNew.ToString().c_str());
+            if (IsSporkActive(SPORK_9_CORALNODE_BUDGET_ENFORCEMENT))
                 return false;
 
-            LogPrint("fundamentalnode","Budget enforcement is disabled, accepting block\n");
+            LogPrint("coralnode","Budget enforcement is disabled, accepting block\n");
             return true;
         }
     }
 
-    //check for fundamentalnode payee
-    if (fundamentalnodePayments.IsTransactionValid(txNew, nBlockHeight))
+    //check for coralnode payee
+    if (coralnodePayments.IsTransactionValid(txNew, nBlockHeight))
         return true;
-    LogPrint("fundamentalnode","Invalid mn payment detected %s\n", txNew.ToString().c_str());
+    LogPrint("coralnode","Invalid mn payment detected %s\n", txNew.ToString().c_str());
 
-    if (IsSporkActive(SPORK_8_FUNDAMENTALNODE_PAYMENT_ENFORCEMENT))
+    if (IsSporkActive(SPORK_8_CORALNODE_PAYMENT_ENFORCEMENT))
         return false;
-    LogPrint("fundamentalnode","Fundamentalnode payment enforcement is disabled, accepting block\n");
+    LogPrint("coralnode","Coralnode payment enforcement is disabled, accepting block\n");
 
     return true;
 }
@@ -344,7 +344,7 @@ void FillBlockPayee(CMutableTransaction& txNew, CAmount nFees, bool fProofOfStak
     if (IsSporkActive(SPORK_13_ENABLE_SUPERBLOCKS) && budget.IsBudgetPaymentBlock(pindexPrev->nHeight + 1)) {
         budget.FillBlockPayee(txNew, nFees, fProofOfStake);
     } else {
-        fundamentalnodePayments.FillBlockPayee(txNew, nFees, fProofOfStake, IsMasternode);
+        coralnodePayments.FillBlockPayee(txNew, nFees, fProofOfStake, IsMasternode);
     }
 }
 
@@ -353,11 +353,11 @@ std::string GetRequiredPaymentsString(int nBlockHeight)
     if (IsSporkActive(SPORK_13_ENABLE_SUPERBLOCKS) && budget.IsBudgetPaymentBlock(nBlockHeight)) {
         return budget.GetRequiredPaymentsString(nBlockHeight);
     } else {
-        return fundamentalnodePayments.GetRequiredPaymentsString(nBlockHeight);
+        return coralnodePayments.GetRequiredPaymentsString(nBlockHeight);
     }
 }
 
-void CFundamentalnodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_t nFees, bool fProofOfStake, bool IsMasternode)
+void CCoralnodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_t nFees, bool fProofOfStake, bool IsMasternode)
 {
     CBlockIndex* pindexPrev = chainActive.Tip();
     if (!pindexPrev) return;
@@ -368,13 +368,13 @@ void CFundamentalnodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_
     CScript mn_payee;
 
     //spork
-    if (!fundamentalnodePayments.GetBlockPayee(pindexPrev->nHeight + 1, payee)) {
-        //no fundamentalnode detected
-        CFundamentalnode* winningNode = mnodeman.GetCurrentFundamentalNode(1);
+    if (!coralnodePayments.GetBlockPayee(pindexPrev->nHeight + 1, payee)) {
+        //no coralnode detected
+        CCoralnode* winningNode = mnodeman.GetCurrentCoralNode(1);
         if (winningNode) {
             payee = GetScriptForDestination(winningNode->pubKeyCollateralAddress.GetID());
         } else {
-            LogPrint("fundamentalnode","CreateNewBlock: Failed to detect fundamentalnode to pay\n");
+            LogPrint("coralnode","CreateNewBlock: Failed to detect coralnode to pay\n");
             hasPayment = false;
         }
     }
@@ -382,11 +382,11 @@ void CFundamentalnodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_
     //    bool bMasterNodePayment = false;
 
     //    if ( Params().NetworkID() == CBaseChainParams::TESTNET ){
-    //        if (GetTimeMicros() > START_FUNDAMENTALNODE_PAYMENTS_TESTNET ){
+    //        if (GetTimeMicros() > START_CORALNODE_PAYMENTS_TESTNET ){
     //            bMasterNodePayment = true;
     //        }
     //    }else{
-    //        if (GetTimeMicros() > START_FUNDAMENTALNODE_PAYMENTS){
+    //        if (GetTimeMicros() > START_CORALNODE_PAYMENTS){
     //            bMasterNodePayment = true;
     //        }
     //    }//
@@ -403,7 +403,7 @@ void CFundamentalnodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_
     }
    
     CAmount blockValue = GetBlockValue(pindexPrev->nHeight);
-    CAmount fundamentalnodePayment = GetFundamentalnodePayment(pindexPrev->nHeight + 1, blockValue);
+    CAmount coralnodePayment = GetCoralnodePayment(pindexPrev->nHeight + 1, blockValue);
     CAmount masternodepayment = GetMasternodePayment(pindexPrev->nHeight +1 , blockValue);
 
     //txNew.vout[0].nValue = blockValue;
@@ -414,31 +414,31 @@ void CFundamentalnodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_
                 /**For Proof Of Stake vout[0] must be null
                  * Stake reward can be split into many different outputs, so we must
                  * use vout.size() to align with several different cases.
-                 * An additional output is appended as the fundamentalnode payment
+                 * An additional output is appended as the coralnode payment
                  */
                 unsigned int i = txNew.vout.size();
                 txNew.vout.resize(i + 2);
                 txNew.vout[i].scriptPubKey = payee;
-                txNew.vout[i].nValue = fundamentalnodePayment;
+                txNew.vout[i].nValue = coralnodePayment;
                 txNew.vout[i + 1].scriptPubKey = mn_payee;
                 txNew.vout[i + 1].nValue = masternodepayment;
 
                 //subtract mn payment from the stake reward
-                txNew.vout[i - 1].nValue -= (fundamentalnodePayment + masternodepayment);
+                txNew.vout[i - 1].nValue -= (coralnodePayment + masternodepayment);
             } else {
                 txNew.vout.resize(3);
                 txNew.vout[2].scriptPubKey = mn_payee;
                 txNew.vout[2].nValue = masternodepayment;
                 txNew.vout[1].scriptPubKey = payee;
-                txNew.vout[1].nValue = fundamentalnodePayment;
-                txNew.vout[0].nValue = blockValue - (fundamentalnodePayment + masternodepayment);
+                txNew.vout[1].nValue = coralnodePayment;
+                txNew.vout[0].nValue = blockValue - (coralnodePayment + masternodepayment);
             }
 
             CTxDestination address1;
             ExtractDestination(payee, address1);
             CBitcoinAddress address2(address1);
 
-            LogPrint("fundamentalnode","Fundamentalnode payment of %s to %s\n", FormatMoney(fundamentalnodePayment).c_str(), address2.ToString().c_str());
+            LogPrint("coralnode","Coralnode payment of %s to %s\n", FormatMoney(coralnodePayment).c_str(), address2.ToString().c_str());
 
 
             CTxDestination address3;
@@ -453,27 +453,27 @@ void CFundamentalnodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_
                 /**For Proof Of Stake vout[0] must be null
              * Stake reward can be split into many different outputs, so we must
              * use vout.size() to align with several different cases.
-             * An additional output is appended as the fundamentalnode payment
+             * An additional output is appended as the coralnode payment
              */
                 unsigned int i = txNew.vout.size();
                 txNew.vout.resize(i + 1);
                 txNew.vout[i].scriptPubKey = payee;
-                txNew.vout[i].nValue = fundamentalnodePayment;
+                txNew.vout[i].nValue = coralnodePayment;
 
                 //subtract mn payment from the stake reward
-                txNew.vout[i - 1].nValue -= fundamentalnodePayment;
+                txNew.vout[i - 1].nValue -= coralnodePayment;
             } else {
                 txNew.vout.resize(2);
                 txNew.vout[1].scriptPubKey = payee;
-                txNew.vout[1].nValue = fundamentalnodePayment;
-                txNew.vout[0].nValue = blockValue - fundamentalnodePayment;
+                txNew.vout[1].nValue = coralnodePayment;
+                txNew.vout[0].nValue = blockValue - coralnodePayment;
             }
 
             CTxDestination address1;
             ExtractDestination(payee, address1);
             CBitcoinAddress address2(address1);
 
-            LogPrint("fundamentalnode","Fundamentalnode payment of %s to %s\n", FormatMoney(fundamentalnodePayment).c_str(), address2.ToString().c_str());
+            LogPrint("coralnode","Coralnode payment of %s to %s\n", FormatMoney(coralnodePayment).c_str(), address2.ToString().c_str());
         }
     } else {
 
@@ -482,7 +482,7 @@ void CFundamentalnodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_
                 /**For Proof Of Stake vout[0] must be null
                  * Stake reward can be split into many different outputs, so we must
                  * use vout.size() to align with several different cases.
-                 * An additional output is appended as the fundamentalnode payment
+                 * An additional output is appended as the coralnode payment
                  */
                 unsigned int i = txNew.vout.size();
                 txNew.vout.resize(i + 1);
@@ -515,7 +515,7 @@ void CFundamentalnodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_
                 /**For Proof Of Stake vout[0] must be null
              * Stake reward can be split into many different outputs, so we must
              * use vout.size() to align with several different cases.
-             * An additional output is appended as the fundamentalnode payment
+             * An additional output is appended as the coralnode payment
              */
 
             } else {
@@ -528,41 +528,41 @@ void CFundamentalnodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_
     }
 }
 
-int CFundamentalnodePayments::GetMinFundamentalnodePaymentsProto()
+int CCoralnodePayments::GetMinCoralnodePaymentsProto()
 {
-    if (IsSporkActive(SPORK_10_FUNDAMENTALNODE_PAY_UPDATED_NODES))
+    if (IsSporkActive(SPORK_10_CORALNODE_PAY_UPDATED_NODES))
         return ActiveProtocol();                          // Allow only updated peers
     else
         return MIN_PEER_PROTO_VERSION_BEFORE_ENFORCEMENT; // Also allow old peers as long as they are allowed to run
 }
 
-void CFundamentalnodePayments::ProcessMessageFundamentalnodePayments(CNode* pfrom, std::string& strCommand, CDataStream& vRecv)
+void CCoralnodePayments::ProcessMessageCoralnodePayments(CNode* pfrom, std::string& strCommand, CDataStream& vRecv)
 {
-    if (!fundamentalnodeSync.IsBlockchainSynced()) return;
+    if (!coralnodeSync.IsBlockchainSynced()) return;
 
-    if (fLiteMode) return; //disable all Obfuscation/Fundamentalnode related functionality
+    if (fLiteMode) return; //disable all Obfuscation/Coralnode related functionality
 
 
-    if (strCommand == "fnget") { //Fundamentalnode Payments Request Sync
-        if (fLiteMode) return;   //disable all Obfuscation/Fundamentalnode related functionality
+    if (strCommand == "fnget") { //Coralnode Payments Request Sync
+        if (fLiteMode) return;   //disable all Obfuscation/Coralnode related functionality
 
         int nCountNeeded;
         vRecv >> nCountNeeded;
 
         if (Params().NetworkID() == CBaseChainParams::MAIN) {
             if (pfrom->HasFulfilledRequest("fnget")) {
-                LogPrint("fundamentalnode","fnget - peer already asked me for the list\n");
+                LogPrint("coralnode","fnget - peer already asked me for the list\n");
                 Misbehaving(pfrom->GetId(), 20);
                 return;
             }
         }
 
         pfrom->FulfilledRequest("fnget");
-        fundamentalnodePayments.Sync(pfrom, nCountNeeded);
-        LogPrint("mnpayments", "fnget - Sent Fundamentalnode winners to peer %i\n", pfrom->GetId());
-    } else if (strCommand == "fnw") { //Fundamentalnode Payments Declare Winner
+        coralnodePayments.Sync(pfrom, nCountNeeded);
+        LogPrint("mnpayments", "fnget - Sent Coralnode winners to peer %i\n", pfrom->GetId());
+    } else if (strCommand == "fnw") { //Coralnode Payments Declare Winner
         //this is required in litemodef
-        CFundamentalnodePaymentWinner winner;
+        CCoralnodePaymentWinner winner;
         vRecv >> winner;
 
         if (pfrom->nVersion < ActiveProtocol()) return;
@@ -574,9 +574,9 @@ void CFundamentalnodePayments::ProcessMessageFundamentalnodePayments(CNode* pfro
             nHeight = chainActive.Tip()->nHeight;
         }
 
-        if (fundamentalnodePayments.mapFundamentalnodePayeeVotes.count(winner.GetHash())) {
+        if (coralnodePayments.mapCoralnodePayeeVotes.count(winner.GetHash())) {
             LogPrint("mnpayments", "fnw - Already seen - %s bestHeight %d\n", winner.GetHash().ToString().c_str(), nHeight);
-            fundamentalnodeSync.AddedFundamentalnodeWinner(winner.GetHash());
+            coralnodeSync.AddedCoralnodeWinner(winner.GetHash());
             return;
         }
 
@@ -588,20 +588,20 @@ void CFundamentalnodePayments::ProcessMessageFundamentalnodePayments(CNode* pfro
 
         std::string strError = "";
         if (!winner.IsValid(pfrom, strError)) {
-            // if(strError != "") LogPrint("fundamentalnode","fnw - invalid message - %s\n", strError);
+            // if(strError != "") LogPrint("coralnode","fnw - invalid message - %s\n", strError);
             return;
         }
 
-        if (!fundamentalnodePayments.CanVote(winner.vinFundamentalnode.prevout, winner.nBlockHeight)) {
-            //  LogPrint("fundamentalnode","fnw - fundamentalnode already voted - %s\n", winner.vinFundamentalnode.prevout.ToStringShort());
+        if (!coralnodePayments.CanVote(winner.vinCoralnode.prevout, winner.nBlockHeight)) {
+            //  LogPrint("coralnode","fnw - coralnode already voted - %s\n", winner.vinCoralnode.prevout.ToStringShort());
             return;
         }
 
         if (!winner.SignatureValid()) {
-            // LogPrint("fundamentalnode","fnw - invalid signature\n");
-            if (fundamentalnodeSync.IsSynced()) Misbehaving(pfrom->GetId(), 20);
-            // it could just be a non-synced fundamentalnode
-            mnodeman.AskForMN(pfrom, winner.vinFundamentalnode);
+            // LogPrint("coralnode","fnw - invalid signature\n");
+            if (coralnodeSync.IsSynced()) Misbehaving(pfrom->GetId(), 20);
+            // it could just be a non-synced coralnode
+            mnodeman.AskForMN(pfrom, winner.vinCoralnode);
             return;
         }
 
@@ -609,51 +609,51 @@ void CFundamentalnodePayments::ProcessMessageFundamentalnodePayments(CNode* pfro
         ExtractDestination(winner.payee, address1);
         CBitcoinAddress address2(address1);
 
-        //   LogPrint("mnpayments", "fnw - winning vote - Addr %s Height %d bestHeight %d - %s\n", address2.ToString().c_str(), winner.nBlockHeight, nHeight, winner.vinFundamentalnode.prevout.ToStringShort());
+        //   LogPrint("mnpayments", "fnw - winning vote - Addr %s Height %d bestHeight %d - %s\n", address2.ToString().c_str(), winner.nBlockHeight, nHeight, winner.vinCoralnode.prevout.ToStringShort());
 
-        if (fundamentalnodePayments.AddWinningFundamentalnode(winner)) {
+        if (coralnodePayments.AddWinningCoralnode(winner)) {
             winner.Relay();
-            fundamentalnodeSync.AddedFundamentalnodeWinner(winner.GetHash());
+            coralnodeSync.AddedCoralnodeWinner(winner.GetHash());
         }
     }
 }
 
-bool CFundamentalnodePaymentWinner::Sign(CKey& keyFundamentalnode, CPubKey& pubKeyFundamentalnode)
+bool CCoralnodePaymentWinner::Sign(CKey& keyCoralnode, CPubKey& pubKeyCoralnode)
 {
     std::string errorMessage;
-    std::string strFundamentalNodeSignMessage;
+    std::string strCoralNodeSignMessage;
 
-    std::string strMessage = vinFundamentalnode.prevout.ToStringShort() +
+    std::string strMessage = vinCoralnode.prevout.ToStringShort() +
                              boost::lexical_cast<std::string>(nBlockHeight) +
                              payee.ToString();
 
-    if (!obfuScationSigner.SignMessage(strMessage, errorMessage, vchSig, keyFundamentalnode)) {
-        LogPrint("fundamentalnode","CFundamentalnodePing::Sign() - Error: %s\n", errorMessage.c_str());
+    if (!obfuScationSigner.SignMessage(strMessage, errorMessage, vchSig, keyCoralnode)) {
+        LogPrint("coralnode","CCoralnodePing::Sign() - Error: %s\n", errorMessage.c_str());
         return false;
     }
 
-    if (!obfuScationSigner.VerifyMessage(pubKeyFundamentalnode, vchSig, strMessage, errorMessage)) {
-        LogPrint("fundamentalnode","CFundamentalnodePing::Sign() - Error: %s\n", errorMessage.c_str());
+    if (!obfuScationSigner.VerifyMessage(pubKeyCoralnode, vchSig, strMessage, errorMessage)) {
+        LogPrint("coralnode","CCoralnodePing::Sign() - Error: %s\n", errorMessage.c_str());
         return false;
     }
 
     return true;
 }
 
-bool CFundamentalnodePayments::GetBlockPayee(int nBlockHeight, CScript& payee)
+bool CCoralnodePayments::GetBlockPayee(int nBlockHeight, CScript& payee)
 {
-    if (mapFundamentalnodeBlocks.count(nBlockHeight)) {
-        return mapFundamentalnodeBlocks[nBlockHeight].GetPayee(payee);
+    if (mapCoralnodeBlocks.count(nBlockHeight)) {
+        return mapCoralnodeBlocks[nBlockHeight].GetPayee(payee);
     }
 
     return false;
 }
 
-// Is this fundamentalnode scheduled to get paid soon?
+// Is this coralnode scheduled to get paid soon?
 // -- Only look ahead up to 8 blocks to allow for propagation of the latest 2 winners
-bool CFundamentalnodePayments::IsScheduled(CFundamentalnode& mn, int nNotBlockHeight)
+bool CCoralnodePayments::IsScheduled(CCoralnode& mn, int nNotBlockHeight)
 {
-    LOCK(cs_mapFundamentalnodeBlocks);
+    LOCK(cs_mapCoralnodeBlocks);
 
     int nHeight;
     {
@@ -668,8 +668,8 @@ bool CFundamentalnodePayments::IsScheduled(CFundamentalnode& mn, int nNotBlockHe
     CScript payee;
     for (int64_t h = nHeight; h <= nHeight + 8; h++) {
         if (h == nNotBlockHeight) continue;
-        if (mapFundamentalnodeBlocks.count(h)) {
-            if (mapFundamentalnodeBlocks[h].GetPayee(payee)) {
+        if (mapCoralnodeBlocks.count(h)) {
+            if (mapCoralnodeBlocks[h].GetPayee(payee)) {
                 if (mnpayee == payee) {
                     return true;
                 }
@@ -680,7 +680,7 @@ bool CFundamentalnodePayments::IsScheduled(CFundamentalnode& mn, int nNotBlockHe
     return false;
 }
 
-bool CFundamentalnodePayments::AddWinningFundamentalnode(CFundamentalnodePaymentWinner& winnerIn)
+bool CCoralnodePayments::AddWinningCoralnode(CCoralnodePaymentWinner& winnerIn)
 {
     uint256 blockHash = 0;
     if (!GetBlockHash(blockHash, winnerIn.nBlockHeight - 100)) {
@@ -688,65 +688,65 @@ bool CFundamentalnodePayments::AddWinningFundamentalnode(CFundamentalnodePayment
     }
 
     {
-        LOCK2(cs_mapFundamentalnodePayeeVotes, cs_mapFundamentalnodeBlocks);
+        LOCK2(cs_mapCoralnodePayeeVotes, cs_mapCoralnodeBlocks);
 
-        if (mapFundamentalnodePayeeVotes.count(winnerIn.GetHash())) {
+        if (mapCoralnodePayeeVotes.count(winnerIn.GetHash())) {
             return false;
         }
 
-        mapFundamentalnodePayeeVotes[winnerIn.GetHash()] = winnerIn;
+        mapCoralnodePayeeVotes[winnerIn.GetHash()] = winnerIn;
 
-        if (!mapFundamentalnodeBlocks.count(winnerIn.nBlockHeight)) {
-            CFundamentalnodeBlockPayees blockPayees(winnerIn.nBlockHeight);
-            mapFundamentalnodeBlocks[winnerIn.nBlockHeight] = blockPayees;
+        if (!mapCoralnodeBlocks.count(winnerIn.nBlockHeight)) {
+            CCoralnodeBlockPayees blockPayees(winnerIn.nBlockHeight);
+            mapCoralnodeBlocks[winnerIn.nBlockHeight] = blockPayees;
         }
     }
 
-    mapFundamentalnodeBlocks[winnerIn.nBlockHeight].AddPayee(winnerIn.payee, 1);
+    mapCoralnodeBlocks[winnerIn.nBlockHeight].AddPayee(winnerIn.payee, 1);
 
     return true;
 }
 
-bool CFundamentalnodeBlockPayees::IsTransactionValid(const CTransaction& txNew)
+bool CCoralnodeBlockPayees::IsTransactionValid(const CTransaction& txNew)
 {
     LOCK(cs_vecPayments);
 
     int nMaxSignatures = 0;
-    int nFundamentalnode_Drift_Count = 0;
+    int nCoralnode_Drift_Count = 0;
 
     std::string strPayeesPossible = "";
 
     CAmount nReward = GetBlockValue(nBlockHeight);
 
-    if (IsSporkActive(SPORK_8_FUNDAMENTALNODE_PAYMENT_ENFORCEMENT)) {
-        // Get a stable number of fundamentalnodes by ignoring newly activated (< 8000 sec old) fundamentalnodes
-        nFundamentalnode_Drift_Count = mnodeman.stable_size() + Params().FundamentalnodeCountDrift();
+    if (IsSporkActive(SPORK_8_CORALNODE_PAYMENT_ENFORCEMENT)) {
+        // Get a stable number of coralnodes by ignoring newly activated (< 8000 sec old) coralnodes
+        nCoralnode_Drift_Count = mnodeman.stable_size() + Params().CoralnodeCountDrift();
     }
     else {
-        //account for the fact that all peers do not see the same fundamentalnode count. A allowance of being off our fundamentalnode count is given
-        //we only need to look at an increased fundamentalnode count because as count increases, the reward decreases. This code only checks
+        //account for the fact that all peers do not see the same coralnode count. A allowance of being off our coralnode count is given
+        //we only need to look at an increased coralnode count because as count increases, the reward decreases. This code only checks
         //for mnPayment >= required, so it only makes sense to check the max node count allowed.
-        nFundamentalnode_Drift_Count = mnodeman.size() + Params().FundamentalnodeCountDrift();
+        nCoralnode_Drift_Count = mnodeman.size() + Params().CoralnodeCountDrift();
     }
 
-    CAmount requiredFundamentalnodePayment = GetFundamentalnodePayment(nBlockHeight, nReward, nFundamentalnode_Drift_Count);
+    CAmount requiredCoralnodePayment = GetCoralnodePayment(nBlockHeight, nReward, nCoralnode_Drift_Count);
 
     //require at least 6 signatures
-    BOOST_FOREACH (CFundamentalnodePayee& payee, vecPayments)
+    BOOST_FOREACH (CCoralnodePayee& payee, vecPayments)
         if (payee.nVotes >= nMaxSignatures && payee.nVotes >= MNPAYMENTS_SIGNATURES_REQUIRED)
             nMaxSignatures = payee.nVotes;
 
     // if we don't have at least 6 signatures on a payee, approve whichever is the longest chain
     if (nMaxSignatures < MNPAYMENTS_SIGNATURES_REQUIRED) return true;
 
-    BOOST_FOREACH (CFundamentalnodePayee& payee, vecPayments) {
+    BOOST_FOREACH (CCoralnodePayee& payee, vecPayments) {
         bool found = false;
         BOOST_FOREACH (CTxOut out, txNew.vout) {
             if (payee.scriptPubKey == out.scriptPubKey) {
-                if(out.nValue >= requiredFundamentalnodePayment)
+                if(out.nValue >= requiredCoralnodePayment)
                     found = true;
                 else
-                    LogPrint("fundamentalnode","Fundamentalnode payment is out of drift range. Paid=%s Min=%s\n", FormatMoney(out.nValue).c_str(), FormatMoney(requiredFundamentalnodePayment).c_str());
+                    LogPrint("coralnode","Coralnode payment is out of drift range. Paid=%s Min=%s\n", FormatMoney(out.nValue).c_str(), FormatMoney(requiredCoralnodePayment).c_str());
             }
         }
 
@@ -765,17 +765,17 @@ bool CFundamentalnodeBlockPayees::IsTransactionValid(const CTransaction& txNew)
         }
     }
 
-    LogPrint("fundamentalnode","CFundamentalnodePayments::IsTransactionValid - Missing required payment of %s to %s\n", FormatMoney(requiredFundamentalnodePayment).c_str(), strPayeesPossible.c_str());
+    LogPrint("coralnode","CCoralnodePayments::IsTransactionValid - Missing required payment of %s to %s\n", FormatMoney(requiredCoralnodePayment).c_str(), strPayeesPossible.c_str());
     return false;
 }
 
-std::string CFundamentalnodeBlockPayees::GetRequiredPaymentsString()
+std::string CCoralnodeBlockPayees::GetRequiredPaymentsString()
 {
     LOCK(cs_vecPayments);
 
     std::string ret = "Unknown";
 
-    BOOST_FOREACH (CFundamentalnodePayee& payee, vecPayments) {
+    BOOST_FOREACH (CCoralnodePayee& payee, vecPayments) {
         CTxDestination address1;
         ExtractDestination(payee.scriptPubKey, address1);
         CBitcoinAddress address2(address1);
@@ -790,31 +790,31 @@ std::string CFundamentalnodeBlockPayees::GetRequiredPaymentsString()
     return ret;
 }
 
-std::string CFundamentalnodePayments::GetRequiredPaymentsString(int nBlockHeight)
+std::string CCoralnodePayments::GetRequiredPaymentsString(int nBlockHeight)
 {
-    LOCK(cs_mapFundamentalnodeBlocks);
+    LOCK(cs_mapCoralnodeBlocks);
 
-    if (mapFundamentalnodeBlocks.count(nBlockHeight)) {
-        return mapFundamentalnodeBlocks[nBlockHeight].GetRequiredPaymentsString();
+    if (mapCoralnodeBlocks.count(nBlockHeight)) {
+        return mapCoralnodeBlocks[nBlockHeight].GetRequiredPaymentsString();
     }
 
     return "Unknown";
 }
 
-bool CFundamentalnodePayments::IsTransactionValid(const CTransaction& txNew, int nBlockHeight)
+bool CCoralnodePayments::IsTransactionValid(const CTransaction& txNew, int nBlockHeight)
 {
-    LOCK(cs_mapFundamentalnodeBlocks);
+    LOCK(cs_mapCoralnodeBlocks);
 
-    if (mapFundamentalnodeBlocks.count(nBlockHeight)) {
-        return mapFundamentalnodeBlocks[nBlockHeight].IsTransactionValid(txNew);
+    if (mapCoralnodeBlocks.count(nBlockHeight)) {
+        return mapCoralnodeBlocks[nBlockHeight].IsTransactionValid(txNew);
     }
 
     return true;
 }
 
-void CFundamentalnodePayments::CleanPaymentList()
+void CCoralnodePayments::CleanPaymentList()
 {
-    LOCK2(cs_mapFundamentalnodePayeeVotes, cs_mapFundamentalnodeBlocks);
+    LOCK2(cs_mapCoralnodePayeeVotes, cs_mapCoralnodeBlocks);
 
     int nHeight;
     {
@@ -826,47 +826,47 @@ void CFundamentalnodePayments::CleanPaymentList()
     //keep up to five cycles for historical sake
     int nLimit = std::max(int(mnodeman.size() * 1.25), 1000);
 
-    std::map<uint256, CFundamentalnodePaymentWinner>::iterator it = mapFundamentalnodePayeeVotes.begin();
-    while (it != mapFundamentalnodePayeeVotes.end()) {
-        CFundamentalnodePaymentWinner winner = (*it).second;
+    std::map<uint256, CCoralnodePaymentWinner>::iterator it = mapCoralnodePayeeVotes.begin();
+    while (it != mapCoralnodePayeeVotes.end()) {
+        CCoralnodePaymentWinner winner = (*it).second;
 
         if (nHeight - winner.nBlockHeight > nLimit) {
-            LogPrint("mnpayments", "CFundamentalnodePayments::CleanPaymentList - Removing old Fundamentalnode payment - block %d\n", winner.nBlockHeight);
-            fundamentalnodeSync.mapSeenSyncMNW.erase((*it).first);
-            mapFundamentalnodePayeeVotes.erase(it++);
-            mapFundamentalnodeBlocks.erase(winner.nBlockHeight);
+            LogPrint("mnpayments", "CCoralnodePayments::CleanPaymentList - Removing old Coralnode payment - block %d\n", winner.nBlockHeight);
+            coralnodeSync.mapSeenSyncMNW.erase((*it).first);
+            mapCoralnodePayeeVotes.erase(it++);
+            mapCoralnodeBlocks.erase(winner.nBlockHeight);
         } else {
             ++it;
         }
     }
 }
 
-bool CFundamentalnodePaymentWinner::IsValid(CNode* pnode, std::string& strError)
+bool CCoralnodePaymentWinner::IsValid(CNode* pnode, std::string& strError)
 {
-    CFundamentalnode* pmn = mnodeman.Find(vinFundamentalnode);
+    CCoralnode* pmn = mnodeman.Find(vinCoralnode);
 
     if (!pmn) {
-        strError = strprintf("Unknown Fundamentalnode %s", vinFundamentalnode.prevout.hash.ToString());
-        LogPrint("fundamentalnode","CFundamentalnodePaymentWinner::IsValid - %s\n", strError);
-        mnodeman.AskForMN(pnode, vinFundamentalnode);
+        strError = strprintf("Unknown Coralnode %s", vinCoralnode.prevout.hash.ToString());
+        LogPrint("coralnode","CCoralnodePaymentWinner::IsValid - %s\n", strError);
+        mnodeman.AskForMN(pnode, vinCoralnode);
         return false;
     }
 
     if (pmn->protocolVersion < ActiveProtocol()) {
-        strError = strprintf("Fundamentalnode protocol too old %d - req %d", pmn->protocolVersion, ActiveProtocol());
-        LogPrint("fundamentalnode","CFundamentalnodePaymentWinner::IsValid - %s\n", strError);
+        strError = strprintf("Coralnode protocol too old %d - req %d", pmn->protocolVersion, ActiveProtocol());
+        LogPrint("coralnode","CCoralnodePaymentWinner::IsValid - %s\n", strError);
         return false;
     }
 
-    int n = mnodeman.GetFundamentalnodeRank(vinFundamentalnode, nBlockHeight - 100, ActiveProtocol());
+    int n = mnodeman.GetCoralnodeRank(vinCoralnode, nBlockHeight - 100, ActiveProtocol());
 
     if (n > MNPAYMENTS_SIGNATURES_TOTAL) {
-        //It's common to have fundamentalnodes mistakenly think they are in the top 10
+        //It's common to have coralnodes mistakenly think they are in the top 10
         // We don't want to print all of these messages, or punish them unless they're way off
         if (n > MNPAYMENTS_SIGNATURES_TOTAL * 2) {
-            strError = strprintf("Fundamentalnode not in the top %d (%d)", MNPAYMENTS_SIGNATURES_TOTAL * 2, n);
-            LogPrint("fundamentalnode","CFundamentalnodePaymentWinner::IsValid - %s\n", strError);
-            //if (fundamentalnodeSync.IsSynced()) Misbehaving(pnode->GetId(), 20);
+            strError = strprintf("Coralnode not in the top %d (%d)", MNPAYMENTS_SIGNATURES_TOTAL * 2, n);
+            LogPrint("coralnode","CCoralnodePaymentWinner::IsValid - %s\n", strError);
+            //if (coralnodeSync.IsSynced()) Misbehaving(pnode->GetId(), 20);
         }
         return false;
     }
@@ -874,39 +874,39 @@ bool CFundamentalnodePaymentWinner::IsValid(CNode* pnode, std::string& strError)
     return true;
 }
 
-bool CFundamentalnodePayments::ProcessBlock(int nBlockHeight)
+bool CCoralnodePayments::ProcessBlock(int nBlockHeight)
 {
-    if (!fFundamentalNode) return false;
+    if (!fCoralNode) return false;
 
     //reference node - hybrid mode
 
-    int n = mnodeman.GetFundamentalnodeRank(activeFundamentalnode.vin, nBlockHeight - 100, ActiveProtocol());
+    int n = mnodeman.GetCoralnodeRank(activeCoralnode.vin, nBlockHeight - 100, ActiveProtocol());
 
     if (n == -1) {
-        LogPrint("mnpayments", "CFundamentalnodePayments::ProcessBlock - Unknown Fundamentalnode\n");
+        LogPrint("mnpayments", "CCoralnodePayments::ProcessBlock - Unknown Coralnode\n");
         return false;
     }
 
     if (n > MNPAYMENTS_SIGNATURES_TOTAL) {
-        LogPrint("mnpayments", "CFundamentalnodePayments::ProcessBlock - Fundamentalnode not in the top %d (%d)\n", MNPAYMENTS_SIGNATURES_TOTAL, n);
+        LogPrint("mnpayments", "CCoralnodePayments::ProcessBlock - Coralnode not in the top %d (%d)\n", MNPAYMENTS_SIGNATURES_TOTAL, n);
         return false;
     }
 
     if (nBlockHeight <= nLastBlockHeight) return false;
 
-    CFundamentalnodePaymentWinner newWinner(activeFundamentalnode.vin);
+    CCoralnodePaymentWinner newWinner(activeCoralnode.vin);
 
     if (budget.IsBudgetPaymentBlock(nBlockHeight)) {
         //is budget payment block -- handled by the budgeting software
     } else {
-        LogPrint("fundamentalnode","CFundamentalnodePayments::ProcessBlock() Start nHeight %d - vin %s. \n", nBlockHeight, activeFundamentalnode.vin.prevout.hash.ToString());
+        LogPrint("coralnode","CCoralnodePayments::ProcessBlock() Start nHeight %d - vin %s. \n", nBlockHeight, activeCoralnode.vin.prevout.hash.ToString());
 
         // pay to the oldest MN that still had no payment but its input is old enough and it was active long enough
         int nCount = 0;
-        CFundamentalnode* pmn = mnodeman.GetNextFundamentalnodeInQueueForPayment(nBlockHeight, true, nCount);
+        CCoralnode* pmn = mnodeman.GetNextCoralnodeInQueueForPayment(nBlockHeight, true, nCount);
 
         if (pmn != NULL) {
-            LogPrint("fundamentalnode","CFundamentalnodePayments::ProcessBlock() Found by FindOldestNotInVec \n");
+            LogPrint("coralnode","CCoralnodePayments::ProcessBlock() Found by FindOldestNotInVec \n");
 
             newWinner.nBlockHeight = nBlockHeight;
 
@@ -917,26 +917,26 @@ bool CFundamentalnodePayments::ProcessBlock(int nBlockHeight)
             ExtractDestination(payee, address1);
             CBitcoinAddress address2(address1);
 
-            LogPrint("fundamentalnode","CFundamentalnodePayments::ProcessBlock() Winner payee %s nHeight %d. \n", address2.ToString().c_str(), newWinner.nBlockHeight);
+            LogPrint("coralnode","CCoralnodePayments::ProcessBlock() Winner payee %s nHeight %d. \n", address2.ToString().c_str(), newWinner.nBlockHeight);
         } else {
-            LogPrint("fundamentalnode","CFundamentalnodePayments::ProcessBlock() Failed to find fundamentalnode to pay\n");
+            LogPrint("coralnode","CCoralnodePayments::ProcessBlock() Failed to find coralnode to pay\n");
         }
     }
 
     std::string errorMessage;
-    CPubKey pubKeyFundamentalnode;
-    CKey keyFundamentalnode;
+    CPubKey pubKeyCoralnode;
+    CKey keyCoralnode;
 
-    if (!obfuScationSigner.SetKey(strFundamentalNodePrivKey, errorMessage, keyFundamentalnode, pubKeyFundamentalnode)) {
-        LogPrint("fundamentalnode","CFundamentalnodePayments::ProcessBlock() - Error upon calling SetKey: %s\n", errorMessage.c_str());
+    if (!obfuScationSigner.SetKey(strCoralNodePrivKey, errorMessage, keyCoralnode, pubKeyCoralnode)) {
+        LogPrint("coralnode","CCoralnodePayments::ProcessBlock() - Error upon calling SetKey: %s\n", errorMessage.c_str());
         return false;
     }
 
-    LogPrint("fundamentalnode","CFundamentalnodePayments::ProcessBlock() - Signing Winner\n");
-    if (newWinner.Sign(keyFundamentalnode, pubKeyFundamentalnode)) {
-        LogPrint("fundamentalnode","CFundamentalnodePayments::ProcessBlock() - AddWinningFundamentalnode\n");
+    LogPrint("coralnode","CCoralnodePayments::ProcessBlock() - Signing Winner\n");
+    if (newWinner.Sign(keyCoralnode, pubKeyCoralnode)) {
+        LogPrint("coralnode","CCoralnodePayments::ProcessBlock() - AddWinningCoralnode\n");
 
-        if (AddWinningFundamentalnode(newWinner)) {
+        if (AddWinningCoralnode(newWinner)) {
             newWinner.Relay();
             nLastBlockHeight = nBlockHeight;
             return true;
@@ -946,24 +946,24 @@ bool CFundamentalnodePayments::ProcessBlock(int nBlockHeight)
     return false;
 }
 
-void CFundamentalnodePaymentWinner::Relay()
+void CCoralnodePaymentWinner::Relay()
 {
-    CInv inv(MSG_FUNDAMENTALNODE_WINNER, GetHash());
+    CInv inv(MSG_CORALNODE_WINNER, GetHash());
     RelayInv(inv);
 }
 
-bool CFundamentalnodePaymentWinner::SignatureValid()
+bool CCoralnodePaymentWinner::SignatureValid()
 {
-    CFundamentalnode* pmn = mnodeman.Find(vinFundamentalnode);
+    CCoralnode* pmn = mnodeman.Find(vinCoralnode);
 
     if (pmn != NULL) {
-        std::string strMessage = vinFundamentalnode.prevout.ToStringShort() +
+        std::string strMessage = vinCoralnode.prevout.ToStringShort() +
                                  boost::lexical_cast<std::string>(nBlockHeight) +
                                  payee.ToString();
 
         std::string errorMessage = "";
-        if (!obfuScationSigner.VerifyMessage(pmn->pubKeyFundamentalnode, vchSig, strMessage, errorMessage)) {
-            return error("CFundamentalnodePaymentWinner::SignatureValid() - Got bad Fundamentalnode address signature %s\n", vinFundamentalnode.prevout.hash.ToString());
+        if (!obfuScationSigner.VerifyMessage(pmn->pubKeyCoralnode, vchSig, strMessage, errorMessage)) {
+            return error("CCoralnodePaymentWinner::SignatureValid() - Got bad Coralnode address signature %s\n", vinCoralnode.prevout.hash.ToString());
         }
 
         return true;
@@ -972,9 +972,9 @@ bool CFundamentalnodePaymentWinner::SignatureValid()
     return false;
 }
 
-void CFundamentalnodePayments::Sync(CNode* node, int nCountNeeded)
+void CCoralnodePayments::Sync(CNode* node, int nCountNeeded)
 {
-    LOCK(cs_mapFundamentalnodePayeeVotes);
+    LOCK(cs_mapCoralnodePayeeVotes);
 
     int nHeight;
     {
@@ -987,36 +987,36 @@ void CFundamentalnodePayments::Sync(CNode* node, int nCountNeeded)
     if (nCountNeeded > nCount) nCountNeeded = nCount;
 
     int nInvCount = 0;
-    std::map<uint256, CFundamentalnodePaymentWinner>::iterator it = mapFundamentalnodePayeeVotes.begin();
-    while (it != mapFundamentalnodePayeeVotes.end()) {
-        CFundamentalnodePaymentWinner winner = (*it).second;
+    std::map<uint256, CCoralnodePaymentWinner>::iterator it = mapCoralnodePayeeVotes.begin();
+    while (it != mapCoralnodePayeeVotes.end()) {
+        CCoralnodePaymentWinner winner = (*it).second;
         if (winner.nBlockHeight >= nHeight - nCountNeeded && winner.nBlockHeight <= nHeight + 20) {
-            node->PushInventory(CInv(MSG_FUNDAMENTALNODE_WINNER, winner.GetHash()));
+            node->PushInventory(CInv(MSG_CORALNODE_WINNER, winner.GetHash()));
             nInvCount++;
         }
         ++it;
     }
-    node->PushMessage("ssc", FUNDAMENTALNODE_SYNC_MNW, nInvCount);
+    node->PushMessage("ssc", CORALNODE_SYNC_MNW, nInvCount);
 }
 
-std::string CFundamentalnodePayments::ToString() const
+std::string CCoralnodePayments::ToString() const
 {
     std::ostringstream info;
 
-    info << "Votes: " << (int)mapFundamentalnodePayeeVotes.size() << ", Blocks: " << (int)mapFundamentalnodeBlocks.size();
+    info << "Votes: " << (int)mapCoralnodePayeeVotes.size() << ", Blocks: " << (int)mapCoralnodeBlocks.size();
 
     return info.str();
 }
 
 
-int CFundamentalnodePayments::GetOldestBlock()
+int CCoralnodePayments::GetOldestBlock()
 {
-    LOCK(cs_mapFundamentalnodeBlocks);
+    LOCK(cs_mapCoralnodeBlocks);
 
     int nOldestBlock = std::numeric_limits<int>::max();
 
-    std::map<int, CFundamentalnodeBlockPayees>::iterator it = mapFundamentalnodeBlocks.begin();
-    while (it != mapFundamentalnodeBlocks.end()) {
+    std::map<int, CCoralnodeBlockPayees>::iterator it = mapCoralnodeBlocks.begin();
+    while (it != mapCoralnodeBlocks.end()) {
         if ((*it).first < nOldestBlock) {
             nOldestBlock = (*it).first;
         }
@@ -1027,14 +1027,14 @@ int CFundamentalnodePayments::GetOldestBlock()
 }
 
 
-int CFundamentalnodePayments::GetNewestBlock()
+int CCoralnodePayments::GetNewestBlock()
 {
-    LOCK(cs_mapFundamentalnodeBlocks);
+    LOCK(cs_mapCoralnodeBlocks);
 
     int nNewestBlock = 0;
 
-    std::map<int, CFundamentalnodeBlockPayees>::iterator it = mapFundamentalnodeBlocks.begin();
-    while (it != mapFundamentalnodeBlocks.end()) {
+    std::map<int, CCoralnodeBlockPayees>::iterator it = mapCoralnodeBlocks.begin();
+    while (it != mapCoralnodeBlocks.end()) {
         if ((*it).first > nNewestBlock) {
             nNewestBlock = (*it).first;
         }

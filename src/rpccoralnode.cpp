@@ -6,14 +6,14 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "activefundamentalnode.h"
+#include "activecoralnode.h"
 #include "db.h"
 #include "init.h"
 #include "main.h"
-#include "fundamentalnode-budget.h"
-#include "fundamentalnode-payments.h"
-#include "fundamentalnodeconfig.h"
-#include "fundamentalnodeman.h"
+#include "coralnode-budget.h"
+#include "coralnode-payments.h"
+#include "coralnodeconfig.h"
+#include "coralnodeman.h"
 #include "rpcserver.h"
 #include "utilmoneystr.h"
 
@@ -76,8 +76,8 @@ UniValue obfuscation(const UniValue& params, bool fHelp)
         throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Error: Please enter the wallet passphrase with walletpassphrase first.");
 
     if (params[0].get_str() == "auto") {
-        if (fFundamentalNode)
-            return "ObfuScation is not supported from fundamentalnodes";
+        if (fCoralNode)
+            return "ObfuScation is not supported from coralnodes";
 
         return "DoAutomaticDenominating " + (obfuScationPool.DoAutomaticDenominating() ? "successful" : ("failed: " + obfuScationPool.GetStatus()));
     }
@@ -121,7 +121,7 @@ UniValue getpoolinfo(const UniValue& params, bool fHelp)
 
             "\nResult:\n"
             "{\n"
-            "  \"current\": \"addr\",    (string) CaritasCoin address of current fundamentalnode\n"
+            "  \"current\": \"addr\",    (string) CaritasCoin address of current coralnode\n"
             "  \"state\": xxxx,        (string) unknown\n"
             "  \"entries\": xxxx,      (numeric) Number of entries\n"
             "  \"accepted\": xxxx,     (numeric) Number of entries accepted\n"
@@ -131,7 +131,7 @@ UniValue getpoolinfo(const UniValue& params, bool fHelp)
             HelpExampleCli("getpoolinfo", "") + HelpExampleRpc("getpoolinfo", ""));
 
     UniValue obj(UniValue::VOBJ);
-    obj.push_back(Pair("current_fundamentalnode", mnodeman.GetCurrentFundamentalNode()->addr.ToString()));
+    obj.push_back(Pair("current_coralnode", mnodeman.GetCurrentCoralNode()->addr.ToString()));
     obj.push_back(Pair("state", obfuScationPool.GetState()));
     obj.push_back(Pair("entries", obfuScationPool.GetEntriesCount()));
     obj.push_back(Pair("entries_accepted", obfuScationPool.GetCountEntriesAccepted()));
@@ -140,7 +140,7 @@ UniValue getpoolinfo(const UniValue& params, bool fHelp)
 
 // This command is retained for backwards compatibility, but is depreciated.
 // Future removal of this command is planned to keep things clean.
-UniValue fundamentalnode(const UniValue& params, bool fHelp)
+UniValue coralnode(const UniValue& params, bool fHelp)
 {
     string strCommand;
     if (params.size() >= 1)
@@ -152,26 +152,26 @@ UniValue fundamentalnode(const UniValue& params, bool fHelp)
             strCommand != "debug" && strCommand != "current" && strCommand != "winners" && strCommand != "genkey" && strCommand != "connect" &&
             strCommand != "outputs" && strCommand != "status" && strCommand != "calcscore"))
         throw runtime_error(
-            "fundamentalnode \"command\"...\n"
-            "\nSet of commands to execute fundamentalnode related actions\n"
+            "coralnode \"command\"...\n"
+            "\nSet of commands to execute coralnode related actions\n"
             "This command is depreciated, please see individual command documentation for future reference\n\n"
 
             "\nArguments:\n"
             "1. \"command\"        (string or set of strings, required) The command to execute\n"
 
             "\nAvailable commands:\n"
-            "  count        - Print count information of all known fundamentalnodes\n"
-            "  current      - Print info on current fundamentalnode winner\n"
-            "  debug        - Print fundamentalnode status\n"
-            "  genkey       - Generate new fundamentalnodeprivkey\n"
-            "  outputs      - Print fundamentalnode compatible outputs\n"
-            "  start        - Start fundamentalnode configured in caritas.conf\n"
-            "  start-alias  - Start single fundamentalnode by assigned alias configured in fundamentalnode.conf\n"
-            "  start-<mode> - Start fundamentalnodes configured in fundamentalnode.conf (<mode>: 'all', 'missing', 'disabled')\n"
-            "  status       - Print fundamentalnode status information\n"
-            "  list         - Print list of all known fundamentalnodes (see fundamentalnodelist for more info)\n"
-            "  list-conf    - Print fundamentalnode.conf in JSON format\n"
-            "  winners      - Print list of fundamentalnode winners\n");
+            "  count        - Print count information of all known coralnodes\n"
+            "  current      - Print info on current coralnode winner\n"
+            "  debug        - Print coralnode status\n"
+            "  genkey       - Generate new coralnodeprivkey\n"
+            "  outputs      - Print coralnode compatible outputs\n"
+            "  start        - Start coralnode configured in caritas.conf\n"
+            "  start-alias  - Start single coralnode by assigned alias configured in coralnode.conf\n"
+            "  start-<mode> - Start coralnodes configured in coralnode.conf (<mode>: 'all', 'missing', 'disabled')\n"
+            "  status       - Print coralnode status information\n"
+            "  list         - Print list of all known coralnodes (see coralnodelist for more info)\n"
+            "  list-conf    - Print coralnode.conf in JSON format\n"
+            "  winners      - Print list of coralnode winners\n");
 
     if (strCommand == "list") {
         UniValue newParams(UniValue::VARR);
@@ -179,7 +179,7 @@ UniValue fundamentalnode(const UniValue& params, bool fHelp)
         for (unsigned int i = 1; i < params.size(); i++) {
             newParams.push_back(params[i]);
         }
-        return listfundamentalnodes(newParams, fHelp);
+        return listcoralnodes(newParams, fHelp);
     }
 
     if (strCommand == "connect") {
@@ -188,7 +188,7 @@ UniValue fundamentalnode(const UniValue& params, bool fHelp)
         for (unsigned int i = 1; i < params.size(); i++) {
             newParams.push_back(params[i]);
         }
-        return fundamentalnodeconnect(newParams, fHelp);
+        return coralnodeconnect(newParams, fHelp);
     }
 
     if (strCommand == "count") {
@@ -197,7 +197,7 @@ UniValue fundamentalnode(const UniValue& params, bool fHelp)
         for (unsigned int i = 1; i < params.size(); i++) {
             newParams.push_back(params[i]);
         }
-        return getfundamentalnodecount(newParams, fHelp);
+        return getcoralnodecount(newParams, fHelp);
     }
 
     if (strCommand == "current") {
@@ -206,7 +206,7 @@ UniValue fundamentalnode(const UniValue& params, bool fHelp)
         for (unsigned int i = 1; i < params.size(); i++) {
             newParams.push_back(params[i]);
         }
-        return fundamentalnodecurrent(newParams, fHelp);
+        return coralnodecurrent(newParams, fHelp);
     }
 
     if (strCommand == "debug") {
@@ -215,11 +215,11 @@ UniValue fundamentalnode(const UniValue& params, bool fHelp)
         for (unsigned int i = 1; i < params.size(); i++) {
             newParams.push_back(params[i]);
         }
-        return fundamentalnodedebug(newParams, fHelp);
+        return coralnodedebug(newParams, fHelp);
     }
 
     if (strCommand == "start" || strCommand == "start-alias" || strCommand == "start-many" || strCommand == "start-all" || strCommand == "start-missing" || strCommand == "start-disabled") {
-        return startfundamentalnode(params, fHelp);
+        return startcoralnode(params, fHelp);
     }
 
     if (strCommand == "genkey") {
@@ -228,7 +228,7 @@ UniValue fundamentalnode(const UniValue& params, bool fHelp)
         for (unsigned int i = 1; i < params.size(); i++) {
             newParams.push_back(params[i]);
         }
-        return createfundamentalnodekey(newParams, fHelp);
+        return createcoralnodekey(newParams, fHelp);
     }
 
     if (strCommand == "list-conf") {
@@ -237,7 +237,7 @@ UniValue fundamentalnode(const UniValue& params, bool fHelp)
         for (unsigned int i = 1; i < params.size(); i++) {
             newParams.push_back(params[i]);
         }
-        return listfundamentalnodeconf(newParams, fHelp);
+        return listcoralnodeconf(newParams, fHelp);
     }
 
     if (strCommand == "outputs") {
@@ -246,7 +246,7 @@ UniValue fundamentalnode(const UniValue& params, bool fHelp)
         for (unsigned int i = 1; i < params.size(); i++) {
             newParams.push_back(params[i]);
         }
-        return getfundamentalnodeoutputs(newParams, fHelp);
+        return getcoralnodeoutputs(newParams, fHelp);
     }
 
     if (strCommand == "status") {
@@ -255,7 +255,7 @@ UniValue fundamentalnode(const UniValue& params, bool fHelp)
         for (unsigned int i = 1; i < params.size(); i++) {
             newParams.push_back(params[i]);
         }
-        return getfundamentalnodestatus(newParams, fHelp);
+        return getcoralnodestatus(newParams, fHelp);
     }
 
     if (strCommand == "winners") {
@@ -264,7 +264,7 @@ UniValue fundamentalnode(const UniValue& params, bool fHelp)
         for (unsigned int i = 1; i < params.size(); i++) {
             newParams.push_back(params[i]);
         }
-        return getfundamentalnodewinners(newParams, fHelp);
+        return getcoralnodewinners(newParams, fHelp);
     }
 
     if (strCommand == "calcscore") {
@@ -273,7 +273,7 @@ UniValue fundamentalnode(const UniValue& params, bool fHelp)
         for (unsigned int i = 1; i < params.size(); i++) {
             newParams.push_back(params[i]);
         }
-        return getfundamentalnodescores(newParams, fHelp);
+        return getcoralnodescores(newParams, fHelp);
     }
 
     return NullUniValue;
@@ -1002,7 +1002,7 @@ UniValue masternodelist(const UniValue& params, bool fHelp)
 }
 
 
-UniValue listfundamentalnodes(const UniValue& params, bool fHelp)
+UniValue listcoralnodes(const UniValue& params, bool fHelp)
 {
     std::string strFilter = "";
 
@@ -1010,8 +1010,8 @@ UniValue listfundamentalnodes(const UniValue& params, bool fHelp)
 
     if (fHelp || (params.size() > 1))
         throw runtime_error(
-            "listfundamentalnodes ( \"filter\" )\n"
-            "\nGet a ranked list of fundamentalnodes\n"
+            "listcoralnodes ( \"filter\" )\n"
+            "\nGet a ranked list of coralnodes\n"
 
             "\nArguments:\n"
             "1. \"filter\"    (string, optional) Filter search text. Partial match by txhash, status, or addr.\n"
@@ -1019,20 +1019,20 @@ UniValue listfundamentalnodes(const UniValue& params, bool fHelp)
             "\nResult:\n"
             "[\n"
             "  {\n"
-            "    \"rank\": n,           (numeric) Fundamentalnode Rank (or 0 if not enabled)\n"
+            "    \"rank\": n,           (numeric) Coralnode Rank (or 0 if not enabled)\n"
             "    \"txhash\": \"hash\",    (string) Collateral transaction hash\n"
             "    \"outidx\": n,         (numeric) Collateral transaction output index\n"
             "    \"status\": s,         (string) Status (ENABLED/EXPIRED/REMOVE/etc)\n"
-            "    \"addr\": \"addr\",      (string) Fundamentalnode CaritasCoin address\n"
-            "    \"version\": v,        (numeric) Fundamentalnode protocol version\n"
+            "    \"addr\": \"addr\",      (string) Coralnode CaritasCoin address\n"
+            "    \"version\": v,        (numeric) Coralnode protocol version\n"
             "    \"lastseen\": ttt,     (numeric) The time in seconds since epoch (Jan 1 1970 GMT) of the last seen\n"
-            "    \"activetime\": ttt,   (numeric) The time in seconds since epoch (Jan 1 1970 GMT) fundamentalnode has been active\n"
-            "    \"lastpaid\": ttt,     (numeric) The time in seconds since epoch (Jan 1 1970 GMT) fundamentalnode was last paid\n"
+            "    \"activetime\": ttt,   (numeric) The time in seconds since epoch (Jan 1 1970 GMT) coralnode has been active\n"
+            "    \"lastpaid\": ttt,     (numeric) The time in seconds since epoch (Jan 1 1970 GMT) coralnode was last paid\n"
             "  }\n"
             "  ,...\n"
             "]\n"
             "\nExamples:\n" +
-            HelpExampleCli("fundamentalnodelist", "") + HelpExampleRpc("fundamentalnodelist", ""));
+            HelpExampleCli("coralnodelist", "") + HelpExampleRpc("coralnodelist", ""));
 
     UniValue ret(UniValue::VARR);
     int nHeight;
@@ -1042,14 +1042,14 @@ UniValue listfundamentalnodes(const UniValue& params, bool fHelp)
         if(!pindex) return 0;
         nHeight = pindex->nHeight;
     }
-    std::vector<pair<int, CFundamentalnode> > vFundamentalnodeRanks = mnodeman.GetFundamentalnodeRanks(nHeight);
-    BOOST_FOREACH (PAIRTYPE(int, CFundamentalnode) & s, vFundamentalnodeRanks) {
+    std::vector<pair<int, CCoralnode> > vCoralnodeRanks = mnodeman.GetCoralnodeRanks(nHeight);
+    BOOST_FOREACH (PAIRTYPE(int, CCoralnode) & s, vCoralnodeRanks) {
         UniValue obj(UniValue::VOBJ);
         std::string strVin = s.second.vin.prevout.ToStringShort();
         std::string strTxHash = s.second.vin.prevout.hash.ToString();
         uint32_t oIdx = s.second.vin.prevout.n;
 
-        CFundamentalnode* mn = mnodeman.Find(s.second.vin);
+        CCoralnode* mn = mnodeman.Find(s.second.vin);
 
         if (mn != NULL) {
             if (strFilter != "" && strTxHash.find(strFilter) == string::npos &&
@@ -1081,18 +1081,18 @@ UniValue listfundamentalnodes(const UniValue& params, bool fHelp)
     return ret;
 }
 
-UniValue fundamentalnodeconnect(const UniValue& params, bool fHelp)
+UniValue coralnodeconnect(const UniValue& params, bool fHelp)
 {
     if (fHelp || (params.size() != 1))
         throw runtime_error(
-            "fundamentalnodeconnect \"address\"\n"
-            "\nAttempts to connect to specified fundamentalnode address\n"
+            "coralnodeconnect \"address\"\n"
+            "\nAttempts to connect to specified coralnode address\n"
 
             "\nArguments:\n"
             "1. \"address\"     (string, required) IP or net address to connect to\n"
 
             "\nExamples:\n" +
-            HelpExampleCli("fundamentalnodeconnect", "\"192.168.0.6:16180\"") + HelpExampleRpc("fundamentalnodeconnect", "\"192.168.0.6:16180\""));
+            HelpExampleCli("coralnodeconnect", "\"192.168.0.6:16180\"") + HelpExampleRpc("coralnodeconnect", "\"192.168.0.6:16180\""));
 
     std::string strAddress = params[0].get_str();
 
@@ -1107,30 +1107,30 @@ UniValue fundamentalnodeconnect(const UniValue& params, bool fHelp)
     }
 }
 
-UniValue getfundamentalnodecount (const UniValue& params, bool fHelp)
+UniValue getcoralnodecount (const UniValue& params, bool fHelp)
 {
     if (fHelp || (params.size() > 0))
         throw runtime_error(
-            "getfundamentalnodecount\n"
-            "\nGet fundamentalnode count values\n"
+            "getcoralnodecount\n"
+            "\nGet coralnode count values\n"
 
             "\nResult:\n"
             "{\n"
-            "  \"total\": n,        (numeric) Total fundamentalnodes\n"
+            "  \"total\": n,        (numeric) Total coralnodes\n"
             "  \"stable\": n,       (numeric) Stable count\n"
             "  \"obfcompat\": n,    (numeric) Obfuscation Compatible\n"
-            "  \"enabled\": n,      (numeric) Enabled fundamentalnodes\n"
-            "  \"inqueue\": n       (numeric) Fundamentalnodes in queue\n"
+            "  \"enabled\": n,      (numeric) Enabled coralnodes\n"
+            "  \"inqueue\": n       (numeric) Coralnodes in queue\n"
             "}\n"
             "\nExamples:\n" +
-            HelpExampleCli("getfundamentalnodecount", "") + HelpExampleRpc("getfundamentalnodecount", ""));
+            HelpExampleCli("getcoralnodecount", "") + HelpExampleRpc("getcoralnodecount", ""));
 
     UniValue obj(UniValue::VOBJ);
     int nCount = 0;
     int ipv4 = 0, ipv6 = 0, onion = 0;
 
     if (chainActive.Tip())
-        mnodeman.GetNextFundamentalnodeInQueueForPayment(chainActive.Tip()->nHeight, true, nCount);
+        mnodeman.GetNextCoralnodeInQueueForPayment(chainActive.Tip()->nHeight, true, nCount);
 
     mnodeman.CountNetworks(ActiveProtocol(), ipv4, ipv6, onion);
 
@@ -1146,12 +1146,12 @@ UniValue getfundamentalnodecount (const UniValue& params, bool fHelp)
     return obj;
 }
 
-UniValue fundamentalnodecurrent (const UniValue& params, bool fHelp)
+UniValue coralnodecurrent (const UniValue& params, bool fHelp)
 {
     if (fHelp || (params.size() != 0))
         throw runtime_error(
-            "fundamentalnodecurrent\n"
-            "\nGet current fundamentalnode winner\n"
+            "coralnodecurrent\n"
+            "\nGet current coralnode winner\n"
 
             "\nResult:\n"
             "{\n"
@@ -1162,54 +1162,54 @@ UniValue fundamentalnodecurrent (const UniValue& params, bool fHelp)
             "  \"activeseconds\": xxx,  (numeric) Seconds FN has been active\n"
             "}\n"
             "\nExamples:\n" +
-            HelpExampleCli("fundamentalnodecurrent", "") + HelpExampleRpc("fundamentalnodecurrent", ""));
+            HelpExampleCli("coralnodecurrent", "") + HelpExampleRpc("coralnodecurrent", ""));
 
-    CFundamentalnode* winner = mnodeman.GetCurrentFundamentalNode(1);
+    CCoralnode* winner = mnodeman.GetCurrentCoralNode(1);
     if (winner) {
         UniValue obj(UniValue::VOBJ);
 
         obj.push_back(Pair("protocol", (int64_t)winner->protocolVersion));
         obj.push_back(Pair("txhash", winner->vin.prevout.hash.ToString()));
         obj.push_back(Pair("pubkey", CBitcoinAddress(winner->pubKeyCollateralAddress.GetID()).ToString()));
-        obj.push_back(Pair("lastseen", (winner->lastPing == CFundamentalnodePing()) ? winner->sigTime : (int64_t)winner->lastPing.sigTime));
-        obj.push_back(Pair("activeseconds", (winner->lastPing == CFundamentalnodePing()) ? 0 : (int64_t)(winner->lastPing.sigTime - winner->sigTime)));
+        obj.push_back(Pair("lastseen", (winner->lastPing == CCoralnodePing()) ? winner->sigTime : (int64_t)winner->lastPing.sigTime));
+        obj.push_back(Pair("activeseconds", (winner->lastPing == CCoralnodePing()) ? 0 : (int64_t)(winner->lastPing.sigTime - winner->sigTime)));
         return obj;
     }
 
     throw runtime_error("unknown");
 }
 
-UniValue fundamentalnodedebug (const UniValue& params, bool fHelp)
+UniValue coralnodedebug (const UniValue& params, bool fHelp)
 {
     if (fHelp || (params.size() != 0))
         throw runtime_error(
-            "fundamentalnodedebug\n"
-            "\nPrint fundamentalnode status\n"
+            "coralnodedebug\n"
+            "\nPrint coralnode status\n"
 
             "\nResult:\n"
-            "\"status\"     (string) Fundamentalnode status message\n"
+            "\"status\"     (string) Coralnode status message\n"
             "\nExamples:\n" +
-            HelpExampleCli("fundamentalnodedebug", "") + HelpExampleRpc("fundamentalnodedebug", ""));
+            HelpExampleCli("coralnodedebug", "") + HelpExampleRpc("coralnodedebug", ""));
 
-    if (activeFundamentalnode.status != ACTIVE_FUNDAMENTALNODE_INITIAL || !fundamentalnodeSync.IsSynced())
-        return activeFundamentalnode.GetStatus();
+    if (activeCoralnode.status != ACTIVE_CORALNODE_INITIAL || !coralnodeSync.IsSynced())
+        return activeCoralnode.GetStatus();
 
     CTxIn vin = CTxIn();
     CPubKey pubkey = CScript();
     CKey key;
-    if (!activeFundamentalnode.GetFundamentalNodeVin(vin, pubkey, key))
-        throw runtime_error("Missing fundamentalnode input, please look at the documentation for instructions on fundamentalnode creation\n");
+    if (!activeCoralnode.GetCoralNodeVin(vin, pubkey, key))
+        throw runtime_error("Missing coralnode input, please look at the documentation for instructions on coralnode creation\n");
     else
-        return activeFundamentalnode.GetStatus();
+        return activeCoralnode.GetStatus();
 }
 
-UniValue startfundamentalnode (const UniValue& params, bool fHelp)
+UniValue startcoralnode (const UniValue& params, bool fHelp)
 {
     std::string strCommand;
     if (params.size() >= 1) {
         strCommand = params[0].get_str();
 
-        // Backwards compatibility with legacy 'fundamentalnode' super-command forwarder
+        // Backwards compatibility with legacy 'coralnode' super-command forwarder
         if (strCommand == "start") strCommand = "local";
         if (strCommand == "start-alias") strCommand = "alias";
         if (strCommand == "start-all") strCommand = "all";
@@ -1222,16 +1222,16 @@ UniValue startfundamentalnode (const UniValue& params, bool fHelp)
         (params.size() == 2 && (strCommand != "local" && strCommand != "all" && strCommand != "many" && strCommand != "missing" && strCommand != "disabled")) ||
         (params.size() == 3 && strCommand != "alias"))
         throw runtime_error(
-            "startfundamentalnode \"local|all|many|missing|disabled|alias\" lockwallet ( \"alias\" )\n"
-            "\nAttempts to start one or more fundamentalnode(s)\n"
+            "startcoralnode \"local|all|many|missing|disabled|alias\" lockwallet ( \"alias\" )\n"
+            "\nAttempts to start one or more coralnode(s)\n"
 
             "\nArguments:\n"
-            "1. set         (string, required) Specify which set of fundamentalnode(s) to start.\n"
+            "1. set         (string, required) Specify which set of coralnode(s) to start.\n"
             "2. lockwallet  (boolean, required) Lock wallet after completion.\n"
-            "3. alias       (string) Fundamentalnode alias. Required if using 'alias' as the set.\n"
+            "3. alias       (string) Coralnode alias. Required if using 'alias' as the set.\n"
 
             "\nResult: (for 'local' set):\n"
-            "\"status\"     (string) Fundamentalnode status message\n"
+            "\"status\"     (string) Coralnode status message\n"
 
             "\nResult: (for other sets):\n"
             "{\n"
@@ -1246,24 +1246,24 @@ UniValue startfundamentalnode (const UniValue& params, bool fHelp)
             "  ]\n"
             "}\n"
             "\nExamples:\n" +
-            HelpExampleCli("startfundamentalnode", "\"alias\" \"0\" \"my_mn\"") + HelpExampleRpc("startfundamentalnode", "\"alias\" \"0\" \"my_mn\""));
+            HelpExampleCli("startcoralnode", "\"alias\" \"0\" \"my_mn\"") + HelpExampleRpc("startcoralnode", "\"alias\" \"0\" \"my_mn\""));
 
     bool fLock = (params[1].get_str() == "true" ? true : false);
 
     if (strCommand == "local") {
-        if (!fFundamentalNode) throw runtime_error("you must set fundamentalnode=1 in the configuration\n");
+        if (!fCoralNode) throw runtime_error("you must set coralnode=1 in the configuration\n");
 
         if (pwalletMain->IsLocked())
             throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Error: Please enter the wallet passphrase with walletpassphrase first.");
 
-        if (activeFundamentalnode.status != ACTIVE_FUNDAMENTALNODE_STARTED) {
-            activeFundamentalnode.status = ACTIVE_FUNDAMENTALNODE_INITIAL; // TODO: consider better way
-            activeFundamentalnode.ManageStatus();
+        if (activeCoralnode.status != ACTIVE_CORALNODE_STARTED) {
+            activeCoralnode.status = ACTIVE_CORALNODE_INITIAL; // TODO: consider better way
+            activeCoralnode.ManageStatus();
             if (fLock)
                 pwalletMain->Lock();
         }
 
-        return activeFundamentalnode.GetStatus();
+        return activeCoralnode.GetStatus();
     }
 
     if (strCommand == "all" || strCommand == "many" || strCommand == "missing" || strCommand == "disabled") {
@@ -1271,33 +1271,33 @@ UniValue startfundamentalnode (const UniValue& params, bool fHelp)
             throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Error: Please enter the wallet passphrase with walletpassphrase first.");
 
         if ((strCommand == "missing" || strCommand == "disabled") &&
-            (fundamentalnodeSync.RequestedFundamentalnodeAssets <= FUNDAMENTALNODE_SYNC_LIST ||
-                fundamentalnodeSync.RequestedFundamentalnodeAssets == FUNDAMENTALNODE_SYNC_FAILED)) {
-            throw runtime_error("You can't use this command until fundamentalnode list is synced\n");
+            (coralnodeSync.RequestedCoralnodeAssets <= CORALNODE_SYNC_LIST ||
+                coralnodeSync.RequestedCoralnodeAssets == CORALNODE_SYNC_FAILED)) {
+            throw runtime_error("You can't use this command until coralnode list is synced\n");
         }
 
-        std::vector<CFundamentalnodeConfig::CFundamentalnodeEntry> mnEntries;
-        mnEntries = fundamentalnodeConfig.getEntries();
+        std::vector<CCoralnodeConfig::CCoralnodeEntry> mnEntries;
+        mnEntries = coralnodeConfig.getEntries();
 
         int successful = 0;
         int failed = 0;
 
         UniValue resultsObj(UniValue::VARR);
 
-        BOOST_FOREACH (CFundamentalnodeConfig::CFundamentalnodeEntry mne, fundamentalnodeConfig.getEntries()) {
+        BOOST_FOREACH (CCoralnodeConfig::CCoralnodeEntry mne, coralnodeConfig.getEntries()) {
             std::string errorMessage;
             int nIndex;
             if(!mne.castOutputIndex(nIndex))
                 continue;
             CTxIn vin = CTxIn(uint256(mne.getTxHash()), uint32_t(nIndex));
-            CFundamentalnode* pmn = mnodeman.Find(vin);
+            CCoralnode* pmn = mnodeman.Find(vin);
 
             if (pmn != NULL) {
                 if (strCommand == "missing") continue;
                 if (strCommand == "disabled" && pmn->IsEnabled()) continue;
             }
 
-            bool result = activeFundamentalnode.Register(mne.getIp(), mne.getPrivKey(), mne.getTxHash(), mne.getOutputIndex(), errorMessage);
+            bool result = activeCoralnode.Register(mne.getIp(), mne.getPrivKey(), mne.getTxHash(), mne.getOutputIndex(), errorMessage);
 
             UniValue statusObj(UniValue::VOBJ);
             statusObj.push_back(Pair("alias", mne.getAlias()));
@@ -1317,7 +1317,7 @@ UniValue startfundamentalnode (const UniValue& params, bool fHelp)
             pwalletMain->Lock();
 
         UniValue returnObj(UniValue::VOBJ);
-        returnObj.push_back(Pair("overall", strprintf("Successfully started %d fundamentalnodes, failed to start %d, total %d", successful, failed, successful + failed)));
+        returnObj.push_back(Pair("overall", strprintf("Successfully started %d coralnodes, failed to start %d, total %d", successful, failed, successful + failed)));
         returnObj.push_back(Pair("detail", resultsObj));
 
         return returnObj;
@@ -1337,12 +1337,12 @@ UniValue startfundamentalnode (const UniValue& params, bool fHelp)
         UniValue statusObj(UniValue::VOBJ);
         statusObj.push_back(Pair("alias", alias));
 
-        BOOST_FOREACH (CFundamentalnodeConfig::CFundamentalnodeEntry mne, fundamentalnodeConfig.getEntries()) {
+        BOOST_FOREACH (CCoralnodeConfig::CCoralnodeEntry mne, coralnodeConfig.getEntries()) {
             if (mne.getAlias() == alias) {
                 found = true;
                 std::string errorMessage;
 
-                bool result = activeFundamentalnode.Register(mne.getIp(), mne.getPrivKey(), mne.getTxHash(), mne.getOutputIndex(), errorMessage);
+                bool result = activeCoralnode.Register(mne.getIp(), mne.getPrivKey(), mne.getTxHash(), mne.getOutputIndex(), errorMessage);
 
                 statusObj.push_back(Pair("result", result ? "successful" : "failed"));
 
@@ -1369,7 +1369,7 @@ UniValue startfundamentalnode (const UniValue& params, bool fHelp)
             pwalletMain->Lock();
 
         UniValue returnObj(UniValue::VOBJ);
-        returnObj.push_back(Pair("overall", strprintf("Successfully started %d fundamentalnodes, failed to start %d, total %d", successful, failed, successful + failed)));
+        returnObj.push_back(Pair("overall", strprintf("Successfully started %d coralnodes, failed to start %d, total %d", successful, failed, successful + failed)));
         returnObj.push_back(Pair("detail", resultsObj));
 
         return returnObj;
@@ -1377,17 +1377,17 @@ UniValue startfundamentalnode (const UniValue& params, bool fHelp)
     return NullUniValue;
 }
 
-UniValue createfundamentalnodekey (const UniValue& params, bool fHelp)
+UniValue createcoralnodekey (const UniValue& params, bool fHelp)
 {
     if (fHelp || (params.size() != 0))
         throw runtime_error(
-            "createfundamentalnodekey\n"
-            "\nCreate a new fundamentalnode private key\n"
+            "createcoralnodekey\n"
+            "\nCreate a new coralnode private key\n"
 
             "\nResult:\n"
-            "\"key\"    (string) Fundamentalnode private key\n"
+            "\"key\"    (string) Coralnode private key\n"
             "\nExamples:\n" +
-            HelpExampleCli("createfundamentalnodekey", "") + HelpExampleRpc("createfundamentalnodekey", ""));
+            HelpExampleCli("createcoralnodekey", "") + HelpExampleRpc("createcoralnodekey", ""));
 
     CKey secret;
     secret.MakeNewKey(false);
@@ -1395,12 +1395,12 @@ UniValue createfundamentalnodekey (const UniValue& params, bool fHelp)
     return CBitcoinSecret(secret).ToString();
 }
 
-UniValue getfundamentalnodeoutputs (const UniValue& params, bool fHelp)
+UniValue getcoralnodeoutputs (const UniValue& params, bool fHelp)
 {
     if (fHelp || (params.size() != 0))
         throw runtime_error(
-            "getfundamentalnodeoutputs\n"
-            "\nPrint all fundamentalnode transaction outputs\n"
+            "getcoralnodeoutputs\n"
+            "\nPrint all coralnode transaction outputs\n"
 
             "\nResult:\n"
             "[\n"
@@ -1412,10 +1412,10 @@ UniValue getfundamentalnodeoutputs (const UniValue& params, bool fHelp)
             "]\n"
 
             "\nExamples:\n" +
-            HelpExampleCli("getfundamentalnodeoutputs", "") + HelpExampleRpc("getfundamentalnodeoutputs", ""));
+            HelpExampleCli("getcoralnodeoutputs", "") + HelpExampleRpc("getcoralnodeoutputs", ""));
 
     // Find possible candidates
-    vector<COutput> possibleCoins = activeFundamentalnode.SelectCoinsFundamentalnode();
+    vector<COutput> possibleCoins = activeCoralnode.SelectCoinsCoralnode();
 
     UniValue ret(UniValue::VARR);
     BOOST_FOREACH (COutput& out, possibleCoins) {
@@ -1428,7 +1428,7 @@ UniValue getfundamentalnodeoutputs (const UniValue& params, bool fHelp)
     return ret;
 }
 
-UniValue listfundamentalnodeconf (const UniValue& params, bool fHelp)
+UniValue listcoralnodeconf (const UniValue& params, bool fHelp)
 {
     std::string strFilter = "";
 
@@ -1436,8 +1436,8 @@ UniValue listfundamentalnodeconf (const UniValue& params, bool fHelp)
 
     if (fHelp || (params.size() > 1))
         throw runtime_error(
-            "listfundamentalnodeconf ( \"filter\" )\n"
-            "\nPrint fundamentalnode.conf in JSON format\n"
+            "listcoralnodeconf ( \"filter\" )\n"
+            "\nPrint coralnode.conf in JSON format\n"
 
             "\nArguments:\n"
             "1. \"filter\"    (string, optional) Filter search text. Partial match on alias, address, txHash, or status.\n"
@@ -1445,30 +1445,30 @@ UniValue listfundamentalnodeconf (const UniValue& params, bool fHelp)
             "\nResult:\n"
             "[\n"
             "  {\n"
-            "    \"alias\": \"xxxx\",        (string) fundamentalnode alias\n"
-            "    \"address\": \"xxxx\",      (string) fundamentalnode IP address\n"
-            "    \"privateKey\": \"xxxx\",   (string) fundamentalnode private key\n"
+            "    \"alias\": \"xxxx\",        (string) coralnode alias\n"
+            "    \"address\": \"xxxx\",      (string) coralnode IP address\n"
+            "    \"privateKey\": \"xxxx\",   (string) coralnode private key\n"
             "    \"txHash\": \"xxxx\",       (string) transaction hash\n"
             "    \"outputIndex\": n,       (numeric) transaction output index\n"
-            "    \"status\": \"xxxx\"        (string) fundamentalnode status\n"
+            "    \"status\": \"xxxx\"        (string) coralnode status\n"
             "  }\n"
             "  ,...\n"
             "]\n"
 
             "\nExamples:\n" +
-            HelpExampleCli("listfundamentalnodeconf", "") + HelpExampleRpc("listfundamentalnodeconf", ""));
+            HelpExampleCli("listcoralnodeconf", "") + HelpExampleRpc("listcoralnodeconf", ""));
 
-    std::vector<CFundamentalnodeConfig::CFundamentalnodeEntry> mnEntries;
-    mnEntries = fundamentalnodeConfig.getEntries();
+    std::vector<CCoralnodeConfig::CCoralnodeEntry> mnEntries;
+    mnEntries = coralnodeConfig.getEntries();
 
     UniValue ret(UniValue::VARR);
 
-    BOOST_FOREACH (CFundamentalnodeConfig::CFundamentalnodeEntry mne, fundamentalnodeConfig.getEntries()) {
+    BOOST_FOREACH (CCoralnodeConfig::CCoralnodeEntry mne, coralnodeConfig.getEntries()) {
         int nIndex;
         if(!mne.castOutputIndex(nIndex))
             continue;
         CTxIn vin = CTxIn(uint256(mne.getTxHash()), uint32_t(nIndex));
-        CFundamentalnode* pmn = mnodeman.Find(vin);
+        CCoralnode* pmn = mnodeman.Find(vin);
 
         std::string strStatus = pmn ? pmn->Status() : "MISSING";
 
@@ -1490,50 +1490,50 @@ UniValue listfundamentalnodeconf (const UniValue& params, bool fHelp)
     return ret;
 }
 
-UniValue getfundamentalnodestatus (const UniValue& params, bool fHelp)
+UniValue getcoralnodestatus (const UniValue& params, bool fHelp)
 {
     if (fHelp || (params.size() != 0))
         throw runtime_error(
-            "getfundamentalnodestatus\n"
-            "\nPrint fundamentalnode status\n"
+            "getcoralnodestatus\n"
+            "\nPrint coralnode status\n"
 
             "\nResult:\n"
             "{\n"
             "  \"txhash\": \"xxxx\",      (string) Collateral transaction hash\n"
             "  \"outputidx\": n,        (numeric) Collateral transaction output index number\n"
-            "  \"netaddr\": \"xxxx\",     (string) Fundamentalnode network address\n"
-            "  \"addr\": \"xxxx\",        (string) CaritasCoin address for fundamentalnode payments\n"
-            "  \"status\": \"xxxx\",      (string) Fundamentalnode status\n"
-            "  \"message\": \"xxxx\"      (string) Fundamentalnode status message\n"
+            "  \"netaddr\": \"xxxx\",     (string) Coralnode network address\n"
+            "  \"addr\": \"xxxx\",        (string) CaritasCoin address for coralnode payments\n"
+            "  \"status\": \"xxxx\",      (string) Coralnode status\n"
+            "  \"message\": \"xxxx\"      (string) Coralnode status message\n"
             "}\n"
 
             "\nExamples:\n" +
-            HelpExampleCli("getfundamentalnodestatus", "") + HelpExampleRpc("getfundamentalnodestatus", ""));
+            HelpExampleCli("getcoralnodestatus", "") + HelpExampleRpc("getcoralnodestatus", ""));
 
-    if (!fFundamentalNode) throw runtime_error("This is not a fundamentalnode");
+    if (!fCoralNode) throw runtime_error("This is not a coralnode");
 
-    CFundamentalnode* pmn = mnodeman.Find(activeFundamentalnode.vin);
+    CCoralnode* pmn = mnodeman.Find(activeCoralnode.vin);
 
     if (pmn) {
         UniValue mnObj(UniValue::VOBJ);
-        mnObj.push_back(Pair("txhash", activeFundamentalnode.vin.prevout.hash.ToString()));
-        mnObj.push_back(Pair("outputidx", (uint64_t)activeFundamentalnode.vin.prevout.n));
-        mnObj.push_back(Pair("netaddr", activeFundamentalnode.service.ToString()));
+        mnObj.push_back(Pair("txhash", activeCoralnode.vin.prevout.hash.ToString()));
+        mnObj.push_back(Pair("outputidx", (uint64_t)activeCoralnode.vin.prevout.n));
+        mnObj.push_back(Pair("netaddr", activeCoralnode.service.ToString()));
         mnObj.push_back(Pair("addr", CBitcoinAddress(pmn->pubKeyCollateralAddress.GetID()).ToString()));
-        mnObj.push_back(Pair("status", activeFundamentalnode.status));
-        mnObj.push_back(Pair("message", activeFundamentalnode.GetStatus()));
+        mnObj.push_back(Pair("status", activeCoralnode.status));
+        mnObj.push_back(Pair("message", activeCoralnode.GetStatus()));
         return mnObj;
     }
-    throw runtime_error("Fundamentalnode not found in the list of available fundamentalnodes. Current status: "
-                        + activeFundamentalnode.GetStatus());
+    throw runtime_error("Coralnode not found in the list of available coralnodes. Current status: "
+                        + activeCoralnode.GetStatus());
 }
 
-UniValue getfundamentalnodewinners (const UniValue& params, bool fHelp)
+UniValue getcoralnodewinners (const UniValue& params, bool fHelp)
 {
     if (fHelp || params.size() > 3)
         throw runtime_error(
-            "getfundamentalnodewinners ( blocks \"filter\" )\n"
-            "\nPrint the fundamentalnode winners for the last n blocks\n"
+            "getcoralnodewinners ( blocks \"filter\" )\n"
+            "\nPrint the coralnode winners for the last n blocks\n"
 
             "\nArguments:\n"
             "1. blocks      (numeric, optional) Number of previous blocks to show (default: 10)\n"
@@ -1566,7 +1566,7 @@ UniValue getfundamentalnodewinners (const UniValue& params, bool fHelp)
             "  ,...\n"
             "]\n"
             "\nExamples:\n" +
-            HelpExampleCli("getfundamentalnodewinners", "") + HelpExampleRpc("getfundamentalnodewinners", ""));
+            HelpExampleCli("getcoralnodewinners", "") + HelpExampleRpc("getcoralnodewinners", ""));
 
     int nHeight;
     {
@@ -1629,23 +1629,23 @@ UniValue getfundamentalnodewinners (const UniValue& params, bool fHelp)
     return ret;
 }
 
-UniValue getfundamentalnodescores (const UniValue& params, bool fHelp)
+UniValue getcoralnodescores (const UniValue& params, bool fHelp)
 {
     if (fHelp || params.size() > 1)
         throw runtime_error(
-            "getfundamentalnodescores ( blocks )\n"
-            "\nPrint list of winning fundamentalnode by score\n"
+            "getcoralnodescores ( blocks )\n"
+            "\nPrint list of winning coralnode by score\n"
 
             "\nArguments:\n"
             "1. blocks      (numeric, optional) Show the last n blocks (default 10)\n"
 
             "\nResult:\n"
             "{\n"
-            "  xxxx: \"xxxx\"   (numeric : string) Block height : Fundamentalnode hash\n"
+            "  xxxx: \"xxxx\"   (numeric : string) Block height : Coralnode hash\n"
             "  ,...\n"
             "}\n"
             "\nExamples:\n" +
-            HelpExampleCli("getfundamentalnodescores", "") + HelpExampleRpc("getfundamentalnodescores", ""));
+            HelpExampleCli("getcoralnodescores", "") + HelpExampleRpc("getcoralnodescores", ""));
 
     int nLast = 10;
 
@@ -1658,19 +1658,19 @@ UniValue getfundamentalnodescores (const UniValue& params, bool fHelp)
     }
     UniValue obj(UniValue::VOBJ);
 
-    std::vector<CFundamentalnode> vFundamentalnodes = mnodeman.GetFullFundamentalnodeVector();
+    std::vector<CCoralnode> vCoralnodes = mnodeman.GetFullCoralnodeVector();
     for (int nHeight = chainActive.Tip()->nHeight - nLast; nHeight < chainActive.Tip()->nHeight + 20; nHeight++) {
         uint256 nHigh = 0;
-        CFundamentalnode* pBestFundamentalnode = NULL;
-        BOOST_FOREACH (CFundamentalnode& mn, vFundamentalnodes) {
+        CCoralnode* pBestCoralnode = NULL;
+        BOOST_FOREACH (CCoralnode& mn, vCoralnodes) {
             uint256 n = mn.CalculateScore(1, nHeight - 100);
             if (n > nHigh) {
                 nHigh = n;
-                pBestFundamentalnode = &mn;
+                pBestCoralnode = &mn;
             }
         }
-        if (pBestFundamentalnode)
-            obj.push_back(Pair(strprintf("%d", nHeight), pBestFundamentalnode->vin.prevout.hash.ToString().c_str()));
+        if (pBestCoralnode)
+            obj.push_back(Pair(strprintf("%d", nHeight), pBestCoralnode->vin.prevout.hash.ToString().c_str()));
     }
 
     return obj;

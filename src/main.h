@@ -240,7 +240,7 @@ bool DisconnectBlocksAndReprocess(int blocks);
 
 // ***TODO***
 double ConvertBitsToDouble(unsigned int nBits);
-int64_t GetFundamentalnodePayment(int nHeight, int64_t blockValue, int nFundamentalnodeCount = 0);
+int64_t GetCoralnodePayment(int nHeight, int64_t blockValue, int nCoralnodeCount = 0);
 CAmount GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCount = 0);
 
 unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader* pblock, bool fProofOfStake);

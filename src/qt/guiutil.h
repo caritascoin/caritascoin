@@ -117,7 +117,7 @@ void openConfigfile();
 // Open masternode.conf
 void openMNConfigfile();
 
-// Open fundamentalnode.conf
+// Open coralnode.conf
 void openFNConfigfile();
 
 // Browse backup folder
@@ -185,7 +185,7 @@ private slots:
 
 /**
      * Extension to QTableWidgetItem that facilitates proper ordering for "DHMS"
-     * strings (primarily used in the fundamentalnode's "active" listing).
+     * strings (primarily used in the coralnode's "active" listing).
      */
 class DHMSTableWidgetItem : public QTableWidgetItem
 {

@@ -339,8 +339,8 @@ void RPCConsole::setClientModel(ClientModel* model)
         setNumBlocks(model->getNumBlocks());
         connect(model, SIGNAL(numBlocksChanged(int)), this, SLOT(setNumBlocks(int)));
 
-        setFundamentalnodeCount(model->getFundamentalnodeCountString());
-        connect(model, SIGNAL(strFundamentalnodesChanged(QString)), this, SLOT(setFundamentalnodeCount(QString)));
+        setCoralnodeCount(model->getCoralnodeCountString());
+        connect(model, SIGNAL(strCoralnodesChanged(QString)), this, SLOT(setCoralnodeCount(QString)));
 
 		setMasternodeCount(model->getMasternodeCountString());
         connect(model, SIGNAL(strMasternodesChanged(QString)), this, SLOT(setMasternodeCount(QString)));
@@ -620,9 +620,9 @@ void RPCConsole::setNumBlocks(int count)
         ui->lastBlockTime->setText(clientModel->getLastBlockDate().toString());
 }
 
-void RPCConsole::setFundamentalnodeCount(const QString& strFundamentalnodes)
+void RPCConsole::setCoralnodeCount(const QString& strCoralnodes)
 {
-    ui->fundamentalnodeCount->setText(strFundamentalnodes);
+    ui->coralnodeCount->setText(strCoralnodes);
 }
 
 void RPCConsole::setMasternodeCount(const QString& strMasternodes)

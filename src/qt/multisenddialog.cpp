@@ -46,7 +46,7 @@ void MultiSendDialog::setAddress(const QString& address, QLineEdit* addrEdit)
 void MultiSendDialog::updateCheckBoxes()
 {
     ui->multiSendStakeCheckBox->setChecked(pwalletMain->fMultiSendStake);
-    ui->multiSendFundamentalnodeCheckBox->setChecked(pwalletMain->fMultiSendFundamentalnodeReward);
+    ui->multiSendCoralnodeCheckBox->setChecked(pwalletMain->fMultiSendCoralnodeReward);
 	ui->multiSendMasternodeCheckBox->setChecked(pwalletMain->fMultiSendMasternodeReward);
 }
 
@@ -74,8 +74,8 @@ void MultiSendDialog::on_viewButton_clicked()
     if (pwalletMain->isMultiSendEnabled()) {
         if (pwalletMain->fMultiSendStake)
             strMultiSendPrint += "MultiSend Active for Stakes\n";
-        else if (pwalletMain->fMultiSendFundamentalnodeReward)
-            strMultiSendPrint += "MultiSend Active for Fundamentalnode Rewards\n";
+        else if (pwalletMain->fMultiSendCoralnodeReward)
+            strMultiSendPrint += "MultiSend Active for Coralnode Rewards\n";
 	    else if (pwalletMain->fMultiSendMasternodeReward)
             strMultiSendPrint += "MultiSend Active for Masternode Rewards\n";
     } else
@@ -198,15 +198,15 @@ void MultiSendDialog::on_activateButton_clicked()
     std::string strRet = "";
     if (pwalletMain->vMultiSend.size() < 1)
         strRet = "Unable to activate MultiSend, check MultiSend vector\n";
-    else if (!(ui->multiSendStakeCheckBox->isChecked() || ui->multiSendFundamentalnodeCheckBox->isChecked() || ui->multiSendMasternodeCheckBox->isChecked() )) {
-        strRet = "Need to select to send on stake and/or fundamentalnode/masternode rewards\n";
+    else if (!(ui->multiSendStakeCheckBox->isChecked() || ui->multiSendCoralnodeCheckBox->isChecked() || ui->multiSendMasternodeCheckBox->isChecked() )) {
+        strRet = "Need to select to send on stake and/or coralnode/masternode rewards\n";
     } else if (CBitcoinAddress(pwalletMain->vMultiSend[0].first).IsValid()) {
         pwalletMain->fMultiSendStake = ui->multiSendStakeCheckBox->isChecked();
-        pwalletMain->fMultiSendFundamentalnodeReward = ui->multiSendFundamentalnodeCheckBox->isChecked();
+        pwalletMain->fMultiSendCoralnodeReward = ui->multiSendCoralnodeCheckBox->isChecked();
 		pwalletMain->fMultiSendMasternodeReward = ui->multiSendMasternodeCheckBox->isChecked();
 
         CWalletDB walletdb(pwalletMain->strWalletFile);
-        if (!walletdb.WriteMSettings(pwalletMain->fMultiSendStake, pwalletMain->fMultiSendFundamentalnodeReward,pwalletMain->fMultiSendMasternodeReward, pwalletMain->nLastMultiSendHeight))
+        if (!walletdb.WriteMSettings(pwalletMain->fMultiSendStake, pwalletMain->fMultiSendCoralnodeReward,pwalletMain->fMultiSendMasternodeReward, pwalletMain->nLastMultiSendHeight))
             strRet = "MultiSend activated but writing settings to DB failed";
         else
             strRet = "MultiSend activated";

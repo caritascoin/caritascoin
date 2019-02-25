@@ -3,14 +3,14 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef FUNDAMENTALNODE_BUDGET_H
-#define FUNDAMENTALNODE_BUDGET_H
+#ifndef CORALNODE_BUDGET_H
+#define CORALNODE_BUDGET_H
 
 #include "base58.h"
 #include "init.h"
 #include "key.h"
 #include "main.h"
-#include "fundamentalnode.h"
+#include "coralnode.h"
 #include "net.h"
 #include "sync.h"
 #include "util.h"
@@ -48,7 +48,7 @@ int GetBudgetPaymentCycleBlocks();
 bool IsBudgetCollateralValid(uint256 nTxCollateralHash, uint256 nExpectedHash, std::string& strError, int64_t& nTime, int& nConf);
 
 //
-// CBudgetVote - Allow a fundamentalnode node to vote and broadcast throughout the network
+// CBudgetVote - Allow a coralnode node to vote and broadcast throughout the network
 //
 
 class CBudgetVote
@@ -65,7 +65,7 @@ public:
     CBudgetVote();
     CBudgetVote(CTxIn vin, uint256 nProposalHash, int nVoteIn);
 
-    bool Sign(CKey& keyFundamentalnode, CPubKey& pubKeyFundamentalnode);
+    bool Sign(CKey& keyCoralnode, CPubKey& pubKeyCoralnode);
     bool SignatureValid(bool fSignatureCheck);
     void Relay();
 
@@ -101,7 +101,7 @@ public:
 };
 
 //
-// CFinalizedBudgetVote - Allow a fundamentalnode node to vote and broadcast throughout the network
+// CFinalizedBudgetVote - Allow a coralnode node to vote and broadcast throughout the network
 //
 
 class CFinalizedBudgetVote
@@ -117,7 +117,7 @@ public:
     CFinalizedBudgetVote();
     CFinalizedBudgetVote(CTxIn vinIn, uint256 nBudgetHashIn);
 
-    bool Sign(CKey& keyFundamentalnode, CPubKey& pubKeyFundamentalnode);
+    bool Sign(CKey& keyCoralnode, CPubKey& pubKeyCoralnode);
     bool SignatureValid(bool fSignatureCheck);
     void Relay();
 
@@ -185,9 +185,9 @@ public:
     map<uint256, CBudgetProposal> mapProposals;
     map<uint256, CFinalizedBudget> mapFinalizedBudgets;
 
-    std::map<uint256, CBudgetProposalBroadcast> mapSeenFundamentalnodeBudgetProposals;
-    std::map<uint256, CBudgetVote> mapSeenFundamentalnodeBudgetVotes;
-    std::map<uint256, CBudgetVote> mapOrphanFundamentalnodeBudgetVotes;
+    std::map<uint256, CBudgetProposalBroadcast> mapSeenCoralnodeBudgetProposals;
+    std::map<uint256, CBudgetVote> mapSeenCoralnodeBudgetVotes;
+    std::map<uint256, CBudgetVote> mapOrphanCoralnodeBudgetVotes;
     std::map<uint256, CFinalizedBudgetBroadcast> mapSeenFinalizedBudgets;
     std::map<uint256, CFinalizedBudgetVote> mapSeenFinalizedBudgetVotes;
     std::map<uint256, CFinalizedBudgetVote> mapOrphanFinalizedBudgetVotes;
@@ -200,8 +200,8 @@ public:
 
     void ClearSeen()
     {
-        mapSeenFundamentalnodeBudgetProposals.clear();
-        mapSeenFundamentalnodeBudgetVotes.clear();
+        mapSeenCoralnodeBudgetProposals.clear();
+        mapSeenCoralnodeBudgetVotes.clear();
         mapSeenFinalizedBudgets.clear();
         mapSeenFinalizedBudgetVotes.clear();
     }
@@ -245,11 +245,11 @@ public:
         LogPrintf("Budget object cleared\n");
         mapProposals.clear();
         mapFinalizedBudgets.clear();
-        mapSeenFundamentalnodeBudgetProposals.clear();
-        mapSeenFundamentalnodeBudgetVotes.clear();
+        mapSeenCoralnodeBudgetProposals.clear();
+        mapSeenCoralnodeBudgetVotes.clear();
         mapSeenFinalizedBudgets.clear();
         mapSeenFinalizedBudgetVotes.clear();
-        mapOrphanFundamentalnodeBudgetVotes.clear();
+        mapOrphanCoralnodeBudgetVotes.clear();
         mapOrphanFinalizedBudgetVotes.clear();
     }
     void CheckAndRemove();
@@ -261,11 +261,11 @@ public:
     template <typename Stream, typename Operation>
     inline void SerializationOp(Stream& s, Operation ser_action, int nType, int nVersion)
     {
-        READWRITE(mapSeenFundamentalnodeBudgetProposals);
-        READWRITE(mapSeenFundamentalnodeBudgetVotes);
+        READWRITE(mapSeenCoralnodeBudgetProposals);
+        READWRITE(mapSeenCoralnodeBudgetVotes);
         READWRITE(mapSeenFinalizedBudgets);
         READWRITE(mapSeenFinalizedBudgetVotes);
-        READWRITE(mapOrphanFundamentalnodeBudgetVotes);
+        READWRITE(mapOrphanCoralnodeBudgetVotes);
         READWRITE(mapOrphanFinalizedBudgetVotes);
 
         READWRITE(mapProposals);
@@ -309,7 +309,7 @@ class CFinalizedBudget
 private:
     // critical section to protect the inner data structures
     mutable CCriticalSection cs;
-    bool fAutoChecked; //If it matches what we see, we'll auto vote for it (fundamentalnode only)
+    bool fAutoChecked; //If it matches what we see, we'll auto vote for it (coralnode only)
 
 public:
     bool fValid;
@@ -362,7 +362,7 @@ public:
     void AutoCheck();
     //total caritas paid out by this budget
     CAmount GetTotalPayout();
-    //vote on this finalized budget as a fundamentalnode
+    //vote on this finalized budget as a coralnode
     void SubmitVote();
 
     //checks the hashes to make sure we know about them
@@ -446,7 +446,7 @@ public:
 
 
 //
-// Budget Proposal : Contains the fundamentalnode votes for each budget
+// Budget Proposal : Contains the coralnode votes for each budget
 //
 
 class CBudgetProposal

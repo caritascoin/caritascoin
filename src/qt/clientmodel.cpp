@@ -15,8 +15,8 @@
 #include "checkpoints.h"
 #include "clientversion.h"
 #include "main.h"
-#include "fundamentalnode-sync.h"
-#include "fundamentalnodeman.h"
+#include "coralnode-sync.h"
+#include "coralnodeman.h"
 #include "masternodeman.h"
 #include "net.h"
 #include "ui_interface.h"
@@ -35,7 +35,7 @@ ClientModel::ClientModel(OptionsModel* optionsModel, QObject* parent) : QObject(
                                                                         peerTableModel(0),
                                                                         banTableModel(0),
                                                                         cachedNumBlocks(0),
-                                                                        cachedFundamentalnodeCountString(""),
+                                                                        cachedCoralnodeCountString(""),
 																		cachedMasternodeCountString(""),
                                                                         cachedReindexing(0), cachedImporting(0),
                                                                         numBlocksAtStartup(-1), pollTimer(0)
@@ -73,7 +73,7 @@ int ClientModel::getNumConnections(unsigned int flags) const
     return nNum;
 }
 
-QString ClientModel::getFundamentalnodeCountString() const
+QString ClientModel::getCoralnodeCountString() const
 {
     int ipv4 = 0, ipv6 = 0, onion = 0;
     mnodeman.CountNetworks(ActiveProtocol(), ipv4, ipv6, onion);
@@ -143,12 +143,12 @@ void ClientModel::updateTimer()
     // check for changed number of blocks we have, number of blocks peers claim to have, reindexing state and importing state
     if (cachedNumBlocks != newNumBlocks ||
         cachedReindexing != fReindex || cachedImporting != fImporting ||
-        fundamentalnodeSync.RequestedFundamentalnodeAttempt != prevAttempt || fundamentalnodeSync.RequestedFundamentalnodeAssets != prevAssets) {
+        coralnodeSync.RequestedCoralnodeAttempt != prevAttempt || coralnodeSync.RequestedCoralnodeAssets != prevAssets) {
         cachedNumBlocks = newNumBlocks;
         cachedReindexing = fReindex;
         cachedImporting = fImporting;
-        prevAttempt = fundamentalnodeSync.RequestedFundamentalnodeAttempt;
-        prevAssets = fundamentalnodeSync.RequestedFundamentalnodeAssets;
+        prevAttempt = coralnodeSync.RequestedCoralnodeAttempt;
+        prevAssets = coralnodeSync.RequestedCoralnodeAssets;
 
         emit numBlocksChanged(newNumBlocks);
     }
@@ -164,12 +164,12 @@ void ClientModel::updateMnTimer()
     TRY_LOCK(cs_main, lockMain);
     if (!lockMain)
         return;
-    QString newFundamentalnodeCountString = getFundamentalnodeCountString();
+    QString newCoralnodeCountString = getCoralnodeCountString();
 
-    if (cachedFundamentalnodeCountString != newFundamentalnodeCountString) {
-        cachedFundamentalnodeCountString = newFundamentalnodeCountString;
+    if (cachedCoralnodeCountString != newCoralnodeCountString) {
+        cachedCoralnodeCountString = newCoralnodeCountString;
 
-        emit strFundamentalnodesChanged(cachedFundamentalnodeCountString);
+        emit strCoralnodesChanged(cachedCoralnodeCountString);
     }
 }
 

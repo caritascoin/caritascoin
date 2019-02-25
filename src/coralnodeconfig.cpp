@@ -5,31 +5,31 @@
 
 // clang-format off
 #include "net.h"
-#include "fundamentalnodeconfig.h"
+#include "coralnodeconfig.h"
 #include "util.h"
 #include "ui_interface.h"
 #include <base58.h>
 // clang-format on
 
-CFundamentalnodeConfig fundamentalnodeConfig;
+CCoralnodeConfig coralnodeConfig;
 
-void CFundamentalnodeConfig::add(std::string alias, std::string ip, std::string privKey, std::string txHash, std::string outputIndex)
+void CCoralnodeConfig::add(std::string alias, std::string ip, std::string privKey, std::string txHash, std::string outputIndex)
 {
-    CFundamentalnodeEntry cme(alias, ip, privKey, txHash, outputIndex);
+    CCoralnodeEntry cme(alias, ip, privKey, txHash, outputIndex);
     entries.push_back(cme);
 }
 
-bool CFundamentalnodeConfig::read(std::string& strErr)
+bool CCoralnodeConfig::read(std::string& strErr)
 {
     int linenumber = 1;
-    boost::filesystem::path pathFundamentalnodeConfigFile = GetFundamentalnodeConfigFile();
-    boost::filesystem::ifstream streamConfig(pathFundamentalnodeConfigFile);
+    boost::filesystem::path pathCoralnodeConfigFile = GetCoralnodeConfigFile();
+    boost::filesystem::ifstream streamConfig(pathCoralnodeConfigFile);
 
     if (!streamConfig.good()) {
-        FILE* configFile = fopen(pathFundamentalnodeConfigFile.string().c_str(), "a");
+        FILE* configFile = fopen(pathCoralnodeConfigFile.string().c_str(), "a");
         if (configFile != NULL) {
-            std::string strHeader = "# Fundamentalnode config file\n"
-                                    "# Format: alias IP:port fundamentalnodeprivkey collateral_output_txid collateral_output_index\n"
+            std::string strHeader = "# Coralnode config file\n"
+                                    "# Format: alias IP:port coralnodeprivkey collateral_output_txid collateral_output_index\n"
                                     "# Example: mn1 127.0.0.2:16180 93HaYBVUCYjEMeeH1Y4sBGLALQZE1Yc1K64xiqgX37tGBDQL8Xg 2bcd3c84c84f87eaa86e4e56834c92927a07f9e18718810b92e0d0324456a67c 0\n";
             fwrite(strHeader.c_str(), std::strlen(strHeader.c_str()), 1, configFile);
             fclose(configFile);
@@ -53,7 +53,7 @@ bool CFundamentalnodeConfig::read(std::string& strErr)
             iss.str(line);
             iss.clear();
             if (!(iss >> alias >> ip >> privKey >> txHash >> outputIndex)) {
-                strErr = _("Could not parse fundamentalnode.conf") + "\n" +
+                strErr = _("Could not parse coralnode.conf") + "\n" +
                          strprintf(_("Line: %d"), linenumber) + "\n\"" + line + "\"";
                 streamConfig.close();
                 return false;
@@ -62,14 +62,14 @@ bool CFundamentalnodeConfig::read(std::string& strErr)
 
         if (Params().NetworkID() == CBaseChainParams::MAIN) {
             if (CService(ip).GetPort() != Params().GetDefaultPort()) {
-                strErr = _("Invalid port detected in fundamentalnode.conf") + "\n" +
+                strErr = _("Invalid port detected in coralnode.conf") + "\n" +
                          strprintf(_("Line: %d"), linenumber) + "\n\"" + line + "\"" + "\n" +
                          _("(must be 16180 for mainnet)");
                 streamConfig.close();
                 return false;
             }
         } else if (CService(ip).GetPort() == Params().GetDefaultPort()) {
-            strErr = _("Invalid port detected in fundamentalnode.conf") + "\n" +
+            strErr = _("Invalid port detected in coralnode.conf") + "\n" +
                      strprintf(_("Line: %d"), linenumber) + "\n\"" + line + "\"" + "\n" +
                      _("(16180 could be used only on mainnet)");
             streamConfig.close();
@@ -84,7 +84,7 @@ bool CFundamentalnodeConfig::read(std::string& strErr)
     return true;
 }
 
-bool CFundamentalnodeConfig::CFundamentalnodeEntry::castOutputIndex(int &n)
+bool CCoralnodeConfig::CCoralnodeEntry::castOutputIndex(int &n)
 {
     try {
         n = std::stoi(outputIndex);

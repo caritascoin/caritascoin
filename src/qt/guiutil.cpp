@@ -381,16 +381,16 @@ void openMNConfigfile()
 {
     boost::filesystem::path pathConfig = GetMasternodeConfigFile();
 
-    /* Open fundamentalnode.conf with the associated application */
+    /* Open coralnode.conf with the associated application */
     if (boost::filesystem::exists(pathConfig))
         QDesktopServices::openUrl(QUrl::fromLocalFile(boostPathToQString(pathConfig)));
 }
 
 void openFNConfigfile()
 {
-    boost::filesystem::path pathConfig = GetFundamentalnodeConfigFile();
+    boost::filesystem::path pathConfig = GetCoralnodeConfigFile();
 
-    /* Open fundamentalnode.conf with the associated application */
+    /* Open coralnode.conf with the associated application */
     if (boost::filesystem::exists(pathConfig))
         QDesktopServices::openUrl(QUrl::fromLocalFile(boostPathToQString(pathConfig)));
 }
@@ -585,7 +585,7 @@ DHMSTableWidgetItem::DHMSTableWidgetItem(const int64_t seconds) : QTableWidgetIt
 
 /**
  * Comparator overload to ensure that the "DHMS"-type durations as used in
- * the "active-since" list in the fundamentalnode tab are sorted by the elapsed
+ * the "active-since" list in the coralnode tab are sorted by the elapsed
  * duration (versus the string value being sorted).
  * @param[in] item      Right hand side of the less than operator
  */

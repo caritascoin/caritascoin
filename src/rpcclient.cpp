@@ -111,8 +111,8 @@ static const CRPCConvertParam vRPCConvertParams[] =
         {"submitbudget", 3},
         {"submitbudget", 5},
         {"submitbudget", 7},
-        // disabled until removal of the legacy 'fundamentalnode' command
-        //{"startfundamentalnode", 1},
+        // disabled until removal of the legacy 'coralnode' command
+        //{"startcoralnode", 1},
         {"fnvoteraw", 1},
         {"fnvoteraw", 4},
         {"reservebalance", 0},

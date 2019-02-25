@@ -83,7 +83,7 @@ endif
 .PHONY: FORCE
 # caritascoin core #
 BITCOIN_CORE_H = \
-  activefundamentalnode.h \
+  activecoralnode.h \
   activemasternode.h \
   accumulators.h \
   accumulatormap.h \
@@ -130,12 +130,12 @@ BITCOIN_CORE_H = \
   masternode-pos.h \
   masternodeman.h \
   masternodeconfig.h \
-  fundamentalnode.h \
-  fundamentalnode-payments.h \
-  fundamentalnode-budget.h \
-  fundamentalnode-sync.h \
-  fundamentalnodeman.h \
-  fundamentalnodeconfig.h \
+  coralnode.h \
+  coralnode-payments.h \
+  coralnode-budget.h \
+  coralnode-sync.h \
+  coralnodeman.h \
+  coralnodeconfig.h \
   merkleblock.h \
   miner.h \
   mruset.h \
@@ -213,8 +213,8 @@ libbitcoin_server_a_SOURCES = \
   pow.cpp \
   rest.cpp \
   rpcblockchain.cpp \
-  rpcfundamentalnode.cpp \
-  rpcfundamentalnode-budget.cpp \
+  rpccoralnode.cpp \
+  rpccoralnode-budget.cpp \
   rpcmining.cpp \
   rpcmisc.cpp \
   rpcnet.cpp \
@@ -246,7 +246,7 @@ endif
 libbitcoin_wallet_a_CFLAGS = -fPIC
 libbitcoin_wallet_a_CPPFLAGS = $(BITCOIN_INCLUDES) $(BOOST_CPPFLAGS)
 libbitcoin_wallet_a_SOURCES = \
-  activefundamentalnode.cpp \
+  activecoralnode.cpp \
   activemasternode.cpp \
   bip38.cpp \
   denomination_functions.cpp \
@@ -256,12 +256,12 @@ libbitcoin_wallet_a_SOURCES = \
   db.cpp \
   crypter.cpp \
   swifttx.cpp \
-  fundamentalnode.cpp \
-  fundamentalnode-budget.cpp \
-  fundamentalnode-payments.cpp \
-  fundamentalnode-sync.cpp \
-  fundamentalnodeconfig.cpp \
-  fundamentalnodeman.cpp \
+  coralnode.cpp \
+  coralnode-budget.cpp \
+  coralnode-payments.cpp \
+  coralnode-sync.cpp \
+  coralnodeconfig.cpp \
+  coralnodeman.cpp \
   rpcdump.cpp \
   primitives/zerocoin.cpp \
   rpcwallet.cpp \

@@ -285,7 +285,7 @@
                         <item>
                          <widget class="QLabel" name="labelzVITAmountText">
                           <property name="toolTip">
-                           <string>Available for minting are coins which are confirmed and not locked or Fundamentalnode collaterals.</string>
+                           <string>Available for minting are coins which are confirmed and not locked or Coralnode collaterals.</string>
                           </property>
                           <property name="text">
                            <string>Available for Minting:</string>

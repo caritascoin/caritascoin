@@ -1,13 +1,13 @@
-#include "fundamentalnodelist.h"
-#include "ui_fundamentalnodelist.h"
+#include "coralnodeist.h"
+#include "ui_coralnodeist.h"
 
-#include "activefundamentalnode.h"
+#include "activecoralnode.h"
 #include "clientmodel.h"
 #include "guiutil.h"
 #include "init.h"
-#include "fundamentalnode-sync.h"
-#include "fundamentalnodeconfig.h"
-#include "fundamentalnodeman.h"
+#include "coralnode-sync.h"
+#include "coralnodeconfig.h"
+#include "coralnodeman.h"
 #include "sync.h"
 #include "wallet.h"
 #include "walletmodel.h"
@@ -15,10 +15,10 @@
 #include <QMessageBox>
 #include <QTimer>
 
-CCriticalSection cs_fundamentalnodes;
+CCriticalSection cs_coralnodes;
 
-FundamentalnodeList::FundamentalnodeList(QWidget* parent) : QWidget(parent),
-                                                  ui(new Ui::FundamentalnodeList),
+CoralnodeList::CoralnodeList(QWidget* parent) : QWidget(parent),
+                                                  ui(new Ui::CoralnodeList),
                                                   clientModel(0),
                                                   walletModel(0)
 {
@@ -33,20 +33,20 @@ FundamentalnodeList::FundamentalnodeList(QWidget* parent) : QWidget(parent),
     int columnActiveWidth = 130;
     int columnLastSeenWidth = 130;
 
-    ui->tableWidgetMyFundamentalnodes->setAlternatingRowColors(true);
-    ui->tableWidgetMyFundamentalnodes->setColumnWidth(0, columnAliasWidth);
-    ui->tableWidgetMyFundamentalnodes->setColumnWidth(1, columnAddressWidth);
-    ui->tableWidgetMyFundamentalnodes->setColumnWidth(2, columnProtocolWidth);
-    ui->tableWidgetMyFundamentalnodes->setColumnWidth(3, columnStatusWidth);
-    ui->tableWidgetMyFundamentalnodes->setColumnWidth(4, columnActiveWidth);
-    ui->tableWidgetMyFundamentalnodes->setColumnWidth(5, columnLastSeenWidth);
+    ui->tableWidgetMyCoralnodes->setAlternatingRowColors(true);
+    ui->tableWidgetMyCoralnodes->setColumnWidth(0, columnAliasWidth);
+    ui->tableWidgetMyCoralnodes->setColumnWidth(1, columnAddressWidth);
+    ui->tableWidgetMyCoralnodes->setColumnWidth(2, columnProtocolWidth);
+    ui->tableWidgetMyCoralnodes->setColumnWidth(3, columnStatusWidth);
+    ui->tableWidgetMyCoralnodes->setColumnWidth(4, columnActiveWidth);
+    ui->tableWidgetMyCoralnodes->setColumnWidth(5, columnLastSeenWidth);
 
-    ui->tableWidgetMyFundamentalnodes->setContextMenuPolicy(Qt::CustomContextMenu);
+    ui->tableWidgetMyCoralnodes->setContextMenuPolicy(Qt::CustomContextMenu);
 
     QAction* startAliasAction = new QAction(tr("Start alias"), this);
     contextMenu = new QMenu();
     contextMenu->addAction(startAliasAction);
-    connect(ui->tableWidgetMyFundamentalnodes, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(showContextMenu(const QPoint&)));
+    connect(ui->tableWidgetMyCoralnodes, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(showContextMenu(const QPoint&)));
     connect(startAliasAction, SIGNAL(triggered()), this, SLOT(on_startButton_clicked()));
 
     timer = new QTimer(this);
@@ -58,45 +58,45 @@ FundamentalnodeList::FundamentalnodeList(QWidget* parent) : QWidget(parent),
     nTimeFilterUpdated = GetTime();
 }
 
-FundamentalnodeList::~FundamentalnodeList()
+CoralnodeList::~CoralnodeList()
 {
     delete ui;
 }
 
-void FundamentalnodeList::setClientModel(ClientModel* model)
+void CoralnodeList::setClientModel(ClientModel* model)
 {
     this->clientModel = model;
 }
 
-void FundamentalnodeList::setWalletModel(WalletModel* model)
+void CoralnodeList::setWalletModel(WalletModel* model)
 {
     this->walletModel = model;
 }
 
-void FundamentalnodeList::showContextMenu(const QPoint& point)
+void CoralnodeList::showContextMenu(const QPoint& point)
 {
-    QTableWidgetItem* item = ui->tableWidgetMyFundamentalnodes->itemAt(point);
+    QTableWidgetItem* item = ui->tableWidgetMyCoralnodes->itemAt(point);
     if (item) contextMenu->exec(QCursor::pos());
 }
 
-void FundamentalnodeList::StartAlias(std::string strAlias)
+void CoralnodeList::StartAlias(std::string strAlias)
 {
     std::string strStatusHtml;
     strStatusHtml += "<center>Alias: " + strAlias;
 
-    BOOST_FOREACH (CFundamentalnodeConfig::CFundamentalnodeEntry mne, fundamentalnodeConfig.getEntries()) {
+    BOOST_FOREACH (CCoralnodeConfig::CCoralnodeEntry mne, coralnodeConfig.getEntries()) {
         if (mne.getAlias() == strAlias) {
             std::string strError;
-            CFundamentalnodeBroadcast mnb;
+            CCoralnodeBroadcast mnb;
 
-            bool fSuccess = CFundamentalnodeBroadcast::Create(mne.getIp(), mne.getPrivKey(), mne.getTxHash(), mne.getOutputIndex(), strError, mnb);
+            bool fSuccess = CCoralnodeBroadcast::Create(mne.getIp(), mne.getPrivKey(), mne.getTxHash(), mne.getOutputIndex(), strError, mnb);
 
             if (fSuccess) {
-                strStatusHtml += "<br>Successfully started fundamentalnode.";
-                mnodeman.UpdateFundamentalnodeList(mnb);
+                strStatusHtml += "<br>Successfully started coralnode.";
+                mnodeman.UpdateCoralnodeList(mnb);
                 mnb.Relay();
             } else {
-                strStatusHtml += "<br>Failed to start fundamentalnode.<br>Error: " + strError;
+                strStatusHtml += "<br>Failed to start coralnode.<br>Error: " + strError;
             }
             break;
         }
@@ -110,30 +110,30 @@ void FundamentalnodeList::StartAlias(std::string strAlias)
     updateMyNodeList(true);
 }
 
-void FundamentalnodeList::StartAll(std::string strCommand)
+void CoralnodeList::StartAll(std::string strCommand)
 {
     int nCountSuccessful = 0;
     int nCountFailed = 0;
     std::string strFailedHtml;
 
-    BOOST_FOREACH (CFundamentalnodeConfig::CFundamentalnodeEntry mne, fundamentalnodeConfig.getEntries()) {
+    BOOST_FOREACH (CCoralnodeConfig::CCoralnodeEntry mne, coralnodeConfig.getEntries()) {
         std::string strError;
-        CFundamentalnodeBroadcast mnb;
+        CCoralnodeBroadcast mnb;
 
         int nIndex;
         if(!mne.castOutputIndex(nIndex))
             continue;
 
         CTxIn txin = CTxIn(uint256S(mne.getTxHash()), uint32_t(nIndex));
-        CFundamentalnode* pmn = mnodeman.Find(txin);
+        CCoralnode* pmn = mnodeman.Find(txin);
 
         if (strCommand == "start-missing" && pmn) continue;
 
-        bool fSuccess = CFundamentalnodeBroadcast::Create(mne.getIp(), mne.getPrivKey(), mne.getTxHash(), mne.getOutputIndex(), strError, mnb);
+        bool fSuccess = CCoralnodeBroadcast::Create(mne.getIp(), mne.getPrivKey(), mne.getTxHash(), mne.getOutputIndex(), strError, mnb);
 
         if (fSuccess) {
             nCountSuccessful++;
-            mnodeman.UpdateFundamentalnodeList(mnb);
+            mnodeman.UpdateCoralnodeList(mnb);
             mnb.Relay();
         } else {
             nCountFailed++;
@@ -143,7 +143,7 @@ void FundamentalnodeList::StartAll(std::string strCommand)
     pwalletMain->Lock();
 
     std::string returnObj;
-    returnObj = strprintf("Successfully started %d fundamentalnodes, failed to start %d, total %d", nCountSuccessful, nCountFailed, nCountFailed + nCountSuccessful);
+    returnObj = strprintf("Successfully started %d coralnodes, failed to start %d, total %d", nCountSuccessful, nCountFailed, nCountFailed + nCountSuccessful);
     if (nCountFailed > 0) {
         returnObj += strFailedHtml;
     }
@@ -155,14 +155,14 @@ void FundamentalnodeList::StartAll(std::string strCommand)
     updateMyNodeList(true);
 }
 
-void FundamentalnodeList::updateMyFundamentalnodeInfo(QString strAlias, QString strAddr, CFundamentalnode* pmn)
+void CoralnodeList::updateMyCoralnodeInfo(QString strAlias, QString strAddr, CCoralnode* pmn)
 {
     LOCK(cs_mnlistupdate);
     bool fOldRowFound = false;
     int nNewRow = 0;
 
-    for (int i = 0; i < ui->tableWidgetMyFundamentalnodes->rowCount(); i++) {
-        if (ui->tableWidgetMyFundamentalnodes->item(i, 0)->text() == strAlias) {
+    for (int i = 0; i < ui->tableWidgetMyCoralnodes->rowCount(); i++) {
+        if (ui->tableWidgetMyCoralnodes->item(i, 0)->text() == strAlias) {
             fOldRowFound = true;
             nNewRow = i;
             break;
@@ -170,8 +170,8 @@ void FundamentalnodeList::updateMyFundamentalnodeInfo(QString strAlias, QString 
     }
 
     if (nNewRow == 0 && !fOldRowFound) {
-        nNewRow = ui->tableWidgetMyFundamentalnodes->rowCount();
-        ui->tableWidgetMyFundamentalnodes->insertRow(nNewRow);
+        nNewRow = ui->tableWidgetMyCoralnodes->rowCount();
+        ui->tableWidgetMyCoralnodes->insertRow(nNewRow);
     }
 
     QTableWidgetItem* aliasItem = new QTableWidgetItem(strAlias);
@@ -182,58 +182,58 @@ void FundamentalnodeList::updateMyFundamentalnodeInfo(QString strAlias, QString 
     QTableWidgetItem* lastSeenItem = new QTableWidgetItem(QString::fromStdString(DateTimeStrFormat("%Y-%m-%d %H:%M", pmn ? pmn->lastPing.sigTime : 0)));
     QTableWidgetItem* pubkeyItem = new QTableWidgetItem(QString::fromStdString(pmn ? CBitcoinAddress(pmn->pubKeyCollateralAddress.GetID()).ToString() : ""));
 
-    ui->tableWidgetMyFundamentalnodes->setItem(nNewRow, 0, aliasItem);
-    ui->tableWidgetMyFundamentalnodes->setItem(nNewRow, 1, addrItem);
-    ui->tableWidgetMyFundamentalnodes->setItem(nNewRow, 2, protocolItem);
-    ui->tableWidgetMyFundamentalnodes->setItem(nNewRow, 3, statusItem);
-    ui->tableWidgetMyFundamentalnodes->setItem(nNewRow, 4, activeSecondsItem);
-    ui->tableWidgetMyFundamentalnodes->setItem(nNewRow, 5, lastSeenItem);
-    ui->tableWidgetMyFundamentalnodes->setItem(nNewRow, 6, pubkeyItem);
+    ui->tableWidgetMyCoralnodes->setItem(nNewRow, 0, aliasItem);
+    ui->tableWidgetMyCoralnodes->setItem(nNewRow, 1, addrItem);
+    ui->tableWidgetMyCoralnodes->setItem(nNewRow, 2, protocolItem);
+    ui->tableWidgetMyCoralnodes->setItem(nNewRow, 3, statusItem);
+    ui->tableWidgetMyCoralnodes->setItem(nNewRow, 4, activeSecondsItem);
+    ui->tableWidgetMyCoralnodes->setItem(nNewRow, 5, lastSeenItem);
+    ui->tableWidgetMyCoralnodes->setItem(nNewRow, 6, pubkeyItem);
 }
 
-void FundamentalnodeList::updateMyNodeList(bool fForce)
+void CoralnodeList::updateMyNodeList(bool fForce)
 {
     static int64_t nTimeMyListUpdated = 0;
 
-    // automatically update my fundamentalnode list only once in MY_FUNDAMENTALNODELIST_UPDATE_SECONDS seconds,
+    // automatically update my coralnode list only once in MY_CORALNODELIST_UPDATE_SECONDS seconds,
     // this update still can be triggered manually at any time via button click
-    int64_t nSecondsTillUpdate = nTimeMyListUpdated + MY_FUNDAMENTALNODELIST_UPDATE_SECONDS - GetTime();
+    int64_t nSecondsTillUpdate = nTimeMyListUpdated + MY_CORALNODELIST_UPDATE_SECONDS - GetTime();
     ui->secondsLabel->setText(QString::number(nSecondsTillUpdate));
 
     if (nSecondsTillUpdate > 0 && !fForce) return;
     nTimeMyListUpdated = GetTime();
 
-    ui->tableWidgetMyFundamentalnodes->setSortingEnabled(false);
-    BOOST_FOREACH (CFundamentalnodeConfig::CFundamentalnodeEntry mne, fundamentalnodeConfig.getEntries()) {
+    ui->tableWidgetMyCoralnodes->setSortingEnabled(false);
+    BOOST_FOREACH (CCoralnodeConfig::CCoralnodeEntry mne, coralnodeConfig.getEntries()) {
         int nIndex;
         if(!mne.castOutputIndex(nIndex))
             continue;
 
         CTxIn txin = CTxIn(uint256S(mne.getTxHash()), uint32_t(nIndex));
-        CFundamentalnode* pmn = mnodeman.Find(txin);
-        updateMyFundamentalnodeInfo(QString::fromStdString(mne.getAlias()), QString::fromStdString(mne.getIp()), pmn);
+        CCoralnode* pmn = mnodeman.Find(txin);
+        updateMyCoralnodeInfo(QString::fromStdString(mne.getAlias()), QString::fromStdString(mne.getIp()), pmn);
     }
-    ui->tableWidgetMyFundamentalnodes->setSortingEnabled(true);
+    ui->tableWidgetMyCoralnodes->setSortingEnabled(true);
 
     // reset "timer"
     ui->secondsLabel->setText("0");
 }
 
-void FundamentalnodeList::on_startButton_clicked()
+void CoralnodeList::on_startButton_clicked()
 {
     // Find selected node alias
-    QItemSelectionModel* selectionModel = ui->tableWidgetMyFundamentalnodes->selectionModel();
+    QItemSelectionModel* selectionModel = ui->tableWidgetMyCoralnodes->selectionModel();
     QModelIndexList selected = selectionModel->selectedRows();
 
     if (selected.count() == 0) return;
 
     QModelIndex index = selected.at(0);
     int nSelectedRow = index.row();
-    std::string strAlias = ui->tableWidgetMyFundamentalnodes->item(nSelectedRow, 0)->text().toStdString();
+    std::string strAlias = ui->tableWidgetMyCoralnodes->item(nSelectedRow, 0)->text().toStdString();
 
     // Display message box
-    QMessageBox::StandardButton retval = QMessageBox::question(this, tr("Confirm fundamentalnode start"),
-        tr("Are you sure you want to start fundamentalnode %1?").arg(QString::fromStdString(strAlias)),
+    QMessageBox::StandardButton retval = QMessageBox::question(this, tr("Confirm coralnode start"),
+        tr("Are you sure you want to start coralnode %1?").arg(QString::fromStdString(strAlias)),
         QMessageBox::Yes | QMessageBox::Cancel,
         QMessageBox::Cancel);
 
@@ -253,11 +253,11 @@ void FundamentalnodeList::on_startButton_clicked()
     StartAlias(strAlias);
 }
 
-void FundamentalnodeList::on_startAllButton_clicked()
+void CoralnodeList::on_startAllButton_clicked()
 {
     // Display message box
-    QMessageBox::StandardButton retval = QMessageBox::question(this, tr("Confirm all fundamentalnodes start"),
-        tr("Are you sure you want to start ALL fundamentalnodes?"),
+    QMessageBox::StandardButton retval = QMessageBox::question(this, tr("Confirm all coralnodes start"),
+        tr("Are you sure you want to start ALL coralnodes?"),
         QMessageBox::Yes | QMessageBox::Cancel,
         QMessageBox::Cancel);
 
@@ -277,18 +277,18 @@ void FundamentalnodeList::on_startAllButton_clicked()
     StartAll();
 }
 
-void FundamentalnodeList::on_startMissingButton_clicked()
+void CoralnodeList::on_startMissingButton_clicked()
 {
-    if (!fundamentalnodeSync.IsFundamentalnodeListSynced()) {
+    if (!coralnodeSync.IsCoralnodeListSynced()) {
         QMessageBox::critical(this, tr("Command is not available right now"),
-            tr("You can't use this command until fundamentalnode list is synced"));
+            tr("You can't use this command until coralnode list is synced"));
         return;
     }
 
     // Display message box
     QMessageBox::StandardButton retval = QMessageBox::question(this,
-        tr("Confirm missing fundamentalnodes start"),
-        tr("Are you sure you want to start MISSING fundamentalnodes?"),
+        tr("Confirm missing coralnodes start"),
+        tr("Are you sure you want to start MISSING coralnodes?"),
         QMessageBox::Yes | QMessageBox::Cancel,
         QMessageBox::Cancel);
 
@@ -308,14 +308,14 @@ void FundamentalnodeList::on_startMissingButton_clicked()
     StartAll("start-missing");
 }
 
-void FundamentalnodeList::on_tableWidgetMyFundamentalnodes_itemSelectionChanged()
+void CoralnodeList::on_tableWidgetMyCoralnodes_itemSelectionChanged()
 {
-    if (ui->tableWidgetMyFundamentalnodes->selectedItems().count() > 0) {
+    if (ui->tableWidgetMyCoralnodes->selectedItems().count() > 0) {
         ui->startButton->setEnabled(true);
     }
 }
 
-void FundamentalnodeList::on_UpdateButton_clicked()
+void CoralnodeList::on_UpdateButton_clicked()
 {
     updateMyNodeList(true);
 }

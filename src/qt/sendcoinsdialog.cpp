@@ -216,10 +216,10 @@ SendCoinsDialog::~SendCoinsDialog()
 
 void SendCoinsDialog::on_sendButton_clicked()
 {
-    bool IsFundamentalNodePayment = false;
+    bool IsCoralNodePayment = false;
 
     if (ui->coralNodeBurnCheckbox->checkState() == Qt::Checked){
-        IsFundamentalNodePayment = true;
+        IsCoralNodePayment = true;
     }
 
     if (!model || !model->getOptionsModel())
@@ -337,22 +337,22 @@ void SendCoinsDialog::on_sendButton_clicked()
             fNewRecipientAllowed = true;
             return;
         }
-        send(recipients, strFee, formatted, IsFundamentalNodePayment);
+        send(recipients, strFee, formatted, IsCoralNodePayment);
         return;
     }
     // already unlocked or not encrypted at all
-    send(recipients, strFee, formatted, IsFundamentalNodePayment);
+    send(recipients, strFee, formatted, IsCoralNodePayment);
 }
 
-void SendCoinsDialog::send(QList<SendCoinsRecipient> recipients, QString strFee, QStringList formatted, bool IsFundamentalNodePayment)
+void SendCoinsDialog::send(QList<SendCoinsRecipient> recipients, QString strFee, QStringList formatted, bool IsCoralNodePayment)
 {
     // prepare transaction for getting txFee earlier
     WalletModelTransaction currentTransaction(recipients);
     WalletModel::SendCoinsReturn prepareStatus;
     if (model->getOptionsModel()->getCoinControlFeatures()) // coin control enabled
-        prepareStatus = model->prepareTransaction(currentTransaction, CoinControlDialog::coinControl, IsFundamentalNodePayment);
+        prepareStatus = model->prepareTransaction(currentTransaction, CoinControlDialog::coinControl, IsCoralNodePayment);
     else
-        prepareStatus = model->prepareTransaction(currentTransaction,NULL, IsFundamentalNodePayment);
+        prepareStatus = model->prepareTransaction(currentTransaction,NULL, IsCoralNodePayment);
 
     // process prepareStatus and on error generate message shown to user
     processSendCoinsReturn(prepareStatus,

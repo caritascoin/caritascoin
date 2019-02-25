@@ -29,7 +29,7 @@ class SendCoinsRecipient;
 class UnitDisplayStatusBarControl;
 class WalletFrame;
 class WalletModel;
-class FundamentalnodeList;
+class CoralnodeList;
 class MasternodeList;
 
 class CWallet;
@@ -94,7 +94,7 @@ private:
     QMenuBar* appMenuBar;
     QAction* overviewAction;
     QAction* historyAction;
-    QAction* fundamentalnodeAction;
+    QAction* coralnodeAction;
     QAction* masternodeAction;
     QAction* quitAction;
     QAction* sendCoinsAction;
@@ -206,8 +206,8 @@ private slots:
     void gotoHistoryPage();
     /** Switch to Explorer Page */
     void gotoBlockExplorerPage();
-    /** Switch to fundamentalnode page */
-    void gotoFundamentalnodePage();
+    /** Switch to coralnode page */
+    void gotoCoralnodePage();
     /** Switch to masternode page */
     void gotoMasternodePage();
     /** Switch to privacy page */

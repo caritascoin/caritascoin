@@ -400,8 +400,8 @@ CNode* FindNode(const CService& addr)
 CNode* ConnectNode(CAddress addrConnect, const char* pszDest, bool obfuScationMaster)
 {
     if (pszDest == NULL) {
-        // we clean fundamentalnode connections in CFundamentalnodeMan::ProcessFundamentalnodeConnections()
-        // so should be safe to skip this and connect to local Hot MN on CActiveFundamentalnode::ManageStatus()
+        // we clean coralnode connections in CCoralnodeMan::ProcessCoralnodeConnections()
+        // so should be safe to skip this and connect to local Hot MN on CActiveCoralnode::ManageStatus()
         if (IsLocal(addrConnect) && !obfuScationMaster)
             return NULL;
 
@@ -1897,7 +1897,7 @@ void RelayInv(CInv& inv)
 {
     LOCK(cs_vNodes);
     BOOST_FOREACH (CNode* pnode, vNodes){
-    		if((pnode->nServices==NODE_BLOOM_WITHOUT_MN) && inv.IsFundamentalNodeType())continue;
+    		if((pnode->nServices==NODE_BLOOM_WITHOUT_MN) && inv.IsCoralNodeType())continue;
         if (pnode->nVersion >= ActiveProtocol())
             pnode->PushInventory(inv);
     }

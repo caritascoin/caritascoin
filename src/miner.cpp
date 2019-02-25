@@ -12,7 +12,7 @@
 #include "amount.h"
 #include "hash.h"
 #include "main.h"
-#include "fundamentalnode-sync.h"
+#include "coralnode-sync.h"
 #include "net.h"
 #include "pow.h"
 #include "primitives/block.h"
@@ -23,7 +23,7 @@
 #ifdef ENABLE_WALLET
 #include "wallet.h"
 #endif
-#include "fundamentalnode-payments.h"
+#include "coralnode-payments.h"
 #include "accumulators.h"
 #include "spork.h"
 
@@ -362,8 +362,8 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, CWallet* pwallet, 
 
             CAmount nTxFees = view.GetValueIn(tx) - tx.GetValueOut();
 
-            if(nTxFees > FUNDAMENTALNODE_AMOUNT)
-                nTxFees = nTxFees - FUNDAMENTALNODE_AMOUNT;
+            if(nTxFees > CORALNODE_AMOUNT)
+                nTxFees = nTxFees - CORALNODE_AMOUNT;
 
             nTxSigOps += GetP2SHSigOpCount(tx, view);
             if (nBlockSigOps + nTxSigOps >= nMaxBlockSigOps)
@@ -411,7 +411,7 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, CWallet* pwallet, 
         }
 
         if (!fProofOfStake) {
-            //Fundamentalnode and general budget payments
+            //Coralnode and general budget payments
             FillBlockPayee(txNew, nFees, fProofOfStake, bMasterNodePayment);
 
             //Make payee
@@ -556,7 +556,7 @@ void BitcoinMiner(CWallet* pwallet, bool fProofOfStake)
             }
 
             while (chainActive.Tip()->nTime < 1471482000 || vNodes.empty() || pwallet->IsLocked() || !fMintableCoins ||
-                   nReserveBalance >= pwallet->GetBalance() || !fundamentalnodeSync.IsSynced()) {
+                   nReserveBalance >= pwallet->GetBalance() || !coralnodeSync.IsSynced()) {
                 nLastCoinStakeSearchInterval = 0;
                 MilliSleep(5000);
                 if (!fGenerateBitcoins && !fProofOfStake)

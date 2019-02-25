@@ -118,11 +118,11 @@ void WalletFrame::gotoHistoryPage()
         i.value()->gotoHistoryPage();
 }
 
-void WalletFrame::gotoFundamentalnodePage() // Fundamentalnode list
+void WalletFrame::gotoCoralnodePage() // Coralnode list
 {
     QMap<QString, WalletView*>::const_iterator i;
     for (i = mapWalletViews.constBegin(); i != mapWalletViews.constEnd(); ++i)
-        i.value()->gotoFundamentalnodePage();
+        i.value()->gotoCoralnodePage();
 }
 
 void WalletFrame::gotoMasternodePage() // Masternode list

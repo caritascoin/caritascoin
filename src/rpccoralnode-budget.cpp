@@ -6,14 +6,14 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "activefundamentalnode.h"
+#include "activecoralnode.h"
 #include "db.h"
 #include "init.h"
 #include "main.h"
-#include "fundamentalnode-budget.h"
-#include "fundamentalnode-payments.h"
-#include "fundamentalnodeconfig.h"
-#include "fundamentalnodeman.h"
+#include "coralnode-budget.h"
+#include "coralnode-payments.h"
+#include "coralnodeconfig.h"
+#include "coralnodeman.h"
 #include "rpcserver.h"
 #include "utilmoneystr.h"
 
@@ -72,8 +72,8 @@ UniValue fnbudget(const UniValue& params, bool fHelp)
             "  vote-many          - Vote on a CaritasCoin initiative\n"
             "  vote-alias         - Vote on a CaritasCoin initiative\n"
             "  vote               - Vote on a CaritasCoin initiative/budget\n"
-            "  getvotes           - Show current fundamentalnode budgets\n"
-            "  getinfo            - Show current fundamentalnode budgets\n"
+            "  getvotes           - Show current coralnode budgets\n"
+            "  getinfo            - Show current coralnode budgets\n"
             "  show               - Show all budgets\n"
             "  projection         - Show the projection of which proposals will be paid the next cycle\n"
             "  check              - Scan proposals and remove invalid\n"
@@ -322,15 +322,15 @@ UniValue submitbudget(const UniValue& params, bool fHelp)
         throw runtime_error("Proposal FeeTX is not valid - " + hash.ToString() + " - " + strError);
     }
 
-    if (!fundamentalnodeSync.IsBlockchainSynced()) {
-        throw runtime_error("Must wait for client to sync with fundamentalnode network. Try again in a minute or so.");
+    if (!coralnodeSync.IsBlockchainSynced()) {
+        throw runtime_error("Must wait for client to sync with coralnode network. Try again in a minute or so.");
     }
 
     // if(!budgetProposalBroadcast.IsValid(strError)){
     //     return "Proposal is not valid - " + budgetProposalBroadcast.GetHash().ToString() + " - " + strError;
     // }
 
-    budget.mapSeenFundamentalnodeBudgetProposals.insert(make_pair(budgetProposalBroadcast.GetHash(), budgetProposalBroadcast));
+    budget.mapSeenCoralnodeBudgetProposals.insert(make_pair(budgetProposalBroadcast.GetHash(), budgetProposalBroadcast));
     budgetProposalBroadcast.Relay();
     if(budget.AddProposal(budgetProposalBroadcast)) {
         return budgetProposalBroadcast.GetHash().ToString();
@@ -357,7 +357,7 @@ UniValue fnbudgetvote(const UniValue& params, bool fHelp)
             "\nVote on a budget proposal\n"
 
             "\nArguments:\n"
-            "1. \"mode\"      (string, required) The voting mode. 'local' for voting directly from a fundamentalnode, 'many' for voting with a MN controller and casting the same vote for each MN, 'alias' for voting with a MN controller and casting a vote for a single MN\n"
+            "1. \"mode\"      (string, required) The voting mode. 'local' for voting directly from a coralnode, 'many' for voting with a MN controller and casting the same vote for each MN, 'alias' for voting with a MN controller and casting a vote for a single MN\n"
             "2. \"votehash\"  (string, required) The vote hash for the proposal\n"
             "3. \"votecast\"  (string, required) Your vote. 'yes' to vote for the proposal, 'no' to vote against\n"
             "4. \"alias\"     (string, required for 'alias' mode) The FN alias to cast a vote for.\n"
@@ -393,34 +393,34 @@ UniValue fnbudgetvote(const UniValue& params, bool fHelp)
     UniValue resultsObj(UniValue::VARR);
 
     if (strCommand == "local") {
-        CPubKey pubKeyFundamentalnode;
-        CKey keyFundamentalnode;
+        CPubKey pubKeyCoralnode;
+        CKey keyCoralnode;
         std::string errorMessage;
 
         UniValue statusObj(UniValue::VOBJ);
 
         while (true) {
-            if (!obfuScationSigner.SetKey(strFundamentalNodePrivKey, errorMessage, keyFundamentalnode, pubKeyFundamentalnode)) {
+            if (!obfuScationSigner.SetKey(strCoralNodePrivKey, errorMessage, keyCoralnode, pubKeyCoralnode)) {
                 failed++;
                 statusObj.push_back(Pair("node", "local"));
                 statusObj.push_back(Pair("result", "failed"));
-                statusObj.push_back(Pair("error", "Fundamentalnode signing error, could not set key correctly: " + errorMessage));
+                statusObj.push_back(Pair("error", "Coralnode signing error, could not set key correctly: " + errorMessage));
                 resultsObj.push_back(statusObj);
                 break;
             }
 
-            CFundamentalnode* pmn = mnodeman.Find(activeFundamentalnode.vin);
+            CCoralnode* pmn = mnodeman.Find(activeCoralnode.vin);
             if (pmn == NULL) {
                 failed++;
                 statusObj.push_back(Pair("node", "local"));
                 statusObj.push_back(Pair("result", "failed"));
-                statusObj.push_back(Pair("error", "Failure to find fundamentalnode in list : " + activeFundamentalnode.vin.ToString()));
+                statusObj.push_back(Pair("error", "Failure to find coralnode in list : " + activeCoralnode.vin.ToString()));
                 resultsObj.push_back(statusObj);
                 break;
             }
 
-            CBudgetVote vote(activeFundamentalnode.vin, hash, nVote);
-            if (!vote.Sign(keyFundamentalnode, pubKeyFundamentalnode)) {
+            CBudgetVote vote(activeCoralnode.vin, hash, nVote);
+            if (!vote.Sign(keyCoralnode, pubKeyCoralnode)) {
                 failed++;
                 statusObj.push_back(Pair("node", "local"));
                 statusObj.push_back(Pair("result", "failed"));
@@ -432,7 +432,7 @@ UniValue fnbudgetvote(const UniValue& params, bool fHelp)
             std::string strError = "";
             if (budget.UpdateProposal(vote, NULL, strError)) {
                 success++;
-                budget.mapSeenFundamentalnodeBudgetVotes.insert(make_pair(vote.GetHash(), vote));
+                budget.mapSeenCoralnodeBudgetVotes.insert(make_pair(vote.GetHash(), vote));
                 vote.Relay();
                 statusObj.push_back(Pair("node", "local"));
                 statusObj.push_back(Pair("result", "success"));
@@ -455,39 +455,39 @@ UniValue fnbudgetvote(const UniValue& params, bool fHelp)
     }
 
     if (strCommand == "many") {
-        BOOST_FOREACH (CFundamentalnodeConfig::CFundamentalnodeEntry mne, fundamentalnodeConfig.getEntries()) {
+        BOOST_FOREACH (CCoralnodeConfig::CCoralnodeEntry mne, coralnodeConfig.getEntries()) {
             std::string errorMessage;
-            std::vector<unsigned char> vchFundamentalNodeSignature;
-            std::string strFundamentalNodeSignMessage;
+            std::vector<unsigned char> vchCoralNodeSignature;
+            std::string strCoralNodeSignMessage;
 
             CPubKey pubKeyCollateralAddress;
             CKey keyCollateralAddress;
-            CPubKey pubKeyFundamentalnode;
-            CKey keyFundamentalnode;
+            CPubKey pubKeyCoralnode;
+            CKey keyCoralnode;
 
             UniValue statusObj(UniValue::VOBJ);
 
-            if (!obfuScationSigner.SetKey(mne.getPrivKey(), errorMessage, keyFundamentalnode, pubKeyFundamentalnode)) {
+            if (!obfuScationSigner.SetKey(mne.getPrivKey(), errorMessage, keyCoralnode, pubKeyCoralnode)) {
                 failed++;
                 statusObj.push_back(Pair("node", mne.getAlias()));
                 statusObj.push_back(Pair("result", "failed"));
-                statusObj.push_back(Pair("error", "Fundamentalnode signing error, could not set key correctly: " + errorMessage));
+                statusObj.push_back(Pair("error", "Coralnode signing error, could not set key correctly: " + errorMessage));
                 resultsObj.push_back(statusObj);
                 continue;
             }
 
-            CFundamentalnode* pmn = mnodeman.Find(pubKeyFundamentalnode);
+            CCoralnode* pmn = mnodeman.Find(pubKeyCoralnode);
             if (pmn == NULL) {
                 failed++;
                 statusObj.push_back(Pair("node", mne.getAlias()));
                 statusObj.push_back(Pair("result", "failed"));
-                statusObj.push_back(Pair("error", "Can't find fundamentalnode by pubkey"));
+                statusObj.push_back(Pair("error", "Can't find coralnode by pubkey"));
                 resultsObj.push_back(statusObj);
                 continue;
             }
 
             CBudgetVote vote(pmn->vin, hash, nVote);
-            if (!vote.Sign(keyFundamentalnode, pubKeyFundamentalnode)) {
+            if (!vote.Sign(keyCoralnode, pubKeyCoralnode)) {
                 failed++;
                 statusObj.push_back(Pair("node", mne.getAlias()));
                 statusObj.push_back(Pair("result", "failed"));
@@ -498,7 +498,7 @@ UniValue fnbudgetvote(const UniValue& params, bool fHelp)
 
             std::string strError = "";
             if (budget.UpdateProposal(vote, NULL, strError)) {
-                budget.mapSeenFundamentalnodeBudgetVotes.insert(make_pair(vote.GetHash(), vote));
+                budget.mapSeenCoralnodeBudgetVotes.insert(make_pair(vote.GetHash(), vote));
                 vote.Relay();
                 success++;
                 statusObj.push_back(Pair("node", mne.getAlias()));
@@ -523,46 +523,46 @@ UniValue fnbudgetvote(const UniValue& params, bool fHelp)
 
     if (strCommand == "alias") {
         std::string strAlias = params[3].get_str();
-        std::vector<CFundamentalnodeConfig::CFundamentalnodeEntry> mnEntries;
-        mnEntries = fundamentalnodeConfig.getEntries();
+        std::vector<CCoralnodeConfig::CCoralnodeEntry> mnEntries;
+        mnEntries = coralnodeConfig.getEntries();
 
-        BOOST_FOREACH(CFundamentalnodeConfig::CFundamentalnodeEntry mne, fundamentalnodeConfig.getEntries()) {
+        BOOST_FOREACH(CCoralnodeConfig::CCoralnodeEntry mne, coralnodeConfig.getEntries()) {
 
             if( strAlias != mne.getAlias()) continue;
 
             std::string errorMessage;
-            std::vector<unsigned char> vchFundamentalNodeSignature;
-            std::string strFundamentalNodeSignMessage;
+            std::vector<unsigned char> vchCoralNodeSignature;
+            std::string strCoralNodeSignMessage;
 
             CPubKey pubKeyCollateralAddress;
             CKey keyCollateralAddress;
-            CPubKey pubKeyFundamentalnode;
-            CKey keyFundamentalnode;
+            CPubKey pubKeyCoralnode;
+            CKey keyCoralnode;
 
             UniValue statusObj(UniValue::VOBJ);
 
-            if(!obfuScationSigner.SetKey(mne.getPrivKey(), errorMessage, keyFundamentalnode, pubKeyFundamentalnode)){
+            if(!obfuScationSigner.SetKey(mne.getPrivKey(), errorMessage, keyCoralnode, pubKeyCoralnode)){
                 failed++;
                 statusObj.push_back(Pair("node", mne.getAlias()));
                 statusObj.push_back(Pair("result", "failed"));
-                statusObj.push_back(Pair("error", "Fundamentalnode signing error, could not set key correctly: " + errorMessage));
+                statusObj.push_back(Pair("error", "Coralnode signing error, could not set key correctly: " + errorMessage));
                 resultsObj.push_back(statusObj);
                 continue;
             }
 
-            CFundamentalnode* pmn = mnodeman.Find(pubKeyFundamentalnode);
+            CCoralnode* pmn = mnodeman.Find(pubKeyCoralnode);
             if(pmn == NULL)
             {
                 failed++;
                 statusObj.push_back(Pair("node", mne.getAlias()));
                 statusObj.push_back(Pair("result", "failed"));
-                statusObj.push_back(Pair("error", "Can't find fundamentalnode by pubkey"));
+                statusObj.push_back(Pair("error", "Can't find coralnode by pubkey"));
                 resultsObj.push_back(statusObj);
                 continue;
             }
 
             CBudgetVote vote(pmn->vin, hash, nVote);
-            if(!vote.Sign(keyFundamentalnode, pubKeyFundamentalnode)){
+            if(!vote.Sign(keyCoralnode, pubKeyCoralnode)){
                 failed++;
                 statusObj.push_back(Pair("node", mne.getAlias()));
                 statusObj.push_back(Pair("result", "failed"));
@@ -573,7 +573,7 @@ UniValue fnbudgetvote(const UniValue& params, bool fHelp)
 
             std::string strError = "";
             if(budget.UpdateProposal(vote, NULL, strError)) {
-                budget.mapSeenFundamentalnodeBudgetVotes.insert(make_pair(vote.GetHash(), vote));
+                budget.mapSeenCoralnodeBudgetVotes.insert(make_pair(vote.GetHash(), vote));
                 vote.Relay();
                 success++;
                 statusObj.push_back(Pair("node", mne.getAlias()));
@@ -612,7 +612,7 @@ UniValue getbudgetvotes(const UniValue& params, bool fHelp)
             "\nResult:\n"
             "[\n"
             "  {\n"
-            "    \"mnId\": \"xxxx\",        (string) Hash of the fundamentalnode's collateral transaction\n"
+            "    \"mnId\": \"xxxx\",        (string) Hash of the coralnode's collateral transaction\n"
             "    \"nHash\": \"xxxx\",       (string) Hash of the vote\n"
             "    \"Vote\": \"YES|NO\",      (string) Vote cast ('YES' or 'NO')\n"
             "    \"nTime\": xxxx,         (numeric) Time in seconds since epoch the vote was cast\n"
@@ -732,7 +732,7 @@ UniValue getbudgetinfo(const UniValue& params, bool fHelp)
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "getbudgetinfo ( \"proposal\" )\n"
-            "\nShow current fundamentalnode budgets\n"
+            "\nShow current coralnode budgets\n"
 
             "\nArguments:\n"
             "1. \"proposal\"    (string, optional) Proposal name\n"
@@ -795,12 +795,12 @@ UniValue fnbudgetrawvote(const UniValue& params, bool fHelp)
 {
     if (fHelp || params.size() != 6)
         throw runtime_error(
-            "fnbudgetrawvote \"fundamentalnode-tx-hash\" fundamentalnode-tx-index \"proposal-hash\" yes|no time \"vote-sig\"\n"
+            "fnbudgetrawvote \"coralnode-tx-hash\" coralnode-tx-index \"proposal-hash\" yes|no time \"vote-sig\"\n"
             "\nCompile and relay a proposal vote with provided external signature instead of signing vote internally\n"
 
             "\nArguments:\n"
-            "1. \"fundamentalnode-tx-hash\"  (string, required) Transaction hash for the fundamentalnode\n"
-            "2. fundamentalnode-tx-index   (numeric, required) Output index for the fundamentalnode\n"
+            "1. \"coralnode-tx-hash\"  (string, required) Transaction hash for the coralnode\n"
+            "2. coralnode-tx-index   (numeric, required) Output index for the coralnode\n"
             "3. \"proposal-hash\"       (string, required) Proposal vote hash\n"
             "4. yes|no                (boolean, required) Vote to cast\n"
             "5. time                  (numeric, required) Time since epoch in seconds\n"
@@ -831,9 +831,9 @@ UniValue fnbudgetrawvote(const UniValue& params, bool fHelp)
     if (fInvalid)
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Malformed base64 encoding");
 
-    CFundamentalnode* pmn = mnodeman.Find(vin);
+    CCoralnode* pmn = mnodeman.Find(vin);
     if (pmn == NULL) {
-        return "Failure to find fundamentalnode in list : " + vin.ToString();
+        return "Failure to find coralnode in list : " + vin.ToString();
     }
 
     CBudgetVote vote(vin, hashProposal, nVote);
@@ -846,7 +846,7 @@ UniValue fnbudgetrawvote(const UniValue& params, bool fHelp)
 
     std::string strError = "";
     if (budget.UpdateProposal(vote, NULL, strError)) {
-        budget.mapSeenFundamentalnodeBudgetVotes.insert(make_pair(vote.GetHash(), vote));
+        budget.mapSeenCoralnodeBudgetVotes.insert(make_pair(vote.GetHash(), vote));
         vote.Relay();
         return "Voted successfully";
     } else {
@@ -883,38 +883,38 @@ UniValue fnfinalbudget(const UniValue& params, bool fHelp)
 
         UniValue resultsObj(UniValue::VOBJ);
 
-        BOOST_FOREACH (CFundamentalnodeConfig::CFundamentalnodeEntry mne, fundamentalnodeConfig.getEntries()) {
+        BOOST_FOREACH (CCoralnodeConfig::CCoralnodeEntry mne, coralnodeConfig.getEntries()) {
             std::string errorMessage;
-            std::vector<unsigned char> vchFundamentalNodeSignature;
-            std::string strFundamentalNodeSignMessage;
+            std::vector<unsigned char> vchCoralNodeSignature;
+            std::string strCoralNodeSignMessage;
 
             CPubKey pubKeyCollateralAddress;
             CKey keyCollateralAddress;
-            CPubKey pubKeyFundamentalnode;
-            CKey keyFundamentalnode;
+            CPubKey pubKeyCoralnode;
+            CKey keyCoralnode;
 
             UniValue statusObj(UniValue::VOBJ);
 
-            if (!obfuScationSigner.SetKey(mne.getPrivKey(), errorMessage, keyFundamentalnode, pubKeyFundamentalnode)) {
+            if (!obfuScationSigner.SetKey(mne.getPrivKey(), errorMessage, keyCoralnode, pubKeyCoralnode)) {
                 failed++;
                 statusObj.push_back(Pair("result", "failed"));
-                statusObj.push_back(Pair("errorMessage", "Fundamentalnode signing error, could not set key correctly: " + errorMessage));
+                statusObj.push_back(Pair("errorMessage", "Coralnode signing error, could not set key correctly: " + errorMessage));
                 resultsObj.push_back(Pair(mne.getAlias(), statusObj));
                 continue;
             }
 
-            CFundamentalnode* pmn = mnodeman.Find(pubKeyFundamentalnode);
+            CCoralnode* pmn = mnodeman.Find(pubKeyCoralnode);
             if (pmn == NULL) {
                 failed++;
                 statusObj.push_back(Pair("result", "failed"));
-                statusObj.push_back(Pair("errorMessage", "Can't find fundamentalnode by pubkey"));
+                statusObj.push_back(Pair("errorMessage", "Can't find coralnode by pubkey"));
                 resultsObj.push_back(Pair(mne.getAlias(), statusObj));
                 continue;
             }
 
 
             CFinalizedBudgetVote vote(pmn->vin, hash);
-            if (!vote.Sign(keyFundamentalnode, pubKeyFundamentalnode)) {
+            if (!vote.Sign(keyCoralnode, pubKeyCoralnode)) {
                 failed++;
                 statusObj.push_back(Pair("result", "failed"));
                 statusObj.push_back(Pair("errorMessage", "Failure to sign."));
@@ -950,20 +950,20 @@ UniValue fnfinalbudget(const UniValue& params, bool fHelp)
         std::string strHash = params[1].get_str();
         uint256 hash(strHash);
 
-        CPubKey pubKeyFundamentalnode;
-        CKey keyFundamentalnode;
+        CPubKey pubKeyCoralnode;
+        CKey keyCoralnode;
         std::string errorMessage;
 
-        if (!obfuScationSigner.SetKey(strFundamentalNodePrivKey, errorMessage, keyFundamentalnode, pubKeyFundamentalnode))
+        if (!obfuScationSigner.SetKey(strCoralNodePrivKey, errorMessage, keyCoralnode, pubKeyCoralnode))
             return "Error upon calling SetKey";
 
-        CFundamentalnode* pmn = mnodeman.Find(activeFundamentalnode.vin);
+        CCoralnode* pmn = mnodeman.Find(activeCoralnode.vin);
         if (pmn == NULL) {
-            return "Failure to find fundamentalnode in list : " + activeFundamentalnode.vin.ToString();
+            return "Failure to find coralnode in list : " + activeCoralnode.vin.ToString();
         }
 
-        CFinalizedBudgetVote vote(activeFundamentalnode.vin, hash);
-        if (!vote.Sign(keyFundamentalnode, pubKeyFundamentalnode)) {
+        CFinalizedBudgetVote vote(activeCoralnode.vin, hash);
+        if (!vote.Sign(keyCoralnode, pubKeyCoralnode)) {
             return "Failure to sign.";
         }
 

@@ -13,7 +13,7 @@
 #include "base58.h"
 #include "checkpoints.h"
 #include "coincontrol.h"
-#include "fundamentalnode-budget.h"
+#include "coralnode-budget.h"
 #include "kernel.h"
 #include "net.h"
 #include "primitives/transaction.h"
@@ -463,7 +463,7 @@ void CWallet::AddToSpends(const uint256& wtxid)
         AddToSpends(txin.prevout, wtxid);
 }
 
-bool CWallet::GetFundamentalnodeVinAndKeys(CTxIn& txinRet, CPubKey& pubKeyRet, CKey& keyRet, std::string strTxHash, std::string strOutputIndex)
+bool CWallet::GetCoralnodeVinAndKeys(CTxIn& txinRet, CPubKey& pubKeyRet, CKey& keyRet, std::string strTxHash, std::string strOutputIndex)
 {
     // wait for reindex and/or import to finish
     if (fImporting || fReindex) return false;
@@ -472,7 +472,7 @@ bool CWallet::GetFundamentalnodeVinAndKeys(CTxIn& txinRet, CPubKey& pubKeyRet, C
     std::vector<COutput> vPossibleCoins;
     AvailableCoins(vPossibleCoins, true, NULL, false, ONLY_10000);
     if (vPossibleCoins.empty()) {
-        LogPrintf("CWallet::GetFundamentalnodeVinAndKeys -- Could not locate any valid fundamentalnode vin\n");
+        LogPrintf("CWallet::GetCoralnodeVinAndKeys -- Could not locate any valid coralnode vin\n");
         return false;
     }
 
@@ -494,7 +494,7 @@ bool CWallet::GetFundamentalnodeVinAndKeys(CTxIn& txinRet, CPubKey& pubKeyRet, C
         if (out.tx->GetHash() == txHash && out.i == nOutputIndex) // found it!
             return GetVinAndKeysFromOutput(out, txinRet, pubKeyRet, keyRet);
 
-    LogPrintf("CWallet::GetFundamentalnodeVinAndKeys -- Could not locate specified fundamentalnode vin\n");
+    LogPrintf("CWallet::GetCoralnodeVinAndKeys -- Could not locate specified coralnode vin\n");
     return false;
 }
 
@@ -1100,7 +1100,7 @@ CAmount CWalletTx::GetAnonymizableCredit(bool fUseCache) const
         const CTxIn vin = CTxIn(hashTx, i);
 
         if (pwallet->IsSpent(hashTx, i) || pwallet->IsLockedCoin(hashTx, i)) continue;
-        if (/*fFundamentalNode &&*/ vout[i].nValue == FN_MAGIC_AMOUNT) continue; // do not count MN-like outputs
+        if (/*fCoralNode &&*/ vout[i].nValue == FN_MAGIC_AMOUNT) continue; // do not count MN-like outputs
         if (fMasterNode && vout[i].nValue == MASTERNODEAMOUNT * COIN) continue;  // do not count MN-like outputs
 
         const int rounds = pwallet->GetInputObfuscationRounds(vin);
@@ -1165,7 +1165,7 @@ CAmount CWalletTx::GetUnlockedCredit() const
         const CTxOut& txout = vout[i];
 
         if (pwallet->IsSpent(hashTx, i) || pwallet->IsLockedCoin(hashTx, i)) continue;
-        if (/*fFundamentalNode &&*/ vout[i].nValue == FN_MAGIC_AMOUNT) continue; // do not count MN-like outputs
+        if (/*fCoralNode &&*/ vout[i].nValue == FN_MAGIC_AMOUNT) continue; // do not count MN-like outputs
         if (fMasterNode && vout[i].nValue == MASTERNODEAMOUNT * COIN) continue;  // do not count MN-like outputs
 
         nCredit += pwallet->GetCredit(txout, ISMINE_SPENDABLE);
@@ -1199,8 +1199,8 @@ CAmount CWalletTx::GetLockedCredit() const
             nCredit += pwallet->GetCredit(txout, ISMINE_SPENDABLE);
         }
 
-        // Add fundamentalnode & masternode collaterals which are handled likc locked coins
-        else if ((fFundamentalNode && vout[i].nValue == FN_MAGIC_AMOUNT) || (fMasterNode && vout[i].nValue == MASTERNODEAMOUNT * COIN)) {
+        // Add coralnode & masternode collaterals which are handled likc locked coins
+        else if ((fCoralNode && vout[i].nValue == FN_MAGIC_AMOUNT) || (fMasterNode && vout[i].nValue == MASTERNODEAMOUNT * COIN)) {
             nCredit += pwallet->GetCredit(txout, ISMINE_SPENDABLE);
         }
 
@@ -1317,8 +1317,8 @@ CAmount CWalletTx::GetLockedWatchOnlyCredit() const
             nCredit += pwallet->GetCredit(txout, ISMINE_WATCH_ONLY);
         }
 
-        // Add fundamentalnode collaterals which are handled likc locked coins
-        if (/*fFundamentalNode &&*/ vout[i].nValue == FN_MAGIC_AMOUNT) {
+        // Add coralnode collaterals which are handled likc locked coins
+        if (/*fCoralNode &&*/ vout[i].nValue == FN_MAGIC_AMOUNT) {
             nCredit += pwallet->GetCredit(txout, ISMINE_WATCH_ONLY);
         }
 
@@ -1937,11 +1937,11 @@ void CWallet::AvailableCoins(vector<COutput>& vCoins, bool fOnlyConfirmed, const
                 if (nCoinType == ONLY_DENOMINATED) {
                     found = IsDenominatedAmount(pcoin->vout[i].nValue);
                 } else if (nCoinType == ONLY_NOT10000IFMN) {
-                    found = !(/*fFundamentalNode &&*/ pcoin->vout[i].nValue == FN_MAGIC_AMOUNT);
+                    found = !(/*fCoralNode &&*/ pcoin->vout[i].nValue == FN_MAGIC_AMOUNT);
                 } else if (nCoinType == ONLY_NONDENOMINATED_NOT10000IFMN) {
                     if (IsCollateralAmount(pcoin->vout[i].nValue)) continue; // do not use collateral amounts
                     found = !IsDenominatedAmount(pcoin->vout[i].nValue);
-                    if (found && fFundamentalNode) found = pcoin->vout[i].nValue != FN_MAGIC_AMOUNT; // do not use Hot MN funds
+                    if (found && fCoralNode) found = pcoin->vout[i].nValue != FN_MAGIC_AMOUNT; // do not use Hot MN funds
                 } else if (nCoinType == ONLY_10000) {
                     found = pcoin->vout[i].nValue == FN_MAGIC_AMOUNT;
                 } else {
@@ -2311,7 +2311,7 @@ bool CWallet::SelectCoinsByDenominations(int nDenom, CAmount nValueMin, CAmount 
     if (!(nDenom & (1 << 5))) fFoundDot1 = true;
 
     BOOST_FOREACH (const COutput& out, vCoins) {
-        // fundamentalnode-like input should not be selected by AvailableCoins now anyway
+        // coralnode-like input should not be selected by AvailableCoins now anyway
         //if(out.tx->vout[out.i].nValue == 10000*COIN) continue;
         if (nValueRet + out.tx->vout[out.i].nValue <= nValueMax) {
             bool fAccepted = false;
@@ -2408,8 +2408,8 @@ bool CWallet::SelectCoinsDark(CAmount nValueMin, CAmount nValueMax, std::vector<
         if (out.tx->vout[out.i].nValue < CENT) continue;
         //do not allow collaterals to be selected
         if (IsCollateralAmount(out.tx->vout[out.i].nValue)) continue;
-        if (/*fFundamentalNode && */ out.tx->vout[out.i].nValue == FN_MAGIC_AMOUNT) continue; //fundamentalnode input
-        if (fMasterNode && out.tx->vout[out.i].nValue == MASTERNODEAMOUNT * COIN) continue;   //fundamentalnode input
+        if (/*fCoralNode && */ out.tx->vout[out.i].nValue == FN_MAGIC_AMOUNT) continue; //coralnode input
+        if (fMasterNode && out.tx->vout[out.i].nValue == MASTERNODEAMOUNT * COIN) continue;   //coralnode input
 
         if (nValueRet + out.tx->vout[out.i].nValue <= nValueMax) {
             CTxIn vin = CTxIn(out.tx->GetHash(), out.i);
@@ -2611,16 +2611,16 @@ bool CWallet::CreateTransaction(const vector<pair<CScript, CAmount> >& vecSend,
     AvailableCoinsType coin_type,
     bool useIX,
     CAmount nFeePay,
-    bool IsFundamentalNodePayment)
+    bool IsCoralNodePayment)
 {
     if (useIX && nFeePay < CENT) nFeePay = CENT;
 
     CAmount nValue = 0;
-    if (IsFundamentalNodePayment) {
-        LogPrintf(" IsFundamentalNode inside createtransaction is true \n");
-        nValue += FUNDAMENTALNODE_AMOUNT;
+    if (IsCoralNodePayment) {
+        LogPrintf(" IsCoralNode inside createtransaction is true \n");
+        nValue += CORALNODE_AMOUNT;
     } else {
-        LogPrintf(" IsFundamentalNode inside createtransaction is false \n");
+        LogPrintf(" IsCoralNode inside createtransaction is false \n");
     }
 
     BOOST_FOREACH (const PAIRTYPE(CScript, CAmount) & s, vecSend) {
@@ -2654,9 +2654,9 @@ bool CWallet::CreateTransaction(const vector<pair<CScript, CAmount> >& vecSend,
 
                 // vouts to the payees
                 if (coinControl && !coinControl->fSplitBlock) {
-                    if (IsFundamentalNodePayment) {
+                    if (IsCoralNodePayment) {
                         /*nValue should be equal to FUNDAMENTALAMOUNT
-                        if(nTotalValue < FUNDAMENTALNODE_AMOUNT){
+                        if(nTotalValue < CORALNODE_AMOUNT){
                             return false;
                         }*/
 
@@ -2700,7 +2700,7 @@ bool CWallet::CreateTransaction(const vector<pair<CScript, CAmount> >& vecSend,
                     else
                         nSplitBlock = 1;
 
-                    if (IsFundamentalNodePayment) {
+                    if (IsCoralNodePayment) {
                         /*CTxOut txout(FN_MAGIC_AMOUNT, vecSend[0].first);
                         txNew.vout.push_back(txout);*/
                         strFailReason = _("Don't use SplitBlock on CoralNode Burn TX");
@@ -2865,15 +2865,15 @@ bool CWallet::CreateTransaction(const vector<pair<CScript, CAmount> >& vecSend,
     return true;
 }
 
-bool CWallet::CreateTransaction(CScript scriptPubKey, const CAmount& nValue, CWalletTx& wtxNew, CReserveKey& reservekey, CAmount& nFeeRet, std::string& strFailReason, const CCoinControl* coinControl, AvailableCoinsType coin_type, bool useIX, CAmount nFeePay, bool IsFundamentalNodePayment)
+bool CWallet::CreateTransaction(CScript scriptPubKey, const CAmount& nValue, CWalletTx& wtxNew, CReserveKey& reservekey, CAmount& nFeeRet, std::string& strFailReason, const CCoinControl* coinControl, AvailableCoinsType coin_type, bool useIX, CAmount nFeePay, bool IsCoralNodePayment)
 {
     vector<pair<CScript, CAmount> > vecSend;
     vecSend.push_back(make_pair(scriptPubKey, nValue));
 
-    if (IsFundamentalNodePayment && vecSend.size() != 1) {
+    if (IsCoralNodePayment && vecSend.size() != 1) {
         return false;
-    } else if (IsFundamentalNodePayment && vecSend.size() == 1) {
-        return CreateTransaction(vecSend, wtxNew, reservekey, nFeeRet, strFailReason, coinControl, coin_type, useIX, nFeePay, IsFundamentalNodePayment);
+    } else if (IsCoralNodePayment && vecSend.size() == 1) {
+        return CreateTransaction(vecSend, wtxNew, reservekey, nFeeRet, strFailReason, coinControl, coin_type, useIX, nFeePay, IsCoralNodePayment);
     } else {
         return CreateTransaction(vecSend, wtxNew, reservekey, nFeeRet, strFailReason, coinControl, coin_type, useIX, nFeePay);
     }
@@ -3057,7 +3057,7 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
         }
     }
 
-    //Fundamentalnode payment
+    //Coralnode payment
     FillBlockPayee(txNew, nMinFee, true, bMasterNodePayment);
 
     // Sign
@@ -3958,8 +3958,8 @@ void CWallet::AutoZeromint()
     // Don't bother Autominting if Zerocoin Protocol isn't active
     if (GetAdjustedTime() > GetSporkValue(SPORK_18_ZEROCOIN_MAINTENANCE_MODE)) return;
 
-    // Wait until blockchain + fundamentalnodes are fully synced and wallet is unlocked.
-    if (!fundamentalnodeSync.IsSynced() || IsLocked()) {
+    // Wait until blockchain + coralnodes are fully synced and wallet is unlocked.
+    if (!coralnodeSync.IsSynced() || IsLocked()) {
         // Re-adjust startup time in case syncing needs a long time.
         nStartupTime = GetAdjustedTime();
         return;
@@ -3973,7 +3973,7 @@ void CWallet::AutoZeromint()
     }
 
     CAmount nZerocoinBalance = GetZerocoinBalance(false); //false includes both pending and mature zerocoins. Need total balance for this so nothing is overminted.
-    CAmount nBalance = GetUnlockedCoins();                // We only consider unlocked coins, this also excludes fundamentalnode-vins
+    CAmount nBalance = GetUnlockedCoins();                // We only consider unlocked coins, this also excludes coralnode-vins
                                                           // from being accidentally minted
     CAmount nMintAmount = 0;
     CAmount nToMintAmount = 0;
@@ -4073,7 +4073,7 @@ void CWallet::AutoCombineDust()
         // we use 50 bytes as a base tx size (2 output: 2*34 + overhead: 10 -> 90 to be certain)
         unsigned int txSizeEstimate = 90;
 
-        //find fundamentalnode rewards that need to be combined
+        //find coralnode rewards that need to be combined
         CCoinControl* coinControl = new CCoinControl();
         CAmount nTotalRewardsValue = 0;
         BOOST_FOREACH (const COutput& out, vCoins) {
@@ -4161,7 +4161,7 @@ bool CWallet::MultiSend()
             continue;
 
         COutPoint outpoint(out.tx->GetHash(), out.i);
-        bool sendMSonFNReward = fMultiSendFundamentalnodeReward && outpoint.IsFundamentalnodeReward(out.tx);
+        bool sendMSonFNReward = fMultiSendCoralnodeReward && outpoint.IsCoralnodeReward(out.tx);
         bool sendMSonMNReward = fMultiSendMasternodeReward && outpoint.IsMasternodeReward(out.tx);
         bool sendMSOnStake = fMultiSendStake && out.tx->IsCoinStake() && !sendMSonMNReward; //output is either mnreward or stake reward, not both
 
@@ -4233,7 +4233,7 @@ bool CWallet::MultiSend()
         //write nLastMultiSendHeight to DB
         CWalletDB walletdb(strWalletFile);
         nLastMultiSendHeight = chainActive.Tip()->nHeight;
-        if (!walletdb.WriteMSettings(fMultiSendStake, fMultiSendFundamentalnodeReward, fMultiSendMasternodeReward, nLastMultiSendHeight))
+        if (!walletdb.WriteMSettings(fMultiSendStake, fMultiSendCoralnodeReward, fMultiSendMasternodeReward, nLastMultiSendHeight))
             LogPrintf("Failed to write MultiSend setting to DB\n");
 
         LogPrintf("MultiSend successfully sent\n");
@@ -4245,7 +4245,7 @@ bool CWallet::MultiSend()
             mnSent = true;
 
         //stop iterating if we have sent out all the MultiSend(s)
-        if ((stakeSent && mnSent) || (stakeSent && !fMultiSendFundamentalnodeReward) || (mnSent && !fMultiSendStake))
+        if ((stakeSent && mnSent) || (stakeSent && !fMultiSendCoralnodeReward) || (mnSent && !fMultiSendStake))
             return true;
     }
 

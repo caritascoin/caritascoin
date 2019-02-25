@@ -12,17 +12,17 @@
 #include "init.h"
 
 #include "accumulators.h"
-#include "activefundamentalnode.h"
+#include "activecoralnode.h"
 #include "addrman.h"
 #include "amount.h"
 #include "checkpoints.h"
 #include "compat/sanity.h"
 #include "key.h"
 #include "main.h"
-#include "fundamentalnode-budget.h"
-#include "fundamentalnode-payments.h"
-#include "fundamentalnodeconfig.h"
-#include "fundamentalnodeman.h"
+#include "coralnode-budget.h"
+#include "coralnode-payments.h"
+#include "coralnodeconfig.h"
+#include "coralnodeman.h"
 
 #include "activemasternode.h"
 #include "masternode-pos.h"
@@ -195,10 +195,10 @@ void PrepareShutdown()
     StopNode();
     InterruptTorControl();
     StopTorControl();
-    DumpFundamentalnodes();
+    DumpCoralnodes();
     DumpMasternodes();
     DumpBudgets();
-    DumpFundamentalnodePayments();
+    DumpCoralnodePayments();
     UnregisterNodeSignals(GetNodeSignals());
 
     if (fFeeEstimatesInitialized) {
@@ -439,7 +439,7 @@ std::string HelpMessage(HelpMessageMode mode)
         strUsage += HelpMessageOpt("-stopafterblockimport", strprintf(_("Stop running after importing blocks from disk (default: %u)"), 0));
         strUsage += HelpMessageOpt("-sporkkey=<privkey>", _("Enable spork administration functionality with the appropriate private key."));
     }
-    string debugCategories = "addrman, alert, bench, coindb, db, lock, rand, rpc, selectcoins, tor, mempool, net, proxy, caritas, (obfuscation, swiftx, fundamentalnode, mnpayments, mnbudget, zero)"; // Don't translate these and qt below
+    string debugCategories = "addrman, alert, bench, coindb, db, lock, rand, rpc, selectcoins, tor, mempool, net, proxy, caritas, (obfuscation, swiftx, coralnode, mnpayments, mnbudget, zero)"; // Don't translate these and qt below
     if (mode == HMM_BITCOIN_QT)
         debugCategories += ", qt";
     strUsage += HelpMessageOpt("-debug=<category>", strprintf(_("Output debugging information (default: %u, supplying <category> is optional)"), 0) + ". " +
@@ -469,7 +469,7 @@ std::string HelpMessage(HelpMessageMode mode)
     }
     strUsage += HelpMessageOpt("-shrinkdebugfile", _("Shrink debug.log file on client startup (default: 1 when no -debug)"));
     strUsage += HelpMessageOpt("-testnet", _("Use the test network"));
-    strUsage += HelpMessageOpt("-litemode=<n>", strprintf(_("Disable all CaritasCoin specific functionality (Fundamentalnodes, Zerocoin, SwiftX, Budgeting) (0-1, default: %u)"), 0));
+    strUsage += HelpMessageOpt("-litemode=<n>", strprintf(_("Disable all CaritasCoin specific functionality (Coralnodes, Zerocoin, SwiftX, Budgeting) (0-1, default: %u)"), 0));
 
 #ifdef ENABLE_WALLET
     strUsage += HelpMessageGroup(_("Staking options:"));
@@ -481,12 +481,12 @@ std::string HelpMessage(HelpMessageMode mode)
     }
 #endif
 
-    strUsage += HelpMessageGroup(_("Fundamentalnode options:"));
-    strUsage += HelpMessageOpt("-fundamentalnode=<n>", strprintf(_("Enable the client to act as a fundamentalnode (0-1, default: %u)"), 0));
-    strUsage += HelpMessageOpt("-fnconf=<file>", strprintf(_("Specify fundamentalnode configuration file (default: %s)"), "fundamentalnode.conf"));
-    strUsage += HelpMessageOpt("-fnconflock=<n>", strprintf(_("Lock fundamentalnodes from fundamentalnode configuration file (default: %u)"), 1));
-    strUsage += HelpMessageOpt("-fundamentalnodeprivkey=<n>", _("Set the fundamentalnode private key"));
-    strUsage += HelpMessageOpt("-fundamentalnodeaddr=<n>", strprintf(_("Set external address:port to get to this fundamentalnode (example: %s)"), "128.127.106.235:16180"));
+    strUsage += HelpMessageGroup(_("Coralnode options:"));
+    strUsage += HelpMessageOpt("-coralnode=<n>", strprintf(_("Enable the client to act as a coralnode (0-1, default: %u)"), 0));
+    strUsage += HelpMessageOpt("-fnconf=<file>", strprintf(_("Specify coralnode configuration file (default: %s)"), "coralnode.conf"));
+    strUsage += HelpMessageOpt("-fnconflock=<n>", strprintf(_("Lock coralnodes from coralnode configuration file (default: %u)"), 1));
+    strUsage += HelpMessageOpt("-coralnodeprivkey=<n>", _("Set the coralnode private key"));
+    strUsage += HelpMessageOpt("-coralnodeaddr=<n>", strprintf(_("Set external address:port to get to this coralnode (example: %s)"), "128.127.106.235:16180"));
     strUsage += HelpMessageOpt("-budgetvotemode=<mode>", _("Change automatic finalized budget voting behavior. mode=auto: Vote for only exact finalized budget match to my generated budget. (string, default: auto)"));
 
 	strUsage += HelpMessageGroup(_("Masternode options:"));
@@ -1625,15 +1625,15 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
 
     // ********************************************************* Step 10: setup ObfuScation
 
-    uiInterface.InitMessage(_("Loading fundamentalnode cache..."));
+    uiInterface.InitMessage(_("Loading coralnode cache..."));
 
-    CFundamentalnodeDB mndb;
-    CFundamentalnodeDB::ReadResult readResult = mndb.Read(mnodeman);
-    if (readResult == CFundamentalnodeDB::FileError)
-        LogPrintf("Missing fundamentalnode cache file - fncache.dat, will try to recreate\n");
-    else if (readResult != CFundamentalnodeDB::Ok) {
+    CCoralnodeDB mndb;
+    CCoralnodeDB::ReadResult readResult = mndb.Read(mnodeman);
+    if (readResult == CCoralnodeDB::FileError)
+        LogPrintf("Missing coralnode cache file - fncache.dat, will try to recreate\n");
+    else if (readResult != CCoralnodeDB::Ok) {
         LogPrintf("Error reading mncache.dat: ");
-        if (readResult == CFundamentalnodeDB::IncorrectFormat)
+        if (readResult == CCoralnodeDB::IncorrectFormat)
             LogPrintf("magic is ok but data has invalid format, will try to recreate\n");
         else
             LogPrintf("file format is unknown or invalid, please fix it manually\n");
@@ -1644,7 +1644,7 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
     CMasternodeDB mn_db;
     CMasternodeDB::ReadResult read_Result = mn_db.Read(m_nodeman);
     if (readResult == CMasternodeDB::FileError)
-        LogPrintf("Missing fundamentalnode cache file - mncache.dat, will try to recreate\n");
+        LogPrintf("Missing coralnode cache file - mncache.dat, will try to recreate\n");
     else if (readResult != CMasternodeDB::Ok) {
         LogPrintf("Error reading mncache.dat: ");
         if (readResult == CMasternodeDB::IncorrectFormat)
@@ -1673,56 +1673,56 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
     budget.ClearSeen();
 
 
-    uiInterface.InitMessage(_("Loading fundamentalnode payment cache..."));
+    uiInterface.InitMessage(_("Loading coralnode payment cache..."));
 
-    CFundamentalnodePaymentDB mnpayments;
-    CFundamentalnodePaymentDB::ReadResult readResult3 = mnpayments.Read(fundamentalnodePayments);
+    CCoralnodePaymentDB mnpayments;
+    CCoralnodePaymentDB::ReadResult readResult3 = mnpayments.Read(coralnodePayments);
 
-    if (readResult3 == CFundamentalnodePaymentDB::FileError)
-        LogPrintf("Missing fundamentalnode payment cache - mnpayments.dat, will try to recreate\n");
-    else if (readResult3 != CFundamentalnodePaymentDB::Ok) {
+    if (readResult3 == CCoralnodePaymentDB::FileError)
+        LogPrintf("Missing coralnode payment cache - mnpayments.dat, will try to recreate\n");
+    else if (readResult3 != CCoralnodePaymentDB::Ok) {
         LogPrintf("Error reading mnpayments.dat: ");
-        if (readResult3 == CFundamentalnodePaymentDB::IncorrectFormat)
+        if (readResult3 == CCoralnodePaymentDB::IncorrectFormat)
             LogPrintf("magic is ok but data has invalid format, will try to recreate\n");
         else
             LogPrintf("file format is unknown or invalid, please fix it manually\n");
     }
 
-    fFundamentalNode = GetBoolArg("-fundamentalnode", false);
+    fCoralNode = GetBoolArg("-coralnode", false);
 
-    if ((fFundamentalNode || fundamentalnodeConfig.getCount() > -1) && fTxIndex == false) {
-        return InitError("Enabling Fundamentalnode support requires turning on transaction indexing."
+    if ((fCoralNode || coralnodeConfig.getCount() > -1) && fTxIndex == false) {
+        return InitError("Enabling Coralnode support requires turning on transaction indexing."
                          "Please add txindex=1 to your configuration and start with -reindex");
     }
 
-    if (fFundamentalNode) {
+    if (fCoralNode) {
         LogPrintf("IS FUNDAMNENTAL NODE\n");
-        strFundamentalNodeAddr = GetArg("-fundamentalnodeaddr", "");
+        strCoralNodeAddr = GetArg("-coralnodeaddr", "");
 
-        LogPrintf(" addr %s\n", strFundamentalNodeAddr.c_str());
+        LogPrintf(" addr %s\n", strCoralNodeAddr.c_str());
 
-        if (!strFundamentalNodeAddr.empty()) {
-            CService addrTest = CService(strFundamentalNodeAddr);
+        if (!strCoralNodeAddr.empty()) {
+            CService addrTest = CService(strCoralNodeAddr);
             if (!addrTest.IsValid()) {
-                return InitError("Invalid -fundamentalnodeaddr address: " + strFundamentalNodeAddr);
+                return InitError("Invalid -coralnodeaddr address: " + strCoralNodeAddr);
             }
         }
 
-        strFundamentalNodePrivKey = GetArg("-fundamentalnodeprivkey", "");
-        if (!strFundamentalNodePrivKey.empty()) {
+        strCoralNodePrivKey = GetArg("-coralnodeprivkey", "");
+        if (!strCoralNodePrivKey.empty()) {
             std::string errorMessage;
 
             CKey key;
             CPubKey pubkey;
 
-            if (!obfuScationSigner.SetKey(strFundamentalNodePrivKey, errorMessage, key, pubkey)) {
-                return InitError(_("Invalid fundamentalnodeprivkey. Please see documenation."));
+            if (!obfuScationSigner.SetKey(strCoralNodePrivKey, errorMessage, key, pubkey)) {
+                return InitError(_("Invalid coralnodeprivkey. Please see documenation."));
             }
 
-            activeFundamentalnode.pubKeyFundamentalnode = pubkey;
+            activeCoralnode.pubKeyCoralnode = pubkey;
 
         } else {
-            return InitError(_("You must specify a fundamentalnodeprivkey in the configuration. Please see documentation for help."));
+            return InitError(_("You must specify a coralnodeprivkey in the configuration. Please see documentation for help."));
         }
     }
 
@@ -1791,7 +1791,7 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
             if(!strMasterNodeAddr.empty()){
                 CService addrTest = CService(strMasterNodeAddr);
                 if (!addrTest.IsValid()) {
-                    return InitError("Invalid -fundamentalnodeaddr address: " + strMasterNodeAddr);
+                    return InitError("Invalid -coralnodeaddr address: " + strMasterNodeAddr);
                 }
             }
 
@@ -1840,9 +1840,9 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
 
     if (GetBoolArg("-fnconflock", true) && pwalletMain) {
         LOCK(pwalletMain->cs_wallet);
-        LogPrintf("Locking Fundamentalnodes:\n");
+        LogPrintf("Locking Coralnodes:\n");
         uint256 mnTxHash;
-        BOOST_FOREACH (CFundamentalnodeConfig::CFundamentalnodeEntry mne, fundamentalnodeConfig.getEntries()) {
+        BOOST_FOREACH (CCoralnodeConfig::CCoralnodeEntry mne, coralnodeConfig.getEntries()) {
             LogPrintf("  %s %s\n", mne.getTxHash(), mne.getOutputIndex());
             mnTxHash.SetHex(mne.getTxHash());
             COutPoint outpoint = COutPoint(mnTxHash, boost::lexical_cast<unsigned int>(mne.getOutputIndex()));
@@ -1881,10 +1881,10 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
     nSwiftTXDepth = GetArg("-swifttxdepth", nSwiftTXDepth);
     nSwiftTXDepth = std::min(std::max(nSwiftTXDepth, 0), 60);
 
-    //lite mode disables all Fundamentalnode and Obfuscation related functionality
+    //lite mode disables all Coralnode and Obfuscation related functionality
     fLiteMode = GetBoolArg("-litemode", false);
-    if (fFundamentalNode && fLiteMode) {
-        return InitError("You can not start a fundamentalnode in litemode");
+    if (fCoralNode && fLiteMode) {
+        return InitError("You can not start a coralnode in litemode");
     }
 
     LogPrintf("fLiteMode %d\n", fLiteMode);

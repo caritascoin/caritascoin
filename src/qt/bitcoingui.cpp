@@ -30,7 +30,7 @@
 #endif
 
 #include "init.h"
-#include "fundamentalnodelist.h"
+#include "coralnodeist.h"
 #include "masternodelist.h"
 #include "ui_interface.h"
 #include "util.h"
@@ -80,7 +80,7 @@ BitcoinGUI::BitcoinGUI(const NetworkStyle* networkStyle, QWidget* parent) : QMai
                                                                             appMenuBar(0),
                                                                             overviewAction(0),
                                                                             historyAction(0),
-                                                                            fundamentalnodeAction(0),
+                                                                            coralnodeAction(0),
                                                                             masternodeAction(0),
                                                                             quitAction(0),
                                                                             sendCoinsAction(0),
@@ -351,19 +351,19 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
 #ifdef ENABLE_WALLET
 
     QSettings settings;
-    if (settings.value("fShowFundamentalnodesTab").toBool()) {
-        fundamentalnodeAction = new QAction(QIcon(":/icons/fundamentalnodes"), tr("&Fundamentalnodes"), this);
-        fundamentalnodeAction->setStatusTip(tr("Browse fundamentalnodes"));
-        fundamentalnodeAction->setToolTip(fundamentalnodeAction->statusTip());
-        fundamentalnodeAction->setCheckable(true);
+    if (settings.value("fShowCoralnodesTab").toBool()) {
+        coralnodeAction = new QAction(QIcon(":/icons/coralnodes"), tr("&Coralnodes"), this);
+        coralnodeAction->setStatusTip(tr("Browse coralnodes"));
+        coralnodeAction->setToolTip(coralnodeAction->statusTip());
+        coralnodeAction->setCheckable(true);
 #ifdef Q_OS_MAC
-        fundamentalnodeAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_6));
+        coralnodeAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_6));
 #else
-        fundamentalnodeAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_6));
+        coralnodeAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_6));
 #endif
-        tabGroup->addAction(fundamentalnodeAction);
-        connect(fundamentalnodeAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
-        connect(fundamentalnodeAction, SIGNAL(triggered()), this, SLOT(gotoFundamentalnodePage()));
+        tabGroup->addAction(coralnodeAction);
+        connect(coralnodeAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
+        connect(coralnodeAction, SIGNAL(triggered()), this, SLOT(gotoCoralnodePage()));
     }
 
     if (settings.value("fShowMasternodesTab").toBool()) {
@@ -449,8 +449,8 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
     openConfEditorAction->setStatusTip(tr("Open configuration file"));
     openMNConfEditorAction = new QAction(QIcon(":/icons/edit"), tr("Open &Masternode Configuration File"), this);
     openMNConfEditorAction->setStatusTip(tr("Open Masternode configuration file"));
-	openFNConfEditorAction = new QAction(QIcon(":/icons/edit"), tr("Open &Fundamentalnode Configuration File"), this);
-    openFNConfEditorAction->setStatusTip(tr("Open Fundamentalnode configuration file"));
+	openFNConfEditorAction = new QAction(QIcon(":/icons/edit"), tr("Open &Coralnode Configuration File"), this);
+    openFNConfEditorAction->setStatusTip(tr("Open Coralnode configuration file"));
     showBackupsAction = new QAction(QIcon(":/icons/browse"), tr("Show Automatic &Backups"), this);
     showBackupsAction->setStatusTip(tr("Show automatically created wallet backups"));
 
@@ -582,8 +582,8 @@ void BitcoinGUI::createToolBars()
         toolbar->addAction(historyAction);
         toolbar->addAction(privacyAction);
         QSettings settings;
-        if (settings.value("fShowFundamentalnodesTab").toBool()) {
-            toolbar->addAction(fundamentalnodeAction);
+        if (settings.value("fShowCoralnodesTab").toBool()) {
+            toolbar->addAction(coralnodeAction);
         }
         if (settings.value("fShowMasternodesTab").toBool()) {
             toolbar->addAction(masternodeAction);
@@ -685,8 +685,8 @@ void BitcoinGUI::setWalletActionsEnabled(bool enabled)
     privacyAction->setEnabled(enabled);
     historyAction->setEnabled(enabled);
     QSettings settings;
-    if (settings.value("fShowFundamentalnodesTab").toBool()) {
-        fundamentalnodeAction->setEnabled(enabled);
+    if (settings.value("fShowCoralnodesTab").toBool()) {
+        coralnodeAction->setEnabled(enabled);
     }
     if (settings.value("fShowMasternodesTab").toBool()) {
         masternodeAction->setEnabled(enabled);
@@ -824,12 +824,12 @@ void BitcoinGUI::gotoHistoryPage()
     if (walletFrame) walletFrame->gotoHistoryPage();
 }
 
-void BitcoinGUI::gotoFundamentalnodePage()
+void BitcoinGUI::gotoCoralnodePage()
 {
     QSettings settings;
-    if (settings.value("fShowFundamentalnodesTab").toBool()) {
-        fundamentalnodeAction->setChecked(true);
-        if (walletFrame) walletFrame->gotoFundamentalnodePage();
+    if (settings.value("fShowCoralnodesTab").toBool()) {
+        coralnodeAction->setChecked(true);
+        if (walletFrame) walletFrame->gotoCoralnodePage();
     }
 }
 
@@ -970,11 +970,11 @@ void BitcoinGUI::setNumBlocks(int count)
 
     // Set icon state: spinning if catching up, tick otherwise
     //    if(secs < 25*60) // 90*60 for bitcoin but we are 4x times faster
-    if (fundamentalnodeSync.IsBlockchainSynced()) {
+    if (coralnodeSync.IsBlockchainSynced()) {
         QString strSyncStatus;
         tooltip = tr("Up to date") + QString(".<br>") + tooltip;
 
-        if (fundamentalnodeSync.IsSynced()) {
+        if (coralnodeSync.IsSynced()) {
             progressBarLabel->setVisible(false);
             progressBar->setVisible(false);
             labelBlocksIcon->setPixmap(QIcon(":/icons/synced").pixmap(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE));
@@ -993,16 +993,16 @@ void BitcoinGUI::setNumBlocks(int count)
                 walletFrame->showOutOfSyncWarning(false);
 #endif // ENABLE_WALLET
 
-            nAttempt = fundamentalnodeSync.RequestedFundamentalnodeAttempt < FUNDAMENTALNODE_SYNC_THRESHOLD ?
-                           fundamentalnodeSync.RequestedFundamentalnodeAttempt + 1 :
-                           FUNDAMENTALNODE_SYNC_THRESHOLD;
-            progress = nAttempt + (fundamentalnodeSync.RequestedFundamentalnodeAssets - 1) * FUNDAMENTALNODE_SYNC_THRESHOLD;
-            progressBar->setMaximum(4 * FUNDAMENTALNODE_SYNC_THRESHOLD);
+            nAttempt = coralnodeSync.RequestedCoralnodeAttempt < CORALNODE_SYNC_THRESHOLD ?
+                           coralnodeSync.RequestedCoralnodeAttempt + 1 :
+                           CORALNODE_SYNC_THRESHOLD;
+            progress = nAttempt + (coralnodeSync.RequestedCoralnodeAssets - 1) * CORALNODE_SYNC_THRESHOLD;
+            progressBar->setMaximum(4 * CORALNODE_SYNC_THRESHOLD);
             progressBar->setFormat(tr("Synchronizing additional data: %p%"));
             progressBar->setValue(progress);
         }
 
-        strSyncStatus = QString(fundamentalnodeSync.GetSyncStatus().c_str());
+        strSyncStatus = QString(coralnodeSync.GetSyncStatus().c_str());
         progressBarLabel->setText(strSyncStatus);
         tooltip = strSyncStatus + QString("<br>") + tooltip;
     } else {
