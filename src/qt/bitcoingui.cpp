@@ -855,6 +855,7 @@ void BitcoinGUI::gotoPrivacyPage()
         QMessageBox::information(this, tr("Mint Zerocoin"),
                                  tr("zCRTS not active yet."), QMessageBox::Ok,
                                  QMessageBox::Ok);
+        privacyAction->setChecked(false);
         return;
     }
     privacyAction->setChecked(true);
