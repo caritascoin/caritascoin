@@ -122,8 +122,14 @@ public:
         /** Height or Time Based Activations **/
         nLastPOWBlock = 2000;
         nModifierUpdateBlock = 615800;
-        nZerocoinStartHeight = 200000;
-        nZerocoinStartTime = 1555928056;  //Monday, 22 April 2019 10:14:16 UTC
+
+		//*** PRIVACY SETTINGS ****//
+		//no intention to activate/use privacy feature.
+        nZerocoinStartHeight = 9999999;
+        nZerocoinStartTime = 4070908800;   // Thursday, 1 January 2099 0:00:00
+		///************************//
+		
+
         nBlockEnforceSerialRange = 895400; //Enforce serial range starting this block
         nBlockRecalculateAccumulators = 908000; //Trigger a recalculation of accumulators
         nBlockFirstFraudulent = 891737; //First block that bad serials emerged
