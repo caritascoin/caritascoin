@@ -18,6 +18,7 @@
 #include "optionsmodel.h"
 #include "rpcconsole.h"
 #include "utilitydialog.h"
+#include "chainparams.h"
 
 #ifdef ENABLE_WALLET
 #include "blockexplorer.h"
@@ -850,6 +851,12 @@ void BitcoinGUI::gotoReceiveCoinsPage()
 
 void BitcoinGUI::gotoPrivacyPage()
 {
+    if(GetAdjustedTime() < Params().Zerocoin_StartTime()) {
+        QMessageBox::information(this, tr("Mint Zerocoin"),
+                                 tr("zCRTS not active yet."), QMessageBox::Ok,
+                                 QMessageBox::Ok);
+        return;
+    }
     privacyAction->setChecked(true);
     if (walletFrame) walletFrame->gotoPrivacyPage();
 }
