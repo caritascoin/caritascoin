@@ -138,6 +138,7 @@ SendCoinsDialog::SendCoinsDialog(QWidget* parent) : QDialog(parent),
     ui->checkBoxFreeTx->setChecked(settings.value("fSendFreeTransactions").toBool());
     ui->checkzVIT->hide();
     minimizeFeeSection(settings.value("fFeeSectionMinimized").toBool());
+    ui->coralNodeBurnCheckbox->setVisible(false);
 }
 
 void SendCoinsDialog::setClientModel(ClientModel* clientModel)
